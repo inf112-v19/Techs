@@ -1,4 +1,4 @@
-# Techs
+﻿# Techs
 Group 5.3
 
 ## Gruppemedlemmer:
@@ -15,3 +15,4 @@ Renze Stolte
 
 
 lol xd HAHA
+:DD
