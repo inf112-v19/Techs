@@ -13,6 +13,13 @@ Mathias Madslien
 
 Renze Stolte
 
-
 lol xd HAHA
 
+<<<<<<< HEAD
+=======
+
+:DD
+
+Hei hei 
+
+>>>>>>> master
