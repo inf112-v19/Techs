@@ -1,7 +1,7 @@
-# Techs
+* Techs
 Group 5.3
 
-## Gruppemedlemmer:
+** Gruppemedlemmer:
 
 Joacim Delfin Sveen -Teamleader
 
