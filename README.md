@@ -1,4 +1,4 @@
-﻿# Techs
+# Techs
 Group 5.3
 
 ## Gruppemedlemmer:
@@ -13,6 +13,10 @@ Mathias Madslien
 
 Renze Stolte
 
-
 lol xd HAHA
+
+
 :DD
+
+Hei hei 
+
