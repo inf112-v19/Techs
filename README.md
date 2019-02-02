@@ -12,9 +12,5 @@ Mathias Bøe
 Mathias Madslien
 
 Renze Stolte
-
-lol xd HAHA
-
-:DD
-
-Hei hei 
+* Datavitenskap
+* Java fra INF 100, 101 og 102
