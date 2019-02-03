@@ -26,11 +26,11 @@ og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 * Datavitenskap
 * Java fra INF 100, 101 og 102
 
-Verktøy
-- Git
-- IntelliJ
-- Slack
-- Trello
+## Verktøy
+* Git
+* IntelliJ
+* Slack
+* Trello
 
 ## Sluttprodukt:
 
