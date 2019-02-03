@@ -8,6 +8,10 @@ Joacim Delfin Sveen -Teamleader
 Knut Mathias Gaard Storvestre
 
 Mathias Bøe
+* Datatryggleik, UiB
+* Git
+* Java
+* Processing
 
 Mathias Madslien
 
