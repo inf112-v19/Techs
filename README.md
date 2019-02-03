@@ -6,6 +6,9 @@ Group 5.3
 Joacim Delfin Sveen -Teamleader
 
 Knut Mathias Gaard Storvestre
+* Datatryggleik, UiB
+* Java
+* INF 100, 101, 102, 142, 143
 
 Mathias Bøe
 * Datatryggleik, UiB
