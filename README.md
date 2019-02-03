@@ -14,7 +14,15 @@ Mathias Bøe
 * Processing
 
 Mathias Madslien
+* IKT
+* Java fra INF 100 og 101
 
 Renze Stolte
 * Datavitenskap
 * Java fra INF 100, 101 og 102
+
+Verktøy
+- Git
+- IntelliJ
+- Slack
+- Trello
