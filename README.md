@@ -13,10 +13,15 @@ Mathias Madslien
 
 Renze Stolte
 
+<<<<<<< HEAD
 lol xd HAHA
 
 
 :DD
 
 Hei hei 
+=======
+Min egen branch-test
+
+>>>>>>> joacims
 
