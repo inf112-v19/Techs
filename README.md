@@ -9,19 +9,6 @@ Knut Mathias Gaard Storvestre
 
 Mathias Bøe
 
-Mathias Madslien
+Mathias Madslien - Kundekontakt
 
 Renze Stolte
-
-<<<<<<< HEAD
-lol xd HAHA
-
-
-:DD
-
-Hei hei 
-=======
-Min egen branch-test
-
->>>>>>> joacims
-
