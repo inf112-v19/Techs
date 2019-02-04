@@ -11,6 +11,10 @@ Føler seg midt på treet når det gjelder programmering. Koder ikke noe særlig
 og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 
 **Knut Mathias Gaard Storvestre**
+* Datatryggleik, UiB
+* Java
+* INF 100, 101, 102, 142, 143
+
 
 **Mathias Bøe**
 * Datatryggleik, UiB
