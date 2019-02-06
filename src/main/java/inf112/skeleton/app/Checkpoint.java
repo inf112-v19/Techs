@@ -2,7 +2,7 @@ package inf112.skeleton.app;
 
 public class Checkpoint implements IItem{
 
-    private String name = "checkpoints";
+    private String name = "checkpoint";
     private String symbol = "C";
     private int weight = 5;
 
