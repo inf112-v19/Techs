@@ -57,11 +57,17 @@ public class Board implements IBoard {
 		
 	}
 	
-	private int getIndex(int x, int y) {
+	/* 
+	 * Konverterer x,y-posisjonen til riktig indeks på brettet
+	 */
+	private int getIndex(int x, int y) { 
 		return y * width + x;
 	}
 	
-	private int findPlayer() {
+	/*
+	 * Setter spiller foreløpig bare som 1 før vi får inn Player
+	 */
+	private int findPlayer() { 
 		for(int i = 0; i < height * width; i++) {
 			if(Grid[i] == 1)
 				return i;
@@ -69,7 +75,14 @@ public class Board implements IBoard {
 		throw new NoSuchElementException("There is no player in the grid");
 	}
 	
+	public int findXCordinates(int index) {
+		return index % (width - 1);	
+	}
 	
+	public int findYCordinates(int index) {
+		return index % (height -1);
+	}
+	 
 	
 
 }

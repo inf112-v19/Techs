@@ -23,7 +23,7 @@ public interface IBoard {
      * @param y - the y-coordinate
      * @return the tile on coordinate (x,y)
      */
-    IItem getTile(int x, int y);
+     int getTile(int x, int y);
 
     /**
      * A method to set the type fo tile that is on the coordinate (x,y).
@@ -31,7 +31,7 @@ public interface IBoard {
      * @param x - the x-coordinate
      * @param y - the y-coordinate
      */
-    void setTile(int x, int y);
+    void setTile(int x, int y, int tileIndex);
 
     /**
      * A method that checks if a tile (x,y) on the board is a valid location.
@@ -50,7 +50,7 @@ public interface IBoard {
      * 
      * @param x - the x-cordinate
      */
-    void moveHorizontal(int x) 
+    void moveHorizontal(int x);
     	
     
     /**
@@ -59,5 +59,6 @@ public interface IBoard {
      * 
      * @param y
      */
-    void moveVertical(int y)
+    void moveVertical(int y); 
+}
 
