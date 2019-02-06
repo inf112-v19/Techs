@@ -10,7 +10,7 @@ public interface IItem {
     String getName();
 
 
-    void setName();
+    void setName(String name);
 
     /**
      *
@@ -19,7 +19,7 @@ public interface IItem {
      */
     String getSymbol();
 
-    void setSymbol();
+    void setSymbol(String symbol);
 
     /**
      *
@@ -28,6 +28,6 @@ public interface IItem {
      */
     int getWeight();
 
-    void setWeight();
+    void setWeight(int weight);
 
 }
