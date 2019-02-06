@@ -99,7 +99,4 @@ public class Board implements IBoard {
 	public void addPlayer(int x, int y) {
 		Grid[getIndex(x, y)] = 1;
 	}
-	 
-	
-
 }
