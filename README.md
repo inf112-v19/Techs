@@ -48,4 +48,3 @@ for å kunne spille.
 * En brikke på brettet
 * Bevegelse på brikke
 
-
