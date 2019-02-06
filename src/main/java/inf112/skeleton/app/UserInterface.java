@@ -15,6 +15,9 @@ public class UserInterface implements ApplicationListener {
     private SpriteBatch batch;
     private IBoard board;
     
+    /* 
+     * @param board - The board to be rendered in the GUI
+     */
     public UserInterface(IBoard board) {
         this.board = board;
     }
@@ -39,7 +42,7 @@ public class UserInterface implements ApplicationListener {
             for(int j = 0; j < board.getHeight(); j++) {
                 // Draws a normal tile on each square of the grid
                 batch.draw(normalFloorTexture, normalFloorSpriteSize * i, normalFloorSpriteSize * j);
-                // If there is a player on the tile, draws a player ontop of it
+                // If there is a player on the tile, draws a player on top of it
                 if(board.getTile(i, j) == 1) {
                     batch.draw(robotTexture, normalFloorSpriteSize * i, normalFloorSpriteSize * j);
                 }
