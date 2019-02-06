@@ -43,4 +43,21 @@ public interface IBoard {
      * @return true if inside borders of board, otherwise false
      */
     boolean validCoordinate(int x, int y);
-}
+    
+    /**
+     * A method that moves the tiles horizontal
+     * 
+     * 
+     * @param x - the x-cordinate
+     */
+    void moveHorizontal(int x) 
+    	
+    
+    /**
+     * A method that moves the tiles vertical
+     * 
+     * 
+     * @param y
+     */
+    void moveVertical(int y)
+
