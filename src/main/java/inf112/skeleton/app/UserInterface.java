@@ -7,8 +7,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class UserInterface implements ApplicationListener {
 
+    
+    private int normalFloorSpriteSize = 120;    // size of sprite, ensures tiles spawn with right spacing
     private Texture normalFloorTexture;
-    private int normalFloorSpriteSize;
     private Texture robotTexture;
     
     private SpriteBatch batch;
@@ -21,8 +22,8 @@ public class UserInterface implements ApplicationListener {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        normalFloorTexture = new Texture(Gdx.files.internal("assets/StoneTile"));
-        robotTexture = new Texture(Gdx.files.internal("assets/GreenRobot"));
+        normalFloorTexture = new Texture(Gdx.files.internal("assets/StoneTile.png"));
+        robotTexture = new Texture(Gdx.files.internal("assets/GreenRobot.png"));
     }
 
     @Override
