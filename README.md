@@ -47,3 +47,4 @@ for å kunne spille.
 * Et spillebrett
 * En brikke på brettet
 * Bevegelse på brikke
+
