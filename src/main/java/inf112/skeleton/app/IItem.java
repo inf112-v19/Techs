@@ -9,6 +9,9 @@ public interface IItem {
      */
     String getName();
 
+
+    void setName();
+
     /**
      *
      * @return symbol to item
@@ -16,11 +19,15 @@ public interface IItem {
      */
     String getSymbol();
 
+    void setSymbol();
+
     /**
      *
      * @return priority of item
      * items with a higher priority ends up on top visually
      */
     int getWeight();
+
+    void setWeight();
 
 }
