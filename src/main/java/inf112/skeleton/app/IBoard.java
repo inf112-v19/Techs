@@ -34,15 +34,22 @@ public interface IBoard {
     void setTile(int x, int y, int tileIndex);
 
     /**
-     * A method that checks if a tile (x,y) on the board is a valid location.
+     * A method that checks if a tile (y) on the board is a valid location.
      * 0 <= x < getWidth()
-     * 0 <= y < getHeight()
      *
      * @param x - the x-coordinate
+     * @return true if inside borders of board, otherwise false
+     */
+    boolean validXCoordinate(int x);
+    
+    /**
+     * A method that checks if a tile (y) on the board is a valid location.
+     * 0 <= y < getHeight()
+     *
      * @param y - the y-coordinate
      * @return true if inside borders of board, otherwise false
      */
-    boolean validCoordinate(int x, int y);
+    boolean validYCoordinate(int y);
     
     /**
      * A method that moves the tiles horizontal

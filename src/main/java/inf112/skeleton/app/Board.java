@@ -40,13 +40,22 @@ public class Board implements IBoard {
 	}
 
 	@Override
-	public boolean validCoordinate(int x, int y) {
-		return !((x < 0 || x > width)||(y < 0 || y > height));	
+	public boolean validXCoordinate(int x) {
+		return !(x < 0 || x > width);	
+	}
+	
+	@Override
+	public boolean validYCoordinate(int y) {
+		return !(y < 0 || y > height);
 	}
 
 	@Override
 	public void moveHorizontal(int x) {
-		
+		int playerLocation = findPlayer();
+		if (validXCoordinate(findXCoordinate(playerLocation))) {
+			Grid[playerLocation] = 0;
+			Grid[playerLocation + x] = 1;
+		}
 		// TODO Auto-generated method stub
 		
 	}
@@ -54,7 +63,11 @@ public class Board implements IBoard {
 	@Override
 	public void moveVertical(int y) {
 		// TODO Auto-generated method stub
-		
+		int playerLocation = findPlayer();
+		if (validYCoordinate(findYCoordinate(playerLocation))) {
+			Grid[playerLocation] = 0;
+			Grid[playerLocation + (y * width)] = 1;
+		}
 	}
 	
 	/* 
@@ -75,12 +88,12 @@ public class Board implements IBoard {
 		throw new NoSuchElementException("There is no player in the grid");
 	}
 	
-	public int findXCordinates(int index) {
-		return index % (width - 1);	
+	public int findXCoordinate(int index) {
+		return index % width;	
 	}
 	
-	public int findYCordinates(int index) {
-		return index % (height -1);
+	public int findYCoordinate(int index) {
+		return index / width;
 	}
 	 
 	
