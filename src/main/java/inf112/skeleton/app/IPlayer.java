@@ -1,7 +1,7 @@
 package inf112.skeleton.app;
 
 public interface IPlayer extends IItem {
-    
+
     /**
      * A method that returns the health of the robot player. It is used when checking the
      * number of program cards you are dealt and the number of locked registers in each round.
