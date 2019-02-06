@@ -15,19 +15,19 @@ public class CheckpointTest {
     }
 
     @Test
-    public void testSetSymbol() {
+    public void testSetGetSymbol() {
         checkpoint.setSymbol("X");
         assertEquals("X", checkpoint.getSymbol());
     }
 
     @Test
-    public void testSetName() {
+    public void testSetGetName() {
         checkpoint.setName("newName");
         assertEquals("newName",checkpoint.getName());
     }
 
     @Test
-    public void testSetWeight() {
+    public void testSetGetWeight() {
         checkpoint.setWeight(10);
         assertEquals(10, checkpoint.getWeight());
     }
