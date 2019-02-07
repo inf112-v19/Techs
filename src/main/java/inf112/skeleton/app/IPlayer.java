@@ -13,5 +13,5 @@ public interface IPlayer extends IItem {
      * A method that sets the health of the robot player. It is used at the start of a game or if an
      * option card gives more health (Option card is not on the plan yet)
      */
-    void setHealth();
+    void setHealth(int health);
 }

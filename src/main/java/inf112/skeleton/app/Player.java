@@ -3,18 +3,19 @@ package inf112.skeleton.app;
 public class Player implements IPlayer{
 
     private String name = "player";
-    private int health = 0;
-    private String symbol;
+    private int health = 10;
+    private String symbol = "P";
+    private int weight = 10;
 
 
     @Override
     public int getHealth() {
-        return 0;
+        return health;
     }
 
     @Override
-    public void setHealth() {
-
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     @Override
@@ -24,26 +25,26 @@ public class Player implements IPlayer{
 
     @Override
     public void setName(String name) {
-
+        this.name = name;
     }
 
     @Override
     public String getSymbol() {
-        return null;
+        return symbol;
     }
 
     @Override
     public void setSymbol(String symbol) {
-
+        this.symbol = symbol;
     }
 
     @Override
     public int getWeight() {
-        return 0;
+        return weight;
     }
 
     @Override
     public void setWeight(int weight) {
-
+        this.weight = weight;
     }
 }
