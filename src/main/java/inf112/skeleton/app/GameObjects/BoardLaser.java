@@ -1,10 +1,11 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.GameObjects;
 
-public class Checkpoint implements IItem{
+import inf112.skeleton.app.IItem;
 
-    private String name = "checkpoint";
-    private String symbol = "C";
-    private int weight = 5;
+public class BoardLaser implements IItem {
+    private String name = "boardLaser";
+    private String symbol = "BL";
+    private int weight = 3;
 
     @Override
     public String getName() {
