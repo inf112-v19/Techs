@@ -1,5 +1,6 @@
 package inf112.skeleton.app;
 
+import inf112.skeleton.app.GameObjects.Checkpoint;
 import org.junit.Before;
 import org.junit.Test;
 
