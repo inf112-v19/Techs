@@ -41,30 +41,28 @@ public class Board implements IBoard {
 
 	@Override
 	public boolean validXCoordinate(int x) {
-		return !(x < 0 || x > width);	
+	    return x >= 0 && x < width;	
 	}
 	
 	@Override
 	public boolean validYCoordinate(int y) {
-		return !(y < 0 || y > height);
+		return y >= 0 && y < height;
 	}
 
 	@Override
 	public void moveHorizontal(int x) {
 		int playerLocation = findPlayer();
-		if (validXCoordinate(findXCoordinate(playerLocation))) {
+		if (validXCoordinate(findXCoordinate(playerLocation) + x)) {
 			Grid[playerLocation] = 0;
 			Grid[playerLocation + x] = 1;
-		}
-		// TODO Auto-generated method stub
-		
+		}		
 	}
 
 	@Override
 	public void moveVertical(int y) {
 		// TODO Auto-generated method stub
 		int playerLocation = findPlayer();
-		if (validYCoordinate(findYCoordinate(playerLocation))) {
+		if (validYCoordinate(findYCoordinate(playerLocation) + y)) {
 			Grid[playerLocation] = 0;
 			Grid[playerLocation + (y * width)] = 1;
 		}
@@ -94,9 +92,5 @@ public class Board implements IBoard {
 	
 	public int findYCoordinate(int index) {
 		return index / width;
-	}
-	
-	public void addPlayer(int x, int y) {
-		Grid[getIndex(x, y)] = 1;
 	}
 }
