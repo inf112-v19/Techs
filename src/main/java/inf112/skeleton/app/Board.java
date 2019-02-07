@@ -95,8 +95,4 @@ public class Board implements IBoard {
 	public int findYCoordinate(int index) {
 		return index / width;
 	}
-	
-	public void addPlayer(int x, int y) {
-		Grid[getIndex(x, y)] = 1;
-	}
 }
