@@ -15,6 +15,7 @@ public class UserInterface implements ApplicationListener {
     private SpriteBatch batch;
     private IBoard board;
     
+    
     /* 
      * @param board - The board to be rendered in the GUI
      */
@@ -37,6 +38,8 @@ public class UserInterface implements ApplicationListener {
 
     @Override
     public void render() {
+        checkForUserInput();
+        
         batch.begin();
         for(int i = 0; i < board.getWidth(); i++) {
             for(int j = 0; j < board.getHeight(); j++) {
@@ -66,6 +69,10 @@ public class UserInterface implements ApplicationListener {
     @Override
     public void dispose() {
         // TODO Auto-generated method stub
+        
+    }
+    
+    private void checkForUserInput() {
         
     }
     
