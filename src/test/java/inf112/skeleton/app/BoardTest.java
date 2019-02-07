@@ -20,19 +20,19 @@ public class BoardTest {
     
     @Test
     public void addPlayerAtXOneYOne() {
-        board.addPlayer(1, 1);
+        board.setTile(1, 1, 1);
         assertEquals(board.getTile(1, 1), 1);
     }
     
     @Test
     public void addPlayerAtXThreeYFive() {
-        board.addPlayer(3, 5);
+        board.setTile(3, 5, 1);
         assertEquals(board.getTile(3, 5), 1);
     }
     
     @Test
     public void movePlayerOneToTheRight() {
-        board.addPlayer(1, 1);
+        board.setTile(1, 1, 1);
         board.moveHorizontal(1);
         assertEquals(board.getTile(2, 1), 1);
         assertEquals(board.getTile(1, 1), 0);
@@ -40,7 +40,7 @@ public class BoardTest {
     
     @Test
     public void movePlayerOneToTheLeft() {
-        board.addPlayer(1, 1);
+        board.setTile(1, 1, 1);
         board.moveHorizontal(-1);
         assertEquals(board.getTile(0, 1), 1);
         assertEquals(board.getTile(1, 1), 0);
@@ -48,7 +48,7 @@ public class BoardTest {
     
     @Test
     public void movePlayerOneUp() {
-        board.addPlayer(1, 1);
+        board.setTile(1, 1, 1);
         board.moveVertical(1);
         assertEquals(board.getTile(1, 2), 1);
         assertEquals(board.getTile(1, 1), 0);
@@ -56,7 +56,7 @@ public class BoardTest {
     
     @Test
     public void movePlayerOneDown() {
-        board.addPlayer(1, 1);
+        board.setTile(1, 1, 1);
         board.moveVertical(-1);
         assertEquals(board.getTile(1, 0), 1);
         assertEquals(board.getTile(1, 1), 0);
