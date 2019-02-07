@@ -2,6 +2,7 @@ package inf112.skeleton.app;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -15,6 +16,7 @@ public class UserInterface implements ApplicationListener {
     private SpriteBatch batch;
     private IBoard board;
     
+    private boolean moveRight, moveLeft, moveUp, moveDown;
     
     /* 
      * @param board - The board to be rendered in the GUI
@@ -38,7 +40,15 @@ public class UserInterface implements ApplicationListener {
 
     @Override
     public void render() {
-        checkForUserInput();
+        if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
+            moveRight = true;
+        } else if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {
+            moveLeft = true;
+        } else if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+            moveUp = true;
+        } else if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+            moveDown = true;
+        }
         
         batch.begin();
         for(int i = 0; i < board.getWidth(); i++) {
@@ -72,8 +82,35 @@ public class UserInterface implements ApplicationListener {
         
     }
     
-    private void checkForUserInput() {
-        
+    /*
+     * Returns the corresponding Direction if the player pressed an arrow key.
+     * Returns Direction.STAY if no arrow key is pressed.
+     */
+    public Direction checkForUserInput() {
+        if(moveRight) {
+            moveRight = false;
+            return Direction.EAST;
+        } else if (moveLeft) {
+            moveLeft = false;
+            return Direction.WEST;
+        } else if (moveUp) {
+            moveUp = false;
+            return Direction.NORTH;
+        } 
+        else if (moveDown) {
+            moveDown = false;
+            return Direction.SOUTH;
+        } else {
+            return Direction.STAY;
+        }
     }
     
+    // TODO: Find a better place to put this
+    public enum Direction {
+        NORTH,
+        SOUTH,
+        WEST,
+        EAST,
+        STAY
+    }
 }
