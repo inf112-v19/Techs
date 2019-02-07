@@ -116,4 +116,32 @@ public class BoardTest {
     public void findCorrectYCoordinateWhenAtTwentyNine() {
         assertEquals(board.findYCoordinate(29), 5);
     }
+    
+    @Test
+    public void moveRightOffTheEdge() {
+        board.setTile(width - 1, 0, 1);
+        board.moveHorizontal(1);
+        assertEquals(board.getTile(width - 1, 0), 1);
+    }
+    
+    @Test
+    public void moveLeftOffTheEdge() {
+        board.setTile(0, 0, 1);
+        board.moveHorizontal(-1);
+        assertEquals(board.getTile(0, 0), 1);
+    }
+    
+    @Test
+    public void moveUpOffTheEdge() {
+        board.setTile(0, 0, 1);
+        board.moveVertical(-1);
+        assertEquals(board.getTile(0, 0), 1);
+    }
+    
+    @Test
+    public void moveDownOffTheEdge() {
+        board.setTile(0, height - 1, 1);
+        board.moveVertical(1);
+        assertEquals(board.getTile(0, height - 1), 1);
+    }
 }
