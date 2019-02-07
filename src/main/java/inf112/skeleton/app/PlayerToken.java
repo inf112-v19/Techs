@@ -48,7 +48,7 @@ public class PlayerToken implements IPlayer {
     }
 
     @Override
-    public void setHealth() {
+    public void setHealth(int health) {
         // TODO Auto-generated method stub
         
     }
