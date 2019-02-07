@@ -1,14 +1,26 @@
 package inf112.skeleton.app;
 
-public class Checkpoint implements IItem{
+public class Player implements IPlayer{
 
-    private String name = "checkpoint";
-    private String symbol = "C";
-    private int weight = 5;
+    private String name = "player";
+    private int health = 10;
+    private String symbol = "P";
+    private int weight = 10;
+
+
+    @Override
+    public int getHealth() {
+        return health;
+    }
+
+    @Override
+    public void setHealth(int health) {
+        this.health = health;
+    }
 
     @Override
     public String getName() {
-        return name;
+        return "player";
     }
 
     @Override
