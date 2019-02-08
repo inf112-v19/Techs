@@ -39,6 +39,9 @@ og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 * Blanding av Kanban og Scrum
 * Parprogrammering
 
+## Oversikt av klasser
+![KlasseDiagram](/images/UtkastKlassediagram.png)
+
 ## Sluttprodukt:
 Vi ønsker oss et velfungerende program som i første omgang er et minimum viable product. Basic med reglene som gjelder
 for å kunne spille.
@@ -47,4 +50,3 @@ for å kunne spille.
 * Et spillebrett
 * En brikke på brettet
 * Bevegelse på brikke
-
