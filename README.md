@@ -39,7 +39,7 @@ og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 * Blanding av Kanban og Scrum
 * Parprogrammering
 
-## Oversikt av klasser
+## Oversikt over klasser
 ![KlasseDiagram](/images/UtkastKlassediagram.png)
 
 ## Sluttprodukt:
