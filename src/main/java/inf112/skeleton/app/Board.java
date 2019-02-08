@@ -24,19 +24,16 @@ public class Board implements IBoard {
 	public int getWidth() {
 		return width;
 	}
-
+	
+	
 	@Override
-	public int getTile(int x, int y) { //Returner int foreløpig når vi ikke har item
-		
-		// TODO Auto-generated method stub
+	public int getTile(int x, int y) { 
 		return Grid[getIndex(x, y)];
 	}
 
 	@Override
 	public void setTile(int x, int y, int tileIndex) {
-		Grid[getIndex(x, y)] = tileIndex;
-		// TODO Auto-generated method stub
-		
+		Grid[getIndex(x, y)] = tileIndex;	
 	}
 
 	@Override
@@ -60,7 +57,6 @@ public class Board implements IBoard {
 
 	@Override
 	public void moveVertical(int y) {
-		// TODO Auto-generated method stub
 		int playerLocation = findPlayer();
 		if (validYCoordinate(findYCoordinate(playerLocation) + y)) {
 			Grid[playerLocation] = 0;
@@ -86,10 +82,16 @@ public class Board implements IBoard {
 		throw new NoSuchElementException("There is no player in the grid");
 	}
 	
+	/* 
+	 * Konverterer index til x-posisjon
+	 */
 	public int findXCoordinate(int index) {
 		return index % width;	
 	}
 	
+	/* 
+	 * Konverterer index til y-posisjon
+	 */
 	public int findYCoordinate(int index) {
 		return index / width;
 	}
