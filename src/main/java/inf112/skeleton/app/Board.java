@@ -5,6 +5,14 @@ import java.util.NoSuchElementException;
 
 public class Board implements IBoard {
 
+    /*
+     * Board is saved in a 2D array containing integers.
+     * This will change in the future,
+     * but for now, here is the mapping for each number:
+     * 0 - normal tile
+     * 1 - player 
+     */
+    
 	final int height;
 	final int width;
 	int[] Grid;
