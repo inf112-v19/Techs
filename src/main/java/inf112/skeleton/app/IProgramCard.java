@@ -4,22 +4,22 @@ public interface IProgramCard {
 	
 	
 	/**
-	 * A method that returns the programcards value of rotation
+	 * A method that returns the type of the programcard
 	 * @return
 	 */
-	Rotate getRotation(); 
-	
-	/**
-	 * A method that returns the movement length of the programcard(-1, 0, 1, 2 or 3)
-	 * @return
-	 */
-	int getMovement();
+	CardType getCardType(); 
 	
 	/**
 	 * A method that returns the priority of the programcard
 	 * @return
 	 */
 	int getPriority();
+	
+	String toString();
+	
+	/**
+	 * Må vel laga ein boolean metode elns som seier om eit kort er låst eller ikkje seinare?
+	 */
 	
 	
 
