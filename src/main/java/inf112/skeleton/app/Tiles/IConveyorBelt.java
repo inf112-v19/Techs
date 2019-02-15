@@ -1,9 +1,8 @@
-package inf112.skeleton.app.GameObjects;
+package inf112.skeleton.app.Tiles;
 
 import inf112.skeleton.app.Direction;
-import inf112.skeleton.app.IItem;
 
-public interface IConveyorBelt extends IItem {
+public interface IConveyorBelt extends ITile {
 
     /**
      *

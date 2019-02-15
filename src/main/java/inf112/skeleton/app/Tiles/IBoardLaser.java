@@ -1,12 +1,11 @@
-package inf112.skeleton.app.GameObjects;
+package inf112.skeleton.app.Tiles;
 
 import inf112.skeleton.app.Direction;
-import inf112.skeleton.app.IItem;
 
 /**
  * the same laser spans over multiple tiles
  */
-public interface IBoardLaser extends IItem {
+public interface IBoardLaser extends ITile {
 
     /**
      *

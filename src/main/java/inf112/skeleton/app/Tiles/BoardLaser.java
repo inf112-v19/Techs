@@ -1,7 +1,6 @@
-package inf112.skeleton.app.GameObjects;
+package inf112.skeleton.app.Tiles;
 
 import inf112.skeleton.app.Direction;
-import inf112.skeleton.app.IItem;
 
 public class BoardLaser implements IBoardLaser {
 
@@ -12,12 +11,12 @@ public class BoardLaser implements IBoardLaser {
     private Direction direction = Direction.SOUTH;
 
     @Override
-    public String getName() {
+    public String getTileType() {
         return name;
     }
 
     @Override
-    public void setName(String name) {
+    public void setTileType(String name) {
         this.name = name;
     }
 
@@ -32,13 +31,23 @@ public class BoardLaser implements IBoardLaser {
     }
 
     @Override
-    public int getWeight() {
-        return weight;
+    public int getTileWeight() {
+        return 0;
     }
 
     @Override
-    public void setWeight(int weight) {
+    public void setTileWeight(int weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public int getTileID() {
+        return 0;
+    }
+
+    @Override
+    public void setTileID(int id) {
+
     }
 
     @Override
