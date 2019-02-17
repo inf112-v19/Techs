@@ -1,6 +1,7 @@
 package inf112.skeleton.app;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Deck {
 	ArrayList<ProgramCard> deck;
@@ -13,20 +14,20 @@ public class Deck {
 	/**
 	 * Fills the deck
 	 */
-	private void makeDeck() {
+	public void makeDeck() {
 		for(int p = 80; p <= 420; p += 20) {
 			deck.add(createCard(CardType.ROTATE_RIGHT, p));
-		}
+			}
 		
 			for(int p = 70; p <= 410; p += 20) {
 				deck.add(createCard(CardType.ROTATE_LEFT, p));
-		}
+			}
 			
 			for(int p = 10; p <= 60; p += 10) {
 				deck.add(createCard(CardType.ROTATE_TURN, p));
 			}
 			
-			for(int p = 490; p <= 650; p += 10) {
+			for(int p = 490; p <= 660; p += 10) {
 				deck.add(createCard(CardType.MOVEMENT_1, p));
 			}
 			
@@ -48,8 +49,19 @@ public class Deck {
 	 * shuffles the deck
 	 */
 	public void shuffle() {
-		
+		Collections.shuffle(deck); 
 	}
+	
+	
+	public void resetDeck() {
+
+	}
+	
+	public ProgramCard getTopCard() {
+		
+		return null;	
+	}
+	
 	
 	/**
 	 * Create new ProgramCards
@@ -60,6 +72,16 @@ public class Deck {
 	public ProgramCard createCard(CardType type, int priority) {
 		return new ProgramCard(type, priority);
 	}
+	
+	public boolean deckIsEmpty() {
+		return this.deck.isEmpty();
+	}
+	
+	public int deckSize() {
+		return this.deck.size();
+	}
+	
+	
 	
 	
 }
