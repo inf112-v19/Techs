@@ -12,9 +12,15 @@ public class TestPlayer extends Sprite {
     private Vector2 velocity = new Vector2();
     private float speed = 60 * 2;
     private float gravity = 60 * 1.8f;
+    private String playerName;
 
-    public TestPlayer(Sprite sprite) {
+    public TestPlayer(Sprite sprite, String playerName) {
         super(sprite);
+        this.playerName = playerName;
+    }
+    
+    public String getName() {
+        return playerName;
     }
 
     public void draw(Batch spriteBatch) {
