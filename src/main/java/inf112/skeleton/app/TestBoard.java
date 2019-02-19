@@ -1,5 +1,7 @@
 package inf112.skeleton.app;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -18,8 +20,12 @@ public class TestBoard implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
     
-    private TestPlayer playerOne;
+    private ArrayList<TestPlayer> playersList;
 
+    public void addPlayer(TestPlayer player) {
+        playersList.add(player);
+    }
+    
     @Override
     public void show() {
         map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
@@ -27,8 +33,14 @@ public class TestBoard implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         
-        playerOne = new TestPlayer(new Sprite(new Texture("assets/GreenRobot.png")));
+        
+        playersList = new ArrayList<TestPlayer>();
+        
+        TestPlayer playerOne = new TestPlayer(new Sprite(new Texture("assets/GreenRobot.png")), "playerOne");
         playerOne.setSize(27, 27);
+        
+        TestPlayer playerTwo = new TestPlayer(new Sprite(new Texture("assets/GreenRobot.png")), "playerTwo");
+        playerTwo.setSize(27, 27);
     }
 
     @Override
