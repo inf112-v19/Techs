@@ -1,6 +1,7 @@
 package inf112.skeleton.app;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -16,18 +17,19 @@ public class TestPlayer extends Sprite {
         super(sprite);
     }
 
-    public void draw(SpriteBatch spriteBatch) {
+    public void draw(Batch spriteBatch) {
         update(Gdx.graphics.getDeltaTime());
         super.draw(spriteBatch);
     }
 
     public void update(float delta) {
+        /*
         velocity.y -= gravity * delta;
         if (velocity.y > speed) {
             velocity.y = speed;
         } else if (velocity.y < speed) {
             velocity.y = -speed;
-        }
+        }*/
 
         setX(getX() + velocity.x * delta);
         setY(getY() + velocity.y * delta);
