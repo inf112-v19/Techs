@@ -35,6 +35,9 @@ public class TestPlayer extends Sprite {
     }
 
     public void update(float delta) {
+        setX(getX() + movementVelocity.x * delta);
+        setY(getY() + movementVelocity.y * delta);
+        
         if(movingNorth) {
             // position.y * tileScale : translation of player's position to correct number of pixels
             if(getY() >= position.y * tileScale) {
@@ -45,7 +48,7 @@ public class TestPlayer extends Sprite {
                 movementVelocity.y = speed;
             }
         } else if (movingSouth) {   
-            if(getY() < position.y  * tileScale) {
+            if(getY() <= position.y  * tileScale) {
                 movingSouth = false;
                 setY(position.y * tileScale);
                 movementVelocity.y = 0;
@@ -57,7 +60,7 @@ public class TestPlayer extends Sprite {
         }
         
         if(movingEast) {
-            if(getX() > position.x * tileScale) {
+            if(getX() >= position.x * tileScale) {
                 movingEast = false;
                 setX(position.x * tileScale);
                 movementVelocity.x = 0;
@@ -65,7 +68,7 @@ public class TestPlayer extends Sprite {
                 movementVelocity.x = speed;
             }
         } else if (movingWest) {
-            if(getX() < position.x * tileScale) {
+            if(getX() <= position.x * tileScale) {
                 movingWest = false;
                 setX(position.x * tileScale);
                 movementVelocity.x = 0;
@@ -75,9 +78,6 @@ public class TestPlayer extends Sprite {
         } else {
             movementVelocity.x = 0;
         }
-        
-        setX(getX() + movementVelocity.x * delta);
-        setY(getY() + movementVelocity.y * delta);
     }
     
     public void moveNorth() {
