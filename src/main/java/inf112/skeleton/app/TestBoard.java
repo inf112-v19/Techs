@@ -57,6 +57,7 @@ public class TestBoard implements Screen {
         renderer.setView(camera);
         renderer.render();
         
+        // As proof of concept:
         if(Gdx.input.isKeyJustPressed(Keys.UP)) {
             playersList.get(0).moveNorth();
         } else if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
