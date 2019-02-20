@@ -13,6 +13,7 @@ public class TestPlayer extends Sprite {
     private float speed = 120;
     private float tileScale = 28.7f;
     private String playerName;
+    private Direction facingDirection;
     
     private boolean movingNorth = false;
     private boolean movingSouth = false;
@@ -22,13 +23,26 @@ public class TestPlayer extends Sprite {
     public TestPlayer(Sprite sprite, String playerName) {
         super(sprite);
         position = new Vector2(0,0);
+        facingDirection = Direction.NORTH;
         this.playerName = playerName;
     }
     
     public String getName() {
         return playerName;
     }
+    
+    public Direction getDirection() {
+        return facingDirection;
+    }
+    
+    public int getXPosition() {
+        return (int) position.x;
+    }
 
+    public int getYPosition() {
+        return (int) position.y;
+    }
+    
     public void draw(Batch spriteBatch) {
         update(Gdx.graphics.getDeltaTime());
         super.draw(spriteBatch);
