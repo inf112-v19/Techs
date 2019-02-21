@@ -2,15 +2,25 @@ package inf112.skeleton.app;
 
 public class Player implements IPlayer{
 
-    private String name = "player";
-    private int health = 10;
-    private String symbol = "P";
-    private int weight = 10;
+    String name;
+    int health;
+    int weight;
+    int indexOnGrid;
 
+    @Override
+    public int getPlayerIndexOnGrid() {
+        return indexOnGrid;
+    }
+
+    public Player(String name) {
+        this.name = name;
+        this.health = 10;
+        this.weight = 10;
+    }
 
     @Override
     public int getHealth() {
-        return health;
+        return this.health;
     }
 
     @Override
@@ -19,32 +29,18 @@ public class Player implements IPlayer{
     }
 
     @Override
-    public String getName() {
-        return "player";
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getSymbol() {
-        return symbol;
-    }
-
-    @Override
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
-    @Override
     public int getWeight() {
-        return weight;
+        return this.weight;
     }
 
     @Override
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+    @Override
+    public void setPlayerIndexOnGrid(int indexOnGrid) {
+        this.indexOnGrid = indexOnGrid;
+    }
+
 }

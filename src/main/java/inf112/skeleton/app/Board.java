@@ -1,6 +1,5 @@
 package inf112.skeleton.app;
 
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class Board implements IBoard {
@@ -15,12 +14,12 @@ public class Board implements IBoard {
     
 	final int height;
 	final int width;
-	int[] Grid;
+	int[] grid;
 	
 	public Board(int height, int width) {
 		this.height = height;
 		this.width = width;
-		Grid = new int[height * width];
+		this.grid = new int[height * width];
 	}
 	
 	@Override
@@ -32,16 +31,15 @@ public class Board implements IBoard {
 	public int getWidth() {
 		return width;
 	}
-	
-	
+
 	@Override
-	public int getTile(int x, int y) { 
-		return Grid[getIndex(x, y)];
+	public int getTile(int x, int y) {
+		return grid[getIndex(x, y)];
 	}
 
 	@Override
 	public void setTile(int x, int y, int tileIndex) {
-		Grid[getIndex(x, y)] = tileIndex;	
+		grid[getIndex(x, y)] = tileIndex;
 	}
 
 	@Override
@@ -58,8 +56,8 @@ public class Board implements IBoard {
 	public void moveHorizontal(int x) {
 		int playerLocation = findPlayer();
 		if (validXCoordinate(findXCoordinate(playerLocation) + x)) {
-			Grid[playerLocation] = 0;
-			Grid[playerLocation + x] = 1;
+			grid[playerLocation] = 0;
+			grid[playerLocation + x] = 1;
 		}		
 	}
 
@@ -67,8 +65,8 @@ public class Board implements IBoard {
 	public void moveVertical(int y) {
 		int playerLocation = findPlayer();
 		if (validYCoordinate(findYCoordinate(playerLocation) + y)) {
-			Grid[playerLocation] = 0;
-			Grid[playerLocation + (y * width)] = 1;
+			grid[playerLocation] = 0;
+			grid[playerLocation + (y * width)] = 1;
 		}
 	}
 	
@@ -84,7 +82,7 @@ public class Board implements IBoard {
 	 */
 	private int findPlayer() { 
 		for(int i = 0; i < height * width; i++) {
-			if(Grid[i] == 1)
+			if(grid[i] == 1)
 				return i;
 		}
 		throw new NoSuchElementException("There is no player in the grid");

@@ -1,6 +1,6 @@
 package inf112.skeleton.app;
 
-public interface IPlayer extends IItem {
+public interface IPlayer {
 
     /**
      * A method that returns the health of the robot player. It is used when checking the
@@ -14,4 +14,29 @@ public interface IPlayer extends IItem {
      * option card gives more health (Option card is not on the plan yet)
      */
     void setHealth(int health);
+
+    /**
+     * A method that gets the weight of the player. The weight is used to determine the priority of the
+     * elements on each tile.
+     * @return
+     */
+    int getWeight();
+
+    /**
+     * A method that sets the weight of the player, if it is wished.
+     * @param weight
+     */
+    void setWeight(int weight);
+
+    /**
+     * A method to get the
+     * @return
+     */
+    int getPlayerIndexOnGrid();
+
+    /**
+     * A method to set the index on grid in which the player is on. Must be updated as the player moves.
+     * @param indexOnGrid
+     */
+    void setPlayerIndexOnGrid(int indexOnGrid);
 }
