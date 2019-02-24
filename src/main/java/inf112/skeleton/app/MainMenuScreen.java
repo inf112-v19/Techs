@@ -7,13 +7,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class MainMenuScreen implements Screen {
     final RoboRally roboRally;
-
     OrthographicCamera camera;
 
     public MainMenuScreen(final RoboRally roboRally) {
         this.roboRally = roboRally;
         camera = new OrthographicCamera();
-        camera.setToOrtho(false,800,400);
+        camera.setToOrtho(false,800,480);
     }
 
     @Override
@@ -27,21 +26,20 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
-        roboRally.batch.setProjectionMatrix(camera.combined);
+        this.roboRally.batch.setProjectionMatrix(camera.combined);
 
-        roboRally.batch.begin();
-        roboRally.font.draw(roboRally.batch, "Robo Rally!", 100, 150);
-        roboRally.font.draw(roboRally.batch, "Click anywhere to begin..", 100, 100);
+        this.roboRally.batch.begin();
+        this.roboRally.font.draw(roboRally.batch, "RoboRally!", 100, 150);
+        this.roboRally.font.draw(roboRally.batch, "Click anywhere to begin..", 100, 100);
 
         if(Gdx.input.isTouched()) {
             roboRally.setScreen(new RoboRallyScreen(roboRally));
             dispose();
         }
-
     }
 
     @Override
-    public void resize(int i, int i1) {
+    public void resize(int width, int height) {
 
     }
 
