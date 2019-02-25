@@ -46,7 +46,7 @@ og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 
 
 ## Grafikk
-![Green robot animation](/images/AnimatedGreenRobot.gif)
+![Green robot animation](/assets/AnimatedGreenRobot.gif)
 ![Sprite sheet](/assets/GreenRobotSpriteSheet.png)
 
 ## Sluttprodukt:
