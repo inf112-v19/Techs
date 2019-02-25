@@ -1,6 +1,6 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.Tiles.Flag;
+import inf112.skeleton.app.tiles.Flag;
 import org.junit.Before;
 import org.junit.Test;
 

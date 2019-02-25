@@ -1,4 +1,4 @@
-package inf112.skeleton.app.InWork;
+package inf112.skeleton.app.inWork.state;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,14 +10,15 @@ public abstract class State {
     protected Vector3 mouse;
     protected StateManager statemanager;
 
-    protected State(StateManager statemanager) {
+    public State(StateManager statemanager) {
         this.statemanager = statemanager;
         camera = new OrthographicCamera();
         mouse = new Vector3();
     }
 
-    protected abstract void handleInput();
+    public abstract void handleInput();
     public abstract void update(float delta);
     public abstract void render(SpriteBatch batch);
+    public abstract void dispose();
 
 }

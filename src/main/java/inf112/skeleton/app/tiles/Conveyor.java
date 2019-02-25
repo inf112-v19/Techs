@@ -1,72 +1,71 @@
-package inf112.skeleton.app.Tiles;
+package inf112.skeleton.app.tiles;
 
 import inf112.skeleton.app.Direction;
 
-public class BoardLaser implements IBoardLaser {
+public class Conveyor implements IConveyorBelt {
 
-    private String name = "boardLaser";
-    private String symbol = "BL";
-    private int weight = 3;
-    private int distance = 2;
-    private Direction direction = Direction.SOUTH;
+    String tileType = "conveyor";
+    int tileID = 4;
+    int tileWeight = 4;
+    int speed = 1;
 
     @Override
     public String getTileType() {
-        return name;
+        return this.tileType;
     }
 
     @Override
     public void setTileType(String name) {
-        this.name = name;
+        this.tileType = name;
     }
 
     @Override
     public String getSymbol() {
-        return symbol;
+        return null;
     }
 
     @Override
     public void setSymbol(String symbol) {
-        this.symbol = symbol;
+
     }
 
     @Override
     public int getTileWeight() {
-        return 0;
+        return this.tileWeight;
     }
 
     @Override
     public void setTileWeight(int weight) {
-        this.weight = weight;
+        this.tileWeight = weight;
     }
 
     @Override
     public int getTileID() {
-        return 0;
+        return this.tileID;
     }
 
     @Override
     public void setTileID(int id) {
-
+        this.tileID = id;
     }
 
     @Override
-    public int getDistance() {
-        return distance;
+    public int getSpeed() {
+        return this.speed;
     }
 
     @Override
-    public void setDistance(int distance) {
-        this.distance = distance;
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     @Override
     public Direction getDirection() {
-        return direction;
+        return null;
     }
 
     @Override
     public void setDirection(Direction direction) {
-        this.direction = direction;
+
     }
 }

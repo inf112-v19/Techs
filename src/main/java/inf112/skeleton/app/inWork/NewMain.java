@@ -1,4 +1,4 @@
-package inf112.skeleton.app.InWork;
+package inf112.skeleton.app.inWork;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;

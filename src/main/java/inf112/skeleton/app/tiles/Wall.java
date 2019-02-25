@@ -1,15 +1,10 @@
-package inf112.skeleton.app.Tiles;
+package inf112.skeleton.app.tiles;
 
-public class Floor implements ITile {
+public class Wall implements ITile {
 
-    String tileType = "floor";
-    int tileID;
-    int tileWeight;
-
-    public Floor() {
-        this.tileID = 1;
-        this.tileWeight = 1;
-    }
+    String tileType = "wall";
+    int tileID = 2;
+    int tileWeight = 2;
 
     @Override
     public String getTileType() {

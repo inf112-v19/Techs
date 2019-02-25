@@ -1,4 +1,4 @@
-package inf112.skeleton.app.Tiles;
+package inf112.skeleton.app.tiles;
 
 import inf112.skeleton.app.Direction;
 

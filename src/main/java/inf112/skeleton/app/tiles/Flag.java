@@ -1,10 +1,10 @@
-package inf112.skeleton.app.Tiles;
+package inf112.skeleton.app.tiles;
 
-public class Hole implements ITile {
+public class Flag implements ITile {
 
-    String tileType = "hole";
-    int tileID = 3;
-    int tileWeight = 3;
+    String tileType = "flag";
+    int tileID = 5;
+    int tileWeight = 5;
 
     @Override
     public String getTileType() {
@@ -23,7 +23,6 @@ public class Hole implements ITile {
 
     @Override
     public void setSymbol(String symbol) {
-
     }
 
     @Override
@@ -45,4 +44,6 @@ public class Hole implements ITile {
     public void setTileID(int id) {
         this.tileID = id;
     }
+
+
 }
