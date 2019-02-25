@@ -10,10 +10,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
@@ -23,10 +21,10 @@ public class TestBoard implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
     
-    private ArrayList<TestPlayer> playersList;
+    private ArrayList<TestPlayer> robotList;
 
     public void addPlayer(TestPlayer player) {
-        playersList.add(player);
+        robotList.add(player);
     }
     
     @Override
@@ -36,15 +34,15 @@ public class TestBoard implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         
-        playersList = new ArrayList<TestPlayer>();
+        robotList = new ArrayList<TestPlayer>();
         
-        TestPlayer playerOne = new TestPlayer(new Sprite(new Texture("assets/GreenRobot.png")), "playerOne");
+        TestPlayer playerOne = new TestPlayer(new Sprite(new Texture("assets/Robot.png")), "playerOne");
         playerOne.setSize(28, 28);
         playerOne.setPosition(0, 0);
         addPlayer(playerOne);
         
         
-        TestPlayer playerTwo = new TestPlayer(new Sprite(new Texture("assets/GreenRobot.png")), "playerTwo");
+        TestPlayer playerTwo = new TestPlayer(new Sprite(new Texture("assets/Robot.png")), "playerTwo");
         playerTwo.setSize(28, 28);
         playerTwo.setPosition(0,0);
         addPlayer(playerTwo);
@@ -62,7 +60,7 @@ public class TestBoard implements Screen {
         
         renderer.getBatch().begin();
         
-        for(TestPlayer player : playersList) {
+        for(TestPlayer player : robotList) {
             player.draw(renderer.getBatch());
         }
         
@@ -125,7 +123,7 @@ public class TestBoard implements Screen {
      * Moves player standing at (xPos, yPos) to the given direction
      */
     private boolean moveOtherPlayers(int xPos, int yPos, String playerToMove, Direction directionToMove) {
-        for(TestPlayer player : playersList) {
+        for(TestPlayer player : robotList) {
             if(player.getXPosition() == xPos && player.getYPosition() == yPos) {
                 return movePlayer(directionToMove, player.getName());
             }
@@ -164,7 +162,7 @@ public class TestBoard implements Screen {
     }
     
     private TestPlayer getPlayerByName(String playerName) {
-        for(TestPlayer player : playersList) {
+        for(TestPlayer player : robotList) {
             if(player.getName().equals(playerName))
                 return player;
         }

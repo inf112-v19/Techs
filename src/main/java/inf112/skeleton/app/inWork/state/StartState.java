@@ -1,17 +1,22 @@
 package inf112.skeleton.app.inWork.state;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import inf112.skeleton.app.inWork.NewRoboRally;
 
 public class StartState extends State {
 
     private Texture background;
+    private BitmapFont font;
 
     public StartState(StateManager statemanager) {
         super(statemanager);
         background = new Texture("assets/StoneTile.png");
+        font = new BitmapFont();
+        font.setColor(Color.WHITE);
     }
 
     @Override

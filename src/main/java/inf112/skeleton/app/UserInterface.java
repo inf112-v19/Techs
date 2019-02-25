@@ -29,7 +29,7 @@ public class UserInterface implements ApplicationListener {
     public void create() {
         batch = new SpriteBatch();
         normalFloorTexture = new Texture(Gdx.files.internal("assets/StoneTile.png"));
-        robotTexture = new Texture(Gdx.files.internal("assets/GreenRobot.png"));
+        robotTexture = new Texture(Gdx.files.internal("assets/Robot.png"));
     }
 
     @Override

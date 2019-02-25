@@ -5,14 +5,15 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 
-public class GreenRobot {
+public class Robot {
 
     private Vector3 position;
     private Vector3 velocity;
 
     private Animation<TextureRegion> greenRobot;
 
-    public GreenRobot(int x, int y) {
+
+    public Robot(int x, int y) {
         position = new Vector3(x,y,0);
         velocity = new Vector3(0,0,0);
         greenRobot = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("assets/AnimatedGreenRobot.gif").read());
