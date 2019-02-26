@@ -16,6 +16,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 
 public class TestBoard implements Screen {
 
@@ -24,10 +25,8 @@ public class TestBoard implements Screen {
     private OrthographicCamera camera;
     
     private ArrayList<TestPlayer> playersList;
-
-    public void addPlayer(TestPlayer player) {
-        playersList.add(player);
-    }
+    private float robotSpriteScale = 28;
+    private Sprite robotSprite;
     
     @Override
     public void show() {
@@ -37,17 +36,11 @@ public class TestBoard implements Screen {
         camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         
         playersList = new ArrayList<TestPlayer>();
-        
-        TestPlayer playerOne = new TestPlayer(new Sprite(new Texture("assets/GreenRobot.png")), "playerOne");
-        playerOne.setSize(28, 28);
-        playerOne.setPosition(0, 0);
-        addPlayer(playerOne);
+        robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
         
         
-        TestPlayer playerTwo = new TestPlayer(new Sprite(new Texture("assets/GreenRobot.png")), "playerTwo");
-        playerTwo.setSize(28, 28);
-        playerTwo.setPosition(0,0);
-        addPlayer(playerTwo);
+        addPlayerToBoard(new Vector2(0,0), "playerOne");
+        addPlayerToBoard(new Vector2(1,0), "playerTwo");
     }
 
     @Override
@@ -67,6 +60,12 @@ public class TestBoard implements Screen {
         }
         
         renderer.getBatch().end();
+    }
+    
+    public void addPlayerToBoard(Vector2 startPosition, String playerName) {
+        TestPlayer newPlayer = new TestPlayer(robotSprite, playerName, startPosition);
+        newPlayer.setSize(robotSpriteScale, robotSpriteScale);
+        playersList.add(newPlayer);
     }
     
     public boolean movePlayer(Direction directionToMove, String playerName) {
@@ -140,6 +139,9 @@ public class TestBoard implements Screen {
         return wallLayer.getCell(xPos, yPos).getTile().getProperties().containsKey(key);
     }
     
+    /*
+     * Temporary, to move two players on the board
+     */
     private void movePlayerOneAndTwo() {
         // As proof of concept:
         if(Gdx.input.isKeyJustPressed(Keys.UP)) {
@@ -169,27 +171,6 @@ public class TestBoard implements Screen {
                 return player;
         }
         throw new NoSuchElementException("There is no player in the grid by the name " + playerName);
-    }
-    
-    
-    /*
-     * Returns the opposite direction if the player is to move backwards
-     */
-    private Direction getCorrectDirection(int amount, Direction facing) {
-        if(amount > 0)
-            return facing;
-        switch(facing) {
-        case EAST:
-            return Direction.WEST;
-        case NORTH:
-            return Direction.SOUTH;
-        case SOUTH:
-            return Direction.NORTH;
-        case WEST:
-            return Direction.EAST;
-        default:
-            throw new IllegalArgumentException("player not facing a direction"); 
-        }
     }
 
     @Override
