@@ -54,11 +54,11 @@ public class Deck {
 	}
 	
 	/**
-	 * Skal lage en helt ny deck kort
+	 * Skal lage en ny deck kort og sletta den gammle
 	 */
 	public void resetDeck() {
 		this.deck.clear();
-		new Deck();
+		//this.deck = new Deck();
 		///this.deck = new Deck(); 
 	}
 	

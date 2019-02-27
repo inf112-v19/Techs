@@ -36,7 +36,7 @@ public class DeckTest {
 	public void checkResetDeck() {
 		Deck deck1 = deck;
 		deck.resetDeck();
-		assertFalse(deck.equals(deck1)); //funkar ikkje
+		assertFalse(deck.equals(deck1)); 
 	}
 	
 	
