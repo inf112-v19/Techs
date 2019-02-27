@@ -9,6 +9,7 @@ public class Deck {
 	public Deck() {
 		this.deck = new ArrayList<>();
 		makeDeck();
+		shuffle();
 	}
 	
 	/**
@@ -52,15 +53,24 @@ public class Deck {
 		Collections.shuffle(deck); 
 	}
 	
-	
+	/**
+	 * Skal lage en helt ny deck kort
+	 */
 	public void resetDeck() {
-
+		this.deck.clear();
+		new Deck();
+		///this.deck = new Deck(); 
 	}
 	
 	public ProgramCard getTopCard() {
+		if(deck.isEmpty()) return null;
+		ProgramCard topcard = deck.get(deck.size()-1);
+		deck.remove(topcard);
+		return topcard;
 		
-		return null;	
 	}
+	
+
 	
 	
 	/**
