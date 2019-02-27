@@ -12,6 +12,7 @@ public class Main {
         cfg.height = 480;
 
         new LwjglApplication(new RoboRally(), cfg);
+        
 /*
         IBoard board = new Board(4, 4);
         // Adds a player to the board

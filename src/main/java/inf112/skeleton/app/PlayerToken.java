@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class TestPlayer extends Sprite {
+public class PlayerToken extends Sprite {
 
     private Vector2 movementVelocity = new Vector2();
     private Vector2 position;
@@ -21,7 +21,7 @@ public class TestPlayer extends Sprite {
     private boolean movingEast = true;
     private boolean movingWest = true;
    
-    public TestPlayer(Sprite sprite, String playerName, Vector2 startPosition) {
+    public PlayerToken(Sprite sprite, String playerName, Vector2 startPosition) {
         super(sprite);
         facingDirection = Direction.NORTH;
         this.playerName = playerName;
