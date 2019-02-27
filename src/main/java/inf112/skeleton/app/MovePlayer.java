@@ -12,6 +12,10 @@ public class MovePlayer {
         this.playersList = playersList;
     }
     
+    public void updatePlayersList(ArrayList<PlayerToken> playersList) {
+        this.playersList = playersList;
+    }
+    
     public boolean movePlayer(Direction directionToMove, PlayerToken playerToMove) {
         int xPos = playerToMove.getXPosition();
         int yPos = playerToMove.getYPosition();
@@ -74,5 +78,4 @@ public class MovePlayer {
         }
         return true;
     }
-    
 }

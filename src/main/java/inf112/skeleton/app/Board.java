@@ -36,12 +36,10 @@ public class Board implements Screen {
         
         playersList = new ArrayList<PlayerToken>();
         robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
-        
-        addPlayerToBoard(new Vector2(0,0), "playerOne");
-        addPlayerToBoard(new Vector2(1,0), "playerTwo");
-        
         movePlayerBrain = new MovePlayer (this, playersList);
 
+        addPlayerToBoard(new Vector2(0,0), "playerOne");
+        addPlayerToBoard(new Vector2(1,0), "playerTwo");
     }
 
     @Override
@@ -67,9 +65,8 @@ public class Board implements Screen {
         PlayerToken newPlayer = new PlayerToken(robotSprite, playerName, startPosition);
         newPlayer.setSize(robotSpriteScale, robotSpriteScale);
         playersList.add(newPlayer);
+        movePlayerBrain.updatePlayersList(playersList);
     }
-
-
     public Object cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
         TiledMapTileLayer wallLayer = (TiledMapTileLayer) map.getLayers().get(layer);
         if(wallLayer.getCell(xPos, yPos) == null)
