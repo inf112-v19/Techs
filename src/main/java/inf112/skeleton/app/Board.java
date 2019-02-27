@@ -55,8 +55,7 @@ public class Board implements Screen {
         movePlayerOneAndTwo();
         
         PlayerToken playerOne = getPlayerByName("playerOne");
-        if(!playerOne.isAnimating())
-            checkForConveyorBelt("playerOne");
+
         
         renderer.getBatch().begin();
         
@@ -171,20 +170,6 @@ public class Board implements Screen {
             movePlayer(Direction.EAST, "playerTwo");
         }else if(Gdx.input.isKeyJustPressed(Keys.A)) {
             movePlayer(Direction.WEST, "playerTwo");
-        }
-    }
-    
-    public void checkForConveyorBelt(String playerName) {
-        PlayerToken player = getPlayerByName(playerName);
-        for(Direction dir : Direction.values()) {
-            String cellValue = (String) cellContainsLayerWithKey(player.getXPosition(), player.getYPosition(), "Conveyor", dir.toString());
-            if(cellValue != null) {
-                int integerCellValue = Integer.parseInt(cellValue);
-                for(int i = 0; i < integerCellValue; i++) {
-                    movePlayer(dir, player.getName());
-                }
-                return;
-            }
         }
     }
     
