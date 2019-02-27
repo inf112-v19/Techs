@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public class TestPlayer extends Sprite {
+public class PlayerToken extends Sprite {
 
     private Vector2 movementVelocity = new Vector2();
     private Vector2 position;
@@ -15,16 +15,19 @@ public class TestPlayer extends Sprite {
     private String playerName;
     private Direction facingDirection;
     
-    private boolean movingNorth = false;
-    private boolean movingSouth = false;
-    private boolean movingEast = false;
-    private boolean movingWest = false;
+    
+    private boolean movingNorth = true;
+    private boolean movingSouth = true;
+    private boolean movingEast = true;
+    private boolean movingWest = true;
    
-    public TestPlayer(Sprite sprite, String playerName) {
+    public PlayerToken(Sprite sprite, String playerName, Vector2 startPosition) {
         super(sprite);
-        position = new Vector2(0,0);
         facingDirection = Direction.NORTH;
         this.playerName = playerName;
+        position = startPosition;
+        setXPositionOnBoard();
+        setYPositionOnBoard();
     }
     
     public String getName() {
@@ -47,24 +50,40 @@ public class TestPlayer extends Sprite {
         update(Gdx.graphics.getDeltaTime());
         super.draw(spriteBatch);
     }
+    
+    private void setYPositionOnBoard() {
+        setY(position.y * tileScale);
+    }
+    
+    private void setXPositionOnBoard() {
+        setX(position.x * tileScale);
+    } 
+    
+    private void animateXPositionOnBoard(float delta) {
+        setX(getX() + movementVelocity.x * delta);
+    }
+    
+    private void animateYPositionOnBoard(float delta) {
+        setY(getY() + movementVelocity.y * delta);
+    }
 
     public void update(float delta) {
-        setX(getX() + movementVelocity.x * delta);
-        setY(getY() + movementVelocity.y * delta);
+        animateXPositionOnBoard(delta);
+        animateYPositionOnBoard(delta);
         
         if(movingNorth) {
             // position.y * tileScale : translation of player's position to correct number of pixels
             if(getY() >= position.y * tileScale) {
                 movingNorth = false;
                 movementVelocity.y = 0;             
-                setY(position.y * tileScale);       // "hard sets" the position to avoid inaccuracies in position
+                setYPositionOnBoard();       // "hard sets" the position to avoid inaccuracies in position
             } else {
                 movementVelocity.y = speed;
             }
         } else if (movingSouth) {   
             if(getY() <= position.y  * tileScale) {
                 movingSouth = false;
-                setY(position.y * tileScale);
+                setYPositionOnBoard();
                 movementVelocity.y = 0;
             } else {
                 movementVelocity.y = -speed;
@@ -76,7 +95,7 @@ public class TestPlayer extends Sprite {
         if(movingEast) {
             if(getX() >= position.x * tileScale) {
                 movingEast = false;
-                setX(position.x * tileScale);
+                setXPositionOnBoard();
                 movementVelocity.x = 0;
             } else {
                 movementVelocity.x = speed;
@@ -84,7 +103,7 @@ public class TestPlayer extends Sprite {
         } else if (movingWest) {
             if(getX() <= position.x * tileScale) {
                 movingWest = false;
-                setX(position.x * tileScale);
+                setXPositionOnBoard();
                 movementVelocity.x = 0;
             } else {
                 movementVelocity.x = -speed;
@@ -94,22 +113,41 @@ public class TestPlayer extends Sprite {
         }
     }
     
-    public void moveNorth() {
+    public void moveDirection(Direction dir) {
+        switch(dir) {
+        case EAST:
+            moveEast();
+            break;
+        case NORTH:
+            moveNorth();
+            break;
+        case SOUTH:
+            moveSouth();
+            break;
+        case WEST:
+            moveWest();
+            break;
+        default:
+            break;
+        }
+    }
+    
+    private void moveNorth() {
         movingNorth = true;
         position.y += 1;
     }
     
-    public void moveSouth() {
+    private void moveSouth() {
         movingSouth = true;
         position.y -= 1;
     }
     
-    public void moveEast() {
+    private void moveEast() {
         movingEast = true;
         position.x += 1;
     }
     
-    public void moveWest() {
+    private void moveWest() {
         movingWest = true;
         position.x -= 1;
     }
