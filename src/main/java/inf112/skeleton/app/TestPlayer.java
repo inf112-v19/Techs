@@ -15,6 +15,7 @@ public class TestPlayer extends Sprite {
     private String playerName;
     private Direction facingDirection;
     
+    
     private boolean movingNorth = true;
     private boolean movingSouth = true;
     private boolean movingEast = true;
@@ -112,22 +113,41 @@ public class TestPlayer extends Sprite {
         }
     }
     
-    public void moveNorth() {
+    public void moveDirection(Direction dir) {
+        switch(dir) {
+        case EAST:
+            moveEast();
+            break;
+        case NORTH:
+            moveNorth();
+            break;
+        case SOUTH:
+            moveSouth();
+            break;
+        case WEST:
+            moveWest();
+            break;
+        default:
+            break;
+        }
+    }
+    
+    private void moveNorth() {
         movingNorth = true;
         position.y += 1;
     }
     
-    public void moveSouth() {
+    private void moveSouth() {
         movingSouth = true;
         position.y -= 1;
     }
     
-    public void moveEast() {
+    private void moveEast() {
         movingEast = true;
         position.x += 1;
     }
     
-    public void moveWest() {
+    private void moveWest() {
         movingWest = true;
         position.x -= 1;
     }

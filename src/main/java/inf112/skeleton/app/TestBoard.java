@@ -38,9 +38,10 @@ public class TestBoard implements Screen {
         playersList = new ArrayList<TestPlayer>();
         robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
         
-        
         addPlayerToBoard(new Vector2(0,0), "playerOne");
         addPlayerToBoard(new Vector2(1,0), "playerTwo");
+        
+
     }
 
     @Override
@@ -50,8 +51,12 @@ public class TestBoard implements Screen {
 
         renderer.setView(camera);
         renderer.render();
-        
+       
         movePlayerOneAndTwo();
+        
+        TestPlayer playerOne = getPlayerByName("playerOne");
+        if(!playerOne.isAnimating())
+            checkForConveyorBelt("playerOne");
         
         renderer.getBatch().begin();
         
@@ -75,42 +80,45 @@ public class TestBoard implements Screen {
         
         switch(directionToMove) {
         case EAST:
-            if(cellContainsKey(xPos, yPos, "wallEast") || cellContainsKey(xPos + 1, yPos, "wallWest")) {
+            if(cellContainsLayerWithKey(xPos, yPos, "Wall", "wallEast") != null 
+                || cellContainsLayerWithKey(xPos + 1, yPos, "Wall", "wallWest") != null) {
                 return false;
             }
             if(!moveOtherPlayers(xPos + 1, yPos, playerName, directionToMove))
                 return false;
-            playerToMove.moveEast();
+            playerToMove.moveDirection(Direction.EAST);            
             return true;
             
         case NORTH:
-            if(cellContainsKey(xPos, yPos, "wallNorth") || cellContainsKey(xPos, yPos + 1, "wallSouth")) {
+            if(cellContainsLayerWithKey(xPos, yPos, "Wall", "wallNorth") != null || 
+                cellContainsLayerWithKey(xPos, yPos + 1, "Wall", "wallSouth") != null) {
                 return false;
             }
             if(!moveOtherPlayers(xPos, yPos + 1, playerName, directionToMove))
                 return false;
-            playerToMove.moveNorth();
+            playerToMove.moveDirection(Direction.NORTH);
             return true;
             
         case SOUTH:
-            if(cellContainsKey(xPos, yPos, "wallSouth") || cellContainsKey(xPos, yPos - 1, "wallNorth")) {
+            if(cellContainsLayerWithKey(xPos, yPos, "Wall", "wallSouth") != null || 
+                cellContainsLayerWithKey(xPos, yPos - 1, "Wall", "wallNorth") != null) {
                 return false;
             }
             if(!moveOtherPlayers(xPos, yPos - 1, playerName, directionToMove)) {
                 return false;
             }
-            playerToMove.moveSouth();
+            playerToMove.moveDirection(Direction.SOUTH);
             return true;
             
         case WEST:
-           if(cellContainsKey(xPos, yPos, "wallWest") || cellContainsKey(xPos - 1, yPos, "wallEast")) {
+            if(cellContainsLayerWithKey(xPos, yPos, "Wall", "wallWest") != null || 
+                cellContainsLayerWithKey(xPos - 1, yPos, "Wall", "wallEast") != null) {
                 return false;
             }
-           if(!moveOtherPlayers(xPos - 1, yPos, playerName, directionToMove)) {
+            if(!moveOtherPlayers(xPos - 1, yPos, playerName, directionToMove)) {
                 return false;
-           }
-            
-            playerToMove.moveWest();
+            }
+            playerToMove.moveDirection(Direction.WEST);
             return true;
             
         default:
@@ -132,12 +140,13 @@ public class TestBoard implements Screen {
         return true;
     }
 
-    private boolean cellContainsKey(int xPos, int yPos, String key) {
-        TiledMapTileLayer wallLayer = (TiledMapTileLayer) map.getLayers().get("Wall");
+    private Object cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
+        TiledMapTileLayer wallLayer = (TiledMapTileLayer) map.getLayers().get(layer);
         if(wallLayer.getCell(xPos, yPos) == null)
-            return false;
-        return wallLayer.getCell(xPos, yPos).getTile().getProperties().containsKey(key);
+            return null;
+        return wallLayer.getCell(xPos, yPos).getTile().getProperties().get(key);
     }
+    
     
     /*
      * Temporary, to move two players on the board
@@ -162,6 +171,20 @@ public class TestBoard implements Screen {
             movePlayer(Direction.EAST, "playerTwo");
         }else if(Gdx.input.isKeyJustPressed(Keys.A)) {
             movePlayer(Direction.WEST, "playerTwo");
+        }
+    }
+    
+    public void checkForConveyorBelt(String playerName) {
+        TestPlayer player = getPlayerByName(playerName);
+        for(Direction dir : Direction.values()) {
+            String cellValue = (String) cellContainsLayerWithKey(player.getXPosition(), player.getYPosition(), "Conveyor", dir.toString());
+            if(cellValue != null) {
+                int integerCellValue = Integer.parseInt(cellValue);
+                for(int i = 0; i < integerCellValue; i++) {
+                    movePlayer(dir, player.getName());
+                }
+                return;
+            }
         }
     }
     
