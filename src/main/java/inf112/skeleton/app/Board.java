@@ -51,6 +51,9 @@ public class Board implements Screen {
         renderer.render();
        
         movePlayerOneAndTwo();
+        if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+            playersList.get(0).rotatePlayer(1);
+        }
         
         renderer.getBatch().begin();
         
@@ -62,7 +65,7 @@ public class Board implements Screen {
     }
     
     public void addPlayerToBoard(Vector2 startPosition, String playerName) {
-        PlayerToken newPlayer = new PlayerToken(robotSprite, playerName, startPosition);
+        PlayerToken newPlayer = new PlayerToken(robotSprite, playerName, startPosition, robotSpriteScale);
         newPlayer.setSize(robotSpriteScale, robotSpriteScale);
         playersList.add(newPlayer);
         movePlayerBrain.updatePlayersList(playersList);
@@ -100,7 +103,6 @@ public class Board implements Screen {
             movePlayerBrain.movePlayer(Direction.WEST, playersList.get(1));
         }
     }
-
 
     @Override
     public void resize(int width, int height) {

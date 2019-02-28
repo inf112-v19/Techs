@@ -21,13 +21,26 @@ public class PlayerToken extends Sprite {
     private boolean movingEast = true;
     private boolean movingWest = true;
    
-    public PlayerToken(Sprite sprite, String playerName, Vector2 startPosition) {
+    public PlayerToken(Sprite sprite, String playerName, Vector2 startPosition, float spriteScale) {
         super(sprite);
-        facingDirection = Direction.NORTH;
+        facingDirection = Direction.SOUTH;
         this.playerName = playerName;
+        
         position = startPosition;
+        setOrigin(spriteScale/2, spriteScale/2);
+        
         setXPositionOnBoard();
         setYPositionOnBoard();
+    }
+    
+    /*
+     * Rotates player 90 degrees for each numberOfTimes. -90 degrees when numberOfTimes is negative.
+     */
+    public void rotatePlayer(int numberOfTimes) {
+        int directionSum = (((facingDirection.ordinal() + numberOfTimes) % 4) + 4) % 4;
+        facingDirection = Direction.values()[directionSum];
+        rotate(-90 * numberOfTimes);
+        System.out.println(facingDirection);
     }
     
     public String getName() {
