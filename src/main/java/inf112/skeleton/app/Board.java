@@ -50,11 +50,10 @@ public class Board implements Screen {
         movePlayerOneAndTwo();
         
         PlayerToken playerOne = getPlayerByName("playerOne");
-
         
         renderer.getBatch().begin();
         
-        for(PlayerToken player : playersList) {
+        for (PlayerToken player : playersList) {
             player.draw(renderer.getBatch());
         }
         renderer.getBatch().end();
