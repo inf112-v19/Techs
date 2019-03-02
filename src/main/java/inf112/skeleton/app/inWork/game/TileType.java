@@ -1,5 +1,7 @@
 package inf112.skeleton.app.inWork.game;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+
 import java.util.HashMap;
 
 public enum TileType {
@@ -84,6 +86,7 @@ public enum TileType {
     private static HashMap<Integer, TileType> tileMap;
 
     static {
+        tileMap = new HashMap<Integer, TileType>();
         for (TileType tileType : TileType.values()) {
             tileMap.put(tileType.getId(), tileType);
         }

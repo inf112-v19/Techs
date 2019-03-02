@@ -17,7 +17,7 @@ public class RoboRallyState extends State {
 
     public RoboRallyState(StateManager statemanager) {
         super(statemanager);
-        greenRobot = new Robot(0,0);
+        greenRobot = new Robot("Player_One",0,0);
         map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         camera.setToOrtho(false, NewRoboRally.WIDTH, NewRoboRally.HEIGHT);

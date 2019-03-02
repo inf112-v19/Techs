@@ -1,80 +1,33 @@
 package inf112.skeleton.app.inWork;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import inf112.skeleton.app.inWork.game.Game;
-import inf112.skeleton.app.inWork.game.TiledGame;
+import inf112.skeleton.app.inWork.screens.GameScreen;
 
-public class BoardGame extends ApplicationAdapter {
-
-    SpriteBatch batch;
-    Texture img;
-    OrthographicCamera camera;
-
-    Game boardgame;
+public class BoardGame extends Game {
+    public static final String TITLE = "RoboRally";
+    public static final int WIDTH = 480;
+    public static final int HEIGHT = 800;
+    public SpriteBatch batch;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
-        img = new Texture("assets/GreenRobot.png");
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.update();
-        boardgame = new TiledGame();
+        Gdx.gl.glClearColor(0,0,0,1);
+        this.setScreen(new GameScreen(this));
     }
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        if (Gdx.input.isTouched()) {
-            camera.translate(-Gdx.input.getDeltaX(), Gdx.input.getDeltaY());
-            camera.update();
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.COMMA)) {
-            camera.zoom += 0.03;
-            camera.update();
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.PERIOD)) {
-            camera.zoom -= 0.03;
-            camera.update();
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            camera.translate(0,7,0);
-            camera.update();
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            camera.translate(0,-7,0);
-            camera.update();
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            camera.translate(-5,0,0);
-            camera.update();
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            camera.translate(5,0,0);
-            camera.update();
-        }
-
-        boardgame.render(camera);
+        super.render();
     }
 
     @Override
     public void dispose() {
         batch.dispose();
-        img.dispose();
     }
 }
