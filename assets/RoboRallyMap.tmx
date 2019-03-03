@@ -61,7 +61,7 @@
    eJxjYCAPsJGpbxTQF4zGE34AABpwAA0=
   </data>
  </layer>
- <layer id="22" name="Laser" width="12" height="16" locked="1">
+ <layer id="22" name="Laser" width="12" height="16" visible="0" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYBh4oATEykCsOdAOGQUjDgAAEoMAbw==
   </data>
