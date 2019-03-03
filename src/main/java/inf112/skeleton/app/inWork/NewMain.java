@@ -7,7 +7,7 @@ public class NewMain {
 
     public static void main(String[] args) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.title = "RoboRally";
+        config.title = BoardGame.TITLE;
         config.width = BoardGame.WIDTH;
         config.height = BoardGame.HEIGHT;
         config.resizable = false; // Is false at the moment to keep the background ratio correct.
