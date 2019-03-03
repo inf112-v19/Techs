@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="50" height="28" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="2">
  <tileset firstgid="1" name="backGround" tilewidth="32" tileheight="32" tilecount="204" columns="34">
-  <image source="picturesForProgramSheet/backGround.png" width="1107" height="200"/>
+  <image source="backGround.png" width="1107" height="200"/>
  </tileset>
  <tileset firstgid="205" name="ps2" tilewidth="35" tileheight="35" tilecount="144" columns="12">
-  <image source="picturesForProgramSheet/ps2.png" width="443" height="443"/>
+  <image source="ps2.png" width="443" height="443"/>
  </tileset>
  <tileset firstgid="349" name="LT" tilewidth="32" tileheight="32" tilecount="168" columns="24">
-  <image source="picturesForProgramSheet/LT.png" width="799" height="249"/>
+  <image source="LT.png" width="799" height="249"/>
  </tileset>
  <tileset firstgid="517" name="LTT" tilewidth="32" tileheight="32" tilecount="40" columns="20">
-  <image source="picturesForProgramSheet/LTT.png" width="664" height="88"/>
+  <image source="LTT.png" width="664" height="88"/>
  </tileset>
  <tileset firstgid="557" name="rimD" tilewidth="32" tileheight="32" tilecount="18" columns="6">
-  <image source="picturesForProgramSheet/rimD.png" width="211" height="108"/>
+  <image source="rimD.png" width="211" height="108"/>
  </tileset>
  <tileset firstgid="575" name="rimDRotated" tilewidth="32" tileheight="32" tilecount="18" columns="6">
-  <image source="picturesForProgramSheet/rimDRotated.png" width="211" height="109"/>
+  <image source="rimDRotated.png" width="211" height="109"/>
  </tileset>
  <tileset firstgid="593" name="ws" tilewidth="32" tileheight="32" tilecount="36" columns="6">
-  <image source="picturesForProgramSheet/ws.png" width="217" height="206"/>
+  <image source="ws.png" width="217" height="206"/>
  </tileset>
  <tileset firstgid="629" name="WS2" tilewidth="32" tileheight="32" tilecount="30" columns="6">
-  <image source="picturesForProgramSheet/WS2.png" width="217" height="164"/>
+  <image source="WS2.png" width="217" height="164"/>
  </tileset>
  <imagelayer id="3" name="Image Layer 1"/>
  <objectgroup id="2" name="Object Layer 1"/>
