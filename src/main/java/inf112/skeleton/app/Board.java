@@ -2,7 +2,6 @@ package inf112.skeleton.app;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
@@ -10,10 +9,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -40,8 +37,6 @@ public class Board implements Screen {
         
         addPlayerToBoard(new Vector2(0,0), "playerOne");
         addPlayerToBoard(new Vector2(1,0), "playerTwo");
-        
-
     }
 
     @Override
@@ -55,14 +50,12 @@ public class Board implements Screen {
         movePlayerOneAndTwo();
         
         PlayerToken playerOne = getPlayerByName("playerOne");
-
         
         renderer.getBatch().begin();
         
-        for(PlayerToken player : playersList) {
+        for (PlayerToken player : playersList) {
             player.draw(renderer.getBatch());
         }
-        
         renderer.getBatch().end();
     }
     
