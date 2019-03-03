@@ -18,9 +18,10 @@ public class NewMain {
     public static void main(String[] args) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.title = "RoboRally";
-        config.width = 480;
-        config.height = 800;
-        config.foregroundFPS = 30;
+        config.width = BoardGame.WIDTH;
+        config.height = BoardGame.HEIGHT;
+        config.resizable = false; // Is false at the moment to keep the background ratio correct.
+        config.foregroundFPS = 60;
 
         new LwjglApplication(new BoardGame(), config);
     }
