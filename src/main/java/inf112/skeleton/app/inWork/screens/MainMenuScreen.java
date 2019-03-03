@@ -7,16 +7,28 @@ import com.badlogic.gdx.graphics.Texture;
 import inf112.skeleton.app.inWork.BoardGame;
 
 public class MainMenuScreen implements Screen {
-    private static final int BUTTON_WIDTH = 250;
-    private static final int BUTTON_HEIGHT = 250;
+    private static final int PLAYBUTTON_WIDTH = 200;
+    private static final int PLAYBUTTON_HEIGHT = 100;
+    public static final int PLAYBUTTON_X = (BoardGame.WIDTH - PLAYBUTTON_WIDTH) / 2;
+    private static final int PLAYBUTTON_Y = 310;
+    private static final int EXITBUTTON_WIDTH = 160;
+    private static final int EXITBUTTON_HEIGHT = 80;
+    public static final int EXITBUTTON_X = (BoardGame.WIDTH - EXITBUTTON_WIDTH) / 2;
+    private static final int EXITBUTTON_Y = 220;
 
     BoardGame game;
 
     Texture playButtonActive;
+    Texture playButtonInactive;
+    Texture exitButtonActive;
+    Texture exitButtonInactive;
 
     public MainMenuScreen(BoardGame game) {
         this.game = game;
-        this.playButtonActive = new Texture("assets/PlayButtons.png");
+        this.playButtonActive = new Texture("assets/PlayButtonActive.png");
+        this.playButtonInactive = new Texture("assets/PlayButtonInactive.png");
+        this.exitButtonActive = new Texture("assets/ExitButtonActive.png");
+        this.exitButtonInactive = new Texture("assets/ExitButtonInactive.png");
     }
 
     @Override
@@ -35,13 +47,18 @@ public class MainMenuScreen implements Screen {
         This part of the code is where the main menu buttons are handled. The if-statement is there to register the coordinates of the mouse, where
         we will be able to make it so that each button is highlighted as the mouse hovers over. We need to make an if-statement for each button.
          */
-        int x = (BoardGame.WIDTH - BUTTON_WIDTH) / 2;
-        int y = (BoardGame.WIDTH - BUTTON_HEIGHT) / 2;
-        if(Gdx.input.getX() < x + BUTTON_WIDTH && Gdx.input.getX() > x && BoardGame.HEIGHT - Gdx.input.getY() < y + BUTTON_HEIGHT && BoardGame.HEIGHT - Gdx.input.getY() > y) {
-            game.batch.draw(playButtonActive, (BoardGame.WIDTH - BUTTON_WIDTH) / 2, (BoardGame.HEIGHT - BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+        if(Gdx.input.getX() < PLAYBUTTON_X + PLAYBUTTON_WIDTH && Gdx.input.getX() > PLAYBUTTON_X && BoardGame.HEIGHT - Gdx.input.getY() < PLAYBUTTON_Y + PLAYBUTTON_HEIGHT && BoardGame.HEIGHT - Gdx.input.getY() > PLAYBUTTON_Y) {
+            game.batch.draw(playButtonActive, PLAYBUTTON_X, (BoardGame.HEIGHT - PLAYBUTTON_HEIGHT) / 2, PLAYBUTTON_WIDTH, PLAYBUTTON_HEIGHT);
         } else {
-            game.batch.draw(playButtonActive, (BoardGame.WIDTH - BUTTON_WIDTH) / 2, (BoardGame.HEIGHT - BUTTON_HEIGHT) / 2, BUTTON_WIDTH, BUTTON_HEIGHT);
+            game.batch.draw(playButtonInactive, PLAYBUTTON_X, (BoardGame.HEIGHT - PLAYBUTTON_HEIGHT) / 2, PLAYBUTTON_WIDTH, PLAYBUTTON_HEIGHT);
         }
+
+        if(Gdx.input.getX() < EXITBUTTON_X + EXITBUTTON_WIDTH && Gdx.input.getX() > EXITBUTTON_X && BoardGame.HEIGHT - Gdx.input.getY() < EXITBUTTON_Y + EXITBUTTON_HEIGHT && BoardGame.HEIGHT - Gdx.input.getY() > EXITBUTTON_Y) {
+            game.batch.draw(exitButtonActive, EXITBUTTON_X, EXITBUTTON_Y, EXITBUTTON_WIDTH, EXITBUTTON_HEIGHT);
+        } else {
+            game.batch.draw(exitButtonInactive, EXITBUTTON_X, EXITBUTTON_Y, EXITBUTTON_WIDTH, EXITBUTTON_HEIGHT);
+        }
+
         game.batch.end();
 
     }
@@ -71,3 +88,4 @@ public class MainMenuScreen implements Screen {
 
     }
 }
+
