@@ -9,6 +9,30 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
+import java.util.ArrayList;
+
+/**
+ * Save at second checkpoint
+ *
+ * Power Down button
+ *
+ * Life tokens == number of life
+ *
+ * Rench == repair one damage and upgrade/option card
+ *
+ * Conveyor belt move before each turn
+ *
+ * Locked register
+ * card is locked and has to be used for each turn
+ * can only be removed if register gets fixed
+ *
+ * Program Sheet
+ * 1) Each player gets (9 - damage) cards start of each turn
+ *
+ * 2) 5 of these cards are selected for programming
+ *       *selected by numbers on keyboard 1-9
+ *       *Hurry up timer?
+ */
 public class ProgramSheet implements Screen {
 
     private TiledMap map;
@@ -17,7 +41,6 @@ public class ProgramSheet implements Screen {
 
     @Override
     public void show() {
-        //map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
         map = new TmxMapLoader().load("assets/ProgramSheet/ProgramSheet.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, .3f);
         camera = new OrthographicCamera();
