@@ -1,6 +1,7 @@
 package inf112.skeleton.app;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -26,6 +27,7 @@ public class Board implements Screen {
     private Sprite robotSprite;
     
     private MovePlayer movePlayerBrain;
+    private IBoardFeature moveConveyorBelts;
     
     @Override
     public void show() {
@@ -37,6 +39,7 @@ public class Board implements Screen {
         playersList = new ArrayList<PlayerToken>();
         robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
         movePlayerBrain = new MovePlayer (this, playersList);
+        moveConveyorBelts = new MoveConveyorBelts();
 
         addPlayerToBoard(new Vector2(0,0), "playerOne");
         addPlayerToBoard(new Vector2(1,0), "playerTwo");
@@ -52,7 +55,7 @@ public class Board implements Screen {
        
         movePlayerOneAndTwo();
         if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-            playersList.get(0).rotatePlayer(1);
+            moveConveyorBelts.processFeature(this, playersList);
         }
         
         renderer.getBatch().begin();
@@ -70,13 +73,39 @@ public class Board implements Screen {
         playersList.add(newPlayer);
         movePlayerBrain.updatePlayersList(playersList);
     }
-    public Object cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
-        TiledMapTileLayer wallLayer = (TiledMapTileLayer) map.getLayers().get(layer);
-        if(wallLayer.getCell(xPos, yPos) == null)
-            return null;
-        return wallLayer.getCell(xPos, yPos).getTile().getProperties().get(key);
+    
+    /*
+     * Checks if tile at (xPos, yPos) has a property named key in the specified layer 
+     */
+    public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
+        TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
+        if(tileLayer.getCell(xPos, yPos) == null)
+            return false;
+        return tileLayer.getCell(xPos, yPos).getTile().getProperties().containsKey(key);
     }
     
+    /*
+     * Checks if tile at (xPos, yPos) is in the specified layer
+     */
+    public boolean cellContainsLayer(int xPos, int yPos, String layer) {
+        TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
+        return tileLayer.getCell(xPos, yPos) != null;
+    }
+    
+    public void movePlayer(String name, Direction directionToMove) {
+        movePlayerBrain.movePlayer(directionToMove, getPlayerTokenByName(name));
+    }
+    
+    /*
+     * Return PlayerToken of corresponding playerName, return null if no such PlayerToken exists
+     */
+    private PlayerToken getPlayerTokenByName(String playerName) {
+        for(PlayerToken player : playersList) {
+            if(player.getName().equals(playerName))
+                return player;
+        }
+        throw new NoSuchElementException("Player by name " + playerName + " has no token");
+    }
     
     /*
      * Temporary, to move two players on the board

@@ -1,8 +1,10 @@
 package inf112.skeleton.app;
 
+import java.util.ArrayList;
+
 public interface IBoardFeature {
     /*
      * Processes the feature 
      */
-    public void processFeature(Object input);
+    public void processFeature(Board board, ArrayList<PlayerToken> playersList);
 }
