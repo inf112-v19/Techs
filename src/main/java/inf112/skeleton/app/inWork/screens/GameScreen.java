@@ -10,9 +10,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-
 import inf112.skeleton.app.inWork.BoardGame;
-import inf112.skeleton.app.inWork.robots.Robot;
+
 public class GameScreen implements Screen {
     public static final float ZOOM_SPEED = 0.03f;
     public static final float MOVE_SPEED = 16;
@@ -22,13 +21,12 @@ public class GameScreen implements Screen {
     public static final int ROBOT_WIDTH = 96;
     public static final int ROBOT_HEIGHT = 96;
 
+    // Variables used in regards to animating robots
     Animation<TextureRegion>[] greenRobot;
     private int greenRobotAnimation;
     private float x;
     private float y;
     private float statetime;
-
-
 
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;

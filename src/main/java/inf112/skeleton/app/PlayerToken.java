@@ -11,7 +11,7 @@ public class PlayerToken extends Sprite {
     private Vector2 movementVelocity = new Vector2();
     private Vector2 position;
     private float speed = 120;
-    private float tileScale = 28.7f;
+    private float tileScale = 96;
     private String playerName;
     private Direction facingDirection;
     

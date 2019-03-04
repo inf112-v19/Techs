@@ -1,10 +1,11 @@
-package inf112.skeleton.app.inWork.screens;
+package inf112.skeleton.app;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import inf112.skeleton.app.inWork.BoardGame;
+import inf112.skeleton.app.inWork.screens.GameScreen;
 
 public class MainMenuScreen implements Screen {
     private static final int PLAYBUTTON_WIDTH = 200;
@@ -16,14 +17,14 @@ public class MainMenuScreen implements Screen {
     public static final int EXITBUTTON_X = (BoardGame.WIDTH - EXITBUTTON_WIDTH) / 2;
     private static final int EXITBUTTON_Y = 220;
 
-    BoardGame game;
+    RoboRally game;
 
     Texture playButtonActive;
     Texture playButtonInactive;
     Texture exitButtonActive;
     Texture exitButtonInactive;
 
-    public MainMenuScreen(BoardGame game) {
+    public MainMenuScreen(RoboRally game) {
         this.game = game;
         this.playButtonActive = new Texture("assets/PlayButtonActive.png");
         this.playButtonInactive = new Texture("assets/PlayButtonInactive.png");
@@ -51,7 +52,7 @@ public class MainMenuScreen implements Screen {
             game.batch.draw(playButtonActive, PLAYBUTTON_X, (BoardGame.HEIGHT - PLAYBUTTON_HEIGHT) / 2, PLAYBUTTON_WIDTH, PLAYBUTTON_HEIGHT);
             if(Gdx.input.isTouched()) {
                 this.dispose();
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new Board(game));
             }
         } else {
             game.batch.draw(playButtonInactive, PLAYBUTTON_X, (BoardGame.HEIGHT - PLAYBUTTON_HEIGHT) / 2, PLAYBUTTON_WIDTH, PLAYBUTTON_HEIGHT);
