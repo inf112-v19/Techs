@@ -49,12 +49,18 @@ public class MainMenuScreen implements Screen {
          */
         if(Gdx.input.getX() < PLAYBUTTON_X + PLAYBUTTON_WIDTH && Gdx.input.getX() > PLAYBUTTON_X && BoardGame.HEIGHT - Gdx.input.getY() < PLAYBUTTON_Y + PLAYBUTTON_HEIGHT && BoardGame.HEIGHT - Gdx.input.getY() > PLAYBUTTON_Y) {
             game.batch.draw(playButtonActive, PLAYBUTTON_X, (BoardGame.HEIGHT - PLAYBUTTON_HEIGHT) / 2, PLAYBUTTON_WIDTH, PLAYBUTTON_HEIGHT);
+            if(Gdx.input.isTouched()) {
+                game.setScreen(new GameScreen(game));
+            }
         } else {
             game.batch.draw(playButtonInactive, PLAYBUTTON_X, (BoardGame.HEIGHT - PLAYBUTTON_HEIGHT) / 2, PLAYBUTTON_WIDTH, PLAYBUTTON_HEIGHT);
         }
 
         if(Gdx.input.getX() < EXITBUTTON_X + EXITBUTTON_WIDTH && Gdx.input.getX() > EXITBUTTON_X && BoardGame.HEIGHT - Gdx.input.getY() < EXITBUTTON_Y + EXITBUTTON_HEIGHT && BoardGame.HEIGHT - Gdx.input.getY() > EXITBUTTON_Y) {
             game.batch.draw(exitButtonActive, EXITBUTTON_X, EXITBUTTON_Y, EXITBUTTON_WIDTH, EXITBUTTON_HEIGHT);
+            if(Gdx.input.isTouched()) {
+                Gdx.app.exit();
+            }
         } else {
             game.batch.draw(exitButtonInactive, EXITBUTTON_X, EXITBUTTON_Y, EXITBUTTON_WIDTH, EXITBUTTON_HEIGHT);
         }
