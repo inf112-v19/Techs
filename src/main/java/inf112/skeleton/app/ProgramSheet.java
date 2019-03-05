@@ -1,4 +1,4 @@
-package inf112.skeleton.app.inWork.inWorkProgramSheet;
+package inf112.skeleton.app;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -14,15 +14,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 /**
  * RULES
- * Save at second checkpoint
- *
- * Power Down button
- *
  * Life tokens == number of life
  *
- * Rench == repair one damage and upgrade/option card
- *
- * Conveyor belt move before each turn
+ * Conveyor belt has higher priority than any card
  *
  * Locked register
  * card is locked and has to be used for each turn
@@ -30,7 +24,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
  *
  * Program Sheet
  * 1) Each player gets (9 - damage) cards start of each turn
- *
  * 2) 5 of these cards are selected for programming
  *       *selected by numbers on keyboard 1-9
  *       *Hurry up timer?
@@ -45,8 +38,10 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
  *
  *damage = show damage. Positioned in middle
  *
- * card holder = shows cards. Positioned on the bottom.
+ *card holder = shows cards. Positioned on the bottom.
  */
+
+
 public class ProgramSheet implements Screen {
 
     private TiledMap map;
