@@ -1,4 +1,4 @@
-package inf112.skeleton.app.inWorkProgramSheet;
+package inf112.skeleton.app.inWork.inWorkProgramSheet;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -6,11 +6,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-
-import java.util.ArrayList;
 
 /**
  * RULES
@@ -49,21 +49,33 @@ import java.util.ArrayList;
  */
 public class ProgramSheet implements Screen {
 
-    //public SpriteBatch batch; //eks lagre kort
-
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
 
-    Texture ProgramCard0;
-    Texture ProgramCard1;
-    Texture ProgramCard2;
-    Texture ProgramCard3;
-    Texture ProgramCard4;
+    private SpriteBatch spriteBatch;
+    private TextureAtlas atlas;
+    private Sprite ProgramCard0;
+    private Sprite ProgramCard1;
+    private Sprite ProgramCard2;
+    private Sprite ProgramCard3;
+    private Sprite ProgramCard4;
+
+    public ProgramSheet(){
+        spriteBatch = new SpriteBatch();
+        atlas = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
+
+        ProgramCard0 = atlas.createSprite("10 U Turn", -1);
+        ProgramCard1 = atlas.createSprite("680 Move 2", -1);
+        ProgramCard2 = atlas.createSprite("680 Move 2", -1);
+        ProgramCard3 = atlas.createSprite("680 Move 2", -1);
+        ProgramCard4 = atlas.createSprite("680 Move 2", -1);
+
+        map = new TmxMapLoader().load("assets/ProgramSheet/ProgramSheet.tmx");
+    }
 
     @Override
     public void show() {
-        map = new TmxMapLoader().load("assets/ProgramSheet/ProgramSheet.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, .3f);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
@@ -77,6 +89,13 @@ public class ProgramSheet implements Screen {
         renderer.setView(camera);
         renderer.render();
 
+        spriteBatch.begin();
+        spriteBatch.draw(ProgramCard0,0,0,94,130);
+        spriteBatch.draw(ProgramCard1,90,0,94,130);
+        spriteBatch.draw(ProgramCard2,180,0,94,130);
+        spriteBatch.draw(ProgramCard3,270,0,94,130);
+        spriteBatch.draw(ProgramCard4,360,0,94,130);
+        spriteBatch.end();
     }
 
     @Override
@@ -101,6 +120,7 @@ public class ProgramSheet implements Screen {
 
     @Override
     public void dispose() {
-
+        spriteBatch.dispose();
+        atlas.dispose();
     }
 }
