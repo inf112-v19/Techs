@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -35,9 +36,17 @@ import java.util.ArrayList;
  */
 public class ProgramSheet implements Screen {
 
+    //public SpriteBatch batch; //eks lagre kort
+
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
+
+    Texture ProgramCard0;
+    Texture ProgramCard1;
+    Texture ProgramCard2;
+    Texture ProgramCard3;
+    Texture ProgramCard4;
 
     @Override
     public void show() {
