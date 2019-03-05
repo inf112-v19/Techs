@@ -8,7 +8,7 @@ import inf112.skeleton.app.inWork.screens.GameScreen;
 import inf112.skeleton.app.inWork.screens.MainMenuScreen;
 
 public class BoardGame extends Game {
-    public static final String TITLE = "RoboRallyNew";
+    public static final String TITLE = "RoboRally";
     public static final int WIDTH = 1280;
     public static final int HEIGHT = 720;
     public SpriteBatch batch;
