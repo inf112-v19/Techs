@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.inWorkProgramSheet;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import java.util.ArrayList;
 
 /**
+ * RULES
  * Save at second checkpoint
  *
  * Power Down button
@@ -33,6 +34,18 @@ import java.util.ArrayList;
  * 2) 5 of these cards are selected for programming
  *       *selected by numbers on keyboard 1-9
  *       *Hurry up timer?
+ */
+
+/**
+ * Layout
+ *
+ *Life tokens = number of lifes player has left.
+ *
+ *Power button = shows power status.
+ *
+ *damage = show damage. Positioned in middle
+ *
+ * card holder = shows cards. Positioned on the bottom.
  */
 public class ProgramSheet implements Screen {
 
