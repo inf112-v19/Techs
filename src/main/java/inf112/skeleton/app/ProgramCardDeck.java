@@ -3,10 +3,10 @@ package inf112.skeleton.app;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Deck {
+public class ProgramCardDeck {
 	ArrayList<ProgramCard> deck;
 	
-	public Deck() {
+	public ProgramCardDeck() {
 		this.deck = new ArrayList<>();
 		makeDeck();
 		shuffle();
