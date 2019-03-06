@@ -1,11 +1,15 @@
 package inf112.skeleton.app;
 
+import java.util.ArrayList;
+
 public class Player implements IPlayer{
 
     String name;
     int health;
     int weight;
     int indexOnGrid;
+    boolean powerDownStatus = false;
+    ArrayList<ProgramCard> playerHand;
     
 
     @Override
@@ -42,6 +46,14 @@ public class Player implements IPlayer{
     @Override
     public void setPlayerIndexOnGrid(int indexOnGrid) {
         this.indexOnGrid = indexOnGrid;
+    }
+    
+    public boolean getPowerDownStatus() {
+    	return powerDownStatus;
+    }
+    
+    public void powerDown() {
+    	powerDownStatus = true;
     }
 
 }

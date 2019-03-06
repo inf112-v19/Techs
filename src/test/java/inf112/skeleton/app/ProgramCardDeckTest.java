@@ -32,8 +32,9 @@ public class ProgramCardDeckTest {
 	}
 	
 	
-	//@Test
+	@Test
 	public void checkResetDeck() {
+		ProgramCardDeck deck = new ProgramCardDeck();
 		ProgramCardDeck deck1 = deck;
 		deck.resetDeck();
 		assertFalse(deck.equals(deck1)); 

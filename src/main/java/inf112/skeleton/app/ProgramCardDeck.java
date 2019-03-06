@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ProgramCardDeck {
-	ArrayList<ProgramCard> deck;
+	ArrayList<IProgramCard> deck;
 	
 	public ProgramCardDeck() {
 		this.deck = new ArrayList<>();
@@ -53,18 +53,22 @@ public class ProgramCardDeck {
 		Collections.shuffle(deck); 
 	}
 	
+	public void clearDeck() {
+		deck.clear();
+	}
+	
+	
 	/**
 	 * Skal lage en ny deck kort og sletta den gammle
 	 */
 	public void resetDeck() {
-		this.deck.clear();
-		//this.deck = new Deck();
-		///this.deck = new Deck(); 
+		clearDeck();
+		new ProgramCardDeck();
 	}
 	
-	public ProgramCard getTopCard() {
+	public IProgramCard getTopCard() {
 		if(deck.isEmpty()) return null;
-		ProgramCard topcard = deck.get(deck.size()-1);
+		IProgramCard topcard = deck.get(deck.size()-1);
 		deck.remove(topcard);
 		return topcard;
 		
@@ -79,7 +83,7 @@ public class ProgramCardDeck {
 	 * @param priority
 	 * @return
 	 */
-	public ProgramCard createCard(CardType type, int priority) {
+	public IProgramCard createCard(CardType type, int priority) {
 		return new ProgramCard(type, priority);
 	}
 	
@@ -91,20 +95,23 @@ public class ProgramCardDeck {
 		return this.deck.size();
 	}
 	
-	public ArrayList<ProgramCard> dealToOnePlayer() {
-			ArrayList<ProgramCard> playersHand = new ArrayList<>();
-			for(int i = 0; i < player.getHealth() - 1; i++) {
-				playersHand.add(getTopCard());				
-			}
-			return playersHand;
+	public void printDeck() {
+        for (IProgramCard card : deck) {
+            System.out.println(card.toString());
+        }
 	}
 	
-	public void dealToAllPlayers() { 
-		for(int i = 0; i < activePlayers.size(); i++) { //mangler arraylist med aktive spelara
-			if(!activePlayers.get(i).powerdown()) { //manglar powerdown boolean
-				dealToOnePlayer();
-			}
-		}
+	public ArrayList<IProgramCard> dealToPlayer(Player player) {
+			ArrayList<IProgramCard> playerHand = new ArrayList<>();
+			for(int i = 0; i < player.getHealth() - 1; i++) {
+				if(deck.isEmpty()) {
+	                System.out.println("Deck is empty... Playerhand currently got " + i + " cards.");
+	                return playerHand;
+				} else {
+					playerHand.add(getTopCard());				
+				}
+	}
+			return playerHand;
 	}
 	
 	
