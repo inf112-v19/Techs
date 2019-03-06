@@ -2,12 +2,11 @@ package inf112.skeleton.app;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.NoSuchElementException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -18,7 +17,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import inf112.skeleton.app.inWork.BoardGame;
 
 public class Board implements Screen {
 
@@ -61,7 +59,9 @@ public class Board implements Screen {
     private Sprite number4;
     private Sprite number5;
 
-    private ArrayList<Integer> selectedCards;
+    private ArrayList<Integer> selectedCardsOld;
+    //order selected, X-pos
+    private HashMap<Integer, Integer> selectedCards;
 
     public Board(RoboRally game) {
         this.game = game;
@@ -72,7 +72,7 @@ public class Board implements Screen {
         atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
         spriteBatchCards = new SpriteBatch();
 
-        selectedCards = new ArrayList<>();
+        selectedCardsOld = new ArrayList<>();
         createNewCards();
     }
     
@@ -123,7 +123,9 @@ public class Board implements Screen {
         spriteBatchCards.draw(cardToSelect6,centerOfScreen + 180,0,94,130);
         spriteBatchCards.draw(cardToSelect7,centerOfScreen + 270,0,94,130);
         spriteBatchCards.draw(cardToSelect8,centerOfScreen + 360,0,94,130);
-        if (!selectedCards.isEmpty())
+        if (true){
+            spriteBatchCards.draw(cardToSelect8,centerOfScreen + 420,0,94,130);
+        }
 
         spriteBatchCards.end();
 
@@ -135,40 +137,48 @@ public class Board implements Screen {
         }
         */
         if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
-            selectedCards.add(0);
-            //System.out.println("card1");
+            if (!selectedCards.containsKey(0))
+                selectedCards.put(0, (int) cardToSelect0.getX() - 47);
         }
 
         if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
-            selectedCards.add(1);
+            if (!selectedCards.containsKey(1))
+                selectedCards.put(1, (int) cardToSelect1.getX() - 47);
         }
 
         if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
-            selectedCards.add(2);
+            if (!selectedCards.containsKey(2))
+                selectedCards.put(2, (int) cardToSelect2.getX() - 47);
         }
 
         if (Gdx.input.isKeyPressed(Keys.NUM_4)) {
-            selectedCards.add(3);
+            if (!selectedCards.containsKey(3))
+                selectedCards.put(3, (int) cardToSelect3.getX() - 47);
         }
 
         if (Gdx.input.isKeyPressed(Keys.NUM_5)) {
-            selectedCards.add(4);
+            if (!selectedCards.containsKey(4))
+                selectedCards.put(4, (int) cardToSelect4.getX() - 47);
         }
 
         if (Gdx.input.isKeyPressed(Keys.NUM_6)) {
-            selectedCards.add(5);
+            if (!selectedCards.containsKey(5))
+                selectedCards.put(5, (int) cardToSelect5.getX() - 47);
         }
 
         if (Gdx.input.isKeyPressed(Keys.NUM_7)) {
-            selectedCards.add(6);
+            if (!selectedCards.containsKey(6))
+                selectedCards.put(6, (int) cardToSelect6.getX() - 47);
         }
 
         if (Gdx.input.isKeyPressed(Keys.NUM_8)) {
-            selectedCards.add(7);
+            if (!selectedCards.containsKey(7))
+                selectedCards.put(7, (int) cardToSelect7.getX() - 47);
         }
 
         if (Gdx.input.isKeyPressed(Keys.NUM_9)) {
-            selectedCards.add(8);
+            if (!selectedCards.containsKey(8))
+                selectedCards.put(8, (int) cardToSelect8.getX() - 47);
         }
 
 
