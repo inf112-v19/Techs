@@ -39,7 +39,7 @@ public class Board implements Screen {
         playersList = new ArrayList<PlayerToken>();
         robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
         movePlayerBrain = new MovePlayer (this, playersList);
-        moveConveyorBelts = new MoveConveyorBelts();
+        moveConveyorBelts = new MoveConveyorBelts(this, playersList);
 
         addPlayerToBoard(new Vector2(0,0), "playerOne");
         addPlayerToBoard(new Vector2(1,0), "playerTwo");
@@ -55,7 +55,14 @@ public class Board implements Screen {
        
         movePlayerOneAndTwo();
         if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-            moveConveyorBelts.processFeature(this, playersList);
+            playersList.get(0).rotatePlayer(1);
+        }
+        if(playersList.get(0).isRotating() != playersList.get(0).isMoving()) {
+            if(playersList.get(0).isRotating()) {
+                System.out.println("Still rotating");
+            } else {
+                System.out.println("Still moving");
+            }
         }
         
         renderer.getBatch().begin();
@@ -92,8 +99,8 @@ public class Board implements Screen {
         return tileLayer.getCell(xPos, yPos) != null;
     }
     
-    public void movePlayer(String name, Direction directionToMove) {
-        movePlayerBrain.movePlayer(directionToMove, getPlayerTokenByName(name));
+    public boolean movePlayer(String name, Direction directionToMove) {
+        return movePlayerBrain.movePlayer(directionToMove, getPlayerTokenByName(name));
     }
     
     /*

@@ -61,12 +61,8 @@ public class MovePlayer {
                 return false;
             }
             playerToMove.moveDirection(Direction.WEST);
-            return true;
-            
-        default:
-            break;
-        
-        }        
+            return true;       
+        }
         return false;
     }
     

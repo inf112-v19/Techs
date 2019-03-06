@@ -6,5 +6,5 @@ public interface IBoardFeature {
     /*
      * Processes the feature 
      */
-    public void processFeature(Board board, ArrayList<PlayerToken> playersList);
+    public void processFeature();
 }

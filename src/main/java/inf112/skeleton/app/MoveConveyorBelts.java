@@ -4,12 +4,19 @@ import java.util.ArrayList;
 
 public class MoveConveyorBelts implements IBoardFeature {
 
+    private Board board;
+    private ArrayList<PlayerToken> playersList;
     private String layerName = "Conveyor";
     private int xPos;
     private int yPos;
     
+    public MoveConveyorBelts(Board board, ArrayList<PlayerToken> playersList) {
+        this.board = board;
+        this.playersList = playersList;
+    }
+    
     @Override
-    public void processFeature(Board board, ArrayList<PlayerToken> playersList) {
+    public void processFeature() {
         for(PlayerToken player : playersList) {
             xPos = player.getXPosition();
             yPos = player.getYPosition();
