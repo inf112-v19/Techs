@@ -3,6 +3,7 @@ package inf112.skeleton.app;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,26 +15,40 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import inf112.skeleton.app.inWork.BoardGame;
 
 public class Board implements Screen {
+
+    public static final float ZOOM_SPEED = 0.03f;
+    public static final float MOVE_SPEED = 16;
+    public static final float ANIMATION_SPEED = 0.08f;
+    public static final int ROBOT_WIDTH_PIXEL = 64;
+    public static final int ROBOT_HEIGHT_PIXEL = 64;
+    public static final int ROBOT_WIDTH = 96;
+    public static final int ROBOT_HEIGHT = 96;
 
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
     
     private ArrayList<PlayerToken> playersList;
-    private float robotSpriteScale = 28;
+    private float robotSpriteScale = 96;
     private Sprite robotSprite;
+
+    RoboRally game;
+
+    public Board(RoboRally game) {
+        this.game = game;
+        playersList = new ArrayList<PlayerToken>();
+        robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
+    }
     
     @Override
     public void show() {
         map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map, .3f);
+        renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
-        camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        
-        playersList = new ArrayList<PlayerToken>();
-        robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
+        camera.setToOrtho(false, RoboRally.WIDTH, RoboRally.HEIGHT);
         
         addPlayerToBoard(new Vector2(0,0), "playerOne");
         addPlayerToBoard(new Vector2(1,0), "playerTwo");
@@ -41,9 +56,6 @@ public class Board implements Screen {
 
     @Override
     public void render(float v) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         renderer.setView(camera);
         renderer.render();
        
@@ -57,6 +69,45 @@ public class Board implements Screen {
             player.draw(renderer.getBatch());
         }
         renderer.getBatch().end();
+
+                /*
+        The code here handles the zoom- and camera movement functions. The drag-functionality might be removed if conflict arise when using
+        the mouse button to click on program cards. The buttons used are WASD for camera-movement and E/Q for ZoomIn/ZoomOut.
+         */
+        if (Gdx.input.isTouched()) {
+            camera.translate(-Gdx.input.getDeltaX(), Gdx.input.getDeltaY());
+            camera.update();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+            camera.zoom += ZOOM_SPEED;
+            camera.update();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            camera.zoom -= ZOOM_SPEED;
+            camera.update();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            camera.translate(0,MOVE_SPEED,0);
+            camera.update();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            camera.translate(0,-MOVE_SPEED,0);
+            camera.update();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            camera.translate(-MOVE_SPEED,0,0);
+            camera.update();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            camera.translate(MOVE_SPEED, 0, 0);
+            camera.update();
+        }
     }
     
     public void addPlayerToBoard(Vector2 startPosition, String playerName) {
@@ -139,7 +190,6 @@ public class Board implements Screen {
         return wallLayer.getCell(xPos, yPos).getTile().getProperties().get(key);
     }
     
-    
     /*
      * Temporary, to move two players on the board
      */
@@ -154,7 +204,7 @@ public class Board implements Screen {
         }else if(Gdx.input.isKeyJustPressed(Keys.LEFT)) {
             movePlayer(Direction.WEST, "playerOne");
         }
-        
+        /*
         if(Gdx.input.isKeyJustPressed(Keys.W)) {
             movePlayer(Direction.NORTH, "playerTwo");
         } else if(Gdx.input.isKeyJustPressed(Keys.S)) {
@@ -164,6 +214,7 @@ public class Board implements Screen {
         }else if(Gdx.input.isKeyJustPressed(Keys.A)) {
             movePlayer(Direction.WEST, "playerTwo");
         }
+        */
     }
     
     private PlayerToken getPlayerByName(String playerName) {
@@ -176,9 +227,7 @@ public class Board implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
-        camera.update();
+
     }
 
     @Override
