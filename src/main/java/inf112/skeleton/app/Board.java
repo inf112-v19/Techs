@@ -59,11 +59,11 @@ public class Board implements Screen {
     private Texture number3;
     private Texture number4;
     private Texture number5;
-    private ArrayList<Integer> numberPosition;
 
-    private boolean oneSelected = false;
+    private ArrayList<Integer> numberXPos;
+    private ArrayList<Integer> numberYPos;
 
-    private ArrayList<Integer> selectedCardsOld;
+    boolean[] hasNotBeenSelected = new boolean[9];
 
     //order selected, X-pos
     private HashMap<Integer, Integer> selectedCards;
@@ -79,7 +79,6 @@ public class Board implements Screen {
 
         spriteBatchCards = new SpriteBatch();
 
-        selectedCardsOld = new ArrayList<>();
         createNewCards();
         setStandardNumberPosition();
     }
@@ -111,7 +110,6 @@ public class Board implements Screen {
         renderer.render();
        
         movePlayerOneAndTwo();
-        
 
         renderer.getBatch().begin();
         
@@ -121,10 +119,8 @@ public class Board implements Screen {
         renderer.getBatch().end();
 
         int centerOfScreen = Gdx.graphics.getWidth()/2;
-        int rightOfScreen = Gdx.graphics.getWidth() - 35;
 
         spriteBatchCards.begin();
-
         spriteBatchCards.draw(cardToSelect0,centerOfScreen - 360,0,94,130);
         spriteBatchCards.draw(cardToSelect1,centerOfScreen - 270,0,94,130);
         spriteBatchCards.draw(cardToSelect2,centerOfScreen - 180,0,94,130);
@@ -135,41 +131,59 @@ public class Board implements Screen {
         spriteBatchCards.draw(cardToSelect7,centerOfScreen + 270,0,94,130);
         spriteBatchCards.draw(cardToSelect8,centerOfScreen + 360,0,94,130);
 
-        spriteBatchCards.draw(number1, rightOfScreen, numberPosition.get(0),200,200);
-        spriteBatchCards.draw(number2, rightOfScreen, numberPosition.get(1),200,200);
-        spriteBatchCards.draw(number3, rightOfScreen, numberPosition.get(2),200,200);
-        spriteBatchCards.draw(number4, rightOfScreen, numberPosition.get(3),200,200);
-        spriteBatchCards.draw(number5, rightOfScreen, numberPosition.get(4),200,200);
+        spriteBatchCards.draw(number1, numberXPos.get(0), numberYPos.get(0),35,35);
+        spriteBatchCards.draw(number2, numberXPos.get(1), numberYPos.get(1),35,35);
+        spriteBatchCards.draw(number3, numberXPos.get(2), numberYPos.get(2),35,35);
+        spriteBatchCards.draw(number4, numberXPos.get(3), numberYPos.get(3),35,35);
+        spriteBatchCards.draw(number5, numberXPos.get(4), numberYPos.get(4),35,35);
         //spriteBatchCards.draw(number1, centerOfScreen + 360,0);
         spriteBatchCards.end();
 
-        if (oneSelected){
-            spriteBatchCards.draw(cardToSelect8,centerOfScreen + 420,0,94,130);
-        }
+        //int numSelectedPos = 50;
 
         if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
-            numberPosition.set(numCardsSelected, centerOfScreen - 360);
-            numCardsSelected++;
+            if (!hasNotBeenSelected[0]) {
+                numberXPos.set(numCardsSelected, centerOfScreen - 330);
+                numberYPos.set(numCardsSelected, 10);
+                hasNotBeenSelected[0] = true;
+                numCardsSelected++;
+            }
         }
 
         if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
-            if (!selectedCards.containsKey(1))
-                selectedCards.put(1, (int) cardToSelect1.getX() - 47);
+            if (!hasNotBeenSelected[1]) {
+                numberXPos.set(numCardsSelected, centerOfScreen - 240);
+                numberYPos.set(numCardsSelected, 10);
+                hasNotBeenSelected[1] = true;
+                numCardsSelected++;
+            }
         }
 
         if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
-            if (!selectedCards.containsKey(2))
-                selectedCards.put(2, (int) cardToSelect2.getX() - 47);
+            if (!hasNotBeenSelected[2]) {
+                numberXPos.set(numCardsSelected, centerOfScreen - 150);
+                numberYPos.set(numCardsSelected, 10);
+                hasNotBeenSelected[2] = true;
+                numCardsSelected++;
+            }
         }
 
         if (Gdx.input.isKeyPressed(Keys.NUM_4)) {
-            if (!selectedCards.containsKey(3))
-                selectedCards.put(3, (int) cardToSelect3.getX() - 47);
+            if (!hasNotBeenSelected[3]) {
+                numberXPos.set(numCardsSelected, centerOfScreen - 90);
+                numberYPos.set(numCardsSelected, 10);
+                hasNotBeenSelected[3] = true;
+                numCardsSelected++;
+            }
         }
 
         if (Gdx.input.isKeyPressed(Keys.NUM_5)) {
-            if (!selectedCards.containsKey(4))
-                selectedCards.put(4, (int) cardToSelect4.getX() - 47);
+            if (!hasNotBeenSelected[4]) {
+                numberXPos.set(numCardsSelected, centerOfScreen - 30);
+                numberYPos.set(numCardsSelected, 10);
+                hasNotBeenSelected[4] = true;
+                numCardsSelected++;
+            }
         }
 
         if (Gdx.input.isKeyPressed(Keys.NUM_6)) {
@@ -242,13 +256,20 @@ public class Board implements Screen {
         number4 = new Texture("assets/ProgramSheet/numbersInCircle/numberFour.png");
         number5 = new Texture("assets/ProgramSheet/numbersInCircle/numberFive.png");
 
-        this.numberPosition = new ArrayList<>();
+        this.numberXPos = new ArrayList<>();
+        this.numberYPos = new ArrayList<>();
 
-        numberPosition.add(160);
-        numberPosition.add(120);
-        numberPosition.add(80);
-        numberPosition.add(40);
-        numberPosition.add(0);
+
+        int rightOfScreen = Gdx.graphics.getWidth() - 35;
+        for (int i = 0; i < 5; i++) {
+            numberXPos.add(rightOfScreen);
+        }
+
+        numberYPos.add(160);
+        numberYPos.add(120);
+        numberYPos.add(80);
+        numberYPos.add(40);
+        numberYPos.add(0);
 
         selectedCards = new HashMap<>();
     }
