@@ -20,6 +20,7 @@ og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 * Git
 * Java
 * Processing
+* Grafikk
 
 **Mathias Madslien** *(Kundekontakt)*
 * IKT
@@ -34,6 +35,7 @@ og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 * IntelliJ
 * Slack
 * Trello
+* Eclipse
 
 ## Prosjektmetodikk
 * Blanding av Kanban og Scrum
@@ -41,6 +43,11 @@ og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 
 ## Oversikt over klasser
 ![KlasseDiagram](/images/UtkastKlassediagram.png)
+
+
+## Grafikk
+![Green robot animation](/assets/AnimatedGreenRobot.gif)
+![Sprite sheet](/assets/GreenRobotSpriteSheet.png)
 
 ## Sluttprodukt:
 Vi ønsker oss et velfungerende program som i første omgang er et minimum viable product. Basic med reglene som gjelder
