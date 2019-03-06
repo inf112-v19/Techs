@@ -53,7 +53,6 @@ public class Board implements Screen {
     private Sprite cardToSelect7;
     private Sprite cardToSelect8;
 
-    private SpriteBatch spriteBatchNumbers;
     private Texture number1;
     private Texture number2;
     private Texture number3;
@@ -63,7 +62,7 @@ public class Board implements Screen {
     private ArrayList<Integer> numberXPos;
     private ArrayList<Integer> numberYPos;
 
-    boolean[] hasNotBeenSelected = new boolean[9];
+    boolean[] hasBeenSelected = new boolean[9];
 
     //order selected, X-pos
     private HashMap<Integer, Integer> selectedCards;
@@ -98,7 +97,6 @@ public class Board implements Screen {
         robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
         movePlayerBrain = new MovePlayer (this, playersList);
         moveConveyorBelts = new MoveConveyorBelts(this, playersList);
-
 
         addPlayerToBoard(new Vector2(0,0), "playerOne");
         addPlayerToBoard(new Vector2(1,0), "playerTwo");
@@ -136,75 +134,95 @@ public class Board implements Screen {
         spriteBatchCards.draw(number3, numberXPos.get(2), numberYPos.get(2),35,35);
         spriteBatchCards.draw(number4, numberXPos.get(3), numberYPos.get(3),35,35);
         spriteBatchCards.draw(number5, numberXPos.get(4), numberYPos.get(4),35,35);
-        //spriteBatchCards.draw(number1, centerOfScreen + 360,0);
         spriteBatchCards.end();
 
-        //int numSelectedPos = 50;
+        if (numCardsSelected < 5) {
+            if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
+                if (!hasBeenSelected[0]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen - 330);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[0] = true;
+                    numCardsSelected++;
+                }
+            }
 
-        if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
-            if (!hasNotBeenSelected[0]) {
-                numberXPos.set(numCardsSelected, centerOfScreen - 330);
-                numberYPos.set(numCardsSelected, 10);
-                hasNotBeenSelected[0] = true;
-                numCardsSelected++;
+            if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
+                if (!hasBeenSelected[1]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen - 240);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[1] = true;
+                    numCardsSelected++;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
+                if (!hasBeenSelected[2]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen - 150);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[2] = true;
+                    numCardsSelected++;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Keys.NUM_4)) {
+                if (!hasBeenSelected[3]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen - 60);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[3] = true;
+                    numCardsSelected++;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Keys.NUM_5)) {
+                if (!hasBeenSelected[4]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen + 30);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[4] = true;
+                    numCardsSelected++;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Keys.NUM_6)) {
+                if (!hasBeenSelected[5]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen + 120);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[5] = true;
+                    numCardsSelected++;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Keys.NUM_7)) {
+                if (!hasBeenSelected[6]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen + 210);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[6] = true;
+                    numCardsSelected++;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Keys.NUM_8)) {
+                if (!hasBeenSelected[7]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen + 300);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[7] = true;
+                    numCardsSelected++;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Keys.NUM_9)) {
+                if (!hasBeenSelected[8]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen + 390);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[8] = true;
+                    numCardsSelected++;
+                }
+            }
+            if (numCardsSelected == 5){
+                //Show ENTER right side in flashing green
+                System.out.println("yolo");
             }
         }
 
-        if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
-            if (!hasNotBeenSelected[1]) {
-                numberXPos.set(numCardsSelected, centerOfScreen - 240);
-                numberYPos.set(numCardsSelected, 10);
-                hasNotBeenSelected[1] = true;
-                numCardsSelected++;
-            }
-        }
-
-        if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
-            if (!hasNotBeenSelected[2]) {
-                numberXPos.set(numCardsSelected, centerOfScreen - 150);
-                numberYPos.set(numCardsSelected, 10);
-                hasNotBeenSelected[2] = true;
-                numCardsSelected++;
-            }
-        }
-
-        if (Gdx.input.isKeyPressed(Keys.NUM_4)) {
-            if (!hasNotBeenSelected[3]) {
-                numberXPos.set(numCardsSelected, centerOfScreen - 90);
-                numberYPos.set(numCardsSelected, 10);
-                hasNotBeenSelected[3] = true;
-                numCardsSelected++;
-            }
-        }
-
-        if (Gdx.input.isKeyPressed(Keys.NUM_5)) {
-            if (!hasNotBeenSelected[4]) {
-                numberXPos.set(numCardsSelected, centerOfScreen - 30);
-                numberYPos.set(numCardsSelected, 10);
-                hasNotBeenSelected[4] = true;
-                numCardsSelected++;
-            }
-        }
-
-        if (Gdx.input.isKeyPressed(Keys.NUM_6)) {
-            if (!selectedCards.containsKey(5))
-                selectedCards.put(5, (int) cardToSelect5.getX() - 47);
-        }
-
-        if (Gdx.input.isKeyPressed(Keys.NUM_7)) {
-            if (!selectedCards.containsKey(6))
-                selectedCards.put(6, (int) cardToSelect6.getX() - 47);
-        }
-
-        if (Gdx.input.isKeyPressed(Keys.NUM_8)) {
-            if (!selectedCards.containsKey(7))
-                selectedCards.put(7, (int) cardToSelect7.getX() - 47);
-        }
-
-        if (Gdx.input.isKeyPressed(Keys.NUM_9)) {
-            if (!selectedCards.containsKey(8))
-                selectedCards.put(8, (int) cardToSelect8.getX() - 47);
-        }
 
 
                 /*
@@ -249,7 +267,6 @@ public class Board implements Screen {
     }
 
     public void setStandardNumberPosition(){
-
         number1 = new Texture("assets/ProgramSheet/numbersInCircle/numberOne.png");
         number2 = new Texture("assets/ProgramSheet/numbersInCircle/numberTwo.png");
         number3 = new Texture("assets/ProgramSheet/numbersInCircle/numberThree.png");
@@ -258,7 +275,6 @@ public class Board implements Screen {
 
         this.numberXPos = new ArrayList<>();
         this.numberYPos = new ArrayList<>();
-
 
         int rightOfScreen = Gdx.graphics.getWidth() - 35;
         for (int i = 0; i < 5; i++) {
