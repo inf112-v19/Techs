@@ -11,23 +11,45 @@ public class PlayerToken extends Sprite {
     private Vector2 movementVelocity = new Vector2();
     private Vector2 position;
     private float speed = 120;
-    private float tileScale = 28.7f;
+    private float tileScale = 96;
     private String playerName;
     private Direction facingDirection;
-    
     
     private boolean movingNorth = true;
     private boolean movingSouth = true;
     private boolean movingEast = true;
     private boolean movingWest = true;
+    
+    private boolean rotatingLeft;
+    private boolean rotatingRight;
+    private int targetRotation;
+    private float rotateSpeed = 400;
    
-    public PlayerToken(Sprite sprite, String playerName, Vector2 startPosition) {
+    public PlayerToken(Sprite sprite, String playerName, Vector2 startPosition, float spriteScale) {
         super(sprite);
-        facingDirection = Direction.NORTH;
+        facingDirection = Direction.SOUTH;
         this.playerName = playerName;
+        
         position = startPosition;
+        setOrigin(spriteScale/2, spriteScale/2);
+        
         setXPositionOnBoard();
         setYPositionOnBoard();
+    }
+    
+    /*
+     * Rotates player 90 degrees clockwise for each numberOfTimes. 90 degrees counterclockwise when numberOfTimes is negative.
+     */
+    public void rotatePlayer(int numberOfTimes) {
+        int directionSum = (((facingDirection.ordinal() + numberOfTimes) % 4) + 4) % 4;
+        facingDirection = Direction.values()[directionSum];
+        
+        targetRotation = (int) (this.getRotation() - (90 * numberOfTimes));
+        if(numberOfTimes < 0) {
+            rotatingRight = true;    
+        } else {
+            rotatingLeft = true;
+        }
     }
     
     public String getName() {
@@ -70,7 +92,7 @@ public class PlayerToken extends Sprite {
     public void update(float delta) {
         animateXPositionOnBoard(delta);
         animateYPositionOnBoard(delta);
-        
+
         if(movingNorth) {
             // position.y * tileScale : translation of player's position to correct number of pixels
             if(getY() >= position.y * tileScale) {
@@ -111,6 +133,22 @@ public class PlayerToken extends Sprite {
         } else {
             movementVelocity.x = 0;
         }
+        
+        if(rotatingLeft) {
+            if(this.getRotation() > targetRotation) {
+                this.rotate(-rotateSpeed * delta);
+            } else {
+                this.setRotation(targetRotation);
+                rotatingLeft = false;
+            }
+        } else if(rotatingRight) {
+            if(this.getRotation() < targetRotation) {
+                this.rotate(rotateSpeed * delta);
+            } else {
+                this.setRotation(targetRotation);
+                rotatingRight = false;
+            }
+        }
     }
     
     public void moveDirection(Direction dir) {
@@ -150,9 +188,5 @@ public class PlayerToken extends Sprite {
     private void moveWest() {
         movingWest = true;
         position.x -= 1;
-    }
-    
-    public boolean isAnimating() {
-        return movingWest || movingEast || movingNorth || movingSouth;
     }
 }
