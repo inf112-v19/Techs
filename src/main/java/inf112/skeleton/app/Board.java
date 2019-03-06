@@ -1,6 +1,7 @@
 package inf112.skeleton.app;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -10,6 +11,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -37,10 +40,40 @@ public class Board implements Screen {
 
     RoboRally game;
 
+    //Card handling
+    private TextureAtlas atlasCards;
+    private Deck deck = new Deck();
+
+    private SpriteBatch spriteBatchCards;
+    private Sprite cardToSelect0;
+    private Sprite cardToSelect1;
+    private Sprite cardToSelect2;
+    private Sprite cardToSelect3;
+    private Sprite cardToSelect4;
+    private Sprite cardToSelect5;
+    private Sprite cardToSelect6;
+    private Sprite cardToSelect7;
+    private Sprite cardToSelect8;
+
+    private Sprite number1;
+    private Sprite number2;
+    private Sprite number3;
+    private Sprite number4;
+    private Sprite number5;
+
+    private ArrayList<Integer> selectedCards;
+
     public Board(RoboRally game) {
         this.game = game;
         playersList = new ArrayList<PlayerToken>();
         robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
+
+        //cards
+        atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
+        spriteBatchCards = new SpriteBatch();
+
+        selectedCards = new ArrayList<>();
+        createNewCards();
     }
     
     private MovePlayer movePlayerBrain;
@@ -78,6 +111,66 @@ public class Board implements Screen {
             player.draw(renderer.getBatch());
         }
         renderer.getBatch().end();
+
+        int centerOfScreen = Gdx.graphics.getWidth()/2;
+        spriteBatchCards.begin();
+        spriteBatchCards.draw(cardToSelect0,centerOfScreen - 360,0,94,130);
+        spriteBatchCards.draw(cardToSelect1,centerOfScreen - 270,0,94,130);
+        spriteBatchCards.draw(cardToSelect2,centerOfScreen - 180,0,94,130);
+        spriteBatchCards.draw(cardToSelect3,centerOfScreen - 90,0,94,130);
+        spriteBatchCards.draw(cardToSelect4,centerOfScreen,0,94,130);
+        spriteBatchCards.draw(cardToSelect5,centerOfScreen + 90,0,94,130);
+        spriteBatchCards.draw(cardToSelect6,centerOfScreen + 180,0,94,130);
+        spriteBatchCards.draw(cardToSelect7,centerOfScreen + 270,0,94,130);
+        spriteBatchCards.draw(cardToSelect8,centerOfScreen + 360,0,94,130);
+        if (!selectedCards.isEmpty())
+
+        spriteBatchCards.end();
+
+
+
+        /*
+        while (!fiveCardsSelected){
+
+        }
+        */
+        if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
+            selectedCards.add(0);
+            //System.out.println("card1");
+        }
+
+        if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
+            selectedCards.add(1);
+        }
+
+        if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
+            selectedCards.add(2);
+        }
+
+        if (Gdx.input.isKeyPressed(Keys.NUM_4)) {
+            selectedCards.add(3);
+        }
+
+        if (Gdx.input.isKeyPressed(Keys.NUM_5)) {
+            selectedCards.add(4);
+        }
+
+        if (Gdx.input.isKeyPressed(Keys.NUM_6)) {
+            selectedCards.add(5);
+        }
+
+        if (Gdx.input.isKeyPressed(Keys.NUM_7)) {
+            selectedCards.add(6);
+        }
+
+        if (Gdx.input.isKeyPressed(Keys.NUM_8)) {
+            selectedCards.add(7);
+        }
+
+        if (Gdx.input.isKeyPressed(Keys.NUM_9)) {
+            selectedCards.add(8);
+        }
+
 
                 /*
         The code here handles the zoom- and camera movement functions. The drag-functionality might be removed if conflict arise when using
@@ -117,6 +210,19 @@ public class Board implements Screen {
             camera.translate(MOVE_SPEED, 0, 0);
             camera.update();
         }
+
+    }
+
+    public void createNewCards(){
+        cardToSelect0 = atlasCards.createSprite("10 U Turn", -1);
+        cardToSelect1 = atlasCards.createSprite("320 Rotate Right", -1);
+        cardToSelect2 = atlasCards.createSprite("280 Rotate Right", -1);
+        cardToSelect3 = atlasCards.createSprite("520 Move 1", -1);
+        cardToSelect4 = atlasCards.createSprite("640 Move 1", -1);
+        cardToSelect5 = atlasCards.createSprite("710 Move 2", -1);
+        cardToSelect6 = atlasCards.createSprite("140 Rotate Right", -1);
+        cardToSelect7 = atlasCards.createSprite("510 Move 1", -1);
+        cardToSelect8 = atlasCards.createSprite("690 Move 2", -1);
     }
     
     /*
@@ -148,7 +254,7 @@ public class Board implements Screen {
     }
     
     public boolean movePlayer(String name, Direction directionToMove) {
-        return movePlayerBrain.movePlayer(directionToMove, getPlayerTokenByName(name));
+        return movePlayerBrain.movePlayer(directionToMove, getPlayerByName(name));
     }
     
 
@@ -195,6 +301,7 @@ public class Board implements Screen {
                 return player;
 
         }
+        return null;
     }
 
     @Override
