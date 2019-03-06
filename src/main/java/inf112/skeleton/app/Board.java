@@ -53,15 +53,21 @@ public class Board implements Screen {
     private Sprite cardToSelect7;
     private Sprite cardToSelect8;
 
-    private Sprite number1;
-    private Sprite number2;
-    private Sprite number3;
-    private Sprite number4;
-    private Sprite number5;
+    private SpriteBatch spriteBatchNumbers;
+    private Texture number1;
+    private Texture number2;
+    private Texture number3;
+    private Texture number4;
+    private Texture number5;
+    private ArrayList<Integer> numberPosition;
+
+    private boolean oneSelected = false;
 
     private ArrayList<Integer> selectedCardsOld;
+
     //order selected, X-pos
     private HashMap<Integer, Integer> selectedCards;
+    private int numCardsSelected = 0;
 
     public Board(RoboRally game) {
         this.game = game;
@@ -70,10 +76,12 @@ public class Board implements Screen {
 
         //cards
         atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
+
         spriteBatchCards = new SpriteBatch();
 
         selectedCardsOld = new ArrayList<>();
         createNewCards();
+        setStandardNumberPosition();
     }
     
     private MovePlayer movePlayerBrain;
@@ -113,7 +121,10 @@ public class Board implements Screen {
         renderer.getBatch().end();
 
         int centerOfScreen = Gdx.graphics.getWidth()/2;
+        int rightOfScreen = Gdx.graphics.getWidth() - 35;
+
         spriteBatchCards.begin();
+
         spriteBatchCards.draw(cardToSelect0,centerOfScreen - 360,0,94,130);
         spriteBatchCards.draw(cardToSelect1,centerOfScreen - 270,0,94,130);
         spriteBatchCards.draw(cardToSelect2,centerOfScreen - 180,0,94,130);
@@ -123,22 +134,22 @@ public class Board implements Screen {
         spriteBatchCards.draw(cardToSelect6,centerOfScreen + 180,0,94,130);
         spriteBatchCards.draw(cardToSelect7,centerOfScreen + 270,0,94,130);
         spriteBatchCards.draw(cardToSelect8,centerOfScreen + 360,0,94,130);
-        if (true){
+
+        spriteBatchCards.draw(number1, rightOfScreen, numberPosition.get(0),200,200);
+        spriteBatchCards.draw(number2, rightOfScreen, numberPosition.get(1),200,200);
+        spriteBatchCards.draw(number3, rightOfScreen, numberPosition.get(2),200,200);
+        spriteBatchCards.draw(number4, rightOfScreen, numberPosition.get(3),200,200);
+        spriteBatchCards.draw(number5, rightOfScreen, numberPosition.get(4),200,200);
+        //spriteBatchCards.draw(number1, centerOfScreen + 360,0);
+        spriteBatchCards.end();
+
+        if (oneSelected){
             spriteBatchCards.draw(cardToSelect8,centerOfScreen + 420,0,94,130);
         }
 
-        spriteBatchCards.end();
-
-
-
-        /*
-        while (!fiveCardsSelected){
-
-        }
-        */
         if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
-            if (!selectedCards.containsKey(0))
-                selectedCards.put(0, (int) cardToSelect0.getX() - 47);
+            numberPosition.set(numCardsSelected, centerOfScreen - 360);
+            numCardsSelected++;
         }
 
         if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
@@ -221,6 +232,25 @@ public class Board implements Screen {
             camera.update();
         }
 
+    }
+
+    public void setStandardNumberPosition(){
+
+        number1 = new Texture("assets/ProgramSheet/numbersInCircle/numberOne.png");
+        number2 = new Texture("assets/ProgramSheet/numbersInCircle/numberTwo.png");
+        number3 = new Texture("assets/ProgramSheet/numbersInCircle/numberThree.png");
+        number4 = new Texture("assets/ProgramSheet/numbersInCircle/numberFour.png");
+        number5 = new Texture("assets/ProgramSheet/numbersInCircle/numberFive.png");
+
+        this.numberPosition = new ArrayList<>();
+
+        numberPosition.add(160);
+        numberPosition.add(120);
+        numberPosition.add(80);
+        numberPosition.add(40);
+        numberPosition.add(0);
+
+        selectedCards = new HashMap<>();
     }
 
     public void createNewCards(){
