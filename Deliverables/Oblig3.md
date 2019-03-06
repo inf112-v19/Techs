@@ -52,7 +52,12 @@ for å kunne spille.
 * Bevegelse på brikke
 
 ## Krav for andre delinnlevering
-
+* Få på plass scaling
+* ProgramCard objects
+* Sprites
+* Skrive mer tester
+* Basic UserInterface
+                            
 ## Oppsummering/refleksjonsnotat
 
 ## Prosjektstruktur
@@ -82,22 +87,15 @@ for å kunne spille.
  * Gruppemedlemmene skal skrive tester til sin egen kode i steden for at noen skriver tester til alt
  * Være flinkere til å commite ofte
  * Dele opp trello tasks i mindre spesifikke oppgaver 
- 
- 
-
-#### Hva som gikk bra 
- * Vi synes at vi har gjort et godt valg med å fokusere på git i begynnelsen og vi har begynt å få god forståelse av det.
-
- * Fornøyd med gruppen så langt. Fått inntrykk av at alle er motiverte. 
-
- * Renze og Mathias M. har gjort en ekstra god jobb denne første iterasjonen, fordi resten av gruppa har ikke kunnet fokusere like mye på prosjektet pga. konteeksamen som er rett rundt hjørnet. De har jobbet sammen ved hjelp av parprogrammering.
- 
+                  
+ ## Krav
+ * Backlogen består av fremtidige krav, mens todo er nåværende krav. Det er kundekontaktens oppgave 
+  å flytte krav fra backlog til todo.
+ * Hovudkriteriene for å verifisere kravene er grønne tester, for så å flytte de over på done på trello.
+ * Kravene vi har fullført er de som ligger under done i trello.
+ * Vi har fått gjort mer enn forventet siden forrige innlevering. 
 
 
- * Vi nådde målene vi hadde satt oss til obligen, men vi skal også sette oss mer langsiktige mål som vi kan bruke til å måle progressjonen vår, i tillegg  til de vanlige mindre målene.
 
-#### Hva som gikk dårlig
- * Litt dårlig kommunikasjon på hva de ulike jobber med, så det er noe vi må bli bedre på. Alle må altså få bedre kontroll på Trello.
 
- * Vi skal se nærmere på og vurderer git project board, og om det er noe vi vil bruke i stedet for Trello.
 
