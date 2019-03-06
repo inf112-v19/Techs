@@ -91,7 +91,23 @@ public class ProgramCardDeck {
 		return this.deck.size();
 	}
 	
+	public ArrayList<ProgramCard> dealToOnePlayer() {
+			ArrayList<ProgramCard> playersHand = new ArrayList<>();
+			for(int i = 0; i < player.getHealth() - 1; i++) {
+				playersHand.add(getTopCard());				
+			}
+			return playersHand;
+	}
+	
+	public void dealToAllPlayers() { 
+		for(int i = 0; i < activePlayers.size(); i++) { //mangler arraylist med aktive spelara
+			if(!activePlayers.get(i).powerdown()) { //manglar powerdown boolean
+				dealToOnePlayer();
+			}
+		}
+	}
 	
 	
+	 
 	
 }

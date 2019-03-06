@@ -6,6 +6,7 @@ public class Player implements IPlayer{
     int health;
     int weight;
     int indexOnGrid;
+    
 
     @Override
     public int getPlayerIndexOnGrid() {
