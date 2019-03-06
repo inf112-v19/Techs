@@ -7,9 +7,11 @@ public class Main {
 
     public static void main(String[] args) {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.title = "RoboRally";
-        cfg.width = 480;
-        cfg.height = 480;
+        cfg.title = RoboRally.TITLE;
+        cfg.width = RoboRally.WIDTH;
+        cfg.height = RoboRally.HEIGHT;
+        cfg.resizable = false;
+        cfg.foregroundFPS = 60;
 
         new LwjglApplication(new RoboRally(), cfg);
     }
