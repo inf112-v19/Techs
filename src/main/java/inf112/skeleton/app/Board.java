@@ -54,16 +54,6 @@ public class Board implements Screen {
         renderer.render();
        
         movePlayerOneAndTwo();
-        if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-            playersList.get(0).rotatePlayer(1);
-        }
-        if(playersList.get(0).isRotating() != playersList.get(0).isMoving()) {
-            if(playersList.get(0).isRotating()) {
-                System.out.println("Still rotating");
-            } else {
-                System.out.println("Still moving");
-            }
-        }
         
         renderer.getBatch().begin();
         
@@ -74,6 +64,9 @@ public class Board implements Screen {
         renderer.getBatch().end();
     }
     
+    /*
+     * Adds player to the board at specified position
+     */
     public void addPlayerToBoard(Vector2 startPosition, String playerName) {
         PlayerToken newPlayer = new PlayerToken(robotSprite, playerName, startPosition, robotSpriteScale);
         newPlayer.setSize(robotSpriteScale, robotSpriteScale);
@@ -101,6 +94,13 @@ public class Board implements Screen {
     
     public boolean movePlayer(String name, Direction directionToMove) {
         return movePlayerBrain.movePlayer(directionToMove, getPlayerTokenByName(name));
+    }
+    
+    /*
+     * Moves all players standing on conveyer belts
+     */
+    public void moveConveyorBelts() {
+        moveConveyorBelts.processFeature();
     }
     
     /*

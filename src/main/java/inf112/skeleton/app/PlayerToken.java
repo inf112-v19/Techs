@@ -189,16 +189,4 @@ public class PlayerToken extends Sprite {
         movingWest = true;
         position.x -= 1;
     }
-    
-    public boolean isAnimating() {
-        return movingWest || movingEast || movingNorth || movingSouth || rotatingLeft || rotatingRight;
-    }
-    
-    public boolean isMoving() {
-        return movingWest || movingEast || movingNorth || movingSouth;
-    }
-    
-    public boolean isRotating() {
-        return rotatingLeft || rotatingRight;
-    }
 }
