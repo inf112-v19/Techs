@@ -43,13 +43,23 @@ public class Board implements Screen {
         robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
     }
     
+    private MovePlayer movePlayerBrain;
+    private IBoardFeature moveConveyorBelts;
+    
     @Override
     public void show() {
         map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
+
         camera.setToOrtho(false, RoboRally.WIDTH, RoboRally.HEIGHT);
         
+        playersList = new ArrayList<PlayerToken>();
+        robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
+        movePlayerBrain = new MovePlayer (this, playersList);
+        moveConveyorBelts = new MoveConveyorBelts(this, playersList);
+
+
         addPlayerToBoard(new Vector2(0,0), "playerOne");
         addPlayerToBoard(new Vector2(1,0), "playerTwo");
     }
@@ -61,8 +71,7 @@ public class Board implements Screen {
        
         movePlayerOneAndTwo();
         
-        PlayerToken playerOne = getPlayerByName("playerOne");
-        
+
         renderer.getBatch().begin();
         
         for (PlayerToken player : playersList) {
@@ -110,109 +119,72 @@ public class Board implements Screen {
         }
     }
     
+    /*
+     * Adds player to the board at specified position
+     */
     public void addPlayerToBoard(Vector2 startPosition, String playerName) {
-        PlayerToken newPlayer = new PlayerToken(robotSprite, playerName, startPosition);
+        PlayerToken newPlayer = new PlayerToken(robotSprite, playerName, startPosition, robotSpriteScale);
         newPlayer.setSize(robotSpriteScale, robotSpriteScale);
         playersList.add(newPlayer);
-    }
-    
-    public boolean movePlayer(Direction directionToMove, String playerName) {
-        PlayerToken playerToMove = getPlayerByName(playerName);
-        int xPos = playerToMove.getXPosition();
-        int yPos = playerToMove.getYPosition();
-        
-        switch(directionToMove) {
-        case EAST:
-            if(cellContainsLayerWithKey(xPos, yPos, "Wall", "wallEast") != null 
-                || cellContainsLayerWithKey(xPos + 1, yPos, "Wall", "wallWest") != null) {
-                return false;
-            }
-            if(!moveOtherPlayers(xPos + 1, yPos, playerName, directionToMove))
-                return false;
-            playerToMove.moveDirection(Direction.EAST);            
-            return true;
-            
-        case NORTH:
-            if(cellContainsLayerWithKey(xPos, yPos, "Wall", "wallNorth") != null || 
-                cellContainsLayerWithKey(xPos, yPos + 1, "Wall", "wallSouth") != null) {
-                return false;
-            }
-            if(!moveOtherPlayers(xPos, yPos + 1, playerName, directionToMove))
-                return false;
-            playerToMove.moveDirection(Direction.NORTH);
-            return true;
-            
-        case SOUTH:
-            if(cellContainsLayerWithKey(xPos, yPos, "Wall", "wallSouth") != null || 
-                cellContainsLayerWithKey(xPos, yPos - 1, "Wall", "wallNorth") != null) {
-                return false;
-            }
-            if(!moveOtherPlayers(xPos, yPos - 1, playerName, directionToMove)) {
-                return false;
-            }
-            playerToMove.moveDirection(Direction.SOUTH);
-            return true;
-            
-        case WEST:
-            if(cellContainsLayerWithKey(xPos, yPos, "Wall", "wallWest") != null || 
-                cellContainsLayerWithKey(xPos - 1, yPos, "Wall", "wallEast") != null) {
-                return false;
-            }
-            if(!moveOtherPlayers(xPos - 1, yPos, playerName, directionToMove)) {
-                return false;
-            }
-            playerToMove.moveDirection(Direction.WEST);
-            return true;
-            
-        default:
-            break;
-        
-        }        
-        return false;
+        movePlayerBrain.updatePlayersList(playersList);
     }
     
     /*
-     * Moves player standing at (xPos, yPos) to the given direction
+     * Checks if tile at (xPos, yPos) has a property named key in the specified layer 
      */
-    private boolean moveOtherPlayers(int xPos, int yPos, String playerToMove, Direction directionToMove) {
-        for(PlayerToken player : playersList) {
-            if(player.getXPosition() == xPos && player.getYPosition() == yPos) {
-                return movePlayer(directionToMove, player.getName());
-            }
-        }
-        return true;
-    }
-
-    private Object cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
-        TiledMapTileLayer wallLayer = (TiledMapTileLayer) map.getLayers().get(layer);
-        if(wallLayer.getCell(xPos, yPos) == null)
-            return null;
-        return wallLayer.getCell(xPos, yPos).getTile().getProperties().get(key);
+    public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
+        TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
+        if(tileLayer.getCell(xPos, yPos) == null)
+            return false;
+        return tileLayer.getCell(xPos, yPos).getTile().getProperties().containsKey(key);
     }
     
+    /*
+     * Checks if tile at (xPos, yPos) is in the specified layer
+     */
+    public boolean cellContainsLayer(int xPos, int yPos, String layer) {
+        TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
+        return tileLayer.getCell(xPos, yPos) != null;
+    }
+    
+    public boolean movePlayer(String name, Direction directionToMove) {
+        return movePlayerBrain.movePlayer(directionToMove, getPlayerTokenByName(name));
+    }
+    
+
+    /*
+     * Moves all players standing on conveyer belts
+     */
+    public void moveConveyorBelts() {
+        moveConveyorBelts.processFeature();
+    }
+    
+
     /*
      * Temporary, to move two players on the board
      */
     private void movePlayerOneAndTwo() {
         // As proof of concept:
         if(Gdx.input.isKeyJustPressed(Keys.UP)) {
-            movePlayer(Direction.NORTH, "playerOne");
+            movePlayerBrain.movePlayer(Direction.NORTH, playersList.get(0));
         } else if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
-            movePlayer(Direction.SOUTH, "playerOne");
+            movePlayerBrain.movePlayer(Direction.SOUTH, playersList.get(0));
         } else if(Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
-            movePlayer(Direction.EAST, "playerOne");
+            movePlayerBrain.movePlayer(Direction.EAST, playersList.get(0));
         }else if(Gdx.input.isKeyJustPressed(Keys.LEFT)) {
-            movePlayer(Direction.WEST, "playerOne");
+            movePlayerBrain.movePlayer(Direction.WEST, playersList.get(0));
         }
         /*
         if(Gdx.input.isKeyJustPressed(Keys.W)) {
-            movePlayer(Direction.NORTH, "playerTwo");
+            movePlayerBrain.movePlayer(Direction.NORTH, playersList.get(1));
         } else if(Gdx.input.isKeyJustPressed(Keys.S)) {
-            movePlayer(Direction.SOUTH, "playerTwo");
+            movePlayerBrain.movePlayer(Direction.SOUTH, playersList.get(1));
         } else if(Gdx.input.isKeyJustPressed(Keys.D)) {
-            movePlayer(Direction.EAST, "playerTwo");
+            movePlayerBrain.movePlayer(Direction.EAST, playersList.get(1));
         }else if(Gdx.input.isKeyJustPressed(Keys.A)) {
-            movePlayer(Direction.WEST, "playerTwo");
+
+            movePlayerBrain.movePlayer(Direction.WEST, playersList.get(1));
+
         }
         */
     }
@@ -221,8 +193,8 @@ public class Board implements Screen {
         for(PlayerToken player : playersList) {
             if(player.getName().equals(playerName))
                 return player;
+
         }
-        throw new NoSuchElementException("There is no player in the grid by the name " + playerName);
     }
 
     @Override
