@@ -101,6 +101,6 @@ Vi ønsker oss et velfungerende program som i første omgang er et minimum viabl
 * Om noen står fast er gruppen veldig behjelpelig
 * God struktur i Git(pushing/merging/branches)
 
-**Hva som gikk dårlig*
+**Hva som gikk dårlig**
 
 * Lite som har gått dårlig annet enn som sagt at vi kan bli bedre på trello.
