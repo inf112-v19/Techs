@@ -42,7 +42,7 @@ og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 * Parprogrammering
 
 ## Oversikt over klasser
-![KlasseDiagram](/images/UtkastKlassediagram.png)
+![KlasseDiagram](/images/Klassediagram.png)
 
 
 ## Grafikk
