@@ -58,8 +58,7 @@ public class Deck {
 	}
 	
 	public ProgramCard getTopCard() {
-		
-		return null;	
+		return deck.remove(0);
 	}
 	
 	

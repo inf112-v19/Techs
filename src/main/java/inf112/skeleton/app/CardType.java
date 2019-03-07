@@ -10,7 +10,7 @@ public enum CardType {
 	MOVEMENT_3,
 	MOVEMENT_BACK;
 	
-	
+	/*
 	public String toString() {
 		switch(this) {
 		case ROTATE_LEFT: return "Turn left";
@@ -23,4 +23,5 @@ public enum CardType {
 		}
 		throw new IllegalArgumentException("There exists no such type of card"); //Er detta riktig type exeption?
 	}
+	*/
 }

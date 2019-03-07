@@ -22,7 +22,7 @@ public class ProgramCard implements IProgramCard {
 	
 	@Override
 	public String toString() {
-		return cardType.toString() + priority;
+		return priority + " " + cardType.toString();
 	}
 
 }
