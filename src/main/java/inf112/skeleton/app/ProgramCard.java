@@ -6,8 +6,8 @@ public class ProgramCard implements IProgramCard {
 	int priority;
 
 	public ProgramCard(CardType cardType, int priority) {
-		cardType = this.cardType;
-		priority = this.priority;
+		this.cardType = cardType;
+		this.priority = priority;
 	}
 
 	@Override
