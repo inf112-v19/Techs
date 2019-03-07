@@ -291,6 +291,13 @@ public class Board implements Screen {
     }
 
     public void createNewCards(){
+        //ArrayList<ProgramCard> cardsToSelect = new ArrayList<>();
+        //System.out.println(deck.getTopCard().priority);
+        /*
+        for (int i = 0; i < 9; i++) {
+            cardsToSelect.add(deck.getTopCard());
+        }
+        */
         cardToSelect0 = atlasCards.createSprite("10 U_TURN", -1);
         cardToSelect1 = atlasCards.createSprite("320 ROTATE_RIGHT", -1);
         cardToSelect2 = atlasCards.createSprite("280 ROTATE_RIGHT", -1);
