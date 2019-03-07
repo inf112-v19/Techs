@@ -4,10 +4,12 @@ public class ProgramCard implements IProgramCard {
 
 	CardType cardType;
 	int priority;
+	boolean locked;
 
 	public ProgramCard(CardType cardType, int priority) {
 		cardType = this.cardType;
 		priority = this.priority;
+		this.locked = false;
 	}
 
 	@Override
@@ -23,6 +25,14 @@ public class ProgramCard implements IProgramCard {
 	@Override
 	public String toString() {
 		return cardType.toString() + priority;
+	}
+	
+	public void setLocked() {
+		locked = true;
+	}
+	
+	public void setUnlocked() {
+		locked = false;
 	}
 
 }
