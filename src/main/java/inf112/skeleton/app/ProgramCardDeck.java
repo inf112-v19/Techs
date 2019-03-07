@@ -16,7 +16,7 @@ public class ProgramCardDeck {
 	 * Fills the deck
 	 */
 	public void makeDeck() {
-		for(int p = 80; p <= 420; p += 20) {
+			for(int p = 80; p <= 420; p += 20) {
 			deck.add(createCard(CardType.ROTATE_RIGHT, p));
 			}
 		
@@ -63,7 +63,9 @@ public class ProgramCardDeck {
 	 */
 	public void resetDeck() {
 		clearDeck();
-		new ProgramCardDeck();
+		makeDeck();
+		shuffle();
+		
 	}
 	
 	public IProgramCard getTopCard() {
@@ -101,9 +103,16 @@ public class ProgramCardDeck {
         }
 	}
 	
-	public ArrayList<IProgramCard> dealToPlayer(Player player) {
+	/**
+	 * metode for å dele ut kort til en spiller
+	 * foreløpig står playeerHealth alltid til 10 før me får ein metode for den
+	 * @param player
+	 * @return
+	 */
+	public ArrayList<IProgramCard> dealToPlayer() {
+			int playerHealth = 10;
 			ArrayList<IProgramCard> playerHand = new ArrayList<>();
-			for(int i = 0; i < player.getHealth() - 1; i++) {
+			for(int i = 0; i < playerHealth - 1; i++) {
 				if(deck.isEmpty()) {
 	                System.out.println("Deck is empty... Playerhand currently got " + i + " cards.");
 	                return playerHand;

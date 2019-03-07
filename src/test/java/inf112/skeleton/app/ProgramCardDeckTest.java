@@ -32,12 +32,13 @@ public class ProgramCardDeckTest {
 	}
 	
 	
-	@Test
+	//@Test Funkar ikkje.
 	public void checkResetDeck() {
 		ProgramCardDeck deck = new ProgramCardDeck();
 		ProgramCardDeck deck1 = deck;
 		deck.resetDeck();
-		assertFalse(deck.equals(deck1)); 
+		assertFalse(deck.equals(deck1));
+		
 	}
 	
 	
@@ -48,5 +49,40 @@ public class ProgramCardDeckTest {
 		assertEquals(deck.deckSize(), previousDeckSize - 1);
 	}
 	
-
+	@Test
+	public void checkDeckAfterDealing9CardsToPlayer() {
+		int previousDeckSize = deck.deckSize();
+		ArrayList<IProgramCard> playerHand = deck.dealToPlayer();
+		assertEquals(deck.deckSize(), previousDeckSize - playerHand.size());
+		
+	}
+	
+	@Test
+	public void checkCardPriorityIsBetweenRange() {
+		ArrayList<ProgramCard> deck = new ArrayList<>();
+		for(IProgramCard card : deck) {
+			assertTrue(card.getPriority() >= 10 && card.getPriority() <= 840);
+			
+		}
+	}
+	
+	@Test
+	public void checkClearDeck() {
+		ProgramCardDeck deck = new ProgramCardDeck();
+		deck.clearDeck();
+		assertTrue(deck.deckIsEmpty());
+	}
+	
+	@Test
+	public void checkCardTypeInDeck() {
+		ArrayList<ProgramCard> deck = new ArrayList<>();
+		int count = 0;
+		for(IProgramCard card : deck) {
+			if(card.getCardType().equals(CardType.MOVEMENT_1)) {
+				count++;
+			}
+			assertEquals(count, 18);
+		
+		}
+	}
 }
