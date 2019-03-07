@@ -1,21 +1,22 @@
 package inf112.skeleton.app;
 
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
+import java.util.HashMap;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import inf112.skeleton.app.inWork.BoardGame;
 
 public class Board implements Screen {
 
@@ -37,10 +38,48 @@ public class Board implements Screen {
 
     RoboRally game;
 
+    //Card handling
+    private TextureAtlas atlasCards;
+    private Deck deck = new Deck();
+
+    private SpriteBatch spriteBatchCards;
+    private Sprite cardToSelect0;
+    private Sprite cardToSelect1;
+    private Sprite cardToSelect2;
+    private Sprite cardToSelect3;
+    private Sprite cardToSelect4;
+    private Sprite cardToSelect5;
+    private Sprite cardToSelect6;
+    private Sprite cardToSelect7;
+    private Sprite cardToSelect8;
+
+    private Texture number1;
+    private Texture number2;
+    private Texture number3;
+    private Texture number4;
+    private Texture number5;
+
+    private ArrayList<Integer> numberXPos;
+    private ArrayList<Integer> numberYPos;
+
+    boolean[] hasBeenSelected = new boolean[9];
+
+    //order selected, X-pos
+    private HashMap<Integer, Integer> selectedCards;
+    private int numCardsSelected = 0;
+
     public Board(RoboRally game) {
         this.game = game;
         playersList = new ArrayList<PlayerToken>();
         robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
+
+        //cards
+        atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
+
+        spriteBatchCards = new SpriteBatch();
+
+        createNewCards();
+        setStandardNumberPosition();
     }
     
     private MovePlayer movePlayerBrain;
@@ -59,7 +98,6 @@ public class Board implements Screen {
         movePlayerBrain = new MovePlayer (this, playersList);
         moveConveyorBelts = new MoveConveyorBelts(this, playersList);
 
-
         addPlayerToBoard(new Vector2(0,0), "playerOne");
         addPlayerToBoard(new Vector2(1,0), "playerTwo");
     }
@@ -70,7 +108,6 @@ public class Board implements Screen {
         renderer.render();
        
         movePlayerOneAndTwo();
-        
 
         renderer.getBatch().begin();
         
@@ -78,6 +115,115 @@ public class Board implements Screen {
             player.draw(renderer.getBatch());
         }
         renderer.getBatch().end();
+
+        int centerOfScreen = Gdx.graphics.getWidth()/2;
+
+        spriteBatchCards.begin();
+        spriteBatchCards.draw(cardToSelect0,centerOfScreen - 360,0,94,130);
+        spriteBatchCards.draw(cardToSelect1,centerOfScreen - 270,0,94,130);
+        spriteBatchCards.draw(cardToSelect2,centerOfScreen - 180,0,94,130);
+        spriteBatchCards.draw(cardToSelect3,centerOfScreen - 90,0,94,130);
+        spriteBatchCards.draw(cardToSelect4,centerOfScreen,0,94,130);
+        spriteBatchCards.draw(cardToSelect5,centerOfScreen + 90,0,94,130);
+        spriteBatchCards.draw(cardToSelect6,centerOfScreen + 180,0,94,130);
+        spriteBatchCards.draw(cardToSelect7,centerOfScreen + 270,0,94,130);
+        spriteBatchCards.draw(cardToSelect8,centerOfScreen + 360,0,94,130);
+
+        spriteBatchCards.draw(number1, numberXPos.get(0), numberYPos.get(0),35,35);
+        spriteBatchCards.draw(number2, numberXPos.get(1), numberYPos.get(1),35,35);
+        spriteBatchCards.draw(number3, numberXPos.get(2), numberYPos.get(2),35,35);
+        spriteBatchCards.draw(number4, numberXPos.get(3), numberYPos.get(3),35,35);
+        spriteBatchCards.draw(number5, numberXPos.get(4), numberYPos.get(4),35,35);
+        spriteBatchCards.end();
+
+        if (numCardsSelected < 5) {
+            if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
+                if (!hasBeenSelected[0]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen - 330);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[0] = true;
+                    numCardsSelected++;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Keys.NUM_2)) {
+                if (!hasBeenSelected[1]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen - 240);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[1] = true;
+                    numCardsSelected++;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Keys.NUM_3)) {
+                if (!hasBeenSelected[2]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen - 150);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[2] = true;
+                    numCardsSelected++;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Keys.NUM_4)) {
+                if (!hasBeenSelected[3]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen - 60);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[3] = true;
+                    numCardsSelected++;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Keys.NUM_5)) {
+                if (!hasBeenSelected[4]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen + 30);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[4] = true;
+                    numCardsSelected++;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Keys.NUM_6)) {
+                if (!hasBeenSelected[5]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen + 120);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[5] = true;
+                    numCardsSelected++;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Keys.NUM_7)) {
+                if (!hasBeenSelected[6]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen + 210);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[6] = true;
+                    numCardsSelected++;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Keys.NUM_8)) {
+                if (!hasBeenSelected[7]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen + 300);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[7] = true;
+                    numCardsSelected++;
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Keys.NUM_9)) {
+                if (!hasBeenSelected[8]) {
+                    numberXPos.set(numCardsSelected, centerOfScreen + 390);
+                    numberYPos.set(numCardsSelected, 10);
+                    hasBeenSelected[8] = true;
+                    numCardsSelected++;
+                }
+            }
+            if (numCardsSelected == 5){
+                //Show ENTER right side in flashing green
+                System.out.println("yolo");
+            }
+        }
+
+
 
                 /*
         The code here handles the zoom- and camera movement functions. The drag-functionality might be removed if conflict arise when using
@@ -117,6 +263,43 @@ public class Board implements Screen {
             camera.translate(MOVE_SPEED, 0, 0);
             camera.update();
         }
+
+    }
+
+    public void setStandardNumberPosition(){
+        number1 = new Texture("assets/ProgramSheet/numbersInCircle/numberOne.png");
+        number2 = new Texture("assets/ProgramSheet/numbersInCircle/numberTwo.png");
+        number3 = new Texture("assets/ProgramSheet/numbersInCircle/numberThree.png");
+        number4 = new Texture("assets/ProgramSheet/numbersInCircle/numberFour.png");
+        number5 = new Texture("assets/ProgramSheet/numbersInCircle/numberFive.png");
+
+        this.numberXPos = new ArrayList<>();
+        this.numberYPos = new ArrayList<>();
+
+        int rightOfScreen = Gdx.graphics.getWidth() - 35;
+        for (int i = 0; i < 5; i++) {
+            numberXPos.add(rightOfScreen);
+        }
+
+        numberYPos.add(160);
+        numberYPos.add(120);
+        numberYPos.add(80);
+        numberYPos.add(40);
+        numberYPos.add(0);
+
+        selectedCards = new HashMap<>();
+    }
+
+    public void createNewCards(){
+        cardToSelect0 = atlasCards.createSprite("10 U Turn", -1);
+        cardToSelect1 = atlasCards.createSprite("320 Rotate Right", -1);
+        cardToSelect2 = atlasCards.createSprite("280 Rotate Right", -1);
+        cardToSelect3 = atlasCards.createSprite("520 Move 1", -1);
+        cardToSelect4 = atlasCards.createSprite("640 Move 1", -1);
+        cardToSelect5 = atlasCards.createSprite("710 Move 2", -1);
+        cardToSelect6 = atlasCards.createSprite("140 Rotate Right", -1);
+        cardToSelect7 = atlasCards.createSprite("510 Move 1", -1);
+        cardToSelect8 = atlasCards.createSprite("690 Move 2", -1);
     }
     
     /*
@@ -148,7 +331,7 @@ public class Board implements Screen {
     }
     
     public boolean movePlayer(String name, Direction directionToMove) {
-        return movePlayerBrain.movePlayer(directionToMove, getPlayerTokenByName(name));
+        return movePlayerBrain.movePlayer(directionToMove, getPlayerByName(name));
     }
     
 
@@ -195,6 +378,7 @@ public class Board implements Screen {
                 return player;
 
         }
+        return null;
     }
 
     @Override
