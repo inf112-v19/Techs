@@ -9,6 +9,7 @@ public class Deck {
 	public Deck() {
 		this.deck = new ArrayList<>();
 		makeDeck();
+		shuffle();
 	}
 	
 	/**

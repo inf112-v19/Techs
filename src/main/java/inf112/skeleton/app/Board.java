@@ -41,6 +41,7 @@ public class Board implements Screen {
     //Card handling
     private TextureAtlas atlasCards;
     private Deck deck = new Deck();
+    private ArrayList<ProgramCard> cardsToSelect;
 
     private SpriteBatch spriteBatchCards;
     private Sprite cardToSelect0;
@@ -291,32 +292,19 @@ public class Board implements Screen {
     }
 
     public void createNewCards(){
-        ArrayList<ProgramCard> cardsToSelect = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
+        cardsToSelect = new ArrayList<>();
+        for (int i = 0; i < 9; i++)
             cardsToSelect.add(deck.getTopCard());
-        }
-        //System.out.println(cardsToSelect.toString());
-        /*
-        cardToSelect0 = atlasCards.createSprite("10 U_TURN", -1);
-        cardToSelect1 = atlasCards.createSprite("320 ROTATE_RIGHT", -1);
-        cardToSelect2 = atlasCards.createSprite("280 ROTATE_RIGHT", -1);
-        cardToSelect3 = atlasCards.createSprite("520 MOVEMENT_1", -1);
-        cardToSelect4 = atlasCards.createSprite("640 MOVEMENT_1", -1);
-        cardToSelect5 = atlasCards.createSprite("710 MOVEMENT_2", -1);
-        cardToSelect6 = atlasCards.createSprite("140 ROTATE_RIGHT", -1);
-        cardToSelect7 = atlasCards.createSprite("510 MOVEMENT_1", -1);
-        cardToSelect8 = atlasCards.createSprite("690 MOVEMENT_2", -1);
-        */
 
-        cardToSelect0 = atlasCards.createSprite("10 U_TURN", -1);
-        cardToSelect1 = atlasCards.createSprite("320 ROTATE_RIGHT", -1);
-        cardToSelect2 = atlasCards.createSprite("280 ROTATE_RIGHT", -1);
-        cardToSelect3 = atlasCards.createSprite("520 MOVEMENT_1", -1);
-        cardToSelect4 = atlasCards.createSprite("640 MOVEMENT_1", -1);
-        cardToSelect5 = atlasCards.createSprite("710 MOVEMENT_2", -1);
-        cardToSelect6 = atlasCards.createSprite("140 ROTATE_RIGHT", -1);
-        cardToSelect7 = atlasCards.createSprite("510 MOVEMENT_1", -1);
-        cardToSelect8 = atlasCards.createSprite("690 MOVEMENT_2", -1);
+        cardToSelect0 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
+        cardToSelect1 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
+        cardToSelect2 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
+        cardToSelect3 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
+        cardToSelect4 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
+        cardToSelect5 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
+        cardToSelect6 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
+        cardToSelect7 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
+        cardToSelect8 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
     }
     
     /*
