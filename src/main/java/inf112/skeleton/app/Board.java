@@ -60,13 +60,10 @@ public class Board implements Screen {
     private Texture number4;
     private Texture number5;
 
+    //shows order of selected cards
     private ArrayList<Integer> numberXPos;
     private ArrayList<Integer> numberYPos;
-
-    boolean[] hasBeenSelected = new boolean[9];
-
-    //order selected, X-pos
-    private HashMap<Integer, Integer> selectedCards;
+    private boolean[] hasBeenSelected = new boolean[9];
     private int numCardsSelected = 0;
 
     public Board(RoboRally game) {
@@ -119,6 +116,7 @@ public class Board implements Screen {
 
         int centerOfScreen = Gdx.graphics.getWidth()/2;
 
+        //shows 9 cards player can select
         spriteBatchCards.begin();
         spriteBatchCards.draw(cardToSelect0,centerOfScreen - 360,0,94,130);
         spriteBatchCards.draw(cardToSelect1,centerOfScreen - 270,0,94,130);
@@ -130,6 +128,7 @@ public class Board implements Screen {
         spriteBatchCards.draw(cardToSelect7,centerOfScreen + 270,0,94,130);
         spriteBatchCards.draw(cardToSelect8,centerOfScreen + 360,0,94,130);
 
+        //shows numbers for order of selected cards
         spriteBatchCards.draw(number1, numberXPos.get(0), numberYPos.get(0),35,35);
         spriteBatchCards.draw(number2, numberXPos.get(1), numberYPos.get(1),35,35);
         spriteBatchCards.draw(number3, numberXPos.get(2), numberYPos.get(2),35,35);
@@ -137,6 +136,7 @@ public class Board implements Screen {
         spriteBatchCards.draw(number5, numberXPos.get(4), numberYPos.get(4),35,35);
         spriteBatchCards.end();
 
+        //these if-statements handles which cards has been selected på user
         if (numCardsSelected < 5) {
             if (Gdx.input.isKeyPressed(Keys.NUM_1)) {
                 if (!hasBeenSelected[0]) {
@@ -218,10 +218,11 @@ public class Board implements Screen {
                     numCardsSelected++;
                 }
             }
+            /*
             if (numCardsSelected == 5){
                 //Show ENTER right side in flashing green
-                System.out.println("yolo");
             }
+            */
         }
 
 
@@ -267,6 +268,7 @@ public class Board implements Screen {
 
     }
 
+    //puts all numbers in right corner
     public void setStandardNumberPosition(){
         number1 = new Texture("assets/ProgramSheet/numbersInCircle/numberOne.png");
         number2 = new Texture("assets/ProgramSheet/numbersInCircle/numberTwo.png");
@@ -287,10 +289,9 @@ public class Board implements Screen {
         numberYPos.add(80);
         numberYPos.add(40);
         numberYPos.add(0);
-
-        selectedCards = new HashMap<>();
     }
 
+    //selects 9 random cards from deck and puts them in 
     public void createNewCards(){
         cardsToSelect = new ArrayList<>();
         for (int i = 0; i < 9; i++)
