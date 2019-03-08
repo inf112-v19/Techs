@@ -40,8 +40,8 @@ public class Board implements Screen {
 
     //Card handling
     private TextureAtlas atlasCards;
-    private Deck deck = new Deck();
-    private ArrayList<ProgramCard> cardsToSelect;
+    private ProgramCardDeck deck = new ProgramCardDeck();
+    private ArrayList<IProgramCard> cardsToSelect;
 
     private SpriteBatch spriteBatchCards;
     private Sprite cardToSelect0;
