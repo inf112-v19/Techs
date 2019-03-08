@@ -3,10 +3,10 @@ package inf112.skeleton.app;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Deck {
-	ArrayList<ProgramCard> deck;
+public class ProgramCardDeck {
+	ArrayList<IProgramCard> deck;
 	
-	public Deck() {
+	public ProgramCardDeck() {
 		this.deck = new ArrayList<>();
 		makeDeck();
 		shuffle();
@@ -16,7 +16,7 @@ public class Deck {
 	 * Fills the deck
 	 */
 	public void makeDeck() {
-		for(int p = 80; p <= 420; p += 20) {
+			for(int p = 80; p <= 420; p += 20) {
 			deck.add(createCard(CardType.ROTATE_RIGHT, p));
 			}
 		
@@ -53,14 +53,30 @@ public class Deck {
 		Collections.shuffle(deck); 
 	}
 	
+	public void clearDeck() {
+		deck.clear();
+	}
 	
+	
+	/**
+	 * Skal lage en ny deck kort og sletta den gammle
+	 */
 	public void resetDeck() {
-
+		clearDeck();
+		makeDeck();
+		shuffle();
+		
 	}
 	
-	public ProgramCard getTopCard() {
-		return deck.remove(0);
+	public IProgramCard getTopCard() {
+		if(deck.isEmpty()) return null;
+		IProgramCard topcard = deck.get(deck.size()-1);
+		deck.remove(topcard);
+		return topcard;
+		
 	}
+	
+
 	
 	
 	/**
@@ -69,7 +85,7 @@ public class Deck {
 	 * @param priority
 	 * @return
 	 */
-	public ProgramCard createCard(CardType type, int priority) {
+	public IProgramCard createCard(CardType type, int priority) {
 		return new ProgramCard(type, priority);
 	}
 	
@@ -81,7 +97,33 @@ public class Deck {
 		return this.deck.size();
 	}
 	
+	public void printDeck() {
+        for (IProgramCard card : deck) {
+            System.out.println(card.toString());
+        }
+	}
+	
+	/**
+	 * metode for å dele ut kort til en spiller
+	 * foreløpig står playeerHealth alltid til 10 før me får ein metode for den
+	 * @param player
+	 * @return
+	 */
+	public ArrayList<IProgramCard> dealToPlayer() {
+			int playerHealth = 10;
+			ArrayList<IProgramCard> playerHand = new ArrayList<>();
+			for(int i = 0; i < playerHealth - 1; i++) {
+				if(deck.isEmpty()) {
+	                System.out.println("Deck is empty... Playerhand currently got " + i + " cards.");
+	                return playerHand;
+				} else {
+					playerHand.add(getTopCard());				
+				}
+	}
+			return playerHand;
+	}
 	
 	
+	 
 	
 }
