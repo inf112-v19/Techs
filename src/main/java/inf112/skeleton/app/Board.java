@@ -378,6 +378,12 @@ public class Board implements Screen {
         */
     }
     
+
+    public Vector2 getPlayerLocation(String name) {
+        PlayerToken player = getPlayerByName(name);
+        return new Vector2 (player.getXPosition(), player.getYPosition());
+    }
+    
     private PlayerToken getPlayerByName(String playerName) {
         for(PlayerToken player : playersList) {
             if(player.getName().equals(playerName))
