@@ -97,9 +97,6 @@ public class Board implements Screen {
             player.draw(renderer.getBatch());
         }
         renderer.getBatch().end();
-
-        if(Gdx.input.isKeyJustPressed(Keys.A))
-            addPlayerToBoard(new Vector2(0,0), "Test");
         
         int centerOfScreen = Gdx.graphics.getWidth()/2;
 
