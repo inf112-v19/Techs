@@ -16,6 +16,7 @@ public class BoardGame extends Game {
     public void create() {
         batch = new SpriteBatch();
         Gdx.gl.glClearColor(0,0,0,1);
+        this.setScreen(new NewMainMenuScreen(this));
     }
 
     @Override

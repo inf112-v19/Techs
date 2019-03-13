@@ -18,33 +18,37 @@ import java.util.ArrayList;
 public class GameScreen implements Screen {
     public static final float ZOOM_SPEED = 0.03f;
     public static final float MOVE_SPEED = 16;
+    public static final float ANIMATION_SPEED = 0.08f;
+    public static final int ROBOT_WIDTH_PIXEL = 64;
+    public static final int ROBOT_HEIGHT_PIXEL = 64;
     public static final int ROBOT_WIDTH = 96;
     public static final int ROBOT_HEIGHT = 96;
 
+
     // Variables used in regards to animating robots
     Animation<TextureRegion>[] blueRobot;
-    Animation<TextureRegion>[] greenRobot;
-    Animation<TextureRegion>[] redRobot;
-    Animation<TextureRegion>[] yellowRobot;
     private int blueRobotAnimation;
-    private int greenRobotAnimation;
-    private int redRobotAnimation;
-    private int yellowRobotAnimation;
     private float x;
     private float y;
     private float statetime;
 
+
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
-    private ArrayList<RobotToken> robotList;
     BoardGame game;
 
     // Must have this constructor so that the game same game gets transferred between screens.
     public GameScreen(BoardGame game) {
         this.game = game;
-        robotList = new ArrayList<RobotToken>();
 
+        // This part initializes what is needed to animate a robot.
+        x = 0;
+        y = 0;
+        blueRobotAnimation = 0;
+        blueRobot = new Animation[11];
+        TextureRegion[][] blueRobotSpriteSheet = TextureRegion.split(new Texture("assets/BlueRobotSpriteSheet.png"), ROBOT_WIDTH_PIXEL, ROBOT_HEIGHT_PIXEL);
+        blueRobot[blueRobotAnimation] = new Animation(ANIMATION_SPEED, blueRobotSpriteSheet[0]);
     }
 
     @Override
@@ -64,7 +68,7 @@ public class GameScreen implements Screen {
 
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-        game.batch.draw(greenRobot[greenRobotAnimation].getKeyFrame(statetime, true), x, y, ROBOT_WIDTH, ROBOT_HEIGHT);
+        game.batch.draw(blueRobot[blueRobotAnimation].getKeyFrame(statetime, true), x, y, ROBOT_WIDTH, ROBOT_HEIGHT);
         game.batch.end();
 
 
