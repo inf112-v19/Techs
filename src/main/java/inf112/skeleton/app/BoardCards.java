@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import java.util.ArrayList;
 
-public class BoardExtended extends Board{
+public class BoardCards extends Board{
 
     //Card handling
     private TextureAtlas atlasCards;
@@ -39,7 +39,7 @@ public class BoardExtended extends Board{
     private boolean[] hasBeenSelected = new boolean[9];
     private int numCardsSelected = 0;
 
-    public BoardExtended(RoboRally game) {
+    public BoardCards(RoboRally game) {
         super(game);
         atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
         spriteBatchCards = new SpriteBatch();

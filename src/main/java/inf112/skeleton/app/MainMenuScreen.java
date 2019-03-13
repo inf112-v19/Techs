@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import inf112.skeleton.app.inWork.BoardGame;
-import inf112.skeleton.app.inWork.screens.GameScreen;
 
 public class MainMenuScreen implements Screen {
     private static final int PLAYBUTTON_WIDTH = 200;
@@ -52,7 +51,7 @@ public class MainMenuScreen implements Screen {
             game.batch.draw(playButtonActive, PLAYBUTTON_X, (BoardGame.HEIGHT - PLAYBUTTON_HEIGHT) / 2, PLAYBUTTON_WIDTH, PLAYBUTTON_HEIGHT);
             if(Gdx.input.isTouched()) {
                 this.dispose();
-                game.setScreen(new BoardExtended(game));
+                game.setScreen(new BoardCards(game));
             }
         } else {
             game.batch.draw(playButtonInactive, PLAYBUTTON_X, (BoardGame.HEIGHT - PLAYBUTTON_HEIGHT) / 2, PLAYBUTTON_WIDTH, PLAYBUTTON_HEIGHT);
