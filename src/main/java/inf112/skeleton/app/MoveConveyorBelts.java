@@ -10,8 +10,7 @@ public class MoveConveyorBelts implements IBoardFeature {
     private int xPos;
     private int yPos;
     
-    public MoveConveyorBelts(Board board, ArrayList<PlayerToken> playersList) {
-        this.board = board;
+    public MoveConveyorBelts(BoardLogic board, ArrayList<PlayerToken> playersList) {
         this.playersList = playersList;
     }
     

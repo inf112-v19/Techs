@@ -20,24 +20,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Board implements Screen {
 
-    public static final float ZOOM_SPEED = 0.03f;
-    public static final float MOVE_SPEED = 16;
-    public static final float ANIMATION_SPEED = 0.08f;
-    public static final int ROBOT_WIDTH_PIXEL = 64;
-    public static final int ROBOT_HEIGHT_PIXEL = 64;
-    public static final int ROBOT_WIDTH = 96;
-    public static final int ROBOT_HEIGHT = 96;
-
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
-    private OrthographicCamera camera;
-    
-    private ArrayList<PlayerToken> playersList;
-    private float robotSpriteScale = 96;
-    private Sprite robotSprite;
-
-    RoboRally game;
-
     //Card handling
     private TextureAtlas atlasCards;
     private ProgramCardDeck deck = new ProgramCardDeck();
@@ -65,24 +47,36 @@ public class Board implements Screen {
     private ArrayList<Integer> numberYPos;
     private boolean[] hasBeenSelected = new boolean[9];
     private int numCardsSelected = 0;
+    
+    public static final float ZOOM_SPEED = 0.03f;
+    public static final float MOVE_SPEED = 16;
+    public static final float ANIMATION_SPEED = 0.08f;
+    public static final int ROBOT_WIDTH_PIXEL = 64;
+    public static final int ROBOT_HEIGHT_PIXEL = 64;
+    public static final int ROBOT_WIDTH = 96;
+    public static final int ROBOT_HEIGHT = 96;
+
+    RoboRally game;
+    
+    private TiledMap map;
+    private OrthogonalTiledMapRenderer renderer;
+    private OrthographicCamera camera;
+    
+    private float robotSpriteScale = 96;
+    private Sprite robotSprite;
+    private BoardLogic boardLogic;
 
     public Board(RoboRally game) {
         this.game = game;
-        playersList = new ArrayList<PlayerToken>();
         robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
-
-        //cards
+        
+        // Card functions
         atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
-
         spriteBatchCards = new SpriteBatch();
-
         createNewCards();
         setStandardNumberPosition();
     }
-    
-    private MovePlayer movePlayerBrain;
-    private IBoardFeature moveConveyorBelts;
-    
+        
     @Override
     public void show() {
         map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
@@ -90,27 +84,23 @@ public class Board implements Screen {
         camera = new OrthographicCamera();
 
         camera.setToOrtho(false, RoboRally.WIDTH, RoboRally.HEIGHT);
-        
-        playersList = new ArrayList<PlayerToken>();
-        robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
-        movePlayerBrain = new MovePlayer (this, playersList);
-        moveConveyorBelts = new MoveConveyorBelts(this, playersList);
+        boardLogic = new BoardLogic(robotSprite, robotSpriteScale, map);
     }
 
     @Override
     public void render(float v) {
         renderer.setView(camera);
         renderer.render();
-       
-        movePlayerOneAndTwo();
-
         renderer.getBatch().begin();
         
-        for (PlayerToken player : playersList) {
+        for (PlayerToken player : boardLogic.getPlayersList()) {
             player.draw(renderer.getBatch());
         }
         renderer.getBatch().end();
 
+        if(Gdx.input.isKeyJustPressed(Keys.A))
+            addPlayerToBoard(new Vector2(0,0), "Test");
+        
         int centerOfScreen = Gdx.graphics.getWidth()/2;
 
         //shows 9 cards player can select
@@ -224,7 +214,7 @@ public class Board implements Screen {
 
 
 
-                /*
+        /*
         The code here handles the zoom- and camera movement functions. The drag-functionality might be removed if conflict arise when using
         the mouse button to click on program cards. The buttons used are WASD for camera-movement and E/Q for ZoomIn/ZoomOut.
          */
@@ -305,25 +295,7 @@ public class Board implements Screen {
         cardToSelect8 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
     }
     
-    /*
-     * Adds player to the board at specified position
-     */
-    public void addPlayerToBoard(Vector2 startPosition, String playerName) {
-        PlayerToken newPlayer = new PlayerToken(robotSprite, playerName, startPosition, robotSpriteScale);
-        newPlayer.setSize(robotSpriteScale, robotSpriteScale);
-        playersList.add(newPlayer);
-        movePlayerBrain.updatePlayersList(playersList);
-    }
     
-    /*
-     * Checks if tile at (xPos, yPos) has a property named key in the specified layer 
-     */
-    public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
-        TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
-        if(tileLayer.getCell(xPos, yPos) == null)
-            return false;
-        return tileLayer.getCell(xPos, yPos).getTile().getProperties().containsKey(key);
-    }
     
     /*
      * Checks if tile at (xPos, yPos) is in the specified layer
@@ -333,76 +305,26 @@ public class Board implements Screen {
         return tileLayer.getCell(xPos, yPos) != null;
     }
     
-    /*
-     * Moves the player one unit in the direction specified 
-     */
     public boolean movePlayer(String name, Direction directionToMove) {
-        return movePlayerBrain.movePlayer(directionToMove, getPlayerByName(name));
+        return boardLogic.movePlayer(name, directionToMove);
     }
     
-    /*
-     * Rotates player 90 degrees clockwise for each numberOfTimes. 90 degrees counterclockwise when numberOfTimes is negative.
-     */
-    public void rotatePlayer(String name, int numberOfTimes) {
-        PlayerToken player = getPlayerByName(name);
-        player.rotatePlayer(numberOfTimes);
-    }
-
-    /*
-     * Moves all players standing on conveyer belts
-     */
     public void moveConveyorBelts() {
-        moveConveyorBelts.processFeature();
+        boardLogic.moveConveyorBelts();
+    }
+
+    public void rotatePlayer(String name, int numberOfTimes) {
+        boardLogic.rotatePlayer(name, numberOfTimes);
     }
     
-
-    /*
-     * Temporary, to move two players on the board
-     */
-    private void movePlayerOneAndTwo() {
-        // As proof of concept:
-        if(Gdx.input.isKeyJustPressed(Keys.UP)) {
-            movePlayerBrain.movePlayer(Direction.NORTH, playersList.get(0));
-        } else if(Gdx.input.isKeyJustPressed(Keys.DOWN)) {
-            movePlayerBrain.movePlayer(Direction.SOUTH, playersList.get(0));
-        } else if(Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
-            movePlayerBrain.movePlayer(Direction.EAST, playersList.get(0));
-        }else if(Gdx.input.isKeyJustPressed(Keys.LEFT)) {
-            movePlayerBrain.movePlayer(Direction.WEST, playersList.get(0));
-        }
-        /*
-        if(Gdx.input.isKeyJustPressed(Keys.W)) {
-            movePlayerBrain.movePlayer(Direction.NORTH, playersList.get(1));
-        } else if(Gdx.input.isKeyJustPressed(Keys.S)) {
-            movePlayerBrain.movePlayer(Direction.SOUTH, playersList.get(1));
-        } else if(Gdx.input.isKeyJustPressed(Keys.D)) {
-            movePlayerBrain.movePlayer(Direction.EAST, playersList.get(1));
-        }else if(Gdx.input.isKeyJustPressed(Keys.A)) {
-
-            movePlayerBrain.movePlayer(Direction.WEST, playersList.get(1));
-
-        }
-        */
+    public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
+        return boardLogic.cellContainsLayerWithKey(xPos, yPos, layer, key);
     }
-    
-    public Direction getPlayerRotation(String name) {
-        PlayerToken player = getPlayerByName(name);
-        return player.getDirection();
-    }
-    
-    public Vector2 getPlayerLocation(String name) {
-        PlayerToken player = getPlayerByName(name);
-        return new Vector2 (player.getXPosition(), player.getYPosition());
-    }
-    
-    private PlayerToken getPlayerByName(String playerName) {
-        for(PlayerToken player : playersList) {
-            if(player.getName().equals(playerName))
-                return player;
 
-        }
-        return null;
+    public void addPlayerToBoard(Vector2 startPosition, String playerName) {
+        boardLogic.addPlayerToBoard(startPosition, playerName);
     }
+
 
     @Override
     public void resize(int width, int height) {
