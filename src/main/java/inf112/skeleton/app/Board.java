@@ -336,10 +336,20 @@ public class Board implements Screen {
         return tileLayer.getCell(xPos, yPos) != null;
     }
     
+    /*
+     * Moves the player one unit in the direction specified 
+     */
     public boolean movePlayer(String name, Direction directionToMove) {
         return movePlayerBrain.movePlayer(directionToMove, getPlayerByName(name));
     }
     
+    /*
+     * Rotates player 90 degrees clockwise for each numberOfTimes. 90 degrees counterclockwise when numberOfTimes is negative.
+     */
+    public void rotatePlayer(String name, int numberOfTimes) {
+        PlayerToken player = getPlayerByName(name);
+        player.rotatePlayer(numberOfTimes);
+    }
 
     /*
      * Moves all players standing on conveyer belts
@@ -378,7 +388,11 @@ public class Board implements Screen {
         */
     }
     
-
+    public Direction getPlayerRotation(String name) {
+        PlayerToken player = getPlayerByName(name);
+        return player.getDirection();
+    }
+    
     public Vector2 getPlayerLocation(String name) {
         PlayerToken player = getPlayerByName(name);
         return new Vector2 (player.getXPosition(), player.getYPosition());
