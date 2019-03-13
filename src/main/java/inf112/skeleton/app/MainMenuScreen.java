@@ -52,7 +52,7 @@ public class MainMenuScreen implements Screen {
             game.batch.draw(playButtonActive, PLAYBUTTON_X, (BoardGame.HEIGHT - PLAYBUTTON_HEIGHT) / 2, PLAYBUTTON_WIDTH, PLAYBUTTON_HEIGHT);
             if(Gdx.input.isTouched()) {
                 this.dispose();
-                game.setScreen(new Board(game));
+                game.setScreen(new BoardExtended(game));
             }
         } else {
             game.batch.draw(playButtonInactive, PLAYBUTTON_X, (BoardGame.HEIGHT - PLAYBUTTON_HEIGHT) / 2, PLAYBUTTON_WIDTH, PLAYBUTTON_HEIGHT);
