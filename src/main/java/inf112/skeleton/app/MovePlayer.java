@@ -7,8 +7,7 @@ public class MovePlayer {
     private Board board;
     private ArrayList<PlayerToken> playersList;
     
-    public MovePlayer(Board board, ArrayList<PlayerToken> playersList) {
-        this.board = board;
+    public MovePlayer(ArrayList<PlayerToken> playersList) {
         this.playersList = playersList;
     }
     

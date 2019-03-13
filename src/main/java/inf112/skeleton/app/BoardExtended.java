@@ -41,11 +41,8 @@ public class BoardExtended extends Board{
 
     public BoardExtended(RoboRally game) {
         super(game);
-        //cards
         atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
-
         spriteBatchCards = new SpriteBatch();
-
         createNewCards();
         setStandardNumberPosition();
     }
@@ -53,8 +50,6 @@ public class BoardExtended extends Board{
     @Override
     public void render(float v) {
         super.render(v);
-
-
         int centerOfScreen = Gdx.graphics.getWidth()/2;
 
         //shows 9 cards player can select
@@ -160,6 +155,10 @@ public class BoardExtended extends Board{
                 }
             }
         }
+    }
+
+    public void setNumberPos(int numberPos){
+        System.out.println(numberPos);
     }
 
     //puts all numbers in right corner
