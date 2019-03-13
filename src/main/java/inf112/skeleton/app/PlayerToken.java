@@ -1,16 +1,14 @@
 package inf112.skeleton.app;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 
 public class PlayerToken extends Sprite {
 
     private Vector2 movementVelocity = new Vector2();
     private Vector2 position;
-    private float speed = 120;
+    private float speed = 360;
     private float tileScale = 96;
     private String playerName;
     private Direction facingDirection;
@@ -26,7 +24,6 @@ public class PlayerToken extends Sprite {
     private float rotateSpeed = 400;
    
     public PlayerToken(Sprite sprite, String playerName, Vector2 startPosition, float spriteScale) {
-        super(sprite);
         facingDirection = Direction.SOUTH;
         this.playerName = playerName;
         

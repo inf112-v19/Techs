@@ -11,19 +11,25 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.inWork.BoardGame;
+import inf112.skeleton.app.inWork.RobotToken;
+
+import java.util.ArrayList;
 
 public class GameScreen implements Screen {
     public static final float ZOOM_SPEED = 0.03f;
     public static final float MOVE_SPEED = 16;
-    public static final float ANIMATION_SPEED = 0.08f;
-    public static final int ROBOT_WIDTH_PIXEL = 64;
-    public static final int ROBOT_HEIGHT_PIXEL = 64;
     public static final int ROBOT_WIDTH = 96;
     public static final int ROBOT_HEIGHT = 96;
 
     // Variables used in regards to animating robots
+    Animation<TextureRegion>[] blueRobot;
     Animation<TextureRegion>[] greenRobot;
+    Animation<TextureRegion>[] redRobot;
+    Animation<TextureRegion>[] yellowRobot;
+    private int blueRobotAnimation;
     private int greenRobotAnimation;
+    private int redRobotAnimation;
+    private int yellowRobotAnimation;
     private float x;
     private float y;
     private float statetime;
@@ -31,19 +37,14 @@ public class GameScreen implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
+    private ArrayList<RobotToken> robotList;
     BoardGame game;
 
     // Must have this constructor so that the game same game gets transferred between screens.
     public GameScreen(BoardGame game) {
         this.game = game;
+        robotList = new ArrayList<RobotToken>();
 
-        // This part initializes what is needed to animate robot(s).
-        x = 0;
-        y = 0;
-        greenRobotAnimation = 0;
-        greenRobot = new Animation[11];
-        TextureRegion[][] greenRobotSpriteSheet = TextureRegion.split(new Texture("assets/GreenRobotSpriteSheet.png"), ROBOT_WIDTH_PIXEL, ROBOT_HEIGHT_PIXEL);
-        greenRobot[greenRobotAnimation] = new Animation(ANIMATION_SPEED, greenRobotSpriteSheet[0]);
     }
 
     @Override
