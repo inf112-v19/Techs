@@ -95,9 +95,6 @@ public class Board implements Screen {
         robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
         movePlayerBrain = new MovePlayer (this, playersList);
         moveConveyorBelts = new MoveConveyorBelts(this, playersList);
-
-        addPlayerToBoard(new Vector2(0,0), "playerOne");
-        addPlayerToBoard(new Vector2(1,0), "playerTwo");
     }
 
     @Override
