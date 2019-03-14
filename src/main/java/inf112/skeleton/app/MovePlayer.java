@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 public class MovePlayer {
 
-    private Board board;
+    private BoardLogic board;
     private ArrayList<PlayerToken> playersList;
     
-    public MovePlayer(ArrayList<PlayerToken> playersList) {
+    public MovePlayer(ArrayList<PlayerToken> playersList, BoardLogic board) {
         this.playersList = playersList;
+        this.board = board;
     }
     
     public void updatePlayersList(ArrayList<PlayerToken> playersList) {
