@@ -6,42 +6,51 @@ import com.badlogic.gdx.math.Vector2;
 
 public class MoveConveyorBelts implements IBoardFeature {
 
-    private Board board;
+    private BoardLogic boardLogic;
     private ArrayList<PlayerToken> playersList;
     private ArrayList<String> playersChecked;
     private String layerName = "Conveyor";
     private int xPos;
     private int yPos;
     
-    public MoveConveyorBelts(BoardLogic board, ArrayList<PlayerToken> playersList) {
+    public MoveConveyorBelts(BoardLogic boardLogic, ArrayList<PlayerToken> playersList) {
         this.playersList = playersList;
+        this.boardLogic = boardLogic;
     }
     
     @Override
     public void processFeature() {
         playersChecked = new ArrayList<String>();
+        
         for(PlayerToken player : playersList) {
-            xPos = player.getXPosition();
-            yPos = player.getYPosition();
-            
-            if(board.cellContainsLayer(xPos, yPos, layerName)) {
-                if(checkDirection(Direction.NORTH, board)) {
-                    if(checkForPlayer(Direction.NORTH)) {
-                        
-                    }
-                    board.movePlayer(player.getName(), Direction.NORTH);
-                } else if (checkDirection(Direction.EAST, board)) {
-                    board.movePlayer(player.getName(), Direction.EAST);
-                } else if (checkDirection(Direction.SOUTH, board)) {
-                    board.movePlayer(player.getName(), Direction.SOUTH);
-                } else if (checkDirection(Direction.WEST, board)) {
-                    board.movePlayer(player.getName(), Direction.WEST);
-                }
+            if(!playersChecked.contains(player.getName())) {
+                movePlayerIfOnConveyorBelt(player);
+                playersChecked.add(player.getName());
             }
         }
     }
+    
+    private void movePlayerIfOnConveyorBelt(PlayerToken player) {
+        xPos = player.getXPosition();
+        yPos = player.getYPosition();
+        
+        if(boardLogic.cellContainsLayerWithKey(xPos, yPos, layerName)) {
+            if(checkDirection(Direction.NORTH, boardLogic, xPos, yPos)) {
+                PlayerToken otherPlayer = checkForPlayer(Direction.NORTH);
+                
+                    
+            }
+            boardLogic.movePlayer(player.getName(), Direction.NORTH);
+            } else if (checkDirection(Direction.EAST, boardLogic, xPos, yPos)) {
+                boardLogic.movePlayer(player.getName(), Direction.EAST);
+            } else if (checkDirection(Direction.SOUTH, boardLogic, xPos, yPos)) {
+                boardLogic.movePlayer(player.getName(), Direction.SOUTH);
+            } else if (checkDirection(Direction.WEST, boardLogic, xPos, yPos)) {
+                boardLogic.movePlayer(player.getName(), Direction.WEST);
+            }
+    }
 
-    private boolean checkDirection(Direction dir, Board board) {
+    private boolean checkDirection(Direction dir, Board board, int xPos, int yPos) {
         return board.cellContainsLayerWithKey(xPos, yPos, layerName, dir.toString());
     }
     
