@@ -52,7 +52,6 @@ public class Board implements Screen {
         robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
         boardLogic = new BoardLogic(robotSprite, robotSpriteScale, map);
         camera.setToOrtho(false, RoboRally.WIDTH, RoboRally.HEIGHT);
-        addPlayerToBoard(new Vector2(0,0), "playerOne");
     }
 
     @Override
