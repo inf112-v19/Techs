@@ -41,7 +41,7 @@ public class Board implements Screen {
 
     public Board(RoboRally game) {
         this.game = game;
-        robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
+        
     }
         
     @Override
@@ -49,9 +49,9 @@ public class Board implements Screen {
         map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
-
-        camera.setToOrtho(false, RoboRally.WIDTH, RoboRally.HEIGHT);
+        robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
         boardLogic = new BoardLogic(robotSprite, robotSpriteScale, map);
+        camera.setToOrtho(false, RoboRally.WIDTH, RoboRally.HEIGHT);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class Board implements Screen {
         renderer.setView(camera);
         renderer.render();
         renderer.getBatch().begin();
-
+        
         for (PlayerToken player : boardLogic.getPlayersList()) {
             player.draw(renderer.getBatch());
         }
