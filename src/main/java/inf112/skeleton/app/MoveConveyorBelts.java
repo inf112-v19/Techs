@@ -10,8 +10,6 @@ public class MoveConveyorBelts implements IBoardFeature {
     private ArrayList<PlayerToken> playersList;
     private ArrayList<String> playersChecked;
     private String layerName = "Conveyor";
-    private int xPos;
-    private int yPos;
     
     public MoveConveyorBelts(BoardLogic boardLogic, ArrayList<PlayerToken> playersList) {
         this.playersList = playersList;
@@ -23,38 +21,47 @@ public class MoveConveyorBelts implements IBoardFeature {
         playersChecked = new ArrayList<String>();
         
         for(PlayerToken player : playersList) {
-            if(!playersChecked.contains(player.getName())) {
-                movePlayerIfOnConveyorBelt(player);
-                playersChecked.add(player.getName());
-            }
+            movePlayerIfOnConveyorBelt(player);
         }
     }
     
     private void movePlayerIfOnConveyorBelt(PlayerToken player) {
-        xPos = player.getXPosition();
-        yPos = player.getYPosition();
+        if(playersChecked.contains(player.getName())) {
+            return;
+        }
         
-        if(boardLogic.cellContainsLayerWithKey(xPos, yPos, layerName)) {
-            if(checkDirection(Direction.NORTH, boardLogic, xPos, yPos)) {
-                PlayerToken otherPlayer = checkForPlayer(Direction.NORTH);
-                
-                    
+        playersChecked.add(player.getName());
+        int xPos = player.getXPosition();
+        int yPos = player.getYPosition();
+        
+        if(boardLogic.cellContainsLayer(xPos, yPos, layerName)) {
+            for(Direction dir : Direction.values()) {
+                if(checkDirectionAndThenMove(player, dir, xPos, yPos))
+                    return;
             }
-            boardLogic.movePlayer(player.getName(), Direction.NORTH);
-            } else if (checkDirection(Direction.EAST, boardLogic, xPos, yPos)) {
-                boardLogic.movePlayer(player.getName(), Direction.EAST);
-            } else if (checkDirection(Direction.SOUTH, boardLogic, xPos, yPos)) {
-                boardLogic.movePlayer(player.getName(), Direction.SOUTH);
-            } else if (checkDirection(Direction.WEST, boardLogic, xPos, yPos)) {
-                boardLogic.movePlayer(player.getName(), Direction.WEST);
-            }
+        }
     }
 
-    private boolean checkDirection(Direction dir, Board board, int xPos, int yPos) {
-        return board.cellContainsLayerWithKey(xPos, yPos, layerName, dir.toString());
+    /*
+     * Checks if there is a conveyorbelt in direction dir, if yes, moves that direction. 
+     * If a player stands in its path, it will first process that player.
+     */
+    private boolean checkDirectionAndThenMove(PlayerToken player, Direction dir, int xPos, int yPos) {
+        if(boardLogic.cellContainsLayerWithKey(xPos, yPos, layerName, dir.toString())) {
+            PlayerToken otherPlayer = checkForPlayer(dir, xPos, yPos);
+            if(otherPlayer != null) {
+                movePlayerIfOnConveyorBelt(otherPlayer);
+            }
+            boardLogic.movePlayer(player.getName(), dir);
+            return true;
+        }
+        return false;
     }
     
-    private PlayerToken checkForPlayer(Direction dir) {        
+    /*
+     * Returns PlayerToken that stand on the tile in the direction dir
+     */
+    private PlayerToken checkForPlayer(Direction dir, int xPos, int yPos) {        
         Vector2 checkPosition = addDirectionToLocation(xPos, yPos, dir);
 
         for(PlayerToken player : playersList) {
@@ -65,6 +72,9 @@ public class MoveConveyorBelts implements IBoardFeature {
         return null;
     }
     
+    /*
+     * Calculates the correct vector2 of the tile in direction dir from a position 
+     */
     private Vector2 addDirectionToLocation(int x, int y, Direction dir) {
         switch(dir) {
         case NORTH: 
