@@ -6,32 +6,31 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.inWork.BoardGame;
 import inf112.skeleton.app.inWork.RobotToken;
 
 import java.util.ArrayList;
 
 public class GameScreen implements Screen {
-    public static final float ZOOM_SPEED = 0.03f;
-    public static final float MOVE_SPEED = 16;
-    public static final float ANIMATION_SPEED = 0.08f;
-    public static final int ROBOT_WIDTH_PIXEL = 64;
-    public static final int ROBOT_HEIGHT_PIXEL = 64;
-    public static final int ROBOT_WIDTH = 96;
-    public static final int ROBOT_HEIGHT = 96;
-
+    private static final float ZOOM_SPEED = 0.03f;
+    private static final float MOVE_SPEED = 16;
+    private static final float ANIMATION_SPEED = 0.06f;
+    private static final int ROBOT_WIDTH = 96;
+    private static final int ROBOT_HEIGHT = 96;
+    private static final float TILE_SCALE = 96;
 
     // Variables used in regards to animating robots
-    Animation<TextureRegion>[] blueRobot;
-    private int blueRobotAnimation;
-    private float x;
-    private float y;
+    Animation<TextureRegion> playerOneRobotAnimation;
     private float statetime;
 
+
+    private RobotToken playerOne;
 
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
@@ -41,14 +40,10 @@ public class GameScreen implements Screen {
     // Must have this constructor so that the game same game gets transferred between screens.
     public GameScreen(BoardGame game) {
         this.game = game;
+        playerOne = new RobotToken("TestPlayer1", "assets/BlueRobotSpriteSheet.png", new Vector2(0,0));
 
-        // This part initializes what is needed to animate a robot.
-        x = 0;
-        y = 0;
-        blueRobotAnimation = 0;
-        blueRobot = new Animation[11];
-        TextureRegion[][] blueRobotSpriteSheet = TextureRegion.split(new Texture("assets/BlueRobotSpriteSheet.png"), ROBOT_WIDTH_PIXEL, ROBOT_HEIGHT_PIXEL);
-        blueRobot[blueRobotAnimation] = new Animation(ANIMATION_SPEED, blueRobotSpriteSheet[0]);
+        playerOneRobotAnimation = new Animation<TextureRegion>(ANIMATION_SPEED, playerOne.getAnimationFrames());
+        statetime = 0f;
     }
 
     @Override
@@ -65,12 +60,12 @@ public class GameScreen implements Screen {
         renderer.render();
 
         statetime += delta;
+        TextureRegion playerOneFrames = playerOneRobotAnimation.getKeyFrame(statetime, true);
 
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-        game.batch.draw(blueRobot[blueRobotAnimation].getKeyFrame(statetime, true), x, y, ROBOT_WIDTH, ROBOT_HEIGHT);
+        game.batch.draw(playerOneFrames, playerOne.getX(), playerOne.getY(), ROBOT_WIDTH, ROBOT_HEIGHT);
         game.batch.end();
-
 
         /*
         The code here handles the zoom- and camera movement functions. The drag-functionality might be removed if conflict arise when using
@@ -134,6 +129,5 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-
     }
 }

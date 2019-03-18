@@ -22,11 +22,6 @@ public class Board implements Screen {
 
     public static final float ZOOM_SPEED = 0.03f;
     public static final float MOVE_SPEED = 16;
-    public static final float ANIMATION_SPEED = 0.08f;
-    public static final int ROBOT_WIDTH_PIXEL = 64;
-    public static final int ROBOT_HEIGHT_PIXEL = 64;
-    public static final int ROBOT_WIDTH = 96;
-    public static final int ROBOT_HEIGHT = 96;
 
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
