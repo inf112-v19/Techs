@@ -15,6 +15,7 @@ import inf112.skeleton.app.inWork.logic.NewBoardLogic;
 import inf112.skeleton.app.inWork.objects.RobotToken;
 
 public class GameScreen implements Screen {
+
     private static final float ZOOM_SPEED = 0.03f;
     private static final float MOVE_SPEED = 16;
     private static final int ROBOT_WIDTH = 96;

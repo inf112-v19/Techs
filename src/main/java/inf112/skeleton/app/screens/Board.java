@@ -56,6 +56,7 @@ public class Board implements Screen {
         statetime += delta;
 
         game.batch.setProjectionMatrix(camera.combined);
+
         game.batch.begin();
         game.batch.begin();
         for (PlayerToken robot : boardLogic.getPlayersList()) {
@@ -149,8 +150,7 @@ public class Board implements Screen {
 
     @Override
     public void hide() {
-        map.dispose();
-        renderer.dispose();
+
     }
 
     @Override
