@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.logic;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import inf112.skeleton.app.objects.PlayerToken;
 
 public class BoardLogic {
     

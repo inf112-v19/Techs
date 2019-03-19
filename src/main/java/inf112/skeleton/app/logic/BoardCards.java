@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.logic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -6,10 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import inf112.skeleton.app.objects.IProgramCard;
+import inf112.skeleton.app.RoboRally;
+import inf112.skeleton.app.screens.Board;
 
 import java.util.ArrayList;
 
-public class BoardCards extends Board{
+public class BoardCards extends Board {
 
     //Card handling
     private TextureAtlas atlasCards;

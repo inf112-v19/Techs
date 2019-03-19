@@ -1,6 +1,6 @@
 package inf112.skeleton.app.inWork.logic;
 
-import inf112.skeleton.app.Direction;
+import inf112.skeleton.app.logic.Direction;
 import inf112.skeleton.app.inWork.objects.RobotToken;
 
 import java.util.ArrayList;

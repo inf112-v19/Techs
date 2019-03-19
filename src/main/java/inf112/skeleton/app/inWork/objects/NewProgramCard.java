@@ -1,7 +1,7 @@
 package inf112.skeleton.app.inWork.objects;
 
-import inf112.skeleton.app.CardType;
-import inf112.skeleton.app.IProgramCard;
+import inf112.skeleton.app.logic.CardType;
+import inf112.skeleton.app.objects.IProgramCard;
 
 public class NewProgramCard implements IProgramCard {
 

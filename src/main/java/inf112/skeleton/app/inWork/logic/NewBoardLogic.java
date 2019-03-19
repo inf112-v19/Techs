@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
-import inf112.skeleton.app.Direction;
+import inf112.skeleton.app.logic.Direction;
 import inf112.skeleton.app.inWork.objects.RobotToken;
 
 public class NewBoardLogic {

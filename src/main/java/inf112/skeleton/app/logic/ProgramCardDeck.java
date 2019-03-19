@@ -1,4 +1,7 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.logic;
+
+import inf112.skeleton.app.objects.IProgramCard;
+import inf112.skeleton.app.objects.ProgramCard;
 
 import java.util.ArrayList;
 import java.util.Collections;

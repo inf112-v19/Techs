@@ -1,8 +1,9 @@
 package inf112.skeleton.app.inWork.logic;
 
-import inf112.skeleton.app.*;
 import inf112.skeleton.app.inWork.objects.RobotToken;
 import inf112.skeleton.app.inWork.screens.GameScreen;
+import inf112.skeleton.app.logic.Direction;
+import inf112.skeleton.app.logic.IBoardFeature;
 
 import java.util.ArrayList;
 

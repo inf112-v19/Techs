@@ -5,7 +5,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Before;
+import inf112.skeleton.app.logic.CardType;
+import inf112.skeleton.app.logic.ProgramCardDeck;
+import inf112.skeleton.app.objects.IProgramCard;
+import inf112.skeleton.app.objects.ProgramCard;
 import org.junit.Test;
 
 public class ProgramCardDeckTest {
