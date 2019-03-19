@@ -12,7 +12,7 @@ public class BoardLogic {
     
     private MovePlayer movePlayerBrain;
     private ArrayList<PlayerToken> playersList;
-    private MoveConveyorBelts moveConveyorBelts;
+    private MoveConveyerBelts moveConveyorBelts;
     
     private TiledMap map;
     Sprite robotSprite;
@@ -24,7 +24,7 @@ public class BoardLogic {
         this.robotSpriteScale = robotSpriteScale;
         this.playersList = new ArrayList<PlayerToken>();
         this.movePlayerBrain = new MovePlayer(playersList, this);
-        this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
+        this.moveConveyorBelts = new MoveConveyerBelts(this, playersList);
     }
     
     public ArrayList<PlayerToken> getPlayersList() {

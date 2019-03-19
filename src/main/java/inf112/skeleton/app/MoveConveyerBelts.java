@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class MoveConveyorBelts implements IBoardFeature {
+public class MoveConveyerBelts implements IBoardFeature {
 
     private BoardLogic boardLogic;
     private ArrayList<PlayerToken> playersList;
@@ -13,7 +13,7 @@ public class MoveConveyorBelts implements IBoardFeature {
     // List of all players that have been moved by conveyer belts this turn 
     private ArrayList<String> playersChecked;
     
-    public MoveConveyorBelts(BoardLogic boardLogic, ArrayList<PlayerToken> playersList) {
+    public MoveConveyerBelts(BoardLogic boardLogic, ArrayList<PlayerToken> playersList) {
         this.playersList = playersList;
         this.boardLogic = boardLogic;
     }
