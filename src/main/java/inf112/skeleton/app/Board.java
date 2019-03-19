@@ -109,8 +109,7 @@ public class Board implements Screen {
      * Checks if tile at (xPos, yPos) is in the specified layer
      */
     public boolean cellContainsLayer(int xPos, int yPos, String layer) {
-        TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
-        return tileLayer.getCell(xPos, yPos) != null;
+        return boardLogic.cellContainsLayer(xPos,  yPos, layer);
     }
     
     public boolean movePlayer(String name, Direction directionToMove) {
