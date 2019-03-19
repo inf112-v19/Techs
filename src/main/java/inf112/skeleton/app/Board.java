@@ -35,7 +35,7 @@ public class Board implements Screen {
 
     public Board(RoboRally game) {
         this.game = game;
-        
+
     }
         
     @Override
@@ -54,7 +54,7 @@ public class Board implements Screen {
         renderer.render();
         renderer.getBatch().begin();
         
-        for (RobotToken player : boardLogic.getPlayersList()) {
+        for (PlayerToken player : boardLogic.getPlayersList()) {
             player.draw(renderer.getBatch());
         }
         renderer.getBatch().end();
@@ -110,7 +110,7 @@ public class Board implements Screen {
     public boolean movePlayer(String name, Direction directionToMove) {
         return boardLogic.movePlayer(name, directionToMove);
     }
-    
+
     public void moveConveyorBelts() {
         boardLogic.moveConveyorBelts();
     }
@@ -118,7 +118,7 @@ public class Board implements Screen {
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
     }
-    
+
     public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
         return boardLogic.cellContainsLayerWithKey(xPos, yPos, layer, key);
     }

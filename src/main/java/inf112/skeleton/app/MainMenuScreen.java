@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import inf112.skeleton.app.inWork.BoardGame;
 
 public class MainMenuScreen implements Screen {
     private static final int PLAYBUTTON_WIDTH = 200;

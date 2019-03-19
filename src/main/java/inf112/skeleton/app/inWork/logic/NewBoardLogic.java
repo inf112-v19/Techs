@@ -1,4 +1,4 @@
-package inf112.skeleton.app.inWork;
+package inf112.skeleton.app.inWork.logic;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.Direction;
+import inf112.skeleton.app.inWork.objects.RobotToken;
 
 public class NewBoardLogic {
 
@@ -19,7 +20,7 @@ public class NewBoardLogic {
 
     private ArrayList<RobotToken> robotList;
     private NewMovePlayer moveRobotBrain;
-    private MoveConveyorBelts moveConveyorBelts;
+    private NewMoveConveyorBelts moveConveyorBelts;
 
     private TiledMap map;
 
@@ -27,7 +28,7 @@ public class NewBoardLogic {
         this.map = map;
         this.robotList = new ArrayList<RobotToken>();
         this.moveRobotBrain = new NewMovePlayer(robotList, this);
-        this.moveConveyorBelts = new MoveConveyorBelts(this, robotList);
+        this.moveConveyorBelts = new NewMoveConveyorBelts(this, robotList);
     }
 
     /*
@@ -90,7 +91,7 @@ public class NewBoardLogic {
     /*
      * Rotates player 90 degrees clockwise for each numberOfTimes. 90 degrees counterclockwise when numberOfTimes is negative.
      */
-    public void rotatePlayer(String name, int numberOfTimes) {
+    public void rotateRobot(String name, int numberOfTimes) {
         RobotToken robot = getRobotByName(name);
         robot.rotatePlayer(numberOfTimes);
     }

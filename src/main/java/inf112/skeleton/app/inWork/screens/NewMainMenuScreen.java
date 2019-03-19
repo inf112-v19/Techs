@@ -1,12 +1,10 @@
-package inf112.skeleton.app.inWork;
+package inf112.skeleton.app.inWork.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import inf112.skeleton.app.Board;
-import inf112.skeleton.app.RoboRally;
-import inf112.skeleton.app.inWork.screens.GameScreen;
+import inf112.skeleton.app.inWork.game.BoardGame;
 
 public class NewMainMenuScreen implements Screen {
     private static final int PLAYBUTTON_WIDTH = 200;

@@ -1,10 +1,10 @@
-package inf112.skeleton.app.inWork;
+package inf112.skeleton.app.inWork.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import inf112.skeleton.app.MainMenuScreen;
+import inf112.skeleton.app.inWork.screens.NewMainMenuScreen;
 
 public class BoardGame extends Game {
     public static final String TITLE = "RoboRally";

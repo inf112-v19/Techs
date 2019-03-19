@@ -5,18 +5,18 @@ import java.util.ArrayList;
 public class MovePlayer {
 
     private BoardLogic board;
-    private ArrayList<RobotToken> playersList;
+    private ArrayList<PlayerToken> playersList;
     
-    public MovePlayer(ArrayList<RobotToken> playersList, BoardLogic board) {
+    public MovePlayer(ArrayList<PlayerToken> playersList, BoardLogic board) {
         this.playersList = playersList;
         this.board = board;
     }
     
-    public void updatePlayersList(ArrayList<RobotToken> playersList) {
+    public void updatePlayersList(ArrayList<PlayerToken> playersList) {
         this.playersList = playersList;
     }
     
-    public boolean movePlayer(Direction directionToMove, RobotToken playerToMove) {
+    public boolean movePlayer(Direction directionToMove, PlayerToken playerToMove) {
         int xPos = playerToMove.getXPosition();
         int yPos = playerToMove.getYPosition();
         
@@ -67,7 +67,7 @@ public class MovePlayer {
     }
     
     private boolean moveOtherPlayers(int xPos, int yPos, Direction directionToMove) {
-        for(RobotToken player : playersList) {
+        for(PlayerToken player : playersList) {
             if(player.getXPosition() == xPos && player.getYPosition() == yPos) {
                 return movePlayer(directionToMove, player);
             }

@@ -5,19 +5,20 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import inf112.skeleton.app.inWork.BoardGame;
-import inf112.skeleton.app.inWork.NewBoardLogic;
-import inf112.skeleton.app.inWork.RobotToken;
+import com.badlogic.gdx.math.Vector2;
+import inf112.skeleton.app.Direction;
+import inf112.skeleton.app.inWork.game.BoardGame;
+import inf112.skeleton.app.inWork.logic.NewBoardLogic;
+import inf112.skeleton.app.inWork.objects.RobotToken;
 
 public class GameScreen implements Screen {
     private static final float ZOOM_SPEED = 0.03f;
     private static final float MOVE_SPEED = 16;
     private static final int ROBOT_WIDTH = 96;
     private static final int ROBOT_HEIGHT = 96;
-
-
 
     // Variables used in regards to animating robots
     private float statetime;
@@ -33,6 +34,7 @@ public class GameScreen implements Screen {
         this.game = game;
         boardLogic = new NewBoardLogic(map);
         statetime = 0f;
+        addPlayerToBoard(new Vector2(0,0), "playerOne");
     }
 
     @Override
@@ -49,6 +51,7 @@ public class GameScreen implements Screen {
         renderer.render();
 
         statetime += delta;
+
 
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
@@ -119,5 +122,33 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
+    }
+
+    /*
+     * Checks if tile at (xPos, yPos) is in the specified layer
+     */
+    public boolean cellContainsLayer(int xPos, int yPos, String layer) {
+        TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
+        return tileLayer.getCell(xPos, yPos) != null;
+    }
+
+    public boolean moveRobot(String name, Direction directionToMove) {
+        return boardLogic.moveRobot(name, directionToMove);
+    }
+
+    public void moveConveyorBelts() {
+        boardLogic.moveConveyorBelts();
+    }
+
+    public void rotateRobot(String name, int numberOfTimes) {
+        boardLogic.rotateRobot(name, numberOfTimes);
+    }
+
+    public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
+        return boardLogic.cellContainsLayerWithKey(xPos, yPos, layer, key);
+    }
+
+    public void addPlayerToBoard(Vector2 startPosition, String playerName) {
+        boardLogic.addPlayerToBoard(startPosition, playerName);
     }
 }
