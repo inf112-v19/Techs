@@ -52,6 +52,11 @@ public class Board implements Screen {
         robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
         boardLogic = new BoardLogic(robotSprite, robotSpriteScale, map);
         camera.setToOrtho(false, RoboRally.WIDTH, RoboRally.HEIGHT);
+        
+        // TODO: Remove temporary player
+        addPlayerToBoard(new Vector2 (0,1), "playerOne");
+        addPlayerToBoard(new Vector2 (1,1), "playerTwo");
+
     }
 
     @Override
@@ -60,11 +65,15 @@ public class Board implements Screen {
         renderer.render();
         renderer.getBatch().begin();
         
+        if(Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+            boardLogic.moveConveyorBelts();
+        }
+        
         for (PlayerToken player : boardLogic.getPlayersList()) {
             player.draw(renderer.getBatch());
         }
         renderer.getBatch().end();
-
+        
         /*
         The code here handles the zoom- and camera movement functions. The drag-functionality might be removed if conflict arise when using
         the mouse button to click on program cards. The buttons used are WASD for camera-movement and E/Q for ZoomIn/ZoomOut.

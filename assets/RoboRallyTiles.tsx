@@ -23,41 +23,49 @@
  </tile>
  <tile id="28">
   <properties>
+   <property name="LEFT" value="1"/>
    <property name="SOUTH" value="1"/>
   </properties>
  </tile>
  <tile id="29">
   <properties>
+   <property name="LEFT" value="1"/>
    <property name="WEST" value="1"/>
   </properties>
  </tile>
  <tile id="30">
   <properties>
    <property name="EAST" value="1"/>
+   <property name="RIGHT" value="1"/>
   </properties>
  </tile>
  <tile id="31">
   <properties>
+   <property name="RIGHT" value="1"/>
    <property name="SOUTH" value="1"/>
   </properties>
  </tile>
  <tile id="35">
   <properties>
    <property name="EAST" value="1"/>
+   <property name="LEFT" value="1"/>
   </properties>
  </tile>
  <tile id="36">
   <properties>
+   <property name="LEFT" value="1"/>
    <property name="NORTH" value="1"/>
   </properties>
  </tile>
  <tile id="37">
   <properties>
    <property name="NORTH" value="1"/>
+   <property name="RIGHT" value="1"/>
   </properties>
  </tile>
  <tile id="38">
   <properties>
+   <property name="RIGHT" value="1"/>
    <property name="WEST" value="1"/>
   </properties>
  </tile>
