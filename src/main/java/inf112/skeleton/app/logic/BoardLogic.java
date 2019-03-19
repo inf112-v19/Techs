@@ -9,19 +9,23 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.objects.PlayerToken;
 
 public class BoardLogic {
+
+    private static final float ROBOT_SPRITE_SCALE = 96;
+
+    // Robot color sprite sheet
+    private static final String BLUE_ROBOT = "assets/BlueRobotSpriteSheet.png";
+    private static final String GREEN_ROBOT = "assets/GreenRobotSpriteSheet.png";
+    private static final String RED_ROBOT = "assets/RedRobotSpriteSheet.png";
+    private static final String YELLOW_ROBOT = "assets/YellowRobotSpriteSheet.png";
     
-    private MovePlayer movePlayerBrain;
     private ArrayList<PlayerToken> playersList;
+    private MovePlayer movePlayerBrain;
     private MoveConveyorBelts moveConveyorBelts;
     
     private TiledMap map;
-    Sprite robotSprite;
-    float robotSpriteScale;
     
-    public BoardLogic(Sprite robotSprite, float robotSpriteScale, TiledMap map) {
+    public BoardLogic(TiledMap map) {
         this.map = map;
-        this.robotSprite = robotSprite;
-        this.robotSpriteScale = robotSpriteScale;
         this.playersList = new ArrayList<PlayerToken>();
         this.movePlayerBrain = new MovePlayer(playersList, this);
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
