@@ -1,6 +1,7 @@
 package inf112.skeleton.app.inWork;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -10,9 +11,11 @@ public class RobotToken extends Sprite {
 
     private static final float ROTATE_SPEED = 400;
     private static final float MOVEMENT_SPEED = 360;
+    public static final float ANIMATION_SPEED = 0.06f;
     private static final int FRAME_COL = 8;
     private static final int FRAME_ROW = 2;
     private static final float TILE_SCALE = 96;
+
 
     // Variables needed for movement, direction and position
     private Vector2 movementVelocity = new Vector2();
@@ -30,6 +33,7 @@ public class RobotToken extends Sprite {
 
     // Variables needed for animated sprites
     TextureRegion[] animationFrames;
+    Animation<TextureRegion> robotAnimation;
     Texture spriteSheet;
     String playerName;
 
@@ -51,6 +55,13 @@ public class RobotToken extends Sprite {
                 animationFrames[index++] = tmp[i][j];
             }
         }
+
+        robotAnimation = new Animation<TextureRegion>(ANIMATION_SPEED, animationFrames);
+
+        setOrigin(TILE_SCALE/2, TILE_SCALE/2);
+
+        setXPositionOnBoard();
+        setYPositionOnBoard();
     }
 
     private void animateXPositionOnBoard(float delta) {
@@ -59,6 +70,10 @@ public class RobotToken extends Sprite {
 
     private void animateYPositionOnBoard(float delta) {
         setY(getY() + movementVelocity.y * delta);
+    }
+
+    public Animation<TextureRegion> getRobotAnimation() {
+        return robotAnimation;
     }
 
     public TextureRegion[] getAnimationFrames() {
@@ -99,7 +114,6 @@ public class RobotToken extends Sprite {
                 break;
         }
     }
-
 
     private void moveEast() {
         movingEast = true;

@@ -2,7 +2,6 @@ package inf112.skeleton.app;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -11,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 public class BoardLogic {
     
     private MovePlayer movePlayerBrain;
-    private ArrayList<PlayerToken> playersList;
+    private ArrayList<RobotToken> playersList;
     private MoveConveyorBelts moveConveyorBelts;
     
     private TiledMap map;
@@ -22,12 +21,12 @@ public class BoardLogic {
         this.map = map;
         this.robotSprite = robotSprite;
         this.robotSpriteScale = robotSpriteScale;
-        this.playersList = new ArrayList<PlayerToken>();
+        this.playersList = new ArrayList<RobotToken>();
         this.movePlayerBrain = new MovePlayer(playersList, this);
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
     }
     
-    public ArrayList<PlayerToken> getPlayersList() {
+    public ArrayList<RobotToken> getPlayersList() {
         return playersList;
     }
     
@@ -35,7 +34,7 @@ public class BoardLogic {
      * Adds player to the board at specified position
      */
     public void addPlayerToBoard(Vector2 startPosition, String playerName) {
-        PlayerToken newPlayer = new PlayerToken(robotSprite, playerName, startPosition, robotSpriteScale);
+        RobotToken newPlayer = new RobotToken(robotSprite, playerName, startPosition, robotSpriteScale);
         newPlayer.setSize(robotSpriteScale, robotSpriteScale);
         playersList.add(newPlayer);
         movePlayerBrain.updatePlayersList(playersList);
@@ -59,17 +58,17 @@ public class BoardLogic {
     }
     
     public Direction getPlayerRotation(String name) {
-        PlayerToken player = getPlayerByName(name);
+        RobotToken player = getPlayerByName(name);
         return player.getDirection();
     }
     
     public Vector2 getPlayerLocation(String name) {
-        PlayerToken player = getPlayerByName(name);
+        RobotToken player = getPlayerByName(name);
         return new Vector2 (player.getXPosition(), player.getYPosition());
     }
     
-    private PlayerToken getPlayerByName(String playerName) {
-        for(PlayerToken player : playersList) {
+    private RobotToken getPlayerByName(String playerName) {
+        for(RobotToken player : playersList) {
             if(player.getName().equals(playerName))
                 return player;
 
@@ -88,7 +87,7 @@ public class BoardLogic {
      * Rotates player 90 degrees clockwise for each numberOfTimes. 90 degrees counterclockwise when numberOfTimes is negative.
      */
     public void rotatePlayer(String name, int numberOfTimes) {
-        PlayerToken player = getPlayerByName(name);
+        RobotToken player = getPlayerByName(name);
         player.rotatePlayer(numberOfTimes);
     }
 }

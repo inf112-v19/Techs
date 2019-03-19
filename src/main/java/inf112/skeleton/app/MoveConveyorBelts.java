@@ -5,18 +5,18 @@ import java.util.ArrayList;
 public class MoveConveyorBelts implements IBoardFeature {
 
     private Board board;
-    private ArrayList<PlayerToken> playersList;
+    private ArrayList<RobotToken> playersList;
     private String layerName = "Conveyor";
     private int xPos;
     private int yPos;
     
-    public MoveConveyorBelts(BoardLogic board, ArrayList<PlayerToken> playersList) {
+    public MoveConveyorBelts(BoardLogic board, ArrayList<RobotToken> playersList) {
         this.playersList = playersList;
     }
     
     @Override
     public void processFeature() {
-        for(PlayerToken player : playersList) {
+        for(RobotToken player : playersList) {
             xPos = player.getXPosition();
             yPos = player.getYPosition();
             

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 
-public class PlayerToken extends Sprite {
+public class RobotToken extends Sprite {
 
     private Vector2 movementVelocity = new Vector2();
     private Vector2 position;
@@ -23,7 +23,7 @@ public class PlayerToken extends Sprite {
     private int targetRotation;
     private float rotateSpeed = 400;
    
-    public PlayerToken(Sprite sprite, String playerName, Vector2 startPosition, float spriteScale) {
+    public RobotToken(Sprite sprite, String playerName, Vector2 startPosition, float spriteScale) {
         facingDirection = Direction.SOUTH;
         this.playerName = playerName;
         

@@ -1,17 +1,11 @@
 package inf112.skeleton.app;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -60,7 +54,7 @@ public class Board implements Screen {
         renderer.render();
         renderer.getBatch().begin();
         
-        for (PlayerToken player : boardLogic.getPlayersList()) {
+        for (RobotToken player : boardLogic.getPlayersList()) {
             player.draw(renderer.getBatch());
         }
         renderer.getBatch().end();
