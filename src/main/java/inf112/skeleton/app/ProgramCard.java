@@ -7,8 +7,8 @@ public class ProgramCard implements IProgramCard {
 	boolean locked;
 
 	public ProgramCard(CardType cardType, int priority) {
-		cardType = this.cardType;
-		priority = this.priority;
+		this.cardType = cardType;
+		this.priority = priority;
 		this.locked = false;
 	}
 
@@ -24,7 +24,7 @@ public class ProgramCard implements IProgramCard {
 	
 	@Override
 	public String toString() {
-		return cardType.toString() + priority;
+		return priority + " " + cardType.toString();
 	}
 	
 	public void setLocked() {
