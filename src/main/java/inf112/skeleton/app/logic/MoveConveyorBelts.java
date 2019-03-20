@@ -1,4 +1,7 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.logic;
+
+import inf112.skeleton.app.objects.PlayerToken;
+import inf112.skeleton.app.screens.Board;
 
 import java.util.ArrayList;
 
