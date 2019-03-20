@@ -155,6 +155,12 @@ public class BoardCards extends Board{
                 }
             }
         }
+        /*
+        else{
+            Pl
+        }
+        */
+
     }
 
     public void setNumberPos(int numberPos){
