@@ -38,6 +38,14 @@ public class BoardLogic {
         movePlayerBrain.updatePlayersList(playersList);
     }
 
+    /*
+     * Checks if tile at (xPos, yPos) is in the specified layer
+     */
+    public boolean cellContainsLayer(int xPos, int yPos, String layer) {
+        TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
+        return tileLayer.getCell(xPos, yPos) != null;
+    }
+
     // Checks if tile at (xPos, yPos) has a property named key in the specified layer
     public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
         TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);

@@ -58,6 +58,9 @@ public class Board implements Screen {
         for (PlayerToken robot : boardLogic.getPlayersList()) {
             game.batch.draw(robot.getRobotAnimation().getKeyFrame(statetime,true), robot.getX(), robot.getY(), ROBOT_WIDTH, ROBOT_HEIGHT);
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+            movePlayer("playerOne", Direction.EAST);
+        }
         game.batch.end();
 
         /*

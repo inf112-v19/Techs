@@ -72,6 +72,9 @@ public class PlayerToken extends Sprite {
     private void animateYPositionOnBoard(float delta) {
         setY(getY() + movementVelocity.y * delta);
     }
+    public Vector2 getVector2Position() {
+        return position;
+    }
     public int getXPosition() {
         return (int) position.x;
     }
