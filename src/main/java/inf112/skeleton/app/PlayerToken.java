@@ -60,6 +60,10 @@ public class PlayerToken extends Sprite {
         return facingDirection;
     }
     
+    public Vector2 getVector2Position() {
+        return position;
+    }
+    
     public int getXPosition() {
         return (int) position.x;
     }

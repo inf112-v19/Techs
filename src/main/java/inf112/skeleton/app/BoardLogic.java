@@ -23,7 +23,7 @@ public class BoardLogic {
         this.robotSprite = robotSprite;
         this.robotSpriteScale = robotSpriteScale;
         this.playersList = new ArrayList<PlayerToken>();
-        this.movePlayerBrain = new MovePlayer(playersList);
+        this.movePlayerBrain = new MovePlayer(playersList, this);
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
     }
     
