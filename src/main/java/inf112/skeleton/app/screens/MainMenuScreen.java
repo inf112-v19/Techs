@@ -30,6 +30,7 @@ public class MainMenuScreen implements Screen {
         this.playButtonInactive = new Texture("assets/PlayButtonInactive.png");
         this.exitButtonActive = new Texture("assets/ExitButtonActive.png");
         this.exitButtonInactive = new Texture("assets/ExitButtonInactive.png");
+        GameController logicGameController = new GameController(2, game);
     }
 
     @Override
@@ -52,7 +53,8 @@ public class MainMenuScreen implements Screen {
             game.batch.draw(playButtonActive, PLAYBUTTON_X, (RoboRally.HEIGHT - PLAYBUTTON_HEIGHT) / 2, PLAYBUTTON_WIDTH, PLAYBUTTON_HEIGHT);
             if(Gdx.input.isTouched()) {
                 this.dispose();
-                game.setScreen(new BoardCards(game));
+                GameController logicGameController = new GameController(2, game);
+                game.setScreen(logicGameController.getScreen());
             }
         } else {
             game.batch.draw(playButtonInactive, PLAYBUTTON_X, (RoboRally.HEIGHT - PLAYBUTTON_HEIGHT) / 2, PLAYBUTTON_WIDTH, PLAYBUTTON_HEIGHT);
