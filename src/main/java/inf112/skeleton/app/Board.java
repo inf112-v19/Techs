@@ -64,7 +64,7 @@ public class Board implements Screen {
             player.draw(renderer.getBatch());
         }
         renderer.getBatch().end();
-
+        
         /*
         The code here handles the zoom- and camera movement functions. The drag-functionality might be removed if conflict arise when using
         the mouse button to click on program cards. The buttons used are WASD for camera-movement and E/Q for ZoomIn/ZoomOut.
@@ -109,8 +109,7 @@ public class Board implements Screen {
      * Checks if tile at (xPos, yPos) is in the specified layer
      */
     public boolean cellContainsLayer(int xPos, int yPos, String layer) {
-        TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
-        return tileLayer.getCell(xPos, yPos) != null;
+        return boardLogic.cellContainsLayer(xPos,  yPos, layer);
     }
     
     public boolean movePlayer(String name, Direction directionToMove) {

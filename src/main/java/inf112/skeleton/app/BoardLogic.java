@@ -12,7 +12,7 @@ public class BoardLogic {
     
     private MovePlayer movePlayerBrain;
     private ArrayList<PlayerToken> playersList;
-    private MoveConveyorBelts moveConveyorBelts;
+    private MoveConveyerBelts moveConveyorBelts;
     
     private TiledMap map;
     Sprite robotSprite;
@@ -24,7 +24,7 @@ public class BoardLogic {
         this.robotSpriteScale = robotSpriteScale;
         this.playersList = new ArrayList<PlayerToken>();
         this.movePlayerBrain = new MovePlayer(playersList, this);
-        this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
+        this.moveConveyorBelts = new MoveConveyerBelts(this, playersList);
     }
     
     public ArrayList<PlayerToken> getPlayersList() {
@@ -40,6 +40,14 @@ public class BoardLogic {
         playersList.add(newPlayer);
         movePlayerBrain.updatePlayersList(playersList);
     }
+    
+    /*
+    * Checks if tile at (xPos, yPos) is in the specified layer
+    */
+   public boolean cellContainsLayer(int xPos, int yPos, String layer) {
+       TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
+       return tileLayer.getCell(xPos, yPos) != null;
+   }
     
     /*
      * Checks if tile at (xPos, yPos) has a property named key in the specified layer 
