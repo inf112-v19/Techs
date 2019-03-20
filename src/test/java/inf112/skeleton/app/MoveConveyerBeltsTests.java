@@ -2,6 +2,7 @@ package inf112.skeleton.app;
 
 import static org.junit.Assert.assertEquals;
 
+import inf112.skeleton.app.logic.BoardLogic;
 import org.junit.Test;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -20,14 +21,14 @@ public class MoveConveyerBeltsTests {
     public void setUp() {
         robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
         map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
-        boardLogic = new BoardLogic(robotSprite, 0, map);
+        boardLogic = new BoardLogic(map);
     }
     
     @Test
     public void testPlayerMovesToTheRight() {
         robotSprite = null;
         map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
-        boardLogic = new BoardLogic(robotSprite, 0, map);
+        boardLogic = new BoardLogic(map);
 
         
         boardLogic.addPlayerToBoard(new Vector2(0,1), "testPlayer");

@@ -1,5 +1,8 @@
 package inf112.skeleton.app;
 
+import inf112.skeleton.app.objects.IProgramCard;
+import inf112.skeleton.app.objects.PlayerToken;
+
 import java.util.ArrayList;
 
 public class Game {

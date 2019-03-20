@@ -32,6 +32,7 @@ public class Board implements Screen {
 
     public Board(RoboRally game) {
         this.game = game;
+        map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
         boardLogic = new BoardLogic(map);
         statetime = 0f;
         addPlayerToBoard(new Vector2(0,0), "playerOne");
@@ -39,7 +40,6 @@ public class Board implements Screen {
         
     @Override
     public void show() {
-        map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, RoboRally.WIDTH, RoboRally.HEIGHT);
@@ -57,6 +57,7 @@ public class Board implements Screen {
         game.batch.begin();
         for (PlayerToken robot : boardLogic.getPlayersList()) {
             game.batch.draw(robot.getRobotAnimation().getKeyFrame(statetime,true), robot.getX(), robot.getY(), ROBOT_WIDTH, ROBOT_HEIGHT);
+            robot.update(delta);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             movePlayer("playerOne", Direction.EAST);
@@ -103,9 +104,7 @@ public class Board implements Screen {
         }
     }
 
-    /*
-     * Checks if tile at (xPos, yPos) is in the specified layer
-     */
+    // Checks if tile at (xPos, yPos) is in the specified layer
     public boolean cellContainsLayer(int xPos, int yPos, String layer) {
         return boardLogic.cellContainsLayer(xPos,  yPos, layer);
     }
@@ -154,26 +153,5 @@ public class Board implements Screen {
     @Override
     public void dispose() {
 
-    }
-
-    private void addPlayerToBoard(Vector2 startPosition, String playerName) {
-        boardLogic.addPlayerToBoard(startPosition, playerName);
-    }
-    // Checks if tile at (xPos, yPos) is in the specified layer
-    public boolean cellContainsLayer(int xPos, int yPos, String layer) {
-        TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
-        return tileLayer.getCell(xPos, yPos) != null;
-    }
-    public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
-        return boardLogic.cellContainsLayerWithKey(xPos, yPos, layer, key);
-    }
-    public void moveConveyorBelts() {
-        boardLogic.moveConveyorBelts();
-    }
-    public boolean movePlayer(String name, Direction directionToMove) {
-        return boardLogic.movePlayer(name, directionToMove);
-    }
-    public void rotatePlayer(String name, int numberOfTimes) {
-        boardLogic.rotatePlayer(name, numberOfTimes);
     }
 }
