@@ -1,4 +1,6 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.objects;
+
+import inf112.skeleton.app.logic.CardType;
 
 public class ProgramCard implements IProgramCard {
 
