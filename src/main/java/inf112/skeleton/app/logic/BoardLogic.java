@@ -37,9 +37,7 @@ public class BoardLogic {
         movePlayerBrain.updatePlayersList(playersList);
     }
 
-    /*
-     * Checks if tile at (xPos, yPos) is in the specified layer
-     */
+     // Checks if tile at (xPos, yPos) is in the specified layer
     public boolean cellContainsLayer(int xPos, int yPos, String layer) {
         TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
         return tileLayer.getCell(xPos, yPos) != null;

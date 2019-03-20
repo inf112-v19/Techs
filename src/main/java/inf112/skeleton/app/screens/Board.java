@@ -24,7 +24,7 @@ public class Board implements Screen {
     // Variable used to animate sprites
     private float statetime;
 
-    private TiledMap map;
+    private TiledMap map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
     private BoardLogic boardLogic;
@@ -32,8 +32,7 @@ public class Board implements Screen {
 
     public Board(RoboRally game) {
         this.game = game;
-        map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
-        boardLogic = new BoardLogic(map);
+        boardLogic = new BoardLogic(this.map);
         statetime = 0f;
         addPlayerToBoard(new Vector2(0,0), "playerOne");
     }
@@ -104,32 +103,6 @@ public class Board implements Screen {
         }
     }
 
-    // Checks if tile at (xPos, yPos) is in the specified layer
-    public boolean cellContainsLayer(int xPos, int yPos, String layer) {
-        return boardLogic.cellContainsLayer(xPos,  yPos, layer);
-    }
-    
-    public boolean movePlayer(String name, Direction directionToMove) {
-        return boardLogic.movePlayer(name, directionToMove);
-    }
-    
-    public void moveConveyorBelts() {
-        boardLogic.moveConveyorBelts();
-    }
-
-    public void rotatePlayer(String name, int numberOfTimes) {
-        boardLogic.rotatePlayer(name, numberOfTimes);
-    }
-    
-    public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
-        return boardLogic.cellContainsLayerWithKey(xPos, yPos, layer, key);
-    }
-
-    public void addPlayerToBoard(Vector2 startPosition, String playerName) {
-        boardLogic.addPlayerToBoard(startPosition, playerName);
-    }
-
-
     @Override
     public void resize(int width, int height) {
 
@@ -153,5 +126,25 @@ public class Board implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    private void addPlayerToBoard(Vector2 startPosition, String playerName) {
+        boardLogic.addPlayerToBoard(startPosition, playerName);
+    }
+    // Checks if tile at (xPos, yPos) is in the specified layer
+    public boolean cellContainsLayer(int xPos, int yPos, String layer) {
+        return boardLogic.cellContainsLayer(xPos,  yPos, layer);
+    }
+    public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
+        return boardLogic.cellContainsLayerWithKey(xPos, yPos, layer, key);
+    }
+    public void moveConveyorBelts() {
+        boardLogic.moveConveyorBelts();
+    }
+    public boolean movePlayer(String name, Direction directionToMove) {
+        return boardLogic.movePlayer(name, directionToMove);
+    }
+    public void rotatePlayer(String name, int numberOfTimes) {
+        boardLogic.rotatePlayer(name, numberOfTimes);
     }
 }

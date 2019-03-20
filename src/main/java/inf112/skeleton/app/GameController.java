@@ -1,6 +1,9 @@
 package inf112.skeleton.app;
 
 import com.badlogic.gdx.Screen;
+import inf112.skeleton.app.logic.BoardCards;
+import inf112.skeleton.app.objects.IProgramCard;
+import inf112.skeleton.app.objects.PlayerToken;
 
 import java.util.ArrayList;
 import java.util.HashMap;

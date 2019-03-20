@@ -65,6 +65,14 @@ public class PlayerToken extends Sprite {
         return playerName;
     }
 
+    // Methods regarding animations
+    public Animation<TextureRegion> getRobotAnimation() {
+        return robotAnimation;
+    }
+    public TextureRegion[] getAnimationFrames() {
+        return animationFrames;
+    }
+
     // Methods regarding X and Y positions
     private void animateXPositionOnBoard(float delta) {
         setX(getX() + movementVelocity.x * delta);
@@ -139,14 +147,6 @@ public class PlayerToken extends Sprite {
         }
     }
 
-    // Methods regarding animations
-    public Animation<TextureRegion> getRobotAnimation() {
-        return robotAnimation;
-    }
-    public TextureRegion[] getAnimationFrames() {
-        return animationFrames;
-    }
-
     public void update(float delta) {
         animateXPositionOnBoard(delta);
         animateYPositionOnBoard(delta);
@@ -155,12 +155,12 @@ public class PlayerToken extends Sprite {
             // position.y * tileScale : translation of player's position to correct number of pixels
             if(getY() >= position.y * TILE_SCALE) {
                 movingNorth = false;
-                movementVelocity.y = 0;             
+                movementVelocity.y = 0;
                 setYPositionOnBoard();       // "hard sets" the position to avoid inaccuracies in position
             } else {
                 movementVelocity.y = MOVEMENT_SPEED;
             }
-        } else if (movingSouth) {   
+        } else if (movingSouth) {
             if(getY() <= position.y  * TILE_SCALE) {
                 movingSouth = false;
                 setYPositionOnBoard();
@@ -171,7 +171,7 @@ public class PlayerToken extends Sprite {
         } else {
             movementVelocity.y = 0;
         }
-        
+
         if(movingEast) {
             if(getX() >= position.x * TILE_SCALE) {
                 movingEast = false;
@@ -191,7 +191,7 @@ public class PlayerToken extends Sprite {
         } else {
             movementVelocity.x = 0;
         }
-        
+
         if(rotatingLeft) {
             if(this.getRotation() > targetRotation) {
                 this.rotate(-ROTATE_SPEED * delta);
