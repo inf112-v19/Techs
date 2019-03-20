@@ -10,19 +10,19 @@ import inf112.skeleton.app.RoboRally;
 public class MainMenuScreen implements Screen {
     private static final int PLAYBUTTON_WIDTH = 200;
     private static final int PLAYBUTTON_HEIGHT = 100;
-    public static final int PLAYBUTTON_X = (RoboRally.WIDTH - PLAYBUTTON_WIDTH) / 2;
+    private static final int PLAYBUTTON_X = (RoboRally.WIDTH - PLAYBUTTON_WIDTH) / 2;
     private static final int PLAYBUTTON_Y = 310;
     private static final int EXITBUTTON_WIDTH = 160;
     private static final int EXITBUTTON_HEIGHT = 80;
-    public static final int EXITBUTTON_X = (RoboRally.WIDTH - EXITBUTTON_WIDTH) / 2;
+    private static final int EXITBUTTON_X = (RoboRally.WIDTH - EXITBUTTON_WIDTH) / 2;
     private static final int EXITBUTTON_Y = 220;
 
-    RoboRally game;
+    private Texture playButtonActive;
+    private Texture playButtonInactive;
+    private Texture exitButtonActive;
+    private Texture exitButtonInactive;
 
-    Texture playButtonActive;
-    Texture playButtonInactive;
-    Texture exitButtonActive;
-    Texture exitButtonInactive;
+    private RoboRally game;
 
     public MainMenuScreen(RoboRally game) {
         this.game = game;

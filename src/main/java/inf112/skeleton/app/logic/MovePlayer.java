@@ -14,10 +14,6 @@ public class MovePlayer {
         this.board = board;
     }
     
-    public void updatePlayersList(ArrayList<PlayerToken> playersList) {
-        this.playersList = playersList;
-    }
-    
     public boolean movePlayer(Direction directionToMove, PlayerToken playerToMove) {
         int xPos = playerToMove.getXPosition();
         int yPos = playerToMove.getYPosition();
@@ -67,7 +63,6 @@ public class MovePlayer {
         }
         return false;
     }
-    
     private boolean moveOtherPlayers(int xPos, int yPos, Direction directionToMove) {
         for(PlayerToken player : playersList) {
             if(player.getXPosition() == xPos && player.getYPosition() == yPos) {
@@ -75,5 +70,8 @@ public class MovePlayer {
             }
         }
         return true;
+    }
+    public void updatePlayersList(ArrayList<PlayerToken> playersList) {
+        this.playersList = playersList;
     }
 }

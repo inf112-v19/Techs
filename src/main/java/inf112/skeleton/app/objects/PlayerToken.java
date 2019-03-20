@@ -1,5 +1,6 @@
 package inf112.skeleton.app.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
@@ -9,7 +10,7 @@ public class PlayerToken extends Sprite {
 
     private static final float ROTATE_SPEED = 400;
     private static final float MOVEMENT_SPEED = 360;
-    public static final float ANIMATION_SPEED = 0.06f;
+    private static final float ANIMATION_SPEED = 0.06f;
     private static final int FRAME_COL = 8;
     private static final int FRAME_ROW = 2;
     private static final float TILE_SCALE = 96;
