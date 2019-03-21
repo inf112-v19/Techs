@@ -19,6 +19,7 @@ public class BoardLogic {
     private ArrayList<PlayerToken> playersList;
     private MovePlayer movePlayerBrain;
     private MoveConveyorBelts moveConveyorBelts;
+    private ProcessCheckpoints processCheckpoints;
     
     private TiledMap map;
     
@@ -27,6 +28,7 @@ public class BoardLogic {
         this.playersList = new ArrayList<PlayerToken>();
         this.movePlayerBrain = new MovePlayer(playersList, this);
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
+        this.processCheckpoints = new ProcessCheckpoints(this, playersList);
     }
 
     // Adds player to the board at specified position
@@ -85,5 +87,9 @@ public class BoardLogic {
     public void rotatePlayer(String name, int numberOfTimes) {
         PlayerToken player = getPlayerByName(name);
         player.rotatePlayer(numberOfTimes);
+    }
+
+    public void checkAllCheckpoints() {
+        processCheckpoints.processFeature();
     }
 }

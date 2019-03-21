@@ -61,6 +61,19 @@ public class Board implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             movePlayer("playerOne", Direction.EAST);
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            movePlayer("playerOne", Direction.SOUTH);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            movePlayer("playerOne", Direction.NORTH);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+            movePlayer("playerOne", Direction.WEST);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            checkAllCheckpoints();
+            
+        }
         game.batch.end();
 
         /*
@@ -102,6 +115,8 @@ public class Board implements Screen {
             camera.update();
         }
     }
+
+
 
     @Override
     public void resize(int width, int height) {
@@ -146,5 +161,8 @@ public class Board implements Screen {
     }
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
+    }
+    public void checkAllCheckpoints() {
+        boardLogic.checkAllCheckpoints();
     }
 }
