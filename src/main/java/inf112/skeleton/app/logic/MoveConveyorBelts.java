@@ -40,6 +40,12 @@ public class MoveConveyorBelts implements IBoardFeature {
         if(boardLogic.cellContainsLayer(xPos, yPos, layerName)) {
             for(Direction dir : Direction.values()) {
                 if(hasConveyerPointingToDirection(player, dir, xPos, yPos)) {
+                    // Moves other player on conveyer belts that are standing in the way first  
+                    PlayerToken otherPlayer = checkForPlayer(dir, xPos, yPos);
+                    if(otherPlayer != null) {
+                        movePlayerIfOnConveyorBelt(otherPlayer);
+                    }
+                    
                     boardLogic.movePlayer(player.getName(), dir);
                     rotatePlayerIfMovedToRotatingConveyer(player, xPos, yPos, dir);
                     return;
@@ -49,18 +55,10 @@ public class MoveConveyorBelts implements IBoardFeature {
     }
 
     /*
-     * Checks if a tile has a conveyorbelt pointing to direction dir. 
-     * If a player stands in its path, it will first process that player.
+     * Checks if a tile has a conveyer belt pointing to direction dir. 
      */
     private boolean hasConveyerPointingToDirection(PlayerToken player, Direction dir, int xPos, int yPos) {
-        if(boardLogic.cellContainsLayerWithKey(xPos, yPos, layerName, dir.toString())) {
-            PlayerToken otherPlayer = checkForPlayer(dir, xPos, yPos);
-            if(otherPlayer != null) {
-                movePlayerIfOnConveyorBelt(otherPlayer);
-            }
-            return true;
-        }
-        return false;
+        return boardLogic.cellContainsLayerWithKey(xPos, yPos, layerName, dir.toString());
     }
     
     /*
@@ -84,11 +82,9 @@ public class MoveConveyorBelts implements IBoardFeature {
         if(xPos != player.getXPosition() || yPos != player.getYPosition()) {
             if(boardLogic.cellContainsLayerWithKey(player.getXPosition(), player.getYPosition(), layerName, dir.toString() + "RotateLeft")) {
                 boardLogic.rotatePlayer(player.getName(), -1);
-                System.out.println("RotatingLeft");
             }
             else if(boardLogic.cellContainsLayerWithKey(player.getXPosition(), player.getYPosition(), layerName, dir.toString() + "RotateRight")) {
                 boardLogic.rotatePlayer(player.getName(), 1);;
-                System.out.println("RotatingRight");
             }
         }
     }
