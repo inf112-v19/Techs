@@ -22,10 +22,11 @@ public interface IProgramCard {
 
 	/**
 	 *
-	 * @return the direction the card points to
+	 * @return Rotates player 90 degrees clockwise for each numberOfTimes.
+	 * 90 degrees counterclockwise when numberOfTimes is negative.
 	 */
-	ArrayList<Direction> getDirection();
-	
+	int getDirection();
+
 	String toString();
 	
 	/**

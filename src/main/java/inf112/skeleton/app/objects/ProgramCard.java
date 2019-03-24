@@ -10,13 +10,15 @@ public class ProgramCard implements IProgramCard {
 	CardType cardType;
 	int priority;
 	boolean locked;
-	Direction direction;
+	int rotations;
+	int movement;
 
-	public ProgramCard(CardType cardType, int priority, Direction direction) {
+	public ProgramCard(CardType cardType, int priority, int rotations, int movement) {
 		this.cardType = cardType;
 		this.priority = priority;
 		this.locked = false;
-		this.direction = direction;
+		this.rotations = rotations;
+		this.movement = movement;
 	}
 
 	@Override
@@ -25,8 +27,8 @@ public class ProgramCard implements IProgramCard {
 	}
 
 	@Override
-	public ArrayList<Direction> getDirection() {
-		return null;
+	public int getDirection() {
+		return this.rotations;
 	}
 
 	@Override

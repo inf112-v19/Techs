@@ -51,8 +51,26 @@ public class GameControllerExperimental {
             ArrayList<IProgramCard> cards2 = playersCards.get(1);
             System.out.println(cards1.toString());
             System.out.println(cards2.toString());
-            boardCards.movePlayer("playerOne", Direction.NORTH);
+
+            for (int i = 0; i < 5; i++) {
+                if (cards1.get(0).getPriority() > cards2.get(0).getPriority())
+                    doTurn(cards1.remove(0), cards2.remove(0));
+                else
+                    doTurn(cards2.remove(0), cards1.remove(0));
+            }
+
+            //boardCards.getBoardLogic().getPlayersList().get(0).getFacingDirection();
+            //boardCards.getBoardLogic().getPlayersList().get(0).rotatePlayer();
+            //boardCards.movePlayer("playerOne", )
+            //boardCards.movePlayer("playerOne", cards1.get(0).getDirection());
         }
     }
 
+    private void doTurn(IProgramCard first, IProgramCard second){
+        if (first.getDirection() != 0)
+
+        System.out.println();
+        System.out.println(first.getDirection());
+        System.out.println(second.getDirection());
+    }
 }

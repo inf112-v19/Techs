@@ -68,7 +68,7 @@ public class BoardLogic {
     }
     public Direction getPlayerRotation(String name) {
         PlayerToken player = getPlayerByName(name);
-        return player.getDirection();
+        return player.getFacingDirection();
     }
 
      // Moves all players standing on conveyer belts
