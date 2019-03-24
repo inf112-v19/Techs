@@ -45,7 +45,6 @@ public class BoardCards extends Board {
     //shows order of selected cards
     private ArrayList<Integer> numberXPos;
     private ArrayList<Integer> numberYPos;
-    private int numCardsSelected = 0;
 
     public BoardCards(RoboRally game) {
         super(game);
@@ -81,84 +80,75 @@ public class BoardCards extends Board {
         spriteBatchCards.end();
 
         //these if-statements handles which cards has been selected på user
-        if (numCardsSelected < 5) {
+        if (selectedCards.size() < 5) {
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
                 if (!selectedCards.contains(cardsToSelect.get(0))) {
-                    numberXPos.set(numCardsSelected, centerOfScreen - 330);
-                    numberYPos.set(numCardsSelected, 10);
-                    numCardsSelected++;
+                    numberXPos.set(selectedCards.size(), centerOfScreen - 330);
+                    numberYPos.set(selectedCards.size(), 10);
                     selectedCards.add(cardsToSelect.get(0));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
                 if (!selectedCards.contains(cardsToSelect.get(1))) {
-                    numberXPos.set(numCardsSelected, centerOfScreen - 240);
-                    numberYPos.set(numCardsSelected, 10);
-                    numCardsSelected++;
+                    numberXPos.set(selectedCards.size(), centerOfScreen - 240);
+                    numberYPos.set(selectedCards.size(), 10);
                     selectedCards.add(cardsToSelect.get(1));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
                 if (!selectedCards.contains(cardsToSelect.get(2))) {
-                    numberXPos.set(numCardsSelected, centerOfScreen - 150);
-                    numberYPos.set(numCardsSelected, 10);
-                    numCardsSelected++;
+                    numberXPos.set(selectedCards.size(), centerOfScreen - 150);
+                    numberYPos.set(selectedCards.size(), 10);
                     selectedCards.add(cardsToSelect.get(2));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_4)) {
                 if (!selectedCards.contains(cardsToSelect.get(3))) {
-                    numberXPos.set(numCardsSelected, centerOfScreen - 60);
-                    numberYPos.set(numCardsSelected, 10);
-                    numCardsSelected++;
+                    numberXPos.set(selectedCards.size(), centerOfScreen - 60);
+                    numberYPos.set(selectedCards.size(), 10);
                     selectedCards.add(cardsToSelect.get(3));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_5)) {
                 if (!selectedCards.contains(cardsToSelect.get(4))) {
-                    numberXPos.set(numCardsSelected, centerOfScreen + 30);
-                    numberYPos.set(numCardsSelected, 10);
-                    numCardsSelected++;
+                    numberXPos.set(selectedCards.size(), centerOfScreen + 30);
+                    numberYPos.set(selectedCards.size(), 10);
                     selectedCards.add(cardsToSelect.get(4));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_6)) {
                 if (!selectedCards.contains(cardsToSelect.get(5))) {
-                    numberXPos.set(numCardsSelected, centerOfScreen + 120);
-                    numberYPos.set(numCardsSelected, 10);
-                    numCardsSelected++;
+                    numberXPos.set(selectedCards.size(), centerOfScreen + 120);
+                    numberYPos.set(selectedCards.size(), 10);
                     selectedCards.add(cardsToSelect.get(5));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_7)) {
                 if (!selectedCards.contains(cardsToSelect.get(6))) {
-                    numberXPos.set(numCardsSelected, centerOfScreen + 210);
-                    numberYPos.set(numCardsSelected, 10);
-                    numCardsSelected++;
+                    numberXPos.set(selectedCards.size(), centerOfScreen + 210);
+                    numberYPos.set(selectedCards.size(), 10);
                     selectedCards.add(cardsToSelect.get(6));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_8)) {
                 if (!selectedCards.contains(cardsToSelect.get(7))) {
-                    numberXPos.set(numCardsSelected, centerOfScreen + 300);
-                    numberYPos.set(numCardsSelected, 10);
-                    numCardsSelected++;
+                    numberXPos.set(selectedCards.size(), centerOfScreen + 300);
+                    numberYPos.set(selectedCards.size(), 10);
                     selectedCards.add(cardsToSelect.get(7));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
                 if (!selectedCards.contains(cardsToSelect.get(8))){
-                    numberXPos.set(numCardsSelected, centerOfScreen + 390);
-                    numberYPos.set(numCardsSelected, 10);
-                    numCardsSelected++;
+                    numberXPos.set(selectedCards.size(), centerOfScreen + 390);
+                    numberYPos.set(selectedCards.size(), 10);
                     selectedCards.add(cardsToSelect.get(8));
                 }
             }
@@ -215,7 +205,6 @@ public class BoardCards extends Board {
         cardsToSelect = new ArrayList<>();
         selectedCards = new ArrayList<>();
         setStandardNumberPosition();
-        numCardsSelected = 0;
 
         for (int i = 0; i < 9; i++)
             cardsToSelect.add(deck.getTopCard());
