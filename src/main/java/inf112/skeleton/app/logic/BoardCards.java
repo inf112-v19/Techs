@@ -51,6 +51,11 @@ public class BoardCards extends Board {
         gameControllerExperimental = new GameControllerExperimental(2, game);
         atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
         spriteBatchCards = new SpriteBatch();
+        number1 = new Texture("assets/ProgramSheet/numbersInCircle/numberOne.png");
+        number2 = new Texture("assets/ProgramSheet/numbersInCircle/numberTwo.png");
+        number3 = new Texture("assets/ProgramSheet/numbersInCircle/numberThree.png");
+        number4 = new Texture("assets/ProgramSheet/numbersInCircle/numberFour.png");
+        number5 = new Texture("assets/ProgramSheet/numbersInCircle/numberFive.png");
         newTurn();
     }
 
@@ -152,12 +157,13 @@ public class BoardCards extends Board {
                     selectedCards.add(cardsToSelect.get(8));
                 }
             }
-
+            /*
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_0)){
                 if (cardsToSelect.size() >= 5) {
                     newTurn();
                 }
             }
+            */
         }
         else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)){
             if (cardsToSelect.size() >= 5) {
@@ -179,12 +185,6 @@ public class BoardCards extends Board {
 
     //puts all numbers in right corner
     public void setStandardNumberPosition(){
-        number1 = new Texture("assets/ProgramSheet/numbersInCircle/numberOne.png");
-        number2 = new Texture("assets/ProgramSheet/numbersInCircle/numberTwo.png");
-        number3 = new Texture("assets/ProgramSheet/numbersInCircle/numberThree.png");
-        number4 = new Texture("assets/ProgramSheet/numbersInCircle/numberFour.png");
-        number5 = new Texture("assets/ProgramSheet/numbersInCircle/numberFive.png");
-
         this.numberXPos = new ArrayList<>();
         this.numberYPos = new ArrayList<>();
 
