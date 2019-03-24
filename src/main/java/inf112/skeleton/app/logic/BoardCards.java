@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import inf112.skeleton.app.GameControllerExperimental;
 import inf112.skeleton.app.objects.IProgramCard;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.screens.Board;
@@ -14,11 +15,14 @@ import java.util.ArrayList;
 
 public class BoardCards extends Board {
 
+    private GameControllerExperimental gameControllerExperimental;
+
     //Card handling
-    private TextureAtlas atlasCards;
     private ProgramCardDeck deck = new ProgramCardDeck();
     private ArrayList<IProgramCard> cardsToSelect;
+    private ArrayList<IProgramCard> selectedCards;
 
+    private TextureAtlas atlasCards;
     private SpriteBatch spriteBatchCards;
     private Sprite cardToSelect0;
     private Sprite cardToSelect1;
@@ -44,10 +48,10 @@ public class BoardCards extends Board {
 
     public BoardCards(RoboRally game) {
         super(game);
+        gameControllerExperimental = new GameControllerExperimental(2, game);
         atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
         spriteBatchCards = new SpriteBatch();
-        createNewCards();
-        setStandardNumberPosition();
+        newTurn();
     }
 
     @Override
@@ -83,6 +87,7 @@ public class BoardCards extends Board {
                     numberYPos.set(numCardsSelected, 10);
                     hasBeenSelected[0] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(0));
                 }
             }
 
@@ -92,6 +97,7 @@ public class BoardCards extends Board {
                     numberYPos.set(numCardsSelected, 10);
                     hasBeenSelected[1] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(1));
                 }
             }
 
@@ -101,6 +107,7 @@ public class BoardCards extends Board {
                     numberYPos.set(numCardsSelected, 10);
                     hasBeenSelected[2] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(2));
                 }
             }
 
@@ -110,6 +117,7 @@ public class BoardCards extends Board {
                     numberYPos.set(numCardsSelected, 10);
                     hasBeenSelected[3] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(3));
                 }
             }
 
@@ -119,6 +127,7 @@ public class BoardCards extends Board {
                     numberYPos.set(numCardsSelected, 10);
                     hasBeenSelected[4] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(4));
                 }
             }
 
@@ -128,6 +137,7 @@ public class BoardCards extends Board {
                     numberYPos.set(numCardsSelected, 10);
                     hasBeenSelected[5] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(5));
                 }
             }
 
@@ -137,6 +147,7 @@ public class BoardCards extends Board {
                     numberYPos.set(numCardsSelected, 10);
                     hasBeenSelected[6] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(6));
                 }
             }
 
@@ -146,6 +157,7 @@ public class BoardCards extends Board {
                     numberYPos.set(numCardsSelected, 10);
                     hasBeenSelected[7] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(7));
                 }
             }
 
@@ -155,15 +167,16 @@ public class BoardCards extends Board {
                     numberYPos.set(numCardsSelected, 10);
                     hasBeenSelected[8] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(8));
                 }
             }
-        }
-        /*
-        else{
-            Pl
-        }
-        */
+            if (numCardsSelected >= 5){
 
+                System.out.println("yolo2");
+                //Flytte rundt på BoardClass
+                //Screen klassen styrer alt
+            }
+        }
     }
 
     public void setNumberPos(int numberPos){
@@ -194,8 +207,11 @@ public class BoardCards extends Board {
     }
 
 
-    public void createNewCards(){
+    public void newTurn(){
         cardsToSelect = new ArrayList<>();
+        selectedCards = new ArrayList<>();
+        setStandardNumberPosition();
+
         for (int i = 0; i < 9; i++)
             cardsToSelect.add(deck.getTopCard());
 
@@ -208,5 +224,11 @@ public class BoardCards extends Board {
         cardToSelect6 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
         cardToSelect7 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
         cardToSelect8 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
+    }
+
+    public ArrayList<IProgramCard> getSelectedCards(){
+        if (selectedCards == null)
+            throw new IllegalStateException("No cards has been selected");
+        return selectedCards;
     }
 }
