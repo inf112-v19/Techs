@@ -181,6 +181,12 @@ public class BoardCards extends Board {
         }
         else if (Gdx.input.isKeyPressed(Input.Keys.ENTER))
             newTurn();
+        /*
+        else if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)){
+            ha
+        }
+        */
+
     }
 
     public void setNumberPos(int numberPos){
