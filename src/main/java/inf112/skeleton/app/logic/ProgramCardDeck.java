@@ -72,11 +72,9 @@ public class ProgramCardDeck {
 	}
 	
 	public IProgramCard getTopCard() {
-		if(deck.isEmpty()) return null;
-		IProgramCard topcard = deck.get(deck.size()-1);
-		deck.remove(topcard);
-		return topcard;
-		
+		if (deck.isEmpty())
+			resetDeck();
+		return deck.remove(deckSize() - 1);
 	}
 	
 

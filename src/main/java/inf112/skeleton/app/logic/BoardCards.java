@@ -218,12 +218,6 @@ public class BoardCards extends Board {
         for (int i = 0; i < 9; i++)
             cardsToSelect.add(deck.getTopCard());
 
-        //System.out.println(cardsToSelect.toString());
-        deck.printDeck();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
         cardToSelect0 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
         cardToSelect1 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
         cardToSelect2 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
