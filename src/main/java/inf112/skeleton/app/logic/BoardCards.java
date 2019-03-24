@@ -11,7 +11,9 @@ import inf112.skeleton.app.objects.IProgramCard;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.screens.Board;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BoardCards extends Board {
 
@@ -170,14 +172,15 @@ public class BoardCards extends Board {
                     selectedCards.add(cardsToSelect.get(8));
                 }
             }
-            if (numCardsSelected >= 5){
-                gameControllerExperimental.donePickingCards(selectedCards);
-                newTurn();
-                //System.out.println("yolo2");
-                //Flytte rundt på BoardClass
-                //Screen klassen styrer alt
+
+            if (Gdx.input.isKeyPressed(Input.Keys.NUM_0)){
+                if (numCardsSelected == 5) {
+                    newTurn();
+                }
             }
         }
+        else if (Gdx.input.isKeyPressed(Input.Keys.ENTER))
+            newTurn();
     }
 
     public void setNumberPos(int numberPos){
