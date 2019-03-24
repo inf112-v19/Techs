@@ -19,6 +19,7 @@ public class GameControllerExperimental {
     public GameControllerExperimental(int numPlayers, RoboRally roboRally){
         this.turns = 0;
         this.numPlayers = numPlayers;
+        playersCards = new HashMap<>();
         turn(0);
     }
 
@@ -30,6 +31,7 @@ public class GameControllerExperimental {
     }
 
     public void donePickingCards(ArrayList<IProgramCard> cardsCurrentPlayer){
+        //System.out.println(cardsCurrentPlayer.toString());
         int currentPlayer = turns % numPlayers;
         playersCards.put(currentPlayer, cardsCurrentPlayer);
         turns++;
@@ -41,7 +43,7 @@ public class GameControllerExperimental {
     }
 
     public void turn(int playerTurn){
-        
+
     }
 
 }

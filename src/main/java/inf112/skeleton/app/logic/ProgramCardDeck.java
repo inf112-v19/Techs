@@ -101,6 +101,7 @@ public class ProgramCardDeck {
 	}
 	
 	public void printDeck() {
+		System.out.println(deck.size());
         for (IProgramCard card : deck) {
             System.out.println(card.toString());
         }

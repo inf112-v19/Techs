@@ -43,7 +43,7 @@ public class BoardCards extends Board {
     //shows order of selected cards
     private ArrayList<Integer> numberXPos;
     private ArrayList<Integer> numberYPos;
-    private boolean[] hasBeenSelected = new boolean[9];
+    private boolean[] hasBeenSelected;
     private int numCardsSelected = 0;
 
     public BoardCards(RoboRally game) {
@@ -171,8 +171,9 @@ public class BoardCards extends Board {
                 }
             }
             if (numCardsSelected >= 5){
-
-                System.out.println("yolo2");
+                gameControllerExperimental.donePickingCards(selectedCards);
+                newTurn();
+                //System.out.println("yolo2");
                 //Flytte rundt på BoardClass
                 //Screen klassen styrer alt
             }
@@ -211,9 +212,17 @@ public class BoardCards extends Board {
         cardsToSelect = new ArrayList<>();
         selectedCards = new ArrayList<>();
         setStandardNumberPosition();
+        numCardsSelected = 0;
+        hasBeenSelected = new boolean[9];
 
         for (int i = 0; i < 9; i++)
             cardsToSelect.add(deck.getTopCard());
+
+        //System.out.println(cardsToSelect.toString());
+        deck.printDeck();
+        System.out.println();
+        System.out.println();
+        System.out.println();
 
         cardToSelect0 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
         cardToSelect1 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
