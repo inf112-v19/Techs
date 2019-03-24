@@ -27,6 +27,12 @@ public interface IProgramCard {
 	 */
 	int getDirection();
 
+	/**
+	 *
+	 * @return number of tiles the player is moved forward by card. -1 is one tile back.
+	 */
+	int getMovement();
+
 	String toString();
 	
 	/**

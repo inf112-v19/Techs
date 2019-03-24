@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public class ProgramCard implements IProgramCard {
 
-	CardType cardType;
-	int priority;
-	boolean locked;
-	int rotations;
-	int movement;
+	private CardType cardType;
+	private int priority;
+	private boolean locked;
+	private int rotations;
+	private int movement;
 
 	public ProgramCard(CardType cardType, int priority, int rotations, int movement) {
 		this.cardType = cardType;
@@ -29,6 +29,11 @@ public class ProgramCard implements IProgramCard {
 	@Override
 	public int getDirection() {
 		return this.rotations;
+	}
+
+	@Override
+	public int getMovement() {
+		return movement;
 	}
 
 	@Override

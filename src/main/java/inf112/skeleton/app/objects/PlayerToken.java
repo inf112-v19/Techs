@@ -101,6 +101,10 @@ public class PlayerToken extends Sprite {
         return facingDirection;
     }
 
+    public void moveInFacingDirection(){
+        moveDirection(facingDirection);
+    }
+
     public void moveDirection(Direction dir) {
         switch(dir) {
             case EAST:
