@@ -218,15 +218,15 @@ public class BoardCards extends Board {
         for (int i = 0; i < 9; i++)
             cardsToSelect.add(deck.getTopCard());
 
-        cardToSelect0 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect1 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect2 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect3 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect4 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect5 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect6 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect7 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect8 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
+        cardToSelect0 = atlasCards.createSprite(cardsToSelect.get(0).toString(), -1);
+        cardToSelect1 = atlasCards.createSprite(cardsToSelect.get(1).toString(), -1);
+        cardToSelect2 = atlasCards.createSprite(cardsToSelect.get(2).toString(), -1);
+        cardToSelect3 = atlasCards.createSprite(cardsToSelect.get(3).toString(), -1);
+        cardToSelect4 = atlasCards.createSprite(cardsToSelect.get(4).toString(), -1);
+        cardToSelect5 = atlasCards.createSprite(cardsToSelect.get(5).toString(), -1);
+        cardToSelect6 = atlasCards.createSprite(cardsToSelect.get(6).toString(), -1);
+        cardToSelect7 = atlasCards.createSprite(cardsToSelect.get(7).toString(), -1);
+        cardToSelect8 = atlasCards.createSprite(cardsToSelect.get(8).toString(), -1);
     }
 
     public ArrayList<IProgramCard> getSelectedCards(){

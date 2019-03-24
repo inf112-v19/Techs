@@ -31,7 +31,7 @@ public class GameControllerExperimental {
     }
 
     public void donePickingCards(ArrayList<IProgramCard> cardsCurrentPlayer){
-        //System.out.println(cardsCurrentPlayer.toString());
+        System.out.println(cardsCurrentPlayer.toString());
         int currentPlayer = turns % numPlayers;
         playersCards.put(currentPlayer, cardsCurrentPlayer);
         turns++;

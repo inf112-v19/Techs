@@ -70,7 +70,7 @@ public class ProgramCardDeck {
 		shuffle();
 		
 	}
-	
+
 	public IProgramCard getTopCard() {
 		if (deck.isEmpty())
 			resetDeck();
