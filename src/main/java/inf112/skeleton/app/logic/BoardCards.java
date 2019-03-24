@@ -167,7 +167,7 @@ public class BoardCards extends Board {
         }
         else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)){
             if (cardsToSelect.size() >= 5) {
-                gameControllerExperimental.donePickingCards(selectedCards);
+                gameControllerExperimental.donePickingCards(selectedCards, this);
                 newTurn();
             }
         }

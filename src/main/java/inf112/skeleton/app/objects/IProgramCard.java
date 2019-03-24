@@ -1,6 +1,9 @@
 package inf112.skeleton.app.objects;
 
 import inf112.skeleton.app.logic.CardType;
+import inf112.skeleton.app.logic.Direction;
+
+import java.util.ArrayList;
 
 public interface IProgramCard {
 	
@@ -16,6 +19,12 @@ public interface IProgramCard {
 	 * @return
 	 */
 	int getPriority();
+
+	/**
+	 *
+	 * @return the direction the card points to
+	 */
+	ArrayList<Direction> getDirection();
 	
 	String toString();
 	

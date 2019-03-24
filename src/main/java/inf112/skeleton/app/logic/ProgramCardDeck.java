@@ -87,7 +87,16 @@ public class ProgramCardDeck {
 	 * @return
 	 */
 	public IProgramCard createCard(CardType type, int priority) {
-		return new ProgramCard(type, priority);
+		return new ProgramCard(type, priority, getDirectionsToCardType(type));
+	}
+
+	public Direction getDirectionsToCardType(CardType cardType){
+		if (cardType == CardType.ROTATE_LEFT)
+			return Direction.WEST;
+		if (cardType == CardType.ROTATE_RIGHT)
+			return Direction.EAST;
+		else
+			return Direction.SOUTH;
 	}
 	
 	public boolean deckIsEmpty() {
@@ -108,7 +117,6 @@ public class ProgramCardDeck {
 	/**
 	 * metode for å dele ut kort til en spiller
 	 * foreløpig står playeerHealth alltid til 10 før me får ein metode for den
-	 * @param player
 	 * @return
 	 */
 	public ArrayList<IProgramCard> dealToPlayer() {
