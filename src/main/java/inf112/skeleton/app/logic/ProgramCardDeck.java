@@ -1,4 +1,7 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.logic;
+
+import inf112.skeleton.app.objects.IProgramCard;
+import inf112.skeleton.app.objects.ProgramCard;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +28,7 @@ public class ProgramCardDeck {
 			}
 			
 			for(int p = 10; p <= 60; p += 10) {
-				deck.add(createCard(CardType.ROTATE_TURN, p));
+				deck.add(createCard(CardType.U_TURN, p));
 			}
 			
 			for(int p = 490; p <= 660; p += 10) {

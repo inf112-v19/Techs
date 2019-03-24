@@ -1,4 +1,6 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.objects;
+
+import inf112.skeleton.app.logic.CardType;
 
 public interface IProgramCard {
 	
@@ -7,7 +9,7 @@ public interface IProgramCard {
 	 * A method that returns the type of the programcard
 	 * @return
 	 */
-	CardType getCardType(); 
+	CardType getCardType();
 	
 	/**
 	 * A method that returns the priority of the programcard

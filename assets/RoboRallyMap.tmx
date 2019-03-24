@@ -11,27 +11,27 @@
    eJxjYBgF9ALsA+2AUYABAA4MAAg=
   </data>
  </layer>
- <layer id="16" name="WallRight" width="12" height="16" visible="0">
+ <layer id="16" name="WallRight" width="12" height="16" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYBheQJRMOVqBgXTPQPiXGvaLUqCXVAAA1VQAqQ==
   </data>
  </layer>
- <layer id="17" name="WallLeft" width="12" height="16" visible="0">
+ <layer id="17" name="WallLeft" width="12" height="16" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYKAtkB5A82ltN6l2UsM9A+EnUgAx7pMmUh2l9hCjHgB14wEq
   </data>
  </layer>
- <layer id="15" name="WallDown" width="12" height="16" visible="0">
+ <layer id="15" name="WallDown" width="12" height="16" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYBheQAoHeyQDcsJBCo3GJTbUAQDo8AC3
   </data>
  </layer>
- <layer id="3" name="WallsUp" width="12" height="16" visible="0">
+ <layer id="3" name="WallsUp" width="12" height="16" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYIAAGTQal9goIA1gC09aA1Y62gUDQzX9AAATygE6
   </data>
  </layer>
- <layer id="28" name="Wall" width="12" height="16">
+ <layer id="28" name="Wall" width="12" height="16" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYIAAGTQal9hgB6JIbGk8cvQCA+UeGQrNl0KjcYkh2wcCyH4URZNjQFKDHhbIQJSBsNvx6SdFPQBYNQKS
   </data>
@@ -61,7 +61,7 @@
    eJxjYCAPsJGpbxTQF4zGE34AABpwAA0=
   </data>
  </layer>
- <layer id="22" name="Laser" width="12" height="16" visible="0" locked="1">
+ <layer id="22" name="Laser" width="12" height="16" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYBh4oATEykCsOdAOGQUjDgAAEoMAbw==
   </data>
