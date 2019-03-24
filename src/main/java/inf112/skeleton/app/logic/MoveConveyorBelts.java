@@ -39,26 +39,26 @@ public class MoveConveyorBelts implements IBoardFeature {
         
         if(boardLogic.cellContainsLayer(xPos, yPos, layerName)) {
             for(Direction dir : Direction.values()) {
-                if(checkDirectionAndThenMove(player, dir, xPos, yPos))
+                if(hasConveyerPointingToDirection(player, dir, xPos, yPos)) {
+                    // Moves other player on conveyer belts that are standing in the way first  
+                    PlayerToken otherPlayer = checkForPlayer(dir, xPos, yPos);
+                    if(otherPlayer != null) {
+                        movePlayerIfOnConveyorBelt(otherPlayer);
+                    }
+                    
+                    boardLogic.movePlayer(player.getName(), dir);
+                    rotatePlayerIfMovedToRotatingConveyer(player, xPos, yPos, dir);
                     return;
+                }
             }
         }
     }
 
     /*
-     * Checks if there is a conveyorbelt in direction dir, if yes, moves that direction. 
-     * If a player stands in its path, it will first process that player.
+     * Checks if a tile has a conveyer belt pointing to direction dir. 
      */
-    private boolean checkDirectionAndThenMove(PlayerToken player, Direction dir, int xPos, int yPos) {
-        if(boardLogic.cellContainsLayerWithKey(xPos, yPos, layerName, dir.toString())) {
-            PlayerToken otherPlayer = checkForPlayer(dir, xPos, yPos);
-            if(otherPlayer != null) {
-                movePlayerIfOnConveyorBelt(otherPlayer);
-            }
-            boardLogic.movePlayer(player.getName(), dir);
-            return true;
-        }
-        return false;
+    private boolean hasConveyerPointingToDirection(PlayerToken player, Direction dir, int xPos, int yPos) {
+        return boardLogic.cellContainsLayerWithKey(xPos, yPos, layerName, dir.toString());
     }
     
     /*
@@ -73,6 +73,20 @@ public class MoveConveyorBelts implements IBoardFeature {
             }
         }
         return null;
+    }
+    
+    /*
+     * Rotates the player if they have moved and are now standing on a conveyer belt that rotates
+     */
+    private void rotatePlayerIfMovedToRotatingConveyer(PlayerToken player, int xPos, int yPos, Direction dir) {
+        if(xPos != player.getXPosition() || yPos != player.getYPosition()) {
+            if(boardLogic.cellContainsLayerWithKey(player.getXPosition(), player.getYPosition(), layerName, dir.toString() + "RotateLeft")) {
+                boardLogic.rotatePlayer(player.getName(), -1);
+            }
+            else if(boardLogic.cellContainsLayerWithKey(player.getXPosition(), player.getYPosition(), layerName, dir.toString() + "RotateRight")) {
+                boardLogic.rotatePlayer(player.getName(), 1);;
+            }
+        }
     }
     
     /*
