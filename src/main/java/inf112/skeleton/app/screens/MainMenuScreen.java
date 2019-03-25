@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import inf112.skeleton.app.GameController;
 import inf112.skeleton.app.logic.BoardCards;
 import inf112.skeleton.app.RoboRally;
 
@@ -25,13 +24,17 @@ public class MainMenuScreen implements Screen {
 
     private RoboRally game;
 
+    private BoardCards BoardScreen;
+
     public MainMenuScreen(RoboRally game) {
         this.game = game;
         this.playButtonActive = new Texture("assets/PlayButtonActive.png");
         this.playButtonInactive = new Texture("assets/PlayButtonInactive.png");
         this.exitButtonActive = new Texture("assets/ExitButtonActive.png");
         this.exitButtonInactive = new Texture("assets/ExitButtonInactive.png");
-        GameController logicGameController = new GameController(2, game);
+        this.BoardScreen = new BoardCards(game);
+        //BoardCards boardCards = new BoardCards(game);
+        //GameController logicGameController = new GameController(2, game);
     }
 
     @Override
@@ -54,8 +57,9 @@ public class MainMenuScreen implements Screen {
             game.batch.draw(playButtonActive, PLAYBUTTON_X, (RoboRally.HEIGHT - PLAYBUTTON_HEIGHT) / 2, PLAYBUTTON_WIDTH, PLAYBUTTON_HEIGHT);
             if(Gdx.input.isTouched()) {
                 this.dispose();
-                GameController logicGameController = new GameController(2, game);
-                game.setScreen(logicGameController.getScreen());
+                //GameController logicGameController = new GameController(2, game);
+                //game.setScreen(logicGameController.getScreen());
+                game.setScreen(BoardScreen);
             }
         } else {
             game.batch.draw(playButtonInactive, PLAYBUTTON_X, (RoboRally.HEIGHT - PLAYBUTTON_HEIGHT) / 2, PLAYBUTTON_WIDTH, PLAYBUTTON_HEIGHT);

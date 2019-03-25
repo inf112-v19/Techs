@@ -6,19 +6,25 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import inf112.skeleton.app.GameControllerExperimental;
 import inf112.skeleton.app.objects.IProgramCard;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.screens.Board;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BoardCards extends Board {
 
+    private GameControllerExperimental gameControllerExperimental;
+
     //Card handling
-    private TextureAtlas atlasCards;
     private ProgramCardDeck deck = new ProgramCardDeck();
     private ArrayList<IProgramCard> cardsToSelect;
+    private ArrayList<IProgramCard> selectedCards;
 
+    private TextureAtlas atlasCards;
     private SpriteBatch spriteBatchCards;
     private Sprite cardToSelect0;
     private Sprite cardToSelect1;
@@ -39,15 +45,14 @@ public class BoardCards extends Board {
     //shows order of selected cards
     private ArrayList<Integer> numberXPos;
     private ArrayList<Integer> numberYPos;
-    private boolean[] hasBeenSelected = new boolean[9];
     private int numCardsSelected = 0;
 
     public BoardCards(RoboRally game) {
         super(game);
+        gameControllerExperimental = new GameControllerExperimental(2, game);
         atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
         spriteBatchCards = new SpriteBatch();
-        createNewCards();
-        setStandardNumberPosition();
+        newTurn();
     }
 
     @Override
@@ -78,89 +83,101 @@ public class BoardCards extends Board {
         //these if-statements handles which cards has been selected på user
         if (numCardsSelected < 5) {
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
-                if (!hasBeenSelected[0]) {
+                if (!selectedCards.contains(cardsToSelect.get(0))) {
                     numberXPos.set(numCardsSelected, centerOfScreen - 330);
                     numberYPos.set(numCardsSelected, 10);
-                    hasBeenSelected[0] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(0));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
-                if (!hasBeenSelected[1]) {
+                if (!selectedCards.contains(cardsToSelect.get(1))) {
                     numberXPos.set(numCardsSelected, centerOfScreen - 240);
                     numberYPos.set(numCardsSelected, 10);
-                    hasBeenSelected[1] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(1));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
-                if (!hasBeenSelected[2]) {
+                if (!selectedCards.contains(cardsToSelect.get(2))) {
                     numberXPos.set(numCardsSelected, centerOfScreen - 150);
                     numberYPos.set(numCardsSelected, 10);
-                    hasBeenSelected[2] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(2));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_4)) {
-                if (!hasBeenSelected[3]) {
+                if (!selectedCards.contains(cardsToSelect.get(3))) {
                     numberXPos.set(numCardsSelected, centerOfScreen - 60);
                     numberYPos.set(numCardsSelected, 10);
-                    hasBeenSelected[3] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(3));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_5)) {
-                if (!hasBeenSelected[4]) {
+                if (!selectedCards.contains(cardsToSelect.get(4))) {
                     numberXPos.set(numCardsSelected, centerOfScreen + 30);
                     numberYPos.set(numCardsSelected, 10);
-                    hasBeenSelected[4] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(4));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_6)) {
-                if (!hasBeenSelected[5]) {
+                if (!selectedCards.contains(cardsToSelect.get(5))) {
                     numberXPos.set(numCardsSelected, centerOfScreen + 120);
                     numberYPos.set(numCardsSelected, 10);
-                    hasBeenSelected[5] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(5));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_7)) {
-                if (!hasBeenSelected[6]) {
+                if (!selectedCards.contains(cardsToSelect.get(6))) {
                     numberXPos.set(numCardsSelected, centerOfScreen + 210);
                     numberYPos.set(numCardsSelected, 10);
-                    hasBeenSelected[6] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(6));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_8)) {
-                if (!hasBeenSelected[7]) {
+                if (!selectedCards.contains(cardsToSelect.get(7))) {
                     numberXPos.set(numCardsSelected, centerOfScreen + 300);
                     numberYPos.set(numCardsSelected, 10);
-                    hasBeenSelected[7] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(7));
                 }
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
-                if (!hasBeenSelected[8]) {
+                if (!selectedCards.contains(cardsToSelect.get(8))){
                     numberXPos.set(numCardsSelected, centerOfScreen + 390);
                     numberYPos.set(numCardsSelected, 10);
-                    hasBeenSelected[8] = true;
                     numCardsSelected++;
+                    selectedCards.add(cardsToSelect.get(8));
+                }
+            }
+
+            if (Gdx.input.isKeyPressed(Input.Keys.NUM_0)){
+                if (cardsToSelect.size() >= 5) {
+                    newTurn();
                 }
             }
         }
+        else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+            if (cardsToSelect.size() >= 5) {
+                gameControllerExperimental.donePickingCards(selectedCards);
+                newTurn();
+            }
+        }
         /*
-        else{
-            Pl
+        else if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)){
+            ha
         }
         */
 
@@ -194,19 +211,29 @@ public class BoardCards extends Board {
     }
 
 
-    public void createNewCards(){
+    public void newTurn(){
         cardsToSelect = new ArrayList<>();
+        selectedCards = new ArrayList<>();
+        setStandardNumberPosition();
+        numCardsSelected = 0;
+
         for (int i = 0; i < 9; i++)
             cardsToSelect.add(deck.getTopCard());
 
-        cardToSelect0 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect1 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect2 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect3 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect4 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect5 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect6 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect7 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
-        cardToSelect8 = atlasCards.createSprite(deck.getTopCard().toString(), -1);
+        cardToSelect0 = atlasCards.createSprite(cardsToSelect.get(0).toString(), -1);
+        cardToSelect1 = atlasCards.createSprite(cardsToSelect.get(1).toString(), -1);
+        cardToSelect2 = atlasCards.createSprite(cardsToSelect.get(2).toString(), -1);
+        cardToSelect3 = atlasCards.createSprite(cardsToSelect.get(3).toString(), -1);
+        cardToSelect4 = atlasCards.createSprite(cardsToSelect.get(4).toString(), -1);
+        cardToSelect5 = atlasCards.createSprite(cardsToSelect.get(5).toString(), -1);
+        cardToSelect6 = atlasCards.createSprite(cardsToSelect.get(6).toString(), -1);
+        cardToSelect7 = atlasCards.createSprite(cardsToSelect.get(7).toString(), -1);
+        cardToSelect8 = atlasCards.createSprite(cardsToSelect.get(8).toString(), -1);
+    }
+
+    public ArrayList<IProgramCard> getSelectedCards(){
+        if (selectedCards == null)
+            throw new IllegalStateException("No cards has been selected");
+        return selectedCards;
     }
 }

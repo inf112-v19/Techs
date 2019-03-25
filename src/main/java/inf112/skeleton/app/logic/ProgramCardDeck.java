@@ -70,13 +70,11 @@ public class ProgramCardDeck {
 		shuffle();
 		
 	}
-	
+
 	public IProgramCard getTopCard() {
-		if(deck.isEmpty()) return null;
-		IProgramCard topcard = deck.get(deck.size()-1);
-		deck.remove(topcard);
-		return topcard;
-		
+		if (deck.isEmpty())
+			resetDeck();
+		return deck.remove(deckSize() - 1);
 	}
 	
 
@@ -101,6 +99,7 @@ public class ProgramCardDeck {
 	}
 	
 	public void printDeck() {
+		System.out.println(deck.size());
         for (IProgramCard card : deck) {
             System.out.println(card.toString());
         }
