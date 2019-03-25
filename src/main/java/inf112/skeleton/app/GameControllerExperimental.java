@@ -49,19 +49,17 @@ public class GameControllerExperimental {
         if (playerTurn == 0){
             ArrayList<IProgramCard> cards1 = playersCards.get(0);
             ArrayList<IProgramCard> cards2 = playersCards.get(1);
-            /*
+
             System.out.println(cards1.toString());
             System.out.println(cards2.toString());
-            */
-
             for (int i = 0; i < 5; i++) {
                 if (cards1.get(0).getPriority() > cards2.get(0).getPriority()) {
-                    playerOneFirst = true;
-                    doTurn(cards1.remove(0), cards2.remove(0), boardCards);
+                    doTurn(cards1.remove(0), 0, boardCards);
+                    doTurn(cards2.remove(0), 1, boardCards);
                 }
                 else {
-                    playerOneFirst = false;
-                    doTurn(cards2.remove(0), cards1.remove(0), boardCards);
+                    doTurn(cards2.remove(0), 1, boardCards);
+                    doTurn(cards1.remove(0), 0, boardCards);
                 }
             }
 
@@ -72,28 +70,14 @@ public class GameControllerExperimental {
         }
     }
     
-    private boolean playerOneFirst = true;
-    
-    private void doTurn(IProgramCard first, IProgramCard second, BoardCards boardCards) {
-        if (playerOneFirst) {
-            if (first.getDirection() != 0) {
-                boardCards.getBoardLogic().getPlayersList().get(0).rotatePlayer(first.getDirection());
-            }
-            else {
-                for (int i = 0; i < first.getMovement(); i++) {
-                    boardCards.getBoardLogic().getPlayersList().get(0).moveInFacingDirection();
-                }
-            }
+    private void doTurn(IProgramCard programCard, int currentPlayer, BoardCards boardCards) {
+        System.out.println(programCard.getCardType());
+        if (programCard.getDirection() != 0) {
+            boardCards.getBoardLogic().getPlayersList().get(currentPlayer).rotatePlayer(programCard.getDirection());
         }
-        else{
-            if (second.getDirection() != 0) {
-                boardCards.getBoardLogic().getPlayersList().get(0).rotatePlayer(second.getDirection());
-            }
-            else {
-                for (int i = 0; i < second.getMovement(); i++) {
-                    boardCards.getBoardLogic().getPlayersList().get(0).moveInFacingDirection();
-                }
-            }
-        }
+        else
+            for (int i = 0; i < programCard.getMovement(); i++)
+                boardCards.getBoardLogic().getPlayersList().get(currentPlayer).moveInFacingDirection();
     }
+
 }
