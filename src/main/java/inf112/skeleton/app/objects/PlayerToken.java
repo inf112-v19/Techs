@@ -37,7 +37,7 @@ public class PlayerToken extends Sprite {
     public PlayerToken(String givenName, String textureSpriteSheet, Vector2 startPosition) {
         this.playerName = givenName;
         position = startPosition;
-        facingDirection = Direction.SOUTH;
+        facingDirection = Direction.NORTH;
 
         // All regarding spritesheet and getting the frames correctly is done here.
         spriteSheet = new Texture(textureSpriteSheet);
@@ -97,9 +97,14 @@ public class PlayerToken extends Sprite {
     }
 
     // Methods regarding direction
-    public Direction getDirection() {
+    public Direction getFacingDirection() {
         return facingDirection;
     }
+
+    public void moveInFacingDirection(){
+        moveDirection(facingDirection);
+    }
+
     public void moveDirection(Direction dir) {
         switch(dir) {
             case EAST:

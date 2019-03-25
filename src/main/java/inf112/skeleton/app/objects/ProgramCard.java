@@ -1,22 +1,39 @@
 package inf112.skeleton.app.objects;
 
 import inf112.skeleton.app.logic.CardType;
+import inf112.skeleton.app.logic.Direction;
+
+import java.util.ArrayList;
 
 public class ProgramCard implements IProgramCard {
 
-	CardType cardType;
-	int priority;
-	boolean locked;
+	private CardType cardType;
+	private int priority;
+	private boolean locked;
+	private int rotations;
+	private int movement;
 
-	public ProgramCard(CardType cardType, int priority) {
+	public ProgramCard(CardType cardType, int priority, int rotations, int movement) {
 		this.cardType = cardType;
 		this.priority = priority;
 		this.locked = false;
+		this.rotations = rotations;
+		this.movement = movement;
 	}
 
 	@Override
 	public int getPriority() {
 		return this.priority;
+	}
+
+	@Override
+	public int getDirection() {
+		return this.rotations;
+	}
+
+	@Override
+	public int getMovement() {
+		return movement;
 	}
 
 	@Override

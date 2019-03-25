@@ -129,6 +129,10 @@ public class Board implements Screen {
 
     }
 
+    public BoardLogic getBoardLogic(){
+        return boardLogic;
+    }
+
     private void addPlayerToBoard(Vector2 startPosition, String playerName) {
         boardLogic.addPlayerToBoard(startPosition, playerName);
     }
