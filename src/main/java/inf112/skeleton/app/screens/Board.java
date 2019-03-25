@@ -1,69 +1,68 @@
-package inf112.skeleton.app;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+package inf112.skeleton.app.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import inf112.skeleton.app.logic.BoardLogic;
+import inf112.skeleton.app.logic.Direction;
+import inf112.skeleton.app.objects.PlayerToken;
+import inf112.skeleton.app.RoboRally;
 
 public class Board implements Screen {
 
-    public static final float ZOOM_SPEED = 0.03f;
-    public static final float MOVE_SPEED = 16;
-    public static final float ANIMATION_SPEED = 0.08f;
-    public static final int ROBOT_WIDTH_PIXEL = 64;
-    public static final int ROBOT_HEIGHT_PIXEL = 64;
-    public static final int ROBOT_WIDTH = 96;
-    public static final int ROBOT_HEIGHT = 96;
+    private static final float ZOOM_SPEED = 0.03f;
+    private static final float MOVE_SPEED = 16;
+    private static final int ROBOT_WIDTH = 96;
+    private static final int ROBOT_HEIGHT = 96;
 
-    RoboRally game;
+    // Variable used to animate sprites
+    private float statetime;
 
-    private TiledMap map;
+    private TiledMap map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
-
-
-    private float robotSpriteScale = 96;
-    private Sprite robotSprite;
     private BoardLogic boardLogic;
+    private RoboRally game;
 
     public Board(RoboRally game) {
         this.game = game;
-        
+        boardLogic = new BoardLogic(this.map);
+        statetime = 0f;
+        addPlayerToBoard(new Vector2(0,0), "playerOne");
     }
         
     @Override
     public void show() {
-        map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
-        robotSprite = new Sprite (new Texture("assets/GreenRobot.png"));
-        boardLogic = new BoardLogic(robotSprite, robotSpriteScale, map);
         camera.setToOrtho(false, RoboRally.WIDTH, RoboRally.HEIGHT);
     }
 
     @Override
-    public void render(float v) {
+    public void render(float delta) {
         renderer.setView(camera);
         renderer.render();
-        renderer.getBatch().begin();
-        
-        for (PlayerToken player : boardLogic.getPlayersList()) {
-            player.draw(renderer.getBatch());
+
+        statetime += delta;
+
+        game.batch.setProjectionMatrix(camera.combined);
+
+        game.batch.begin();
+        for (PlayerToken robot : boardLogic.getPlayersList()) {
+            game.batch.draw(robot.getRobotAnimation().getKeyFrame(statetime,true), robot.getX(), robot.getY(), 
+                    ROBOT_WIDTH/2, ROBOT_HEIGHT/2, ROBOT_WIDTH, ROBOT_HEIGHT, 1, 1, robot.getRotation());
+            robot.update(delta);
         }
-        renderer.getBatch().end();
+        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+            movePlayer("playerOne", Direction.EAST);
+        }
+        game.batch.end();
 
         /*
         The code here handles the zoom- and camera movement functions. The drag-functionality might be removed if conflict arise when using
@@ -105,35 +104,6 @@ public class Board implements Screen {
         }
     }
 
-    /*
-     * Checks if tile at (xPos, yPos) is in the specified layer
-     */
-    public boolean cellContainsLayer(int xPos, int yPos, String layer) {
-        TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
-        return tileLayer.getCell(xPos, yPos) != null;
-    }
-    
-    public boolean movePlayer(String name, Direction directionToMove) {
-        return boardLogic.movePlayer(name, directionToMove);
-    }
-    
-    public void moveConveyorBelts() {
-        boardLogic.moveConveyorBelts();
-    }
-
-    public void rotatePlayer(String name, int numberOfTimes) {
-        boardLogic.rotatePlayer(name, numberOfTimes);
-    }
-    
-    public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
-        return boardLogic.cellContainsLayerWithKey(xPos, yPos, layer, key);
-    }
-
-    public void addPlayerToBoard(Vector2 startPosition, String playerName) {
-        boardLogic.addPlayerToBoard(startPosition, playerName);
-    }
-
-
     @Override
     public void resize(int width, int height) {
 
@@ -151,12 +121,35 @@ public class Board implements Screen {
 
     @Override
     public void hide() {
-        map.dispose();
-        renderer.dispose();
+
     }
 
     @Override
     public void dispose() {
 
+    }
+
+    public BoardLogic getBoardLogic(){
+        return boardLogic;
+    }
+
+    private void addPlayerToBoard(Vector2 startPosition, String playerName) {
+        boardLogic.addPlayerToBoard(startPosition, playerName);
+    }
+    // Checks if tile at (xPos, yPos) is in the specified layer
+    public boolean cellContainsLayer(int xPos, int yPos, String layer) {
+        return boardLogic.cellContainsLayer(xPos,  yPos, layer);
+    }
+    public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
+        return boardLogic.cellContainsLayerWithKey(xPos, yPos, layer, key);
+    }
+    public void moveConveyorBelts() {
+        boardLogic.moveConveyorBelts();
+    }
+    public boolean movePlayer(String name, Direction directionToMove) {
+        return boardLogic.movePlayer(name, directionToMove);
+    }
+    public void rotatePlayer(String name, int numberOfTimes) {
+        boardLogic.rotatePlayer(name, numberOfTimes);
     }
 }

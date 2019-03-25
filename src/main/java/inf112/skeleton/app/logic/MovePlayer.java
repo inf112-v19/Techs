@@ -1,4 +1,6 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.logic;
+
+import inf112.skeleton.app.objects.PlayerToken;
 
 import java.util.ArrayList;
 
@@ -10,10 +12,6 @@ public class MovePlayer {
     public MovePlayer(ArrayList<PlayerToken> playersList, BoardLogic board) {
         this.playersList = playersList;
         this.board = board;
-    }
-    
-    public void updatePlayersList(ArrayList<PlayerToken> playersList) {
-        this.playersList = playersList;
     }
     
     public boolean movePlayer(Direction directionToMove, PlayerToken playerToMove) {
@@ -66,7 +64,6 @@ public class MovePlayer {
         }
         return false;
     }
-    
     private boolean moveOtherPlayers(int xPos, int yPos, Direction directionToMove) {
         for(PlayerToken player : playersList) {
             if(player.getXPosition() == xPos && player.getYPosition() == yPos) {
@@ -74,5 +71,8 @@ public class MovePlayer {
             }
         }
         return true;
+    }
+    public void updatePlayersList(ArrayList<PlayerToken> playersList) {
+        this.playersList = playersList;
     }
 }
