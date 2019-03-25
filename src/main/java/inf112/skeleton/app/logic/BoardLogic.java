@@ -86,4 +86,8 @@ public class BoardLogic {
         PlayerToken player = getPlayerByName(name);
         player.rotatePlayer(numberOfTimes);
     }
+
+//    public void testEnder() {
+//        map.dispose();
+//    }
 }
