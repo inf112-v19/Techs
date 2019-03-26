@@ -15,24 +15,35 @@ public class RulesScreen implements Screen {
 
 	private static final int NEXTBUTTON_HEIGHT = 100;
 	private static final int NEXTBUTTON_WIDTH = 200;
-	private static final int NEXTBUTTON_X = (RoboRally.WIDTH - NEXTBUTTON_WIDTH) / 2;
-	private static final int NEXTBUTTON_Y = 310;
-	private static final int BACKBUTTON_WIDTH = 160;
-	private static final int BACKBUTTON_HEIGHT = 80;
+	private static final int NEXTBUTTON_X = (RoboRally.WIDTH / 4 ) * 3;
+	private static final int NEXTBUTTON_Y = 20;
+	private static final int BACKBUTTON_WIDTH = 200;
+	private static final int BACKBUTTON_HEIGHT = 100;
 	private static final int BACKBUTTON_X = (RoboRally.WIDTH - BACKBUTTON_WIDTH) / 2;
 	private static final int BACKBUTTON_Y = 220;
+	private static final int RULES_HEIGHT = 770;
+	private static final int RULES_WIDTH = 1280;
+	private static final int RULES_X = 0;
+	private static final int RULES_Y = 0;
 	
-	Texture nextButton;
-	Texture skipButton;
+	
+	private Texture nextButtonInactive; //nextButton = exitButton
+	private Texture nextButtonActive;
+	private Texture skipButton;
+	private Texture rules;
 
-	RoboRally game;
+	private RoboRally game;
 	
 	private BoardCards BoardScreen;
 
 
 	public RulesScreen(RoboRally game) {
 		this.game = game;
-		this.nextButton = new Texture("assets/ExitButtonActive.png");
+		this.nextButtonInactive = new Texture("assets/ExitButtonInactive.png");
+		this.nextButtonActive = new Texture("assets/ExitButtonActive.png");
+		//this.rules = new Texture("assets/tiledbackgroundtest.png");
+		this.rules = new Texture("assets/RulesScreenTest2.png");
+		this.BoardScreen = new BoardCards(game);
 	}
 
 	@Override
@@ -48,13 +59,18 @@ public class RulesScreen implements Screen {
 
 		game.batch.begin();
 		
-		if(Gdx.input.getX() < NEXTBUTTON_X + NEXTBUTTON_Y && Gdx.input.getX() > NEXTBUTTON_X && RoboRally.HEIGHT - Gdx.input.getY() < NEXTBUTTON_Y + NEXTBUTTON_HEIGHT && RoboRally.HEIGHT - Gdx.input.getY() > NEXTBUTTON_Y ) {
-			game.batch.draw(nextButton, NEXTBUTTON_X, (RoboRally.HEIGHT - NEXTBUTTON_HEIGHT) / 2, NEXTBUTTON_WIDTH, NEXTBUTTON_HEIGHT);
-			if(Gdx.input.isTouched()) {
+		game.batch.draw(rules, RULES_X, RULES_Y , RULES_WIDTH, RULES_HEIGHT);
+		
+		if(Gdx.input.getX() < NEXTBUTTON_X + NEXTBUTTON_WIDTH && Gdx.input.getX() > NEXTBUTTON_X && RoboRally.HEIGHT - Gdx.input.getY() < NEXTBUTTON_Y + NEXTBUTTON_HEIGHT && RoboRally.HEIGHT - Gdx.input.getY() > NEXTBUTTON_Y ) {
+			game.batch.draw(this.nextButtonActive, NEXTBUTTON_X, NEXTBUTTON_Y, NEXTBUTTON_WIDTH, NEXTBUTTON_HEIGHT);
+			if(Gdx.input.isTouched()) {			
+				this.dispose();
+				
+				game.setScreen(BoardScreen);
 				
 			}
 		} else {			
-			game.batch.draw(nextButton, NEXTBUTTON_X, (RoboRally.HEIGHT - NEXTBUTTON_HEIGHT) / 2, NEXTBUTTON_WIDTH,
+			game.batch.draw(this.nextButtonInactive, NEXTBUTTON_X, NEXTBUTTON_Y, NEXTBUTTON_WIDTH,
 					NEXTBUTTON_HEIGHT);
 		}
 		
