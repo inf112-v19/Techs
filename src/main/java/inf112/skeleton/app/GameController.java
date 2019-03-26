@@ -7,7 +7,7 @@ import inf112.skeleton.app.objects.PlayerToken;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class GameController {
+public class GameController implements IGameController{
     private ArrayList<ArrayList<IProgramCard>> programCards;
     //player 1 har pos 0 og så videre
     private ArrayList<PlayerToken> playerTokens;
@@ -21,38 +21,48 @@ public class GameController {
         playersCards = new HashMap<>();
     }
 
+    @Override
     public void donePickingCards(ArrayList<IProgramCard> cardsCurrentPlayer, BoardCards boardCards){
         int currentPlayer = turns % numPlayers;
         playersCards.put(currentPlayer, cardsCurrentPlayer);
         turns++;
-        turn(turns % numPlayers, boardCards);
+        if (turns % numPlayers == 0)
+            movePlayers(boardCards);
     }
 
-    public void turn(int playerTurn, BoardCards boardCards){
-        if (playerTurn == 0){
-            ArrayList<IProgramCard> cards1 = playersCards.get(0);
-            ArrayList<IProgramCard> cards2 = playersCards.get(1);
+    @Override
+    public void movePlayers(BoardCards boardCards){
+        ArrayList<IProgramCard> cards1 = playersCards.get(0);
+        ArrayList<IProgramCard> cards2 = playersCards.get(1);
 
-            for (int i = 0; i < 5; i++) {
-                if (cards1.get(0).getPriority() > cards2.get(0).getPriority()) {
-                    doTurn(cards1.remove(0), 0, boardCards);
-                    doTurn(cards2.remove(0), 1, boardCards);
-                }
-                else {
-                    doTurn(cards2.remove(0), 1, boardCards);
-                    doTurn(cards1.remove(0), 0, boardCards);
-                }
+        for (int i = 0; i < 5; i++) {
+            if (cards1.get(0).getPriority() > cards2.get(0).getPriority()) {
+                movePlayer(cards1.remove(0), 0, boardCards);
+                movePlayer(cards2.remove(0), 1, boardCards);
+            }
+            else {
+                movePlayer(cards2.remove(0), 1, boardCards);
+                movePlayer(cards1.remove(0), 0, boardCards);
             }
         }
     }
-    
-    private void doTurn(IProgramCard programCard, int currentPlayer, BoardCards boardCards) {
+
+    @Override
+    public void movePlayer(IProgramCard programCard, int currentPlayer, BoardCards boardCards) {
         if (programCard.getDirection() != 0) {
             boardCards.getBoardLogic().getPlayersList().get(currentPlayer).rotatePlayer(programCard.getDirection());
         }
         else
             for (int i = 0; i < programCard.getMovement(); i++)
                 boardCards.getBoardLogic().getPlayersList().get(currentPlayer).moveInFacingDirection();
+    }
+
+    @Override
+    public ArrayList<IProgramCard> getProgramCardToPlayer(int player) {
+        if (player >= playersCards.keySet().size() || player < 0){
+            throw new IllegalArgumentException("Player does not exist");
+        }
+        return playersCards.get(player);
     }
 
 }
