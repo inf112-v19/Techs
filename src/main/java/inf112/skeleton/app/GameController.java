@@ -33,8 +33,6 @@ public class GameController {
             ArrayList<IProgramCard> cards1 = playersCards.get(0);
             ArrayList<IProgramCard> cards2 = playersCards.get(1);
 
-            System.out.println(cards1.toString());
-            System.out.println(cards2.toString());
             for (int i = 0; i < 5; i++) {
                 if (cards1.get(0).getPriority() > cards2.get(0).getPriority()) {
                     doTurn(cards1.remove(0), 0, boardCards);
