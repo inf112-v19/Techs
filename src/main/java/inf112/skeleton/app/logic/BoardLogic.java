@@ -19,6 +19,7 @@ public class BoardLogic {
     private ArrayList<PlayerToken> playersList;
     private MovePlayer movePlayerBrain;
     private MoveConveyorBelts moveConveyorBelts;
+    private RotateLeft moveRotateLeft;
     
     private TiledMap map;
     
@@ -69,6 +70,11 @@ public class BoardLogic {
     public Direction getPlayerRotation(String name) {
         PlayerToken player = getPlayerByName(name);
         return player.getFacingDirection();
+    }
+
+    // Moves all players standing on rotating-left wheel
+    public void moveRotateLeft() {
+        moveRotateLeft.processFeature();
     }
 
      // Moves all players standing on conveyer belts
