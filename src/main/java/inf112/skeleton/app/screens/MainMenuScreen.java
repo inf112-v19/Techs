@@ -32,7 +32,7 @@ public class MainMenuScreen implements Screen {
         this.playButtonInactive = new Texture("assets/PlayButtonInactive.png");
         this.exitButtonActive = new Texture("assets/ExitButtonActive.png");
         this.exitButtonInactive = new Texture("assets/ExitButtonInactive.png");
-        this.BoardScreen = new BoardCards(game);
+        this.BoardScreen = new BoardCards(game, 2);
         //BoardCards boardCards = new BoardCards(game);
         //GameController logicGameController = new GameController(2, game);
     }

@@ -1,5 +1,6 @@
 package inf112.skeleton.app;
 
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.logic.BoardCards;
 import inf112.skeleton.app.objects.IProgramCard;
 import inf112.skeleton.app.objects.PlayerToken;
@@ -17,10 +18,12 @@ public class GameController implements IGameController{
     private int turns;
     private HashMap<Integer, ArrayList<IProgramCard>> playersCards;
 
-    public GameController(int numPlayers){
+    public GameController(int numPlayers, BoardCards boardCards){
         this.turns = 0;
         this.numPlayers = numPlayers;
         playersCards = new HashMap<>();
+        boardCards.addPlayerToBoard(new Vector2(0,0), "playerOne");
+        boardCards.addPlayerToBoard(new Vector2(1,1), "playerTwo");
     }
 
     @Override

@@ -44,9 +44,9 @@ public class BoardCards extends Board {
     private ArrayList<Integer> numberXPos;
     private ArrayList<Integer> numberYPos;
 
-    public BoardCards(RoboRally game) {
+    public BoardCards(RoboRally game, int numPlayers) {
         super(game);
-        gameController = new GameController(2);
+        gameController = new GameController(2, this);
         atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
         spriteBatchCards = new SpriteBatch();
         number1 = new Texture("assets/ProgramSheet/numbersInCircle/numberOne.png");
