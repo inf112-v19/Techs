@@ -19,7 +19,7 @@ public class BoardLogic {
     private ArrayList<PlayerToken> playersList;
     private MovePlayer movePlayerBrain;
     private MoveConveyorBelts moveConveyorBelts;
-    private RotateLeft moveRotateLeft;
+    private RotateWheel moveRotateWheel;
     
     private TiledMap map;
     
@@ -28,6 +28,7 @@ public class BoardLogic {
         this.playersList = new ArrayList<PlayerToken>();
         this.movePlayerBrain = new MovePlayer(playersList, this);
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
+        this.moveRotateWheel = new RotateWheel(this, playersList);
     }
 
     // Adds player to the board at specified position
@@ -73,8 +74,8 @@ public class BoardLogic {
     }
 
     // Moves all players standing on rotating-left wheel
-    public void moveRotateLeft() {
-        moveRotateLeft.processFeature();
+    public void moveRotateWheel() {
+        moveRotateWheel.processFeature();
     }
 
      // Moves all players standing on conveyer belts
@@ -92,8 +93,4 @@ public class BoardLogic {
         PlayerToken player = getPlayerByName(name);
         player.rotatePlayer(numberOfTimes);
     }
-
-//    public void testEnder() {
-//        map.dispose();
-//    }
 }

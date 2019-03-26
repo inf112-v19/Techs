@@ -146,6 +146,9 @@ public class Board implements Screen {
     public void moveConveyorBelts() {
         boardLogic.moveConveyorBelts();
     }
+    public void moveRotateWheel() {
+        boardLogic.moveRotateWheel();
+    }
     public boolean movePlayer(String name, Direction directionToMove) {
         return boardLogic.movePlayer(name, directionToMove);
     }
