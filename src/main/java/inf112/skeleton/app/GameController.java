@@ -10,12 +10,11 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class GameController implements IGameController{
-    private ArrayList<ArrayList<IProgramCard>> programCards;
-    //player 1 has index 0 and so on.
-    private ArrayList<PlayerToken> playerTokens;
     private int numPlayers;
     //total number of turns
     private int turns;
+    //Integer = player, ArrayList<IProgramCard> cards to player. Key 0 is starting player, Key 1 is player
+    //after starting player
     private HashMap<Integer, ArrayList<IProgramCard>> playersCards;
 
     public GameController(int numPlayers, BoardCards boardCards){
@@ -37,19 +36,19 @@ public class GameController implements IGameController{
 
     @Override
     public void movePlayers(BoardCards boardCards){
-
         //Integer == player, IProgramCard == first not used card to player
         HashMap<Integer, IProgramCard> firstCards = new HashMap<>();
         HashMap<IProgramCard, Integer> firstCardsInverse = new HashMap<>();
+        IProgramCard PriorityCard;
         for (int i = 0; i < 5; i++) {
             for (int currentPlayer = 0; currentPlayer < numPlayers; currentPlayer++) {
                 firstCardsInverse.put(playersCards.get(currentPlayer).get(0), currentPlayer);
                 firstCards.put(currentPlayer, playersCards.get(currentPlayer).remove(0));
             }
             while (!firstCards.isEmpty()){
-                IProgramCard minPriorityCard = Collections.min(firstCards.values());
-                firstCards.remove(firstCardsInverse.get(minPriorityCard));
-                movePlayer(minPriorityCard, firstCardsInverse.get(minPriorityCard), boardCards);
+                PriorityCard = Collections.min(firstCards.values());
+                firstCards.remove(firstCardsInverse.get(PriorityCard));
+                movePlayer(PriorityCard, firstCardsInverse.get(PriorityCard), boardCards);
             }
         }
 
