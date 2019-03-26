@@ -38,4 +38,10 @@ public interface IGameController {
      */
     ArrayList<IProgramCard> getProgramCardToPlayer(int player);
 
+    /**
+     *
+     * @return total numbers of turns. A turn is completed when a player has picked 5 cards.
+     */
+    int getTurns();
+
 }

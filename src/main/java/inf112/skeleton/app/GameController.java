@@ -9,9 +9,10 @@ import java.util.HashMap;
 
 public class GameController implements IGameController{
     private ArrayList<ArrayList<IProgramCard>> programCards;
-    //player 1 har pos 0 og så videre
+    //player 1 has index 0 and so on.
     private ArrayList<PlayerToken> playerTokens;
     private int numPlayers;
+    //total number of turns
     private int turns;
     private HashMap<Integer, ArrayList<IProgramCard>> playersCards;
 
@@ -63,6 +64,11 @@ public class GameController implements IGameController{
             throw new IllegalArgumentException("Player does not exist");
         }
         return playersCards.get(player);
+    }
+
+    @Override
+    public int getTurns() {
+        return turns;
     }
 
 }
