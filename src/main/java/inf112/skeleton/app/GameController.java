@@ -5,6 +5,7 @@ import inf112.skeleton.app.objects.IProgramCard;
 import inf112.skeleton.app.objects.PlayerToken;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class GameController implements IGameController{
@@ -33,19 +34,18 @@ public class GameController implements IGameController{
 
     @Override
     public void movePlayers(BoardCards boardCards){
-        ArrayList<IProgramCard> cards1 = playersCards.get(0);
-        ArrayList<IProgramCard> cards2 = playersCards.get(1);
 
+        ArrayList<IProgramCard> firstCard = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            if (cards1.get(0).getPriority() > cards2.get(0).getPriority()) {
-                movePlayer(cards1.remove(0), 0, boardCards);
-                movePlayer(cards2.remove(0), 1, boardCards);
+            for (int currentPlayer = 0; currentPlayer < numPlayers; currentPlayer++) {
+                firstCard.add(playersCards.get(currentPlayer).remove(0));
             }
-            else {
-                movePlayer(cards2.remove(0), 1, boardCards);
-                movePlayer(cards1.remove(0), 0, boardCards);
+            while (!firstCard.isEmpty()){
+                int minIndex = firstCard.indexOf(Collections.min(firstCard));
+                movePlayer(firstCard.remove(minIndex), minIndex, boardCards);
             }
         }
+
     }
 
     @Override

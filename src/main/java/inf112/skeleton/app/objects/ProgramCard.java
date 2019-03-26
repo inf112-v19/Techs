@@ -54,4 +54,12 @@ public class ProgramCard implements IProgramCard {
 		locked = false;
 	}
 
+	@Override
+	public int compareTo(IProgramCard other) {
+		if (priority > other.getPriority())
+			return 1;
+		else if (priority == other.getPriority())
+			return 0;
+		return -1;
+	}
 }
