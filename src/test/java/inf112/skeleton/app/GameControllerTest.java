@@ -17,8 +17,6 @@ public class GameControllerTest {
         noWallMap = new TmxMapLoader().load("assets/testMaps/mapNoWalls.tmx");
         wallMap = new TmxMapLoader().load("assets/testMaps/mapAllWalls.tmx");
         //GameController gameController = new GameController(2);
-        board.addPlayerToBoard(new Vector2(1,1), "PlayerOne");
-        board.addPlayerToBoard(new Vector2(2,2), "PlayerTwo");
     }
 
 

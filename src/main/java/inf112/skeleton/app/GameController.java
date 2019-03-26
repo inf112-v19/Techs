@@ -38,14 +38,18 @@ public class GameController implements IGameController{
     @Override
     public void movePlayers(BoardCards boardCards){
 
-        ArrayList<IProgramCard> firstCard = new ArrayList<>();
+        //Integer == player, IProgramCard == first not used card to player
+        HashMap<Integer, IProgramCard> firstCards = new HashMap<>();
+        HashMap<IProgramCard, Integer> firstCardsInverse = new HashMap<>();
         for (int i = 0; i < 5; i++) {
             for (int currentPlayer = 0; currentPlayer < numPlayers; currentPlayer++) {
-                firstCard.add(playersCards.get(currentPlayer).remove(0));
+                firstCardsInverse.put(playersCards.get(currentPlayer).get(0), currentPlayer);
+                firstCards.put(currentPlayer, playersCards.get(currentPlayer).remove(0));
             }
-            while (!firstCard.isEmpty()){
-                int minIndex = firstCard.indexOf(Collections.min(firstCard));
-                movePlayer(firstCard.remove(minIndex), minIndex, boardCards);
+            while (!firstCards.isEmpty()){
+                IProgramCard minPriorityCard = Collections.min(firstCards.values());
+                firstCards.remove(firstCardsInverse.get(minPriorityCard));
+                movePlayer(minPriorityCard, firstCardsInverse.get(minPriorityCard), boardCards);
             }
         }
 
