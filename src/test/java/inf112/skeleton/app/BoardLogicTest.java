@@ -12,6 +12,7 @@ import inf112.skeleton.app.logic.Direction;
 import inf112.skeleton.app.screens.Board;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Test;
@@ -20,14 +21,14 @@ import static junit.framework.TestCase.assertEquals;
 
 
 public class BoardLogicTest {
-    private TiledMap noWallMap;
-    private TiledMap wallMap;
-    private BoardLogic board;
-    
-    LwjglApplication app;
-    
+	
+    private boolean waitForThread;
+    private boolean testcase;
+
     @Before
-    void setUp() {
+    public void setUp() {
+    	// Nothing in setup works
+    	
     	/*
     	noWallMap = new TmxMapLoader().load("assets/testMaps/mapNoWalls.tmx");
         wallMap = new TmxMapLoader().load("assets/testMaps/mapAllWalls.tmx");
@@ -51,17 +52,31 @@ public class BoardLogicTest {
         cfg.height = 320;
         cfg.resizable = true;
         LwjglApplication app = new LwjglApplication( new RoboRally(), cfg);
-    	app.postRunnable(new Runnable() {
+    	waitForThread = true;
+    	testcase = false;
+        
+    	Gdx.app.postRunnable(new Runnable() {
 			@Override
 			public void run() {
             	TiledMap noWallMap = new TmxMapLoader().load("assets/testMaps/mapNoWalls.tmx");
             	BoardLogic board = new BoardLogic(noWallMap);
             	board.addPlayerToBoard(new Vector2(0,0), "playerOne");
             	assertEquals(new Vector2(0,0), board.getPlayerLocation("playerOne"));
+            	if((new Vector2(0,0).equals(board.getPlayerLocation("playerOne"))))
+            			testcase = true;
+            	waitForThread = false;
 			}
     	});
+    	
+    	while(waitForThread) {
+            try {
+                Thread.sleep(10);
+            } catch(Exception e ) {
+            }
+        }
+    	assertTrue(testcase);
     }
-
+/*
     @Test
     public void movePlayerTest() {
     	LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
@@ -99,7 +114,7 @@ public class BoardLogicTest {
 			@Override
 			public void run() {
 				board = new BoardLogic(wallMap);
-				assertEquals(board.getPlayerLocation("PlayerOne"), new Vector2(1,1));
+				assertEquals(board.getPlayerLocation("PlayerOne"), new Vector2(1,3));
 				board.movePlayer("PlayerOne", Direction.NORTH);
 				assertEquals(board.getPlayerLocation("PlayerOne"), new Vector2(1,1));
 				board.movePlayer("PlayerOne", Direction.WEST);
