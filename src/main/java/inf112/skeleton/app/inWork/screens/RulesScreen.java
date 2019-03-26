@@ -1,9 +1,97 @@
 package inf112.skeleton.app.inWork.screens;
 
-public class RulesScreen {
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 
-	public RulesScreen() {
-		// TODO Auto-generated constructor stub
+import inf112.skeleton.app.RoboRally;
+import inf112.skeleton.app.logic.BoardCards;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+
+public class RulesScreen implements Screen {
+
+	private static final int NEXTBUTTON_HEIGHT = 100;
+	private static final int NEXTBUTTON_WIDTH = 200;
+	private static final int NEXTBUTTON_X = (RoboRally.WIDTH - NEXTBUTTON_WIDTH) / 2;
+	private static final int NEXTBUTTON_Y = 310;
+	private static final int BACKBUTTON_WIDTH = 160;
+	private static final int BACKBUTTON_HEIGHT = 80;
+	private static final int BACKBUTTON_X = (RoboRally.WIDTH - BACKBUTTON_WIDTH) / 2;
+	private static final int BACKBUTTON_Y = 220;
+	
+	Texture nextButton;
+	Texture skipButton;
+
+	RoboRally game;
+	
+	private BoardCards BoardScreen;
+
+
+	public RulesScreen(RoboRally game) {
+		this.game = game;
+		this.nextButton = new Texture("assets/ExitButtonActive.png");
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void render(float delta) {
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		game.batch.begin();
+		
+		if(Gdx.input.getX() < NEXTBUTTON_X + NEXTBUTTON_Y && Gdx.input.getX() > NEXTBUTTON_X && RoboRally.HEIGHT - Gdx.input.getY() < NEXTBUTTON_Y + NEXTBUTTON_HEIGHT && RoboRally.HEIGHT - Gdx.input.getY() > NEXTBUTTON_Y ) {
+			game.batch.draw(nextButton, NEXTBUTTON_X, (RoboRally.HEIGHT - NEXTBUTTON_HEIGHT) / 2, NEXTBUTTON_WIDTH, NEXTBUTTON_HEIGHT);
+			if(Gdx.input.isTouched()) {
+				
+			}
+		} else {			
+			game.batch.draw(nextButton, NEXTBUTTON_X, (RoboRally.HEIGHT - NEXTBUTTON_HEIGHT) / 2, NEXTBUTTON_WIDTH,
+					NEXTBUTTON_HEIGHT);
+		}
+		
+		//this.dispose();
+
+		game.batch.end();
+
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+
 	}
 
 }
