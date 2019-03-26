@@ -19,11 +19,11 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
  * Conveyor belt has higher priority than any card
  *
  * Locked register
- * card is locked and has to be used for each turn
+ * card is locked and has to be used for each movePlayers
  * can only be removed if register gets fixed
  *
  * Program Sheet
- * 1) Each player gets (9 - damage) cards start of each turn
+ * 1) Each player gets (9 - damage) cards start of each movePlayers
  * 2) 5 of these cards are selected for programming
  *       *selected by numbers on keyboard 1-9
  *       *Hurry up timer?
