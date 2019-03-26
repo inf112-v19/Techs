@@ -4,6 +4,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 
 import inf112.skeleton.app.RoboRally;
+import inf112.skeleton.app.RulesScreen2;
 import inf112.skeleton.app.logic.BoardCards;
 
 import com.badlogic.gdx.Gdx;
@@ -35,11 +36,12 @@ public class RulesScreen implements Screen {
 	private RoboRally game;
 	
 	private BoardCards BoardScreen;
+	//private RulesScreen2 nextScreen;
 
 
 	public RulesScreen(RoboRally game) {
 		this.game = game;
-		this.nextButtonInactive = new Texture("assets/ExitButtonInactive.png");
+		this.nextButtonInactive = new Texture("assets/ExitButtonInactive.png"); //exit for next foreløpig
 		this.nextButtonActive = new Texture("assets/ExitButtonActive.png");
 		//this.rules = new Texture("assets/tiledbackgroundtest.png");
 		this.rules = new Texture("assets/RulesScreenTest2.png");
@@ -66,7 +68,7 @@ public class RulesScreen implements Screen {
 			if(Gdx.input.isTouched()) {			
 				this.dispose();
 				
-				game.setScreen(BoardScreen);
+				game.setScreen(new RulesScreen2(game));
 				
 			}
 		} else {			
