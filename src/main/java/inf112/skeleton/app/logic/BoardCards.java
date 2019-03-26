@@ -6,18 +6,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import inf112.skeleton.app.GameControllerExperimental;
+import inf112.skeleton.app.GameController;
 import inf112.skeleton.app.objects.IProgramCard;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.screens.Board;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class BoardCards extends Board {
 
-    private GameControllerExperimental gameControllerExperimental;
+    private GameController gameController;
 
     //Card handling
     private ProgramCardDeck deck = new ProgramCardDeck();
@@ -48,7 +46,7 @@ public class BoardCards extends Board {
 
     public BoardCards(RoboRally game) {
         super(game);
-        gameControllerExperimental = new GameControllerExperimental(2, game);
+        gameController = new GameController(2);
         atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
         spriteBatchCards = new SpriteBatch();
         number1 = new Texture("assets/ProgramSheet/numbersInCircle/numberOne.png");
@@ -167,7 +165,7 @@ public class BoardCards extends Board {
         }
         else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)){
             if (cardsToSelect.size() >= 5) {
-                gameControllerExperimental.donePickingCards(selectedCards, this);
+                gameController.donePickingCards(selectedCards, this);
                 newTurn();
             }
         }
