@@ -35,6 +35,7 @@ public class Board implements Screen {
         boardLogic = new BoardLogic(this.map);
         statetime = 0f;
         addPlayerToBoard(new Vector2(0,0), "playerOne");
+        addPlayerToBoard(new Vector2(1,1), "playerTwo");
     }
         
     @Override
