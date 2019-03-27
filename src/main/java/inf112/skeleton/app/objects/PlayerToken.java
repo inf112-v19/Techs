@@ -14,7 +14,6 @@ public class PlayerToken extends Sprite {
     private static final int FRAME_COL = 8;
     private static final int FRAME_ROW = 2;
     private static final float TILE_SCALE = 96;
-
     // Variables needed for movement, direction and position
     private Vector2 movementVelocity = new Vector2();
     private Vector2 position;
@@ -39,7 +38,7 @@ public class PlayerToken extends Sprite {
     public PlayerToken(String givenName, String textureSpriteSheet, Vector2 startPosition) {
         this.playerName = givenName;
         position = startPosition;
-        facingDirection = Direction.SOUTH;
+        facingDirection = Direction.NORTH;
 
         // All regarding spritesheet and getting the frames correctly is done here.
         spriteSheet = new Texture(textureSpriteSheet);
@@ -71,9 +70,6 @@ public class PlayerToken extends Sprite {
     public Animation<TextureRegion> getRobotAnimation() {
         return robotAnimation;
     }
-    public TextureRegion[] getAnimationFrames() {
-        return animationFrames;
-    }
 
     // Methods regarding X and Y positions
     private void animateXPositionOnBoard(float delta) {
@@ -91,17 +87,22 @@ public class PlayerToken extends Sprite {
     public int getYPosition() {
         return (int) position.y;
     }
-    private void setYPositionOnBoard() {
-        setY(position.y * TILE_SCALE);
-    }
     private void setXPositionOnBoard() {
         setX(position.x * TILE_SCALE);
     }
+    private void setYPositionOnBoard() {
+        setY(position.y * TILE_SCALE);
+    }
 
     // Methods regarding direction
-    public Direction getDirection() {
+    public Direction getFacingDirection() {
         return facingDirection;
     }
+
+    public void moveInFacingDirection(){
+        moveDirection(facingDirection);
+    }
+
     public void moveDirection(Direction dir) {
         switch(dir) {
             case EAST:

@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -35,13 +34,14 @@ public class Board implements Screen {
         boardLogic = new BoardLogic(this.map);
         statetime = 0f;
         addPlayerToBoard(new Vector2(0,0), "playerOne");
+        addPlayerToBoard(new Vector2(1,1), "playerTwo");
     }
         
     @Override
     public void show() {
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, RoboRally.WIDTH, RoboRally.HEIGHT);
+        camera.setToOrtho(false, RoboRally.SCREEN_WIDTH, RoboRally.SCREEN_HEIGHT);
     }
 
     @Override
@@ -55,7 +55,8 @@ public class Board implements Screen {
 
         game.batch.begin();
         for (PlayerToken robot : boardLogic.getPlayersList()) {
-            game.batch.draw(robot.getRobotAnimation().getKeyFrame(statetime,true), robot.getX(), robot.getY(), ROBOT_WIDTH, ROBOT_HEIGHT);
+            game.batch.draw(robot.getRobotAnimation().getKeyFrame(statetime,true), robot.getX(), robot.getY(), 
+                    ROBOT_WIDTH/2, ROBOT_HEIGHT/2, ROBOT_WIDTH, ROBOT_HEIGHT, 1, 1, robot.getRotation());
             robot.update(delta);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
@@ -143,6 +144,8 @@ public class Board implements Screen {
 
     }
 
+
+
     private void addPlayerToBoard(Vector2 startPosition, String playerName) {
         boardLogic.addPlayerToBoard(startPosition, playerName);
     }
@@ -153,8 +156,14 @@ public class Board implements Screen {
     public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
         return boardLogic.cellContainsLayerWithKey(xPos, yPos, layer, key);
     }
+    public BoardLogic getBoardLogic(){
+        return boardLogic;
+    }
     public void moveConveyorBelts() {
         boardLogic.moveConveyorBelts();
+    }
+    public void moveRotateWheel() {
+        boardLogic.moveRotateWheel();
     }
     public boolean movePlayer(String name, Direction directionToMove) {
         return boardLogic.movePlayer(name, directionToMove);

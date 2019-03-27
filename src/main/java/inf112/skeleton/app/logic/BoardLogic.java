@@ -11,15 +11,16 @@ public class BoardLogic {
     private static final float ROBOT_SPRITE_SCALE = 96;
 
     // Robot color sprite sheet
-    private static final String BLUE_ROBOT = "assets/BlueRobotSpriteSheet.png";
-    private static final String GREEN_ROBOT = "assets/GreenRobotSpriteSheet.png";
-    private static final String RED_ROBOT = "assets/RedRobotSpriteSheet.png";
-    private static final String YELLOW_ROBOT = "assets/YellowRobotSpriteSheet.png";
+    private static final String ROBOT_SPRITE_SHEET_BLUE = "assets/BlueRobotSpriteSheet.png";
+    private static final String ROBOT_SPRITE_SHEET_GREEN = "assets/GreenRobotSpriteSheet.png";
+    private static final String ROBOT_SPRITE_SHEET_RED = "assets/RedRobotSpriteSheet.png";
+    private static final String ROBOT_SPRITE_SHEET_YELLOW = "assets/YellowRobotSpriteSheet.png";
     
     private ArrayList<PlayerToken> playersList;
     private MovePlayer movePlayerBrain;
     private MoveConveyorBelts moveConveyorBelts;
     private ProcessCheckpoints processCheckpoints;
+    private RotateWheel moveRotateWheel;
     
     private TiledMap map;
     
@@ -29,11 +30,12 @@ public class BoardLogic {
         this.movePlayerBrain = new MovePlayer(playersList, this);
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
         this.processCheckpoints = new ProcessCheckpoints(this, playersList);
+        this.moveRotateWheel = new RotateWheel(this, playersList);
     }
 
     // Adds player to the board at specified position
     public void addPlayerToBoard(Vector2 startPosition, String givenName) {
-        PlayerToken newPlayer = new PlayerToken(givenName, YELLOW_ROBOT, startPosition);
+        PlayerToken newPlayer = new PlayerToken(givenName, ROBOT_SPRITE_SHEET_YELLOW, startPosition);
         newPlayer.setSize(ROBOT_SPRITE_SCALE, ROBOT_SPRITE_SCALE);
         playersList.add(newPlayer);
         movePlayerBrain.updatePlayersList(playersList);
@@ -70,7 +72,12 @@ public class BoardLogic {
     }
     public Direction getPlayerRotation(String name) {
         PlayerToken player = getPlayerByName(name);
-        return player.getDirection();
+        return player.getFacingDirection();
+    }
+
+    // Moves all players standing on rotating-left wheel
+    public void moveRotateWheel() {
+        moveRotateWheel.processFeature();
     }
 
      // Moves all players standing on conveyer belts

@@ -17,7 +17,7 @@ public class MovePlayer {
     public boolean movePlayer(Direction directionToMove, PlayerToken playerToMove) {
         int xPos = playerToMove.getXPosition();
         int yPos = playerToMove.getYPosition();
-        
+
         switch(directionToMove) {
         case EAST:
             if(board.cellContainsLayerWithKey(xPos, yPos, "Wall", "wallEast") 

@@ -1,6 +1,9 @@
 package inf112.skeleton.app.objects;
 
 import inf112.skeleton.app.logic.CardType;
+import inf112.skeleton.app.logic.Direction;
+
+import java.util.ArrayList;
 
 public interface IProgramCard {
 	
@@ -16,7 +19,20 @@ public interface IProgramCard {
 	 * @return
 	 */
 	int getPriority();
-	
+
+	/**
+	 *
+	 * @return Rotates player 90 degrees clockwise for each numberOfTimes.
+	 * 90 degrees counterclockwise when numberOfTimes is negative.
+	 */
+	int getDirection();
+
+	/**
+	 *
+	 * @return number of tiles the player is moved forward by card. -1 is one tile back.
+	 */
+	int getMovement();
+
 	String toString();
 	
 	/**

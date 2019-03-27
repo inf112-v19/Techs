@@ -14,10 +14,8 @@ public class ProgramCardDeck {
 		makeDeck();
 		shuffle();
 	}
-	
-	/**
-	 * Fills the deck
-	 */
+
+	// Fills the deck
 	public void makeDeck() {
 			for(int p = 80; p <= 420; p += 20) {
 			deck.add(createCard(CardType.ROTATE_RIGHT, p));
@@ -49,9 +47,7 @@ public class ProgramCardDeck {
 		
 	}
 	
-	/**
-	 * shuffles the deck
-	 */
+	// shuffles the deck
 	public void shuffle() {
 		Collections.shuffle(deck); 
 	}
@@ -61,26 +57,19 @@ public class ProgramCardDeck {
 	}
 	
 	
-	/**
-	 * Skal lage en ny deck kort og sletta den gammle
-	 */
+	// Skal lage en ny deck kort og sletta den gammle
 	public void resetDeck() {
 		clearDeck();
-		makeDeck();
+			makeDeck();
 		shuffle();
 		
 	}
-	
-	public IProgramCard getTopCard() {
-		if(deck.isEmpty()) return null;
-		IProgramCard topcard = deck.get(deck.size()-1);
-		deck.remove(topcard);
-		return topcard;
-		
-	}
-	
 
-	
+	public IProgramCard getTopCard() {
+		if (deck.isEmpty())
+			resetDeck();
+		return deck.remove(deckSize() - 1);
+	}
 	
 	/**
 	 * Create new ProgramCards
@@ -89,7 +78,29 @@ public class ProgramCardDeck {
 	 * @return
 	 */
 	public IProgramCard createCard(CardType type, int priority) {
-		return new ProgramCard(type, priority);
+		return new ProgramCard(type, priority, getNumRotation(type), getNumMovement(type));
+	}
+
+	public int getNumMovement(CardType cardType){
+		if (cardType == CardType.MOVEMENT_1)
+			return 1;
+		if (cardType == CardType.MOVEMENT_2)
+			return 2;
+		if (cardType == CardType.MOVEMENT_3)
+			return 3;
+		if (cardType == CardType.MOVEMENT_BACK)
+			return -1;
+		return 0;
+	}
+
+	public int getNumRotation(CardType cardType){
+		if (cardType == CardType.ROTATE_LEFT)
+			return -1;
+		if (cardType == CardType.ROTATE_RIGHT)
+			return 1;
+		if (cardType == CardType.U_TURN)
+			return 2;
+		return 0;
 	}
 	
 	public boolean deckIsEmpty() {
@@ -101,6 +112,7 @@ public class ProgramCardDeck {
 	}
 	
 	public void printDeck() {
+		System.out.println(deck.size());
         for (IProgramCard card : deck) {
             System.out.println(card.toString());
         }
@@ -109,7 +121,6 @@ public class ProgramCardDeck {
 	/**
 	 * metode for å dele ut kort til en spiller
 	 * foreløpig står playeerHealth alltid til 10 før me får ein metode for den
-	 * @param player
 	 * @return
 	 */
 	public ArrayList<IProgramCard> dealToPlayer() {
@@ -120,13 +131,9 @@ public class ProgramCardDeck {
 	                System.out.println("Deck is empty... Playerhand currently got " + i + " cards.");
 	                return playerHand;
 				} else {
-					playerHand.add(getTopCard());				
+					playerHand.add(getTopCard());
 				}
 	}
 			return playerHand;
 	}
-	
-	
-	 
-	
 }
