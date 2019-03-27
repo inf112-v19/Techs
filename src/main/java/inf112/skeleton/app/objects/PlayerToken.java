@@ -27,6 +27,8 @@ public class PlayerToken extends Sprite {
     private boolean rotatingRight;
     private int targetRotation;
 
+    private int numberOfCheckpointsPassed;
+    
     // Variables needed for animated sprites
     private String playerName;
     private TextureRegion[] animationFrames;
@@ -208,5 +210,13 @@ public class PlayerToken extends Sprite {
                 rotatingRight = false;
             }
         }
+    }
+    
+    public int numberOfCheckpointsPassed() {
+        return numberOfCheckpointsPassed;
+    }
+    
+    public void passCheckpoint() {
+        numberOfCheckpointsPassed++;
     }
 }

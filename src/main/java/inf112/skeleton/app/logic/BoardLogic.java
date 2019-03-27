@@ -19,6 +19,7 @@ public class BoardLogic {
     private ArrayList<PlayerToken> playersList;
     private MovePlayer movePlayerBrain;
     private MoveConveyorBelts moveConveyorBelts;
+    private ProcessCheckpoints processCheckpoints;
     private RotateWheel moveRotateWheel;
     
     private TiledMap map;
@@ -28,6 +29,7 @@ public class BoardLogic {
         this.playersList = new ArrayList<PlayerToken>();
         this.movePlayerBrain = new MovePlayer(playersList, this);
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
+        this.processCheckpoints = new ProcessCheckpoints(this, playersList);
         this.moveRotateWheel = new RotateWheel(this, playersList);
     }
 
@@ -92,5 +94,9 @@ public class BoardLogic {
     public void rotatePlayer(String name, int numberOfTimes) {
         PlayerToken player = getPlayerByName(name);
         player.rotatePlayer(numberOfTimes);
+    }
+
+    public void checkAllCheckpoints() {
+        processCheckpoints.processFeature();
     }
 }
