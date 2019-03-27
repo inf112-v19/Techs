@@ -4,7 +4,7 @@ import inf112.skeleton.app.objects.PlayerToken;
 
 import java.util.ArrayList;
 
-public class MovePlayer {
+public class MovePlayer implements IMovePlayer {
 
     private BoardLogic board;
     private ArrayList<PlayerToken> playersList;
@@ -13,7 +13,11 @@ public class MovePlayer {
         this.playersList = playersList;
         this.board = board;
     }
-    
+
+    public MovePlayer() {
+    }
+
+    @Override
     public boolean movePlayer(Direction directionToMove, PlayerToken playerToMove) {
         int xPos = playerToMove.getXPosition();
         int yPos = playerToMove.getYPosition();
@@ -63,7 +67,9 @@ public class MovePlayer {
         }
         return false;
     }
-    private boolean moveOtherPlayers(int xPos, int yPos, Direction directionToMove) {
+
+    @Override
+    public boolean moveOtherPlayers(int xPos, int yPos, Direction directionToMove) {
         for(PlayerToken player : playersList) {
             if(player.getXPosition() == xPos && player.getYPosition() == yPos) {
                 return movePlayer(directionToMove, player);
@@ -71,6 +77,8 @@ public class MovePlayer {
         }
         return true;
     }
+
+    @Override
     public void updatePlayersList(ArrayList<PlayerToken> playersList) {
         this.playersList = playersList;
     }

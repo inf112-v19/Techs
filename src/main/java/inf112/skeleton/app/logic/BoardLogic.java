@@ -6,7 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.objects.PlayerToken;
 
-public class BoardLogic {
+public class BoardLogic extends MovePlayer {
 
     private static final float ROBOT_SPRITE_SCALE = 96;
 
@@ -77,8 +77,8 @@ public class BoardLogic {
     }
 
     // Moves the player one unit in the direction specified
-    public boolean movePlayer(String name, Direction directionToMove) {
-        return movePlayerBrain.movePlayer(directionToMove, getPlayerByName(name));
+    public boolean movePlayer(Direction directionToMove, String name) {
+        super.movePlayer(directionToMove, board.getPlayerByName(name));
     }
     
     // Rotates player 90 degrees clockwise for each numberOfTimes. 90 degrees counterclockwise when numberOfTimes is negative.
@@ -86,8 +86,4 @@ public class BoardLogic {
         PlayerToken player = getPlayerByName(name);
         player.rotatePlayer(numberOfTimes);
     }
-
-//    public void testEnder() {
-//        map.dispose();
-//    }
 }

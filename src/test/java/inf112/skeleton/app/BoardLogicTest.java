@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.logic.BoardLogic;
 import inf112.skeleton.app.logic.Direction;
 import org.junit.After;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 
