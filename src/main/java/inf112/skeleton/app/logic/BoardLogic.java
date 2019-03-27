@@ -11,10 +11,10 @@ public class BoardLogic {
     private static final float ROBOT_SPRITE_SCALE = 96;
 
     // Robot color sprite sheet
-    private static final String BLUE_ROBOT = "assets/BlueRobotSpriteSheet.png";
-    private static final String GREEN_ROBOT = "assets/GreenRobotSpriteSheet.png";
-    private static final String RED_ROBOT = "assets/RedRobotSpriteSheet.png";
-    private static final String YELLOW_ROBOT = "assets/YellowRobotSpriteSheet.png";
+    private static final String ROBOT_SPRITE_SHEET_BLUE = "assets/BlueRobotSpriteSheet.png";
+    private static final String ROBOT_SPRITE_SHEET_GREEN = "assets/GreenRobotSpriteSheet.png";
+    private static final String ROBOT_SPRITE_SHEET_RED = "assets/RedRobotSpriteSheet.png";
+    private static final String ROBOT_SPRITE_SHEET_YELLOW = "assets/YellowRobotSpriteSheet.png";
     
     private ArrayList<PlayerToken> playersList;
     private MovePlayer movePlayerBrain;
@@ -33,7 +33,7 @@ public class BoardLogic {
 
     // Adds player to the board at specified position
     public void addPlayerToBoard(Vector2 startPosition, String givenName) {
-        PlayerToken newPlayer = new PlayerToken(givenName, YELLOW_ROBOT, startPosition);
+        PlayerToken newPlayer = new PlayerToken(givenName, ROBOT_SPRITE_SHEET_YELLOW, startPosition);
         newPlayer.setSize(ROBOT_SPRITE_SCALE, ROBOT_SPRITE_SCALE);
         playersList.add(newPlayer);
         movePlayerBrain.updatePlayersList(playersList);
