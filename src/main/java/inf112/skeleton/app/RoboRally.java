@@ -21,8 +21,8 @@ public class RoboRally extends Game {
     public void create() {
         batch = new SpriteBatch();
         Gdx.gl.glClearColor(0,0,0,1);
-        //this.setScreen(new MainMenuScreen(this));
-        this.setScreen(new RulesScreen(this));
+        this.setScreen(new MainMenuScreen(this));
+        
     }
 
     @Override
