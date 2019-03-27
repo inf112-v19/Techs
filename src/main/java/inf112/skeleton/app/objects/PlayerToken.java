@@ -14,7 +14,6 @@ public class PlayerToken extends Sprite {
     private static final int FRAME_COL = 8;
     private static final int FRAME_ROW = 2;
     private static final float TILE_SCALE = 96;
-
     // Variables needed for movement, direction and position
     private Vector2 movementVelocity = new Vector2();
     private Vector2 position;
@@ -28,6 +27,8 @@ public class PlayerToken extends Sprite {
     private boolean rotatingRight;
     private int targetRotation;
 
+    private int numberOfCheckpointsPassed;
+    
     // Variables needed for animated sprites
     private String playerName;
     private TextureRegion[] animationFrames;
@@ -69,9 +70,6 @@ public class PlayerToken extends Sprite {
     public Animation<TextureRegion> getRobotAnimation() {
         return robotAnimation;
     }
-    public TextureRegion[] getAnimationFrames() {
-        return animationFrames;
-    }
 
     // Methods regarding X and Y positions
     private void animateXPositionOnBoard(float delta) {
@@ -89,11 +87,11 @@ public class PlayerToken extends Sprite {
     public int getYPosition() {
         return (int) position.y;
     }
-    private void setYPositionOnBoard() {
-        setY(position.y * TILE_SCALE);
-    }
     private void setXPositionOnBoard() {
         setX(position.x * TILE_SCALE);
+    }
+    private void setYPositionOnBoard() {
+        setY(position.y * TILE_SCALE);
     }
 
     // Methods regarding direction
@@ -212,5 +210,13 @@ public class PlayerToken extends Sprite {
                 rotatingRight = false;
             }
         }
+    }
+    
+    public int numberOfCheckpointsPassed() {
+        return numberOfCheckpointsPassed;
+    }
+    
+    public void passCheckpoint() {
+        numberOfCheckpointsPassed++;
     }
 }

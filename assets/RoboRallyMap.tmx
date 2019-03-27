@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="12" height="16" tilewidth="96" tileheight="96" infinite="0" nextlayerid="30" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="12" height="16" tilewidth="96" tileheight="96" infinite="0" nextlayerid="31" nextobjectid="1">
  <tileset firstgid="1" source="RoboRallyTiles.tsx"/>
  <layer id="2" name="Floor" width="12" height="16" locked="1">
   <data encoding="base64" compression="zlib">
@@ -56,9 +56,14 @@
    eJzjYxgFo4A8wDfQDqACAAA3uAAd
   </data>
  </layer>
- <layer id="8" name="Pit" width="12" height="16" locked="1">
+ <layer id="8" name="Pit" width="12" height="16">
   <data encoding="base64" compression="zlib">
    eJxjYCAPsJGpbxTQF4zGE34AABpwAA0=
+  </data>
+ </layer>
+ <layer id="30" name="Checkpoints" width="12" height="16">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAeMKSiWaQA+wGyl1xgMdAOGAVwAABq5wCp
   </data>
  </layer>
  <layer id="22" name="Laser" width="12" height="16" locked="1">
