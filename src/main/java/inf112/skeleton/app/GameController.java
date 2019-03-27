@@ -24,7 +24,9 @@ public class GameController implements IGameController{
         playersCards = new HashMap<>();
         playerString = new HashMap<>();
         boardCards.addPlayerToBoard(new Vector2(0,0), "playerOne");
+        playerString.put(0, "playerOne");
         boardCards.addPlayerToBoard(new Vector2(1,1), "playerTwo");
+        playerString.put(1, "playerTwo");
     }
 
     @Override
@@ -34,7 +36,6 @@ public class GameController implements IGameController{
         turns++;
         if (turns % numPlayers == 0)
             boardCards.setAllPlayersDonePickingCards(true);
-            //movePlayers(boardCards);
     }
 
     @Override
@@ -70,6 +71,7 @@ public class GameController implements IGameController{
         else
             for (int i = 0; i < programCard.getMovement(); i++)
                 boardCards.getBoardLogic().getPlayersList().get(currentPlayer).moveInFacingDirection();
+                //boardCards.movePlayerForward(playerString.get(i));
     }
 
     @Override
