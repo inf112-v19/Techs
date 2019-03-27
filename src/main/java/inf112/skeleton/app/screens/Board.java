@@ -62,6 +62,20 @@ public class Board implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             movePlayer("playerOne", Direction.EAST);
         }
+        
+        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+        	movePlayer("playerOne", Direction.WEST);
+        }
+        
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+        	movePlayer("playerOne", Direction.NORTH);
+        }
+        
+        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+        	movePlayer("playerOne", Direction.SOUTH);
+        }
+        
+        
         game.batch.end();
 
         /*
