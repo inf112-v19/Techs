@@ -30,8 +30,13 @@ public class PitFall implements IBoardFeature {
         int yPos = player.getYPosition();
         
         if(boardLogic.cellContainsLayer(xPos, yPos, layerName)) {
-        	
+        	//player.setPosition(backup.get(x), backup.get(y));//Flytt spelar til siste backup
+        	return;
         }
+	}
+	
+	public void ifBackupIsOccupied() {
+		
 	}
 
 }
