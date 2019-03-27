@@ -8,8 +8,8 @@ public class Main {
     public static void main(String[] args) {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = RoboRally.TITLE;
-        cfg.width = RoboRally.WIDTH;
-        cfg.height = RoboRally.HEIGHT;
+        cfg.width = RoboRally.SCREEN_WIDTH;
+        cfg.height = RoboRally.SCREEN_HEIGHT;
         cfg.resizable = false;
         cfg.foregroundFPS = 60;
 
