@@ -14,10 +14,8 @@ public class ProgramCardDeck {
 		makeDeck();
 		shuffle();
 	}
-	
-	/**
-	 * Fills the deck
-	 */
+
+	// Fills the deck
 	public void makeDeck() {
 			for(int p = 80; p <= 420; p += 20) {
 			deck.add(createCard(CardType.ROTATE_RIGHT, p));
@@ -49,9 +47,7 @@ public class ProgramCardDeck {
 		
 	}
 	
-	/**
-	 * shuffles the deck
-	 */
+	// shuffles the deck
 	public void shuffle() {
 		Collections.shuffle(deck); 
 	}
@@ -61,9 +57,7 @@ public class ProgramCardDeck {
 	}
 	
 	
-	/**
-	 * Skal lage en ny deck kort og sletta den gammle
-	 */
+	// Skal lage en ny deck kort og sletta den gammle
 	public void resetDeck() {
 		clearDeck();
 			makeDeck();
@@ -142,8 +136,4 @@ public class ProgramCardDeck {
 	}
 			return playerHand;
 	}
-	
-	
-	 
-	
 }

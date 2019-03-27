@@ -89,6 +89,11 @@
    <property name="EAST" value="1"/>
   </properties>
  </tile>
+ <tile id="48">
+  <properties>
+   <property name="1" value=""/>
+  </properties>
+ </tile>
  <tile id="49">
   <properties>
    <property name="EASTRotateLeft" value=""/>
@@ -127,6 +132,11 @@
    <property name="WESTRotateLeft" value=""/>
   </properties>
  </tile>
+ <tile id="55">
+  <properties>
+   <property name="2" value=""/>
+  </properties>
+ </tile>
  <tile id="56">
   <properties>
    <property name="NORTH" value="1"/>
@@ -163,6 +173,16 @@
    <property name="NORTHRotateLeft" value=""/>
    <property name="SOUTHRotateRight" value=""/>
    <property name="WEST" value="1"/>
+  </properties>
+ </tile>
+ <tile id="62">
+  <properties>
+   <property name="3" value=""/>
+  </properties>
+ </tile>
+ <tile id="69">
+  <properties>
+   <property name="4" value=""/>
   </properties>
  </tile>
 </tileset>

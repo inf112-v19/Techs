@@ -51,7 +51,7 @@ public class MoveConveyorBelts implements IBoardFeature {
         }
     }
 
-     // Checks if a tile has a conveyor belt pointing to direction dir.
+    // Checks if a tile has a conveyor belt pointing to direction dir.
     private boolean hasConveyorPointingToDirection(PlayerToken player, Direction dir, int xPos, int yPos) {
         return boardLogic.cellContainsLayerWithKey(xPos, yPos, layerName, dir.toString());
     }
@@ -71,7 +71,7 @@ public class MoveConveyorBelts implements IBoardFeature {
     // Rotates the player if they have moved and are now standing on a conveyer belt that rotates
     private void rotatePlayerIfMovedToRotatingConveyor(PlayerToken player, int xPos, int yPos, Direction dir) {
         if(xPos != player.getXPosition() || yPos != player.getYPosition()) {
-            if(boardLogic.cellContainsLayerWithKey(player.getXPosition(), player.getYPosition(), layerName, dir.toString() + "RotateLeft")) {
+            if(boardLogic.cellContainsLayerWithKey(player.getXPosition(), player.getYPosition(), layerName, dir.toString() + "RotateWheel")) {
                 boardLogic.rotatePlayer(player.getName(), -1);
             }
             else if(boardLogic.cellContainsLayerWithKey(player.getXPosition(), player.getYPosition(), layerName, dir.toString() + "RotateRight")) {

@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -42,7 +41,7 @@ public class Board implements Screen {
     public void show() {
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, RoboRally.WIDTH, RoboRally.HEIGHT);
+        camera.setToOrtho(false, RoboRally.SCREEN_WIDTH, RoboRally.SCREEN_HEIGHT);
     }
 
     @Override
@@ -76,6 +75,11 @@ public class Board implements Screen {
         	movePlayer("playerOne", Direction.SOUTH);
         }
         
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            checkAllCheckpoints();
+            
+        }
+
         game.batch.end();
 
         /*
@@ -118,6 +122,8 @@ public class Board implements Screen {
         }
     }
 
+
+
     @Override
     public void resize(int width, int height) {
 
@@ -143,9 +149,7 @@ public class Board implements Screen {
 
     }
 
-    public BoardLogic getBoardLogic(){
-        return boardLogic;
-    }
+
 
     private void addPlayerToBoard(Vector2 startPosition, String playerName) {
         boardLogic.addPlayerToBoard(startPosition, playerName);
@@ -157,13 +161,22 @@ public class Board implements Screen {
     public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
         return boardLogic.cellContainsLayerWithKey(xPos, yPos, layer, key);
     }
+    public BoardLogic getBoardLogic(){
+        return boardLogic;
+    }
     public void moveConveyorBelts() {
         boardLogic.moveConveyorBelts();
+    }
+    public void moveRotateWheel() {
+        boardLogic.moveRotateWheel();
     }
     public boolean movePlayer(String name, Direction directionToMove) {
         return boardLogic.movePlayer(name, directionToMove);
     }
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
+    }
+    public void checkAllCheckpoints() {
+        boardLogic.checkAllCheckpoints();
     }
 }
