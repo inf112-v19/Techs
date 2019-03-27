@@ -159,13 +159,6 @@ public class BoardCards extends Board {
                         selectedCards.add(cardsToSelect.get(8));
                     }
                 }
-            /*
-            if (Gdx.input.isKeyPressed(Input.Keys.NUM_0)){
-                if (cardsToSelect.size() >= 5) {
-                    newTurn();
-                }
-            }
-            */
             } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                 if (cardsToSelect.size() >= 5) {
                     gameController.donePickingCards(selectedCards, this);

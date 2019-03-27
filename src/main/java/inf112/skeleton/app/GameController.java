@@ -39,8 +39,7 @@ public class GameController implements IGameController{
 
     @Override
     public void movePlayers(BoardCards boardCards){
-        //Integer == player, IProgramCard == first not used card to player
-
+        //makes it only possible to move player if he has cards on hand
         if (playersCards.get(0).isEmpty()){
             boardCards.setAllPlayersDonePickingCards(false);
             return;
