@@ -17,6 +17,7 @@ public class PlayerToken extends Sprite {
     // Variables needed for movement, direction and position
     private Vector2 movementVelocity = new Vector2();
     private Vector2 position;
+    private Vector2 backupPosition;
     private Direction facingDirection;
     private boolean movingNorth = true;
     private boolean movingSouth = true;
@@ -219,4 +220,14 @@ public class PlayerToken extends Sprite {
     public void passCheckpoint() {
         numberOfCheckpointsPassed++;
     }
+    
+    public Vector2 getBackupPosition() {
+    	return backupPosition;
+    }
+    
+    public void setBackupPosition() {
+    	
+    }
+    
+    
 }
