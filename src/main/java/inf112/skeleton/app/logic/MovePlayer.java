@@ -20,8 +20,8 @@ public class MovePlayer {
 
         switch(directionToMove) {
         case EAST:
-            if(board.cellContainsLayerWithKey(xPos, yPos, "Wall", "wallEast") 
-                || board.cellContainsLayerWithKey(xPos + 1, yPos, "Wall", "wallWest")) {
+            if(board.cellContainsLayerWithKey(xPos, yPos, "WallRight", "wallEast")
+                || board.cellContainsLayerWithKey(xPos + 1, yPos, "WallLeft", "wallWest")) {
                 return false;
             }
             if(!moveOtherPlayers(xPos + 1, yPos, directionToMove))
@@ -30,8 +30,8 @@ public class MovePlayer {
             return true;
             
         case NORTH:
-            if(board.cellContainsLayerWithKey(xPos, yPos, "Wall", "wallNorth") || 
-                board.cellContainsLayerWithKey(xPos, yPos + 1, "Wall", "wallSouth")) {
+            if(board.cellContainsLayerWithKey(xPos, yPos, "WallUp", "wallNorth") ||
+                board.cellContainsLayerWithKey(xPos, yPos + 1, "WallDown", "wallSouth")) {
                 return false;
             }
             if(!moveOtherPlayers(xPos, yPos + 1, directionToMove))
@@ -40,8 +40,8 @@ public class MovePlayer {
             return true;
             
         case SOUTH:
-            if(board.cellContainsLayerWithKey(xPos, yPos, "Wall", "wallSouth") || 
-                board.cellContainsLayerWithKey(xPos, yPos - 1, "Wall", "wallNorth")) {
+            if(board.cellContainsLayerWithKey(xPos, yPos, "WallDown", "wallSouth") ||
+                board.cellContainsLayerWithKey(xPos, yPos - 1, "WallUp", "wallNorth")) {
                 return false;
             }
             if(!moveOtherPlayers(xPos, yPos - 1, directionToMove)) {
@@ -51,8 +51,8 @@ public class MovePlayer {
             return true;
             
         case WEST:
-            if(board.cellContainsLayerWithKey(xPos, yPos, "Wall", "wallWest") || 
-                board.cellContainsLayerWithKey(xPos - 1, yPos, "Wall", "wallEast")) {
+            if(board.cellContainsLayerWithKey(xPos, yPos, "WallLeft", "wallWest") ||
+                board.cellContainsLayerWithKey(xPos - 1, yPos, "WallRight", "wallEast")) {
                 return false;
             }
             if(!moveOtherPlayers(xPos - 1, yPos, directionToMove)) {
