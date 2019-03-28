@@ -147,6 +147,19 @@ public class MoveConveyorBeltsTests {
         assertEquals(new Vector2(2,0), circleBoard.getPlayerLocation("testPlayerTwo"));
         assertEquals(new Vector2(2,1), circleBoard.getPlayerLocation("testPlayerThree"));
     }
+    @Test
+    public void circleOfPlayers() {
+        circleBoard.addPlayerToBoard(new Vector2(0,0), "testPlayer1");
+        circleBoard.addPlayerToBoard(new Vector2(1,0), "testPlayer2");
+        circleBoard.addPlayerToBoard(new Vector2(2,0), "testPlayer3");
+        circleBoard.addPlayerToBoard(new Vector2(2,1), "testPlayer4");
+        circleBoard.addPlayerToBoard(new Vector2(2,2), "testPlayer5");
+        circleBoard.addPlayerToBoard(new Vector2(1,2), "testPlayer6");
+        circleBoard.addPlayerToBoard(new Vector2(0,2), "testPlayer7");
+        circleBoard.addPlayerToBoard(new Vector2(0,1), "testPlayer8");
+        circleBoard.moveConveyorBelts();
+        assertEquals(new Vector2(1,0), circleBoard.getPlayerLocation("testPlayer1"));
+    }
 }
 
 
