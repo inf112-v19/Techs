@@ -18,7 +18,9 @@ public class PitFall implements IBoardFeature {
 
 	@Override
 	public void processFeature() {
-			
+			for(PlayerToken player : playersList) {
+				movePlayerIfPitFall(player);
+			}
 	}
 	
 	public void movePlayerIfPitFall(PlayerToken player) {
@@ -30,20 +32,16 @@ public class PitFall implements IBoardFeature {
         int yPos = player.getYPosition();
         
         if(boardLogic.cellContainsLayer(xPos, yPos, layerName)) {
-        	player.setX(player.getBackupPosition().x);
-        	player.setY(player.getBackupPosition().y);
-        	
+        	movePlayerToBackup(player);
         	//player.setPosition(backup.get(x), backup.get(y));//Flytt spelar til siste backup
         	return;
         }
 	}
 	
-	public void ifBackupIsOccupied() {
-		
-	}
 	
-	public void movePlayerToBackup() {
-		
+	public void movePlayerToBackup(PlayerToken player) {
+		player.setX(player.getBackupPosition().x);
+    	player.setY(player.getBackupPosition().y);
 		
 	}
 

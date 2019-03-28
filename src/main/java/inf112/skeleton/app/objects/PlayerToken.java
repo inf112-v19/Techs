@@ -39,6 +39,7 @@ public class PlayerToken extends Sprite {
     public PlayerToken(String givenName, String textureSpriteSheet, Vector2 startPosition) {
         this.playerName = givenName;
         position = startPosition;
+        backupPosition = startPosition;
         facingDirection = Direction.NORTH;
 
         // All regarding spritesheet and getting the frames correctly is done here.
@@ -225,8 +226,12 @@ public class PlayerToken extends Sprite {
     	return backupPosition;
     }
     
-    public void setBackupPosition() {
-    	
+    public void setBackupPosition(Vector2 lastCheckpoint) {
+    	if(numberOfCheckpointsPassed() < 1) {
+    		return; 
+    	} else {
+    		backupPosition = lastCheckpoint;
+    	}
     }
     
     
