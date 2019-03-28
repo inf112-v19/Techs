@@ -20,6 +20,7 @@ public class PitFall implements IBoardFeature {
 	public void processFeature() {
 			for(PlayerToken player : playersList) {
 				movePlayerIfPitFall(player);
+				//should lose a damagetoken when implemented
 			}
 	}
 	
@@ -32,17 +33,9 @@ public class PitFall implements IBoardFeature {
         int yPos = player.getYPosition();
         
         if(boardLogic.cellContainsLayer(xPos, yPos, layerName)) {
-        	movePlayerToBackup(player);
-        	//player.setPosition(backup.get(x), backup.get(y));//Flytt spelar til siste backup
+        	player.moveToLastCheckpoint(); //Moves player to current backup position
         	return;
         }
-	}
-	
-	
-	public void movePlayerToBackup(PlayerToken player) {
-		player.setX(player.getBackupPosition().x);
-    	player.setY(player.getBackupPosition().y);
-		
 	}
 
 }

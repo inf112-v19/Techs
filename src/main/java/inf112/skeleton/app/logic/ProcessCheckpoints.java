@@ -21,8 +21,6 @@ public class ProcessCheckpoints implements IBoardFeature {
         for(PlayerToken player : playersList) {
             if(checkIfOnRightCheckpoint(player)) {
                 player.passCheckpoint();
-                Vector2 lastCheckpoint = player.getVector2Position();
-                player.setBackupPosition(lastCheckpoint);
             }
         }
     }
