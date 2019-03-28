@@ -225,7 +225,7 @@ public class PlayerToken extends Sprite {
     }
     
     public Vector2 getBackupPosition() {
-    	return backupPosition;
+    	return new Vector2(backupPosition.x, backupPosition.y);
     }
     
     public void setBackupPosition(Vector2 lastCheckpoint) {
