@@ -89,7 +89,22 @@ public class BoardLogic {
     public boolean movePlayer(String name, Direction directionToMove) {
         return movePlayerBrain.movePlayer(directionToMove, getPlayerByName(name));
     }
-    
+
+    public boolean movePlayerForward(String name) {
+        PlayerToken player = getPlayerByName(name);
+        return movePlayerBrain.movePlayer(player.getFacingDirection(), player);
+    }
+
+    public boolean movePlayerBackwards(String name) {
+        PlayerToken player = getPlayerByName(name);
+        return movePlayerBrain.movePlayer(getOppositeDirection(player.getFacingDirection()), player);
+    }
+
+    private Direction getOppositeDirection(Direction dir) {
+        int directionNumber = dir.ordinal() + 2;
+        return Direction.values()[directionNumber % 4];
+    }
+
     // Rotates player 90 degrees clockwise for each numberOfTimes. 90 degrees counterclockwise when numberOfTimes is negative.
     public void rotatePlayer(String name, int numberOfTimes) {
         PlayerToken player = getPlayerByName(name);
@@ -99,5 +114,4 @@ public class BoardLogic {
     public void checkAllCheckpoints() {
         processCheckpoints.processFeature();
     }
-    
 }
