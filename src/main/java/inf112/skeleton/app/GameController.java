@@ -16,13 +16,17 @@ public class GameController implements IGameController{
     //Integer = player, ArrayList<IProgramCard> cards to player. Key 0 is starting player, Key 1 is player
     //after starting player
     private HashMap<Integer, ArrayList<IProgramCard>> playersCards;
+    private HashMap<Integer, String> playerString;
 
     public GameController(int numPlayers, BoardCards boardCards){
         this.turns = 0;
         this.numPlayers = numPlayers;
         playersCards = new HashMap<>();
+        playerString = new HashMap<>();
         boardCards.addPlayerToBoard(new Vector2(0,0), "playerOne");
+        playerString.put(0, "playerOne");
         boardCards.addPlayerToBoard(new Vector2(1,1), "playerTwo");
+        playerString.put(1, "playerTwo");
     }
 
     @Override
@@ -31,25 +35,30 @@ public class GameController implements IGameController{
         playersCards.put(currentPlayer, cardsCurrentPlayer);
         turns++;
         if (turns % numPlayers == 0)
-            movePlayers(boardCards);
+            boardCards.setAllPlayersDonePickingCards(true);
     }
 
     @Override
     public void movePlayers(BoardCards boardCards){
-        //Integer == player, IProgramCard == first not used card to player
+        //makes it only possible to move player if he has cards on hand
+        if (playersCards.get(0).isEmpty()){
+            boardCards.setAllPlayersDonePickingCards(false);
+            return;
+        }
+
         HashMap<Integer, IProgramCard> firstCards = new HashMap<>();
         HashMap<IProgramCard, Integer> firstCardsInverse = new HashMap<>();
         IProgramCard PriorityCard;
-        for (int i = 0; i < 5; i++) {
-            for (int currentPlayer = 0; currentPlayer < numPlayers; currentPlayer++) {
-                firstCardsInverse.put(playersCards.get(currentPlayer).get(0), currentPlayer);
-                firstCards.put(currentPlayer, playersCards.get(currentPlayer).remove(0));
-            }
-            while (!firstCards.isEmpty()){
-                PriorityCard = Collections.min(firstCards.values());
-                firstCards.remove(firstCardsInverse.get(PriorityCard));
-                movePlayer(PriorityCard, firstCardsInverse.get(PriorityCard), boardCards);
-            }
+
+        for (int currentPlayer = 0; currentPlayer < numPlayers; currentPlayer++) {
+            firstCardsInverse.put(playersCards.get(currentPlayer).get(0), currentPlayer);
+            firstCards.put(currentPlayer, playersCards.get(currentPlayer).remove(0));
+        }
+
+        while (!firstCards.isEmpty()){
+            PriorityCard = Collections.min(firstCards.values());
+            firstCards.remove(firstCardsInverse.get(PriorityCard));
+            movePlayer(PriorityCard, firstCardsInverse.get(PriorityCard), boardCards);
         }
 
     }
@@ -62,6 +71,7 @@ public class GameController implements IGameController{
         else
             for (int i = 0; i < programCard.getMovement(); i++)
                 boardCards.getBoardLogic().getPlayersList().get(currentPlayer).moveInFacingDirection();
+                //boardCards.movePlayerForward(playerString.get(i));
     }
 
     @Override
