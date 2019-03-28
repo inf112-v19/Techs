@@ -5,7 +5,7 @@ import inf112.skeleton.app.logic.Direction;
 
 import java.util.ArrayList;
 
-public interface IProgramCard {
+public interface IProgramCard extends Comparable<IProgramCard> {
 	
 	
 	/**

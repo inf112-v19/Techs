@@ -42,12 +42,17 @@ og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 * Parprogrammering
 
 ## Oversikt over klasser
-![KlasseDiagram](/images/Klassediagram.png)
+![KlasseDiagram](/images/Klassediagram27_03.png)
 
 
 ## Grafikk
 ![Green robot animation](/assets/AnimatedGreenRobot.gif)
+
 ![Sprite sheet](/assets/GreenRobotSpriteSheet.png)
+![Sprite_sheet](/assets/BlueRobotSpriteSheet.png)
+![Sprite sheet](/assets/RedRobotSpriteSheet.png)
+![Sprite_sheet](/assets/YellowRobotSpriteSheet.png)
+
 
 ## Sluttprodukt:
 

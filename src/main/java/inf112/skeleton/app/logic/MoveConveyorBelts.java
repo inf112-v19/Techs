@@ -1,11 +1,8 @@
 package inf112.skeleton.app.logic;
 
-import inf112.skeleton.app.objects.PlayerToken;
-import inf112.skeleton.app.screens.Board;
-
-import java.util.ArrayList;
-
 import com.badlogic.gdx.math.Vector2;
+import inf112.skeleton.app.objects.PlayerToken;
+import java.util.ArrayList;
 
 public class MoveConveyorBelts implements IBoardFeature {
 
@@ -39,7 +36,7 @@ public class MoveConveyorBelts implements IBoardFeature {
         
         if(boardLogic.cellContainsLayer(xPos, yPos, layerName)) {
             for(Direction dir : Direction.values()) {
-                if(hasConveyerPointingToDirection(player, dir, xPos, yPos)) {
+                if(hasConveyorPointingToDirection(player, dir, xPos, yPos)) {
                     // Moves other player on conveyer belts that are standing in the way first  
                     PlayerToken otherPlayer = checkForPlayer(dir, xPos, yPos);
                     if(otherPlayer != null) {
@@ -47,23 +44,19 @@ public class MoveConveyorBelts implements IBoardFeature {
                     }
                     
                     boardLogic.movePlayer(player.getName(), dir);
-                    rotatePlayerIfMovedToRotatingConveyer(player, xPos, yPos, dir);
+                    rotatePlayerIfMovedToRotatingConveyor(player, xPos, yPos, dir);
                     return;
                 }
             }
         }
     }
 
-    /*
-     * Checks if a tile has a conveyer belt pointing to direction dir. 
-     */
-    private boolean hasConveyerPointingToDirection(PlayerToken player, Direction dir, int xPos, int yPos) {
+    // Checks if a tile has a conveyor belt pointing to direction dir.
+    private boolean hasConveyorPointingToDirection(PlayerToken player, Direction dir, int xPos, int yPos) {
         return boardLogic.cellContainsLayerWithKey(xPos, yPos, layerName, dir.toString());
     }
-    
-    /*
-     * Returns PlayerToken that stand on the tile in the direction dir
-     */
+
+    // Returns PlayerToken that stand on the tile in the direction dir
     private PlayerToken checkForPlayer(Direction dir, int xPos, int yPos) {        
         Vector2 checkPosition = addDirectionToLocation(xPos, yPos, dir);
 
@@ -75,12 +68,10 @@ public class MoveConveyorBelts implements IBoardFeature {
         return null;
     }
     
-    /*
-     * Rotates the player if they have moved and are now standing on a conveyer belt that rotates
-     */
-    private void rotatePlayerIfMovedToRotatingConveyer(PlayerToken player, int xPos, int yPos, Direction dir) {
+    // Rotates the player if they have moved and are now standing on a conveyer belt that rotates
+    private void rotatePlayerIfMovedToRotatingConveyor(PlayerToken player, int xPos, int yPos, Direction dir) {
         if(xPos != player.getXPosition() || yPos != player.getYPosition()) {
-            if(boardLogic.cellContainsLayerWithKey(player.getXPosition(), player.getYPosition(), layerName, dir.toString() + "RotateLeft")) {
+            if(boardLogic.cellContainsLayerWithKey(player.getXPosition(), player.getYPosition(), layerName, dir.toString() + "RotateWheel")) {
                 boardLogic.rotatePlayer(player.getName(), -1);
             }
             else if(boardLogic.cellContainsLayerWithKey(player.getXPosition(), player.getYPosition(), layerName, dir.toString() + "RotateRight")) {
@@ -89,9 +80,7 @@ public class MoveConveyorBelts implements IBoardFeature {
         }
     }
     
-    /*
-     * Calculates the correct vector2 of the tile in direction dir from a position 
-     */
+    // Calculates the correct vector2 of the tile in direction dir from a position
     private Vector2 addDirectionToLocation(int x, int y, Direction dir) {
         switch(dir) {
         case NORTH: 
