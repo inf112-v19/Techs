@@ -8,6 +8,7 @@ public class MovePlayer {
 
     private BoardLogic board;
     private ArrayList<PlayerToken> playersList;
+    private PitFall pitfall;
     
     public MovePlayer(ArrayList<PlayerToken> playersList, BoardLogic board) {
         this.playersList = playersList;
@@ -18,6 +19,8 @@ public class MovePlayer {
         int xPos = playerToMove.getXPosition();
         int yPos = playerToMove.getYPosition();
 
+        pitfall = new PitFall(playerToMove, board);
+        
         switch(directionToMove) {
         case EAST:
             if(board.cellContainsLayerWithKey(xPos, yPos, "Wall", "wallEast") 
@@ -26,7 +29,8 @@ public class MovePlayer {
             }
             if(!moveOtherPlayers(xPos + 1, yPos, directionToMove))
                 return false;
-            playerToMove.moveDirection(Direction.EAST);            
+            playerToMove.moveDirection(Direction.EAST); 
+            pitfall.processFeatureCheckForPitFalls(playerToMove);
             return true;
             
         case NORTH:
@@ -37,6 +41,7 @@ public class MovePlayer {
             if(!moveOtherPlayers(xPos, yPos + 1, directionToMove))
                 return false;
             playerToMove.moveDirection(Direction.NORTH);
+            pitfall.processFeatureCheckForPitFalls(playerToMove);
             return true;
             
         case SOUTH:
@@ -48,6 +53,7 @@ public class MovePlayer {
                 return false;
             }
             playerToMove.moveDirection(Direction.SOUTH);
+            pitfall.processFeatureCheckForPitFalls(playerToMove);
             return true;
             
         case WEST:
@@ -59,6 +65,7 @@ public class MovePlayer {
                 return false;
             }
             playerToMove.moveDirection(Direction.WEST);
+            pitfall.processFeatureCheckForPitFalls(playerToMove);
             return true;       
         }
         return false;
