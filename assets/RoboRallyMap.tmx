@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="12" height="16" tilewidth="96" tileheight="96" infinite="0" nextlayerid="45" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="14" height="18" tilewidth="96" tileheight="96" infinite="0" nextlayerid="59" nextobjectid="1">
  <tileset firstgid="1" source="RoboRallyTiles.tsx"/>
- <layer id="2" name="Floor" width="12" height="16" locked="1">
+ <layer id="45" name="Floor" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjZWBgYIViBiSaAYsYPjXo8uhsQuazosmhm4OuF10NNjPwyeGzB12OVPXkugeXelzmo7sPX5gTox6f+fjEaIlx+Z3YMCQkBgAAzQIn
+   eJylkcEKADAIQr3s/3951wgtqyAG5ctowD5eSIQXpBZ7Spv1jHH8GJtnMG+lZTOrnuOrNFvuuqfiOr+8d/cPLuf4qRrjnLxyaufp7Se1aXz4xQIn
   </data>
  </layer>
- <layer id="19" name="Upgrade" width="12" height="16" locked="1">
+ <layer id="46" name="Upgrade" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjYBgF9ALsA+2AUYABAA4MAAg=
+   eJxjYBgFwxmwD7QDRsGgAgASYAAI
   </data>
  </layer>
- <layer id="16" name="WallRight" width="12" height="16" locked="1">
+ <layer id="47" name="WallRight" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjYBheQJRMOVqBgXTPQPiXGvaLUqCXVAAA1VQAqQ==
+   eJxjYBgFxAJRMuXoDQaTOwdTuCADSt0lSgUzBgIAAB8rAKk=
   </data>
  </layer>
- <layer id="17" name="WallLeft" width="12" height="16" locked="1">
+ <layer id="48" name="WallLeft" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjYKAtkB5A82ltN6l2UsM9A+EnUgAx7pMmUh2l9hCjHgB14wEq
+   eJxjYBg6QHoQ2Udvt+AD9HbnYPI7KYAUd0uTqJ5a9lJDHz4AAPNHASo=
   </data>
  </layer>
- <layer id="15" name="WallDown" width="12" height="16" locked="1">
+ <layer id="49" name="WallDown" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjYBheQAoHeyQDcsJBCo3GJTbUAQDo8AC3
+   eJxjYBgFxAIpHOxRQDygJNyk0GhcYqMANwAAN4cAtw==
   </data>
  </layer>
- <layer id="3" name="WallUp" width="12" height="16" locked="1">
+ <layer id="50" name="WallUp" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjYIAAGTQal9goIA1gC09aA1Y62gUDQzX9AAATygE6
+   eJxjYKAcyKDRuMRGAX0AtnigN2AdQLvRwWj6RAAAsUYBOg==
   </data>
  </layer>
- <layer id="28" name="Wall" width="12" height="16" locked="1">
+ <layer id="51" name="Wall" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjYIAAGTQalxipQJoCveSYL4WDDQKiNHYLCKC7R5RIOXLNxwVkkMxHDwdigBQajUsM2T4QQHafKJocA5IafP4QZSAcNqSmK1zqAVKIAxw=
+   eJxjYKAcyKDRuMQoBdJUNIsc+6RwsEFAlMZuwQfQ3SlKpBy17MMFZLDYhx5upAApNBqXGDZ3gACyu0XR5NCBNAN+f4oyEB+W5KZbWqR3ALebAxw=
   </data>
  </layer>
- <layer id="29" name="Conveyor" width="12" height="16" locked="1">
+ <layer id="52" name="Conveyor" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjYEAAbSitg8ZGltMlUj26WmLUg4AeEmbAoZ4XCWMDyOrRgS4WTEhOjwG7u3ixYGxAmEj34FKPTQ0Dkhpk9ejhSYp6PVTlKOphAD090BrAwlwBjxpZBszwUWHAjC+YGnUkMQBmuAxB
+   eJxjYKAO0IbSOmhsZDkY0CVSH7paYu1DB3pImAFJLbI+XiSMDyDrwwV0sWBi5NDdiuxeXiwYHxAm0Z249OFyJwzA1CLrwxUPpOjTY8AOkPXBAK50Rm8AizMFPGpkGXCHpwoDZrzD1KpTx4kMAHe6DEE=
   </data>
  </layer>
- <layer id="10" name="RotateRight" width="12" height="16" locked="1">
+ <layer id="53" name="RotateRight" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjYKANMKCRuaOANmCkxhcAsQAAYQ==
+   eJxjYBi8wGCgHTAKBgSMxjvtAADk8ABh
   </data>
  </layer>
- <layer id="9" name="RotateLeft" width="12" height="16" locked="1">
+ <layer id="54" name="RotateLeft" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjYBi8QH+gHUBngM2/Iy0M6A0A+EgAjg==
+   eJxjYBhZQH+gHTBIAbZwGQ2r4QcAQIMAjg==
   </data>
  </layer>
- <layer id="18" name="Repair" width="12" height="16" locked="1">
+ <layer id="55" name="Repair" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJzjYxgFo4A8wDfQDqACAAA3uAAd
+   eJxjYCAf8FGgdxSMAlqA0TSJHwAAR4gAHQ==
   </data>
  </layer>
- <layer id="8" name="Pit" width="12" height="16">
+ <layer id="56" name="Pit" width="14" height="18">
   <data encoding="base64" compression="zlib">
-   eJxjYCAPsJGpbxTQF4zGE34AABpwAA0=
+   eJwLZGBgCCQTkwrQ9bGRqY9c+0b1Daw+YuObWvYNd33kYACqAxMJ
   </data>
  </layer>
- <layer id="30" name="Checkpoints" width="12" height="16">
+ <layer id="57" name="Checkpoints" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjYKAeMKSiWaQA+wGyl1xgMdAOGAVwAABq5wCp
+   eJxjYBhcwHCgHYAG7AfaAVQCFgPtgFEwKAAAzE8AqQ==
   </data>
  </layer>
- <layer id="22" name="Laser" width="12" height="16" locked="1">
+ <layer id="58" name="Laser" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjYBh4oATEykCsOdAOGQUjDgAAEoMAbw==
+   eJxjYBheQAmIlYFYc6AdMgpGwSAEAFnrAG8=
   </data>
  </layer>
 </map>
