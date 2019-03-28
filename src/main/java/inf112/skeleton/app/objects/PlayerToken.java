@@ -221,7 +221,7 @@ public class PlayerToken extends Sprite {
     public void passCheckpoint() {
         numberOfCheckpointsPassed++;
         Vector2 checkpoint = this.getVector2Position();
-        this.setBackupPosition(checkpoint);
+        setBackupPosition(checkpoint);
     }
     
     public Vector2 getBackupPosition() {
@@ -237,9 +237,10 @@ public class PlayerToken extends Sprite {
     }
     
     public void moveToLastCheckpoint() {
-    	position = new Vector2(getBackupPosition().y, getBackupPosition().x);
+    	position = backupPosition;
     	setXPositionOnBoard();
     	setYPositionOnBoard();
+    	//System.out.println("moving player to backup");
     }
     
     

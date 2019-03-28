@@ -21,7 +21,6 @@ public class BoardLogic {
     private MoveConveyorBelts moveConveyorBelts;
     private ProcessCheckpoints processCheckpoints;
     private RotateWheel moveRotateWheel;
-    private PitFall pitFall;
     
     private TiledMap map;
     
@@ -32,7 +31,6 @@ public class BoardLogic {
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
         this.processCheckpoints = new ProcessCheckpoints(this, playersList);
         this.moveRotateWheel = new RotateWheel(this, playersList);
-        this.pitFall = new PitFall(this, playersList);
     }
 
     // Adds player to the board at specified position
@@ -102,7 +100,4 @@ public class BoardLogic {
         processCheckpoints.processFeature();
     }
     
-    public void movePitFall() {
-    	pitFall.processFeature();
-    }
 }

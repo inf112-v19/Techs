@@ -1,42 +1,44 @@
 package inf112.skeleton.app.logic;
 
-import java.util.ArrayList;
 
 import inf112.skeleton.app.objects.PlayerToken;
+import inf112.skeleton.app.screens.Board;
 
-public class PitFall implements IBoardFeature {
+public class PitFall {
 
-	private BoardLogic boardLogic;
-	private ArrayList<PlayerToken> playersList;
-	private ArrayList<String> playersChecked;
+	private BoardLogic board;
+	private PlayerToken player;
 	private String layerName = "Pit";
 
-	public PitFall(BoardLogic boardLogic, ArrayList<PlayerToken> playersList) {
-		this.playersList = playersList;
-		this.boardLogic = boardLogic;
+	public PitFall(PlayerToken player, BoardLogic board) {
+		this.player = player;
+		this.board = board;
 	}
 
-	@Override
-	public void processFeature() {
-		for (PlayerToken player : playersList) {
-			movePlayerIfPitFall(player);
-			// should lose a damagetoken when implemented
-		}
+	public void processFeatureCheckForPitFalls(PlayerToken player) {
+		player = this.player;
+		//board = this.board;
+		movePlayerIfPitFall(player, board);
+		// should lose a damagetoken when implemented
 	}
 
-	public void movePlayerIfPitFall(PlayerToken player) {
-		if (playersChecked.contains(player.getName()))
-			return;
-
-		playersChecked.add(player.getName());
-		int xPos = player.getXPosition();
-		int yPos = player.getYPosition();
-
-		if (boardLogic.cellContainsLayer(xPos, yPos, layerName)) {
+	public void movePlayerIfPitFall(PlayerToken player, BoardLogic board) {
+		if (checkIfPitfall(player, board)) {
 			player.moveToLastCheckpoint(); // Moves player to current backup position
 			return;
-		}
+		} 
 		return;
 	}
-
+	
+	public boolean checkIfPitfall(PlayerToken player, BoardLogic board) {
+		
+		int xPos = player.getXPosition();
+		int yPos = player.getYPosition();
+		
+		if(board.cellContainsLayer(xPos, yPos, layerName)) {		
+			return true;
+		}
+		
+		return false;
+	} 
 }
