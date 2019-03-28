@@ -99,4 +99,5 @@ public class BoardLogic {
     public void checkAllCheckpoints() {
         processCheckpoints.processFeature();
     }
+
 }
