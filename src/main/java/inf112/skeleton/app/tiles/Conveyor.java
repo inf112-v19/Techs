@@ -1,6 +1,6 @@
 package inf112.skeleton.app.tiles;
 
-import inf112.skeleton.app.Direction;
+import inf112.skeleton.app.logic.Direction;
 
 public class Conveyor implements IConveyorBelt {
 
