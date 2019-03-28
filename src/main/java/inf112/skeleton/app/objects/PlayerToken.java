@@ -14,9 +14,9 @@ public class PlayerToken extends Sprite {
     private static final int FRAME_COL = 8;
     private static final int FRAME_ROW = 2;
     private static final float TILE_SCALE = 96;
+
     // Variables needed for movement, direction and position
     private Vector2 movementVelocity = new Vector2();
-    private Vector2 backupPosition;
     private Vector2 position;
     private Direction facingDirection;
     private boolean movingNorth = true;
@@ -28,8 +28,6 @@ public class PlayerToken extends Sprite {
     private boolean rotatingRight;
     private int targetRotation;
 
-    private int numberOfCheckpointsPassed;
-    
     // Variables needed for animated sprites
     private String playerName;
     private TextureRegion[] animationFrames;
@@ -38,7 +36,6 @@ public class PlayerToken extends Sprite {
    
     public PlayerToken(String givenName, String textureSpriteSheet, Vector2 startPosition) {
         this.playerName = givenName;
-        backupPosition = new Vector2(startPosition.x, startPosition.y);
         position = startPosition;
         facingDirection = Direction.NORTH;
 
@@ -72,6 +69,9 @@ public class PlayerToken extends Sprite {
     public Animation<TextureRegion> getRobotAnimation() {
         return robotAnimation;
     }
+    public TextureRegion[] getAnimationFrames() {
+        return animationFrames;
+    }
 
     // Methods regarding X and Y positions
     private void animateXPositionOnBoard(float delta) {
@@ -89,11 +89,11 @@ public class PlayerToken extends Sprite {
     public int getYPosition() {
         return (int) position.y;
     }
-    private void setXPositionOnBoard() {
-        setX(position.x * TILE_SCALE);
-    }
     private void setYPositionOnBoard() {
         setY(position.y * TILE_SCALE);
+    }
+    private void setXPositionOnBoard() {
+        setX(position.x * TILE_SCALE);
     }
 
     // Methods regarding direction
@@ -213,35 +213,4 @@ public class PlayerToken extends Sprite {
             }
         }
     }
-    
-    public int numberOfCheckpointsPassed() {
-        return numberOfCheckpointsPassed;
-    }
-    
-    public void passCheckpoint() {
-        numberOfCheckpointsPassed++;
-        Vector2 checkpoint = this.getVector2Position();
-        setBackupPosition(checkpoint);
-    }
-    
-    public Vector2 getBackupPosition() {
-    	return new Vector2(backupPosition.x, backupPosition.y);
-    }
-    
-    public void setBackupPosition(Vector2 lastCheckpoint) {
-    	if(numberOfCheckpointsPassed() < 1) {
-    		return; 
-    	} else {
-    		backupPosition = new Vector2(lastCheckpoint.x, lastCheckpoint.y);
-    	}
-    }
-    
-    public void moveToLastCheckpoint() {
-    	position = getBackupPosition();
-    	setXPositionOnBoard();
-    	setYPositionOnBoard();
-    	//System.out.println("moving player to backup");
-    }
-    
-    
 }

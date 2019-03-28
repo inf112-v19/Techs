@@ -72,8 +72,9 @@ public class MoveConveyerBeltsTests {
     }
     @Test
     public void playerRotates() {
-        circleBoard.addPlayerToBoard(new Vector2(1, 2), "testPlayerOne");
+        circleBoard.addPlayerToBoard(new Vector2(1, 0), "testPlayerOne");
         circleBoard.moveConveyorBelts();
+        
         assertEquals(Direction.WEST, circleBoard.getPlayerRotation("testPlayerOne"));
     }
 }
