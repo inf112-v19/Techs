@@ -35,7 +35,9 @@ public class PitFallTest {
     
     private static Application application;
     private TiledMap map;
+    private TiledMap justPits;
     private BoardLogic board;
+    private static BoardLogic pitBoard;
     
 
     
@@ -54,38 +56,50 @@ public class PitFallTest {
         Gdx.gl = Gdx.gl20;
         
         map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
-        
+        justPits = new TmxMapLoader().load("assets/testMaps/justPitsAndCheckpointsMap.tmx");
         
         board = new BoardLogic(map);
+        pitBoard = new BoardLogic(justPits);
         
-    }
-
-    @Test
-    public void addPlayerToBoard() {
-        board.addPlayerToBoard(new Vector2(1,1), "Player");
-        assertEquals(new Vector2(1,1), board.getPlayerLocation("Player"));
     }
     
     @Test
-    public void movePlayerToStartPositionAfterPitFall() {
+    public void movePlayerToStartpositionAfterPitFall1() {
+    
+    	Vector2 startPos = new Vector2(1, 1);
+    	pitBoard.addPlayerToBoard(startPos, "Player");
+    	pitBoard.movePlayer("Player", Direction.NORTH);
+    	for(int i = 0; i < 3; i++) {
+    		for(int j = 0; j < 3; j++) {
+    			System.out.println(pitBoard.cellContainsLayer(i, j, "Pit"));
+    		}
+    		
+    	}
+    	//checkPositionIfPit(new Vector2(1, 2));
+    	assertEquals(new Vector2(1, 2), pitBoard.getPlayerLocation("Player"));  	  	
+    }
+    
+    @Test
+    public void movePlayerToStartpositionAfterPitFall() {
     	board.addPlayerToBoard(new Vector2(0,3), "Player");
     	Vector2 startPos = new Vector2(0, 3);
     	board.movePlayer("Player", Direction.NORTH);
     	board.movePlayer("Player", Direction.NORTH);
-    	assertTrue(board.cellContainsLayer(0, 5, "Pit"));
+    	checkPositionIfPit(new Vector2(0, 5));
     	assertEquals(startPos, board.getPlayerLocation("Player"));  	  	
     }
     
     @Test
-    public void movePlayerToCheckPointAfterPitFall() {
+    public void movePlayerToCheckpointAfterPitFall() {
     	Vector2 startPos = new Vector2(0, 3);
     	PlayerToken player = new PlayerToken("Player", "assets/BlueRobotSpriteSheet.png", startPos);
     	board.addPlayerToBoard(startPos, player.getName());
     	board.movePlayer("Player", Direction.NORTH);
-    	player.passCheckpoint();
+    	player.passCheckpoint(); //FEIL: backupPosisjon blir ikkje oppdatert..
     	board.movePlayer("Player", Direction.NORTH);
-    	assertTrue(board.cellContainsLayer(0, 5, "Pit"));
-    	assertEquals(player.getBackupPosition(), new Vector2(0, 4));
+    	checkPositionIfPit(new Vector2(0, 5));
+    	assertEquals(player.getBackupPosition(), new Vector2(0, 4)); 
+    	//System.out.println(board.getPlayerLocation("Player"));
     	//assertEquals(player.getBackupPosition(), board.getPlayerLocation("Player"));
     }
     
@@ -98,5 +112,10 @@ public class PitFallTest {
     	player.passCheckpoint();
     	board.movePlayer("Player", Direction.NORTH);
     	assertEquals(player.getBackupPosition(), new Vector2(0, 4));
+    }
+    
+    
+    public void checkPositionIfPit(Vector2 position) {
+    	assertTrue(board.cellContainsLayer((int)position.x, (int)position.y, "Pit"));
     }
 }
