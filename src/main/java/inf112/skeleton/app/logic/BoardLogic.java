@@ -50,6 +50,9 @@ public class BoardLogic {
     // Checks if tile at (xPos, yPos) has a property named key in the specified layer
     public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
         TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
+        if(tileLayer == null) {
+            return false;
+        }
         if(tileLayer.getCell(xPos, yPos) == null)
             return false;
         return tileLayer.getCell(xPos, yPos).getTile().getProperties().containsKey(key);
