@@ -45,6 +45,7 @@ public class BoardCards extends Board {
     private ArrayList<Integer> numberYPos;
 
     private boolean allPlayersDonePickingCards = false;
+    private boolean finishedTurn = false;
 
     public BoardCards(RoboRally game, int numPlayers) {
         super(game);
@@ -86,6 +87,13 @@ public class BoardCards extends Board {
 
 
         if (!allPlayersDonePickingCards) {
+            
+            if(finishedTurn) {
+                System.out.println("do end of turn");
+                processEndOfTurns();
+                finishedTurn = false;
+            }
+            
             //these if-statements handles which cards has been selected på user
             if (selectedCards.size() < 5) {
                 if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
@@ -170,6 +178,7 @@ public class BoardCards extends Board {
         else {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 gameController.movePlayers(this);
+                finishedTurn = true;
             }
         }
 
