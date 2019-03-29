@@ -76,10 +76,9 @@ public class Board implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
             boardLogic.moveRotateWheel();
         }
-        
+
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             checkAllCheckpoints();
-            
         }
 
         game.batch.end();
@@ -124,8 +123,6 @@ public class Board implements Screen {
         }
     }
 
-
-
     @Override
     public void resize(int width, int height) {
 
@@ -167,6 +164,9 @@ public class Board implements Screen {
     public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
         return boardLogic.cellContainsLayerWithKey(xPos, yPos, layer, key);
     }
+    public void checkAllCheckpoints() {
+        boardLogic.checkAllCheckpoints();
+    }
     public BoardLogic getBoardLogic(){
         return boardLogic;
     }
@@ -184,8 +184,5 @@ public class Board implements Screen {
     }
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
-    }
-    public void checkAllCheckpoints() {
-        boardLogic.checkAllCheckpoints();
     }
 }
