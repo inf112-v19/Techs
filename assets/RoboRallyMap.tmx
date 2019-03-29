@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.3" orientation="orthogonal" renderorder="right-down" width="14" height="18" tilewidth="96" tileheight="96" infinite="0" nextlayerid="59" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="14" height="18" tilewidth="96" tileheight="96" infinite="0" nextlayerid="59" nextobjectid="1">
  <tileset firstgid="1" source="RoboRallyTiles.tsx"/>
  <layer id="45" name="Floor" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
@@ -31,7 +31,7 @@
    eJxjYKAcyKDRuMRGAX0AtnigN2AdQLvRwWj6RAAAsUYBOg==
   </data>
  </layer>
- <layer id="51" name="Wall" width="14" height="18" locked="1">
+ <layer id="51" name="Wall" width="14" height="18" visible="0" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYKAcyKDRuMQoBdJUNIsc+6RwsEFAlMZuwQfQ3SlKpBy17MMFZLDYhx5upAApNBqXGDZ3gACyu0XR5NCBNAN+f4oyEB+W5KZbWqR3ALebAxw=
   </data>
