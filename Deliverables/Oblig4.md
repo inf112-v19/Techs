@@ -50,6 +50,9 @@ og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 ![Sprite sheet](/assets/RedRobotSpriteSheet.png)
 ![Sprite_sheet](/assets/YellowRobotSpriteSheet.png)
 
+## Link til Trello Board
+* https://trello.com/b/blIhGhdS/techs-inf112-robo-rally
+
 ## Sluttprodukt:
 Vi ønsker oss et velfungerende program som i første omgang er et minimum viable product. Basic med reglene som gjelder
 for å kunne spille.
@@ -82,6 +85,8 @@ for å kunne spille.
 * Kommunikasjonen gjennom Slack er også bra. Det har skjedd private ting hos en i gruppen som har gjort det vanskelig å komme i kontakt med vedkommende i en liten periode.
 
 * Basert på det vi har hatt som mål føles det ut som om vi har nådd målene vi har satt oss. Det som ligger i backlog er ting som dukker opp som enten skal gjøres etter mvp eller før, men fra uke til uke har det gått fremover i todo-listen, bortsett fra noen få ting. Samtidig føler vi at vi har blitt flinkere til å oppdatere Trello boardet.
+
+* Kode strukturen vår burde bli bedre, spesielt når det kommer til Board og BoardLogic. Vi planlegger å lage interfaces/extende klassene sånn at vi slipper å ha de samme metodene i ulike klasser som bare kaller på hverandre.
 
 * Møtereferat finnes i Deliverables
 
