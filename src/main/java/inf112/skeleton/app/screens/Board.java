@@ -182,6 +182,9 @@ public class Board implements Screen {
     public boolean movePlayerForward(String name) {
         return boardLogic.movePlayerForward(name);
     }
+    public boolean movePlayerBackwards(String name) {
+        return boardLogic.movePlayerBackwards(name);
+    }
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
     }
