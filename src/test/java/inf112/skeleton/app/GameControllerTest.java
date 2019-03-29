@@ -19,17 +19,19 @@ import java.util.ArrayList;
 public class GameControllerTest {
 
     private TiledMap noWallMap;
-    //private TiledMap wallMap;
     private BoardLogic boardLogic;
+    private RoboRally roboRally;
+    private BoardCards boardCards;
+    private GameController gameController;
+
 
     @Before
     public void setUp(){
         noWallMap = new TmxMapLoader().load("assets/testMaps/mapNoWalls.tmx");
-        //wallMap = new TmxMapLoader().load("assets/testMaps/mapAllWalls.tmx");
         boardLogic = new BoardLogic(noWallMap);
-        RoboRally roboRally = new RoboRally();
-        BoardCards boardCards = new BoardCards(roboRally, 1);
-        GameController gameController = new GameController(1, boardCards);
+        roboRally = new RoboRally();
+        boardCards = new BoardCards(roboRally, 2);
+        gameController = new GameController(2, boardCards);
     }
 
     @Test
@@ -40,7 +42,7 @@ public class GameControllerTest {
         programCards.add(new ProgramCard(CardType.MOVEMENT_1, 1, 0, 1));
         programCards.add(new ProgramCard(CardType.MOVEMENT_1, 1, 0, -1));
         programCards.add(new ProgramCard(CardType.MOVEMENT_1, 1, 0, 1));
-
+        //gameController.donePickingCards(programCards, boardCards);
     }
 
     @Test
