@@ -35,10 +35,10 @@ public class PitFall {
 		int xPos = player.getXPosition();
 		int yPos = player.getYPosition();
 		
-		if(board.cellContainsLayer(xPos, yPos, layerName)) {		
+		if(board.cellContainsLayer(xPos, yPos, layerName)) {
+			System.out.println(player.getName() + " fell into pit. Moved to last backup");
 			return true;
 		}
-		
 		return false;
 	} 
 }

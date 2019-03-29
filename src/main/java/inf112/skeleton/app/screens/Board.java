@@ -72,6 +72,10 @@ public class Board implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
         	movePlayer("playerOne", Direction.SOUTH);
         }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            boardLogic.moveRotateWheel();
+        }
         
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             checkAllCheckpoints();

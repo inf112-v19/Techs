@@ -24,10 +24,12 @@ public class RotateWheel implements IBoardFeature {
         int yPos = player.getYPosition();
 
         if (boardLogic.cellContainsLayer(xPos, yPos, "RotateLeft")) {
+            System.out.println(player.getName() + " rotated left.");
             player.rotatePlayer(-1);
         }
 
         if (boardLogic.cellContainsLayer(xPos, yPos, "RotateRight")) {
+            System.out.println(player.getName() + " rotated right.");
             player.rotatePlayer(1);
         }
     }

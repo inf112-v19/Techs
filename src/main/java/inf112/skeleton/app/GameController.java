@@ -23,9 +23,9 @@ public class GameController implements IGameController{
         this.numPlayers = numPlayers;
         playersCards = new HashMap<>();
         playerString = new HashMap<>();
-        boardCards.addPlayerToBoard(new Vector2(0,0), "playerOne");
+        boardCards.addPlayerToBoard(new Vector2(1,1), "playerOne");
         playerString.put(0, "playerOne");
-        boardCards.addPlayerToBoard(new Vector2(1,1), "playerTwo");
+        boardCards.addPlayerToBoard(new Vector2(2,2), "playerTwo");
         playerString.put(1, "playerTwo");
     }
 
