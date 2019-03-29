@@ -74,8 +74,7 @@ public class PitFallTest {
     	Vector2 startPos = new Vector2(0, 3);
     	PlayerToken player = new PlayerToken("Player", "assets/BlueRobotSpriteSheet.png", startPos);
     	board.addPlayerToBoard(startPos, player.getName());
-    	checkPositionIfCheckpoint(new Vector2(7, 14));
-    	checkPositionIfPit(new Vector2(2, 14));
+    	checkPositionIfPit(new Vector2(0, 5));
     	System.out.println(player.getBackupPosition());
     	board.movePlayer("Player", Direction.NORTH);
     	player.passCheckpoint(); 
@@ -83,7 +82,7 @@ public class PitFallTest {
     	System.out.println(player.getBackupPosition());
     	System.out.println(board.getPlayerLocation("Player")); //FEIL: player går ikkje tilbake til checkpoint, kun startpos
     	assertEquals(player.getBackupPosition(), new Vector2(0, 4)); 
-    	//assertEquals(player.getBackupPosition(), board.getPlayerLocation("Player"));
+    	assertEquals(player.getBackupPosition(), board.getPlayerLocation("Player"));
     }
     
     @Test
@@ -97,25 +96,17 @@ public class PitFallTest {
     }
     
     @Test
-    public void checkTwoPlayersCanMoveBackToSameBackup() {
+    public void checkIfTwoPlayersCanMoveBackToSameBackup() {
     	Vector2 startPos = new Vector2(0, 4);
     	PlayerToken player1 = new PlayerToken("Player1", "assets/BlueRobotSpriteSheet.png", startPos);
     	PlayerToken player2 = new PlayerToken("Player2", "assets/BlueRobotSpriteSheet.png", startPos);
     	board.addPlayerToBoard(startPos, player1.getName());
     	board.addPlayerToBoard(startPos, player2.getName());
-    	System.out.println("P1 pos: " + board.getPlayerLocation("Player1"));
-    	System.out.println("P2 pos: " + board.getPlayerLocation("Player2"));
     	board.movePlayer("Player1", Direction.NORTH);
-    	board.movePlayer("Player2", Direction.EAST);
-    	board.movePlayer("Player2", Direction.EAST);
     	board.movePlayer("Player2", Direction.NORTH);
-    	board.movePlayer("Player2", Direction.WEST);
-    	board.movePlayer("Player2", Direction.WEST);
-    	System.out.println("Backup" + player1.getBackupPosition());
-    	System.out.println("P1 pos: " + board.getPlayerLocation("Player1"));
-    	System.out.println("P2 pos: " + board.getPlayerLocation("Player2"));
     	assertEquals(player1.getBackupPosition(), player2.getBackupPosition());
-    	//assertEquals(board.getPlayerLocation("Player1"), board.getPlayerLocation("Player2"));
+    	assertEquals(board.getPlayerLocation("Player1"), board.getPlayerLocation("Player2"));
+    	assertEquals(board.getPlayerLocation("Player1"), player1.getBackupPosition());
     }
     
     
