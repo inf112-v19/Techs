@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-    public class GameController implements IGameController{
+public class GameController implements IGameController{
     private int numPlayers;
     //total number of turns
     private int turns;
