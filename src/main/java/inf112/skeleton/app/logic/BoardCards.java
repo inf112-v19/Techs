@@ -44,9 +44,11 @@ public class BoardCards extends Board {
     private ArrayList<Integer> numberXPos;
     private ArrayList<Integer> numberYPos;
 
-    public BoardCards(RoboRally game) {
+    private boolean allPlayersDonePickingCards = false;
+
+    public BoardCards(RoboRally game, int numPlayers) {
         super(game);
-        gameController = new GameController(2);
+        gameController = new GameController(2, this);
         atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
         spriteBatchCards = new SpriteBatch();
         number1 = new Texture("assets/ProgramSheet/numbersInCircle/numberOne.png");
@@ -82,99 +84,99 @@ public class BoardCards extends Board {
         spriteBatchCards.draw(number5, numberXPos.get(4), numberYPos.get(4),35,35);
         spriteBatchCards.end();
 
-        //these if-statements handles which cards has been selected på user
-        if (selectedCards.size() < 5) {
-            if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
-                if (!selectedCards.contains(cardsToSelect.get(0))) {
-                    numberXPos.set(selectedCards.size(), centerOfScreen - 330);
-                    numberYPos.set(selectedCards.size(), 10);
-                    selectedCards.add(cardsToSelect.get(0));
-                }
-            }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
-                if (!selectedCards.contains(cardsToSelect.get(1))) {
-                    numberXPos.set(selectedCards.size(), centerOfScreen - 240);
-                    numberYPos.set(selectedCards.size(), 10);
-                    selectedCards.add(cardsToSelect.get(1));
+        if (!allPlayersDonePickingCards) {
+            //these if-statements handles which cards has been selected på user
+            if (selectedCards.size() < 5) {
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
+                    if (!selectedCards.contains(cardsToSelect.get(0))) {
+                        numberXPos.set(selectedCards.size(), centerOfScreen - 330);
+                        numberYPos.set(selectedCards.size(), 10);
+                        selectedCards.add(cardsToSelect.get(0));
+                    }
                 }
-            }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
-                if (!selectedCards.contains(cardsToSelect.get(2))) {
-                    numberXPos.set(selectedCards.size(), centerOfScreen - 150);
-                    numberYPos.set(selectedCards.size(), 10);
-                    selectedCards.add(cardsToSelect.get(2));
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
+                    if (!selectedCards.contains(cardsToSelect.get(1))) {
+                        numberXPos.set(selectedCards.size(), centerOfScreen - 240);
+                        numberYPos.set(selectedCards.size(), 10);
+                        selectedCards.add(cardsToSelect.get(1));
+                    }
                 }
-            }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.NUM_4)) {
-                if (!selectedCards.contains(cardsToSelect.get(3))) {
-                    numberXPos.set(selectedCards.size(), centerOfScreen - 60);
-                    numberYPos.set(selectedCards.size(), 10);
-                    selectedCards.add(cardsToSelect.get(3));
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
+                    if (!selectedCards.contains(cardsToSelect.get(2))) {
+                        numberXPos.set(selectedCards.size(), centerOfScreen - 150);
+                        numberYPos.set(selectedCards.size(), 10);
+                        selectedCards.add(cardsToSelect.get(2));
+                    }
                 }
-            }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.NUM_5)) {
-                if (!selectedCards.contains(cardsToSelect.get(4))) {
-                    numberXPos.set(selectedCards.size(), centerOfScreen + 30);
-                    numberYPos.set(selectedCards.size(), 10);
-                    selectedCards.add(cardsToSelect.get(4));
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_4)) {
+                    if (!selectedCards.contains(cardsToSelect.get(3))) {
+                        numberXPos.set(selectedCards.size(), centerOfScreen - 60);
+                        numberYPos.set(selectedCards.size(), 10);
+                        selectedCards.add(cardsToSelect.get(3));
+                    }
                 }
-            }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.NUM_6)) {
-                if (!selectedCards.contains(cardsToSelect.get(5))) {
-                    numberXPos.set(selectedCards.size(), centerOfScreen + 120);
-                    numberYPos.set(selectedCards.size(), 10);
-                    selectedCards.add(cardsToSelect.get(5));
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_5)) {
+                    if (!selectedCards.contains(cardsToSelect.get(4))) {
+                        numberXPos.set(selectedCards.size(), centerOfScreen + 30);
+                        numberYPos.set(selectedCards.size(), 10);
+                        selectedCards.add(cardsToSelect.get(4));
+                    }
                 }
-            }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.NUM_7)) {
-                if (!selectedCards.contains(cardsToSelect.get(6))) {
-                    numberXPos.set(selectedCards.size(), centerOfScreen + 210);
-                    numberYPos.set(selectedCards.size(), 10);
-                    selectedCards.add(cardsToSelect.get(6));
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_6)) {
+                    if (!selectedCards.contains(cardsToSelect.get(5))) {
+                        numberXPos.set(selectedCards.size(), centerOfScreen + 120);
+                        numberYPos.set(selectedCards.size(), 10);
+                        selectedCards.add(cardsToSelect.get(5));
+                    }
                 }
-            }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.NUM_8)) {
-                if (!selectedCards.contains(cardsToSelect.get(7))) {
-                    numberXPos.set(selectedCards.size(), centerOfScreen + 300);
-                    numberYPos.set(selectedCards.size(), 10);
-                    selectedCards.add(cardsToSelect.get(7));
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_7)) {
+                    if (!selectedCards.contains(cardsToSelect.get(6))) {
+                        numberXPos.set(selectedCards.size(), centerOfScreen + 210);
+                        numberYPos.set(selectedCards.size(), 10);
+                        selectedCards.add(cardsToSelect.get(6));
+                    }
                 }
-            }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
-                if (!selectedCards.contains(cardsToSelect.get(8))){
-                    numberXPos.set(selectedCards.size(), centerOfScreen + 390);
-                    numberYPos.set(selectedCards.size(), 10);
-                    selectedCards.add(cardsToSelect.get(8));
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_8)) {
+                    if (!selectedCards.contains(cardsToSelect.get(7))) {
+                        numberXPos.set(selectedCards.size(), centerOfScreen + 300);
+                        numberYPos.set(selectedCards.size(), 10);
+                        selectedCards.add(cardsToSelect.get(7));
+                    }
                 }
-            }
-            /*
-            if (Gdx.input.isKeyPressed(Input.Keys.NUM_0)){
+
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
+                    if (!selectedCards.contains(cardsToSelect.get(8))) {
+                        numberXPos.set(selectedCards.size(), centerOfScreen + 390);
+                        numberYPos.set(selectedCards.size(), 10);
+                        selectedCards.add(cardsToSelect.get(8));
+                    }
+                }
+
+            } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                 if (cardsToSelect.size() >= 5) {
+                    gameController.donePickingCards(selectedCards, this);
                     newTurn();
                 }
             }
-            */
         }
-        else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)){
-            if (cardsToSelect.size() >= 5) {
-                gameController.donePickingCards(selectedCards, this);
-                newTurn();
+        else {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                gameController.movePlayers(this);
             }
         }
-        /*
-        else if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)){
-            ha
-        }
-        */
 
+    }
+
+    public void setAllPlayersDonePickingCards(boolean value){
+        allPlayersDonePickingCards = value;
     }
 
     public void setNumberPos(int numberPos){

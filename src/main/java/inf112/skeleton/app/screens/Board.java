@@ -33,8 +33,6 @@ public class Board implements Screen {
         this.game = game;
         boardLogic = new BoardLogic(this.map);
         statetime = 0f;
-        addPlayerToBoard(new Vector2(0,0), "playerOne");
-        addPlayerToBoard(new Vector2(1,1), "playerTwo");
     }
         
     @Override
@@ -62,19 +60,28 @@ public class Board implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             movePlayer("playerOne", Direction.EAST);
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            movePlayer("playerOne", Direction.SOUTH);
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            movePlayer("playerOne", Direction.NORTH);
-        }
+        
         if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            movePlayer("playerOne", Direction.WEST);
+        	movePlayer("playerOne", Direction.WEST);
         }
+        
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+        	movePlayer("playerOne", Direction.NORTH);
+        }
+        
+        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+        	movePlayer("playerOne", Direction.SOUTH);
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            boardLogic.moveRotateWheel();
+        }
+        
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             checkAllCheckpoints();
             
         }
+
         game.batch.end();
 
         /*
@@ -146,7 +153,7 @@ public class Board implements Screen {
 
 
 
-    private void addPlayerToBoard(Vector2 startPosition, String playerName) {
+    public void addPlayerToBoard(Vector2 startPosition, String playerName) {
         boardLogic.addPlayerToBoard(startPosition, playerName);
     }
     // Checks if tile at (xPos, yPos) is in the specified layer
@@ -167,6 +174,9 @@ public class Board implements Screen {
     }
     public boolean movePlayer(String name, Direction directionToMove) {
         return boardLogic.movePlayer(name, directionToMove);
+    }
+    public boolean movePlayerForward(String name) {
+        return boardLogic.movePlayerForward(name);
     }
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);

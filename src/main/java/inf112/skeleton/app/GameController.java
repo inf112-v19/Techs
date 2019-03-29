@@ -1,25 +1,32 @@
 package inf112.skeleton.app;
 
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.logic.BoardCards;
 import inf112.skeleton.app.objects.IProgramCard;
 import inf112.skeleton.app.objects.PlayerToken;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class GameController implements IGameController{
-    private ArrayList<ArrayList<IProgramCard>> programCards;
-    //player 1 has index 0 and so on.
-    private ArrayList<PlayerToken> playerTokens;
     private int numPlayers;
     //total number of turns
     private int turns;
+    //Integer = player, ArrayList<IProgramCard> cards to player. Key 0 is starting player, Key 1 is player
+    //after starting player
     private HashMap<Integer, ArrayList<IProgramCard>> playersCards;
+    private HashMap<Integer, String> playerString;
 
-    public GameController(int numPlayers){
+    public GameController(int numPlayers, BoardCards boardCards){
         this.turns = 0;
         this.numPlayers = numPlayers;
         playersCards = new HashMap<>();
+        playerString = new HashMap<>();
+        boardCards.addPlayerToBoard(new Vector2(1,1), "playerOne");
+        playerString.put(0, "playerOne");
+        boardCards.addPlayerToBoard(new Vector2(2,2), "playerTwo");
+        playerString.put(1, "playerTwo");
     }
 
     @Override
@@ -28,24 +35,32 @@ public class GameController implements IGameController{
         playersCards.put(currentPlayer, cardsCurrentPlayer);
         turns++;
         if (turns % numPlayers == 0)
-            movePlayers(boardCards);
+            boardCards.setAllPlayersDonePickingCards(true);
     }
 
     @Override
     public void movePlayers(BoardCards boardCards){
-        ArrayList<IProgramCard> cards1 = playersCards.get(0);
-        ArrayList<IProgramCard> cards2 = playersCards.get(1);
-
-        for (int i = 0; i < 5; i++) {
-            if (cards1.get(0).getPriority() > cards2.get(0).getPriority()) {
-                movePlayer(cards1.remove(0), 0, boardCards);
-                movePlayer(cards2.remove(0), 1, boardCards);
-            }
-            else {
-                movePlayer(cards2.remove(0), 1, boardCards);
-                movePlayer(cards1.remove(0), 0, boardCards);
-            }
+        //makes it only possible to move player if he has cards on hand
+        if (playersCards.get(0).isEmpty()){
+            boardCards.setAllPlayersDonePickingCards(false);
+            return;
         }
+
+        HashMap<Integer, IProgramCard> firstCards = new HashMap<>();
+        HashMap<IProgramCard, Integer> firstCardsInverse = new HashMap<>();
+        IProgramCard PriorityCard;
+
+        for (int currentPlayer = 0; currentPlayer < numPlayers; currentPlayer++) {
+            firstCardsInverse.put(playersCards.get(currentPlayer).get(0), currentPlayer);
+            firstCards.put(currentPlayer, playersCards.get(currentPlayer).remove(0));
+        }
+
+        while (!firstCards.isEmpty()){
+            PriorityCard = Collections.min(firstCards.values());
+            firstCards.remove(firstCardsInverse.get(PriorityCard));
+            movePlayer(PriorityCard, firstCardsInverse.get(PriorityCard), boardCards);
+        }
+
     }
 
     @Override
@@ -56,6 +71,7 @@ public class GameController implements IGameController{
         else
             for (int i = 0; i < programCard.getMovement(); i++)
                 boardCards.getBoardLogic().getPlayersList().get(currentPlayer).moveInFacingDirection();
+                //boardCards.movePlayerForward(playerString.get(i));
     }
 
     @Override

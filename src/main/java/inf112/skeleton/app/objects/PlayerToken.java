@@ -16,6 +16,7 @@ public class PlayerToken extends Sprite {
     private static final float TILE_SCALE = 96;
     // Variables needed for movement, direction and position
     private Vector2 movementVelocity = new Vector2();
+    private Vector2 backupPosition;
     private Vector2 position;
     private Direction facingDirection;
     private boolean movingNorth = true;
@@ -37,6 +38,7 @@ public class PlayerToken extends Sprite {
    
     public PlayerToken(String givenName, String textureSpriteSheet, Vector2 startPosition) {
         this.playerName = givenName;
+        backupPosition = new Vector2(startPosition.x, startPosition.y);
         position = startPosition;
         facingDirection = Direction.NORTH;
 
@@ -218,5 +220,28 @@ public class PlayerToken extends Sprite {
     
     public void passCheckpoint() {
         numberOfCheckpointsPassed++;
+        Vector2 checkpoint = this.getVector2Position();
+        setBackupPosition(checkpoint);
     }
+    
+    public Vector2 getBackupPosition() {
+    	return new Vector2(backupPosition.x, backupPosition.y);
+    }
+    
+    public void setBackupPosition(Vector2 lastCheckpoint) {
+    	if(numberOfCheckpointsPassed() < 1) {
+    		return; 
+    	} else {
+    		backupPosition = new Vector2(lastCheckpoint.x, lastCheckpoint.y);
+    	}
+    }
+    
+    public void moveToLastCheckpoint() {
+    	position = getBackupPosition();
+    	setXPositionOnBoard();
+    	setYPositionOnBoard();
+    	//System.out.println("moving player to backup");
+    }
+    
+    
 }
