@@ -151,7 +151,11 @@ public class Board implements Screen {
 
     }
 
-
+    public void processEndOfTurns() {
+        moveConveyorBelts();
+        moveRotateWheel();
+        checkAllCheckpoints();
+    }
 
     public void addPlayerToBoard(Vector2 startPosition, String playerName) {
         boardLogic.addPlayerToBoard(startPosition, playerName);
