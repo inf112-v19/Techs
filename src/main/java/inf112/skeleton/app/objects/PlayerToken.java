@@ -240,7 +240,6 @@ public class PlayerToken extends Sprite {
     	position = getBackupPosition();
     	setXPositionOnBoard();
     	setYPositionOnBoard();
-    	//System.out.println("moving player to backup");
     }
     
     

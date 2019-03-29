@@ -132,7 +132,4 @@ public class PitFallTest {
     	assertTrue(board.cellContainsLayer((int)position.x, (int)position.y, "Pit"));
     }
     
-    public void checkPositionIfCheckpoint(Vector2 position) {
-    	assertTrue(board.cellContainsLayer((int)position.x, (int)position.y, "Checkpoints"));
-    }
 }
