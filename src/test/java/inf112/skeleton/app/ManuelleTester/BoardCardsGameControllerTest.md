@@ -1,4 +1,4 @@
-#Test BoardCards og GameComptroller
+#Test BoardCards og GameController
 ## Tall tester
     * Test tall
         * Når du trykker tallene 1-9 på tastaturet vil tallene i nederste 
