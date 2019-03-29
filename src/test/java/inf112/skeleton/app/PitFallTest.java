@@ -35,9 +35,7 @@ public class PitFallTest {
     
     private static Application application;
     private TiledMap map;
-    private TiledMap justPits;
     private BoardLogic board;
-    private static BoardLogic pitBoard;
     
 
     
@@ -55,28 +53,10 @@ public class PitFallTest {
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
         
-        map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");
-        justPits = new TmxMapLoader().load("assets/testMaps/justPitsAndCheckpointsMap.tmx");
-        
+        map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");        
         board = new BoardLogic(map);
-        pitBoard = new BoardLogic(justPits);
         
-    }
-    
-    @Test
-    public void movePlayerToStartpositionAfterPitFall1() {
-    
-    	Vector2 startPos = new Vector2(1, 1);
-    	pitBoard.addPlayerToBoard(startPos, "Player");
-    	pitBoard.movePlayer("Player", Direction.NORTH);
-    	for(int i = 0; i < 3; i++) {
-    		for(int j = 0; j < 3; j++) {
-    			System.out.println(pitBoard.cellContainsLayer(i, j, "Pit"));
-    		}
-    		
-    	}
-    	//checkPositionIfPit(new Vector2(1, 2));
-    	assertEquals(new Vector2(1, 2), pitBoard.getPlayerLocation("Player"));  	  	
+        
     }
     
     @Test
@@ -87,19 +67,22 @@ public class PitFallTest {
     	board.movePlayer("Player", Direction.NORTH);
     	checkPositionIfPit(new Vector2(0, 5));
     	assertEquals(startPos, board.getPlayerLocation("Player"));  	  	
-    }
+    } 
     
     @Test
     public void movePlayerToCheckpointAfterPitFall() {
     	Vector2 startPos = new Vector2(0, 3);
     	PlayerToken player = new PlayerToken("Player", "assets/BlueRobotSpriteSheet.png", startPos);
     	board.addPlayerToBoard(startPos, player.getName());
+    	checkPositionIfCheckpoint(new Vector2(7, 14));
+    	checkPositionIfPit(new Vector2(2, 14));
+    	System.out.println(player.getBackupPosition());
     	board.movePlayer("Player", Direction.NORTH);
-    	player.passCheckpoint(); //FEIL: backupPosisjon blir ikkje oppdatert..
+    	player.passCheckpoint(); 
     	board.movePlayer("Player", Direction.NORTH);
-    	checkPositionIfPit(new Vector2(0, 5));
+    	System.out.println(player.getBackupPosition());
+    	System.out.println(board.getPlayerLocation("Player")); //FEIL: player går ikkje tilbake til checkpoint, kun startpos
     	assertEquals(player.getBackupPosition(), new Vector2(0, 4)); 
-    	//System.out.println(board.getPlayerLocation("Player"));
     	//assertEquals(player.getBackupPosition(), board.getPlayerLocation("Player"));
     }
     
@@ -110,12 +93,37 @@ public class PitFallTest {
     	board.addPlayerToBoard(startPos, player.getName());
     	board.movePlayer("Player", Direction.NORTH);
     	player.passCheckpoint();
-    	board.movePlayer("Player", Direction.NORTH);
     	assertEquals(player.getBackupPosition(), new Vector2(0, 4));
+    }
+    
+    @Test
+    public void checkTwoPlayersCanMoveBackToSameBackup() {
+    	Vector2 startPos = new Vector2(0, 4);
+    	PlayerToken player1 = new PlayerToken("Player1", "assets/BlueRobotSpriteSheet.png", startPos);
+    	PlayerToken player2 = new PlayerToken("Player2", "assets/BlueRobotSpriteSheet.png", startPos);
+    	board.addPlayerToBoard(startPos, player1.getName());
+    	board.addPlayerToBoard(startPos, player2.getName());
+    	System.out.println("P1 pos: " + board.getPlayerLocation("Player1"));
+    	System.out.println("P2 pos: " + board.getPlayerLocation("Player2"));
+    	board.movePlayer("Player1", Direction.NORTH);
+    	board.movePlayer("Player2", Direction.EAST);
+    	board.movePlayer("Player2", Direction.EAST);
+    	board.movePlayer("Player2", Direction.NORTH);
+    	board.movePlayer("Player2", Direction.WEST);
+    	board.movePlayer("Player2", Direction.WEST);
+    	System.out.println("Backup" + player1.getBackupPosition());
+    	System.out.println("P1 pos: " + board.getPlayerLocation("Player1"));
+    	System.out.println("P2 pos: " + board.getPlayerLocation("Player2"));
+    	assertEquals(player1.getBackupPosition(), player2.getBackupPosition());
+    	//assertEquals(board.getPlayerLocation("Player1"), board.getPlayerLocation("Player2"));
     }
     
     
     public void checkPositionIfPit(Vector2 position) {
     	assertTrue(board.cellContainsLayer((int)position.x, (int)position.y, "Pit"));
+    }
+    
+    public void checkPositionIfCheckpoint(Vector2 position) {
+    	assertTrue(board.cellContainsLayer((int)position.x, (int)position.y, "Checkpoints"));
     }
 }
