@@ -64,7 +64,7 @@ public class PitFallTest {
     	board.addPlayerToBoard(new Vector2(1, 4), "Player"); //StartPosition (1, 4)
     	board.movePlayer("Player", Direction.NORTH);
     	board.movePlayer("Player", Direction.NORTH);
-    	checkPositionIfPit(new Vector2(1, 6));  //Check if tile contains Pit
+    	checkPositionIfContainsPit(new Vector2(1, 6));  //Check if tile contains Pit
     	assertEquals(new Vector2(1, 4), board.getPlayerLocation("Player"));  
     } 
     
@@ -72,7 +72,7 @@ public class PitFallTest {
     public void movePlayerToCheckpointAfterPitFall() {
     	Vector2 startPos = new Vector2(9, 15);
     	board.addPlayerToBoard(startPos, "Player");
-    	checkPositionIfPit(new Vector2(3, 15));
+    	checkPositionIfContainsPit(new Vector2(3, 15));
     	board.movePlayer("Player", Direction.WEST); //(8, 15)
     	board.checkAllCheckpoints(); 
     	board.movePlayer("Player", Direction.WEST); //(7, 15)
@@ -83,17 +83,7 @@ public class PitFallTest {
     	assertEquals(new Vector2(8, 15), board.getPlayerLocation("Player"));
     }
     
-    @Test
-    public void checkPlayerBackupUpdating() {
-    	Vector2 startPos = new Vector2(1, 4);
-    	PlayerToken player = new PlayerToken("Player", "assets/BlueRobotSpriteSheet.png", startPos);
-    	board.addPlayerToBoard(startPos, player.getName());
-    	board.movePlayer("Player", Direction.NORTH);
-    	player.passCheckpoint();
-    	assertEquals(player.getBackupPosition(), new Vector2(1, 5));
-    }
-    
-    /** Funkar ikkje foreløpig
+    /** Funkar ikkje foreløpig 
     @Test
     public void checkIfTwoPlayersCanMoveToSameBackup() {
     	Vector2 startPos = new Vector2(1, 4);
@@ -125,10 +115,10 @@ public class PitFallTest {
     }
     
     /**
-     * check of tile contains pit
+     * check if a position contains pit
      * @param position
      */
-    public void checkPositionIfPit(Vector2 position) {
+    public void checkPositionIfContainsPit(Vector2 position) {
     	assertTrue(board.cellContainsLayer((int)position.x, (int)position.y, "Pit"));
     }
     

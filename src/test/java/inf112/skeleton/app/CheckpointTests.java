@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -19,9 +18,11 @@ import inf112.skeleton.app.logic.Direction;
 import inf112.skeleton.app.objects.PlayerToken;
 import inf112.skeleton.app.screens.Board;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.After;
 import org.junit.Before;
@@ -56,16 +57,64 @@ public class CheckpointTests {
     }
         
         @Test
-        public void testBackupPositionIsUpdatedAfterCheckpoint() {
-        	checkPositionIfCheckpoint(new Vector2(1, 1));
-        	board.addPlayerToBoard(new Vector2(2, 1), "Player");
+        public void testBackupPositionUpdatedAfterCheckpoint() {
+        	checkPositionIfContainsCheckpoint(new Vector2(1, 1));
+        	checkPositionIfContainsPit(new Vector2(2, 0));
+        	board.addPlayerToBoard(new Vector2(2, 1), "Player"); //startposition
+            board.movePlayer("Player", Direction.WEST); //Checkpoint (1, 1)
+            board.checkAllCheckpoints();
+            board.movePlayer("Player", Direction.SOUTH);
+            board.movePlayer("Player", Direction.EAST);       //pit (2, 0)    
+            assertEquals(board.getPlayerLocation("Player"), new Vector2(1,1));    
         } 
         
+        @Test
+        public void testCantProcessCheckpoint2beforeCheckpoint1() {
+        	checkPositionIfContainsCheckpoint(new Vector2(3, 1)); //checkpoint2 position
+        	board.addPlayerToBoard(new Vector2(2, 1), "Player"); //startposition
+        	board.movePlayer("Player", Direction.EAST);       //checkpoint 2    
+        	board.checkAllCheckpoints();
+        	board.movePlayer("Player", Direction.WEST);          
+        	board.movePlayer("Player", Direction.SOUTH); //pit position
+        	assertEquals(board.getPlayerLocation("Player"), new Vector2(2,1)); //check that player moves to startposition       	
+        }
         
+        @Test
+        public void testCanProcessCheckpoint2AfterCheckpoint1 () {
+        	checkPositionIfContainsCheckpoint(new Vector2(1, 1)); //checkpoint1 position
+        	checkPositionIfContainsCheckpoint(new Vector2(3, 1)); //checkpoint2 position
+        	board.addPlayerToBoard(new Vector2(2, 1), "Player"); //startposition
+        	board.movePlayer("Player", Direction.WEST);
+        	board.checkAllCheckpoints();        	
+        	board.movePlayer("Player", Direction.EAST);       //checkpoint 2    
+        	board.movePlayer("Player", Direction.EAST);       //checkpoint 2    
+        	board.checkAllCheckpoints();
+        	board.movePlayer("Player", Direction.WEST);
+        	board.movePlayer("Player", Direction.SOUTH); //pit position
+        	assertEquals(board.getPlayerLocation("Player"), new Vector2(3,1)); //check that player moves to checkpoint2       	
+        }
         
+        @Test
+        public void testCantMakeNewBackupAtNonCheckpointTiles() {
+        	checkPositionIfNotContainsCheckpoint(new Vector2(1, 0)); 
+        	board.addPlayerToBoard(new Vector2(0, 0), "Player"); //startposition
+        	board.movePlayer("Player", Direction.EAST);           
+        	board.checkAllCheckpoints();          
+        	board.movePlayer("Player", Direction.EAST); //pit position
+        	assertEquals(board.getPlayerLocation("Player"), new Vector2(0,0)); //check that player moves to startposition       	
+        }
         
-        public void checkPositionIfCheckpoint(Vector2 position) {
+                      
+        public void checkPositionIfContainsCheckpoint(Vector2 position) {
         	assertTrue(board.cellContainsLayer((int)position.x, (int)position.y, "Checkpoints"));
+        }
+        
+        public void checkPositionIfNotContainsCheckpoint(Vector2 position) { 
+        	assertTrue(!board.cellContainsLayer((int)position.x, (int)position.y, "Checkpoints"));
+        }
+        
+        public void checkPositionIfContainsPit(Vector2 position) {
+        	assertTrue(board.cellContainsLayer((int)position.x, (int)position.y, "Pit"));
         }
         
        
