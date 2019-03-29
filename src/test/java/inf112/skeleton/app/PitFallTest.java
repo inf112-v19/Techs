@@ -95,7 +95,7 @@ public class PitFallTest {
     
     /** Funkar ikkje foreløpig
     @Test
-    public void checkIfTwoPlayersCanMoveBackToSameBackup() {
+    public void checkIfTwoPlayersCanMoveToSameBackup() {
     	Vector2 startPos = new Vector2(1, 4);
     	PlayerToken player1 = new PlayerToken("Player1", "assets/BlueRobotSpriteSheet.png", startPos);
     	PlayerToken player2 = new PlayerToken("Player2", "assets/BlueRobotSpriteSheet.png", startPos);
