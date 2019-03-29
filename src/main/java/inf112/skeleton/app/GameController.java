@@ -66,12 +66,15 @@ public class GameController implements IGameController{
     @Override
     public void movePlayer(IProgramCard programCard, int currentPlayer, BoardCards boardCards) {
         if (programCard.getDirection() != 0) {
-            boardCards.getBoardLogic().getPlayersList().get(currentPlayer).rotatePlayer(programCard.getDirection());
+            //boardCards.getBoardLogic().getPlayersList().get(currentPlayer).rotatePlayer(programCard.getDirection());
+            boardCards.rotatePlayer(playerString.get(currentPlayer), programCard.getDirection());
         }
         else
-            for (int i = 0; i < programCard.getMovement(); i++)
-                boardCards.getBoardLogic().getPlayersList().get(currentPlayer).moveInFacingDirection();
+            for (int i = 0; i < programCard.getMovement(); i++) {
+                //boardCards.getBoardLogic().getPlayersList().get(currentPlayer).moveInFacingDirection();
+                boardCards.movePlayerForward(playerString.get(currentPlayer));
                 //boardCards.movePlayerForward(playerString.get(i));
+            }
     }
 
     @Override

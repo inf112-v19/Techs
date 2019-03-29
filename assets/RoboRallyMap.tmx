@@ -31,7 +31,7 @@
    eJxjYKAcyKDRuMRGAX0AtnigN2AdQLvRwWj6RAAAsUYBOg==
   </data>
  </layer>
- <layer id="51" name="Wall" width="14" height="18" locked="1">
+ <layer id="51" name="Wall" width="14" height="18" visible="0" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYKAcyKDRuMQoBdJUNIsc+6RwsEFAlMZuwQfQ3SlKpBy17MMFZLDYhx5upAApNBqXGDZ3gACyu0XR5NCBNAN+f4oyEB+W5KZbWqR3ALebAxw=
   </data>

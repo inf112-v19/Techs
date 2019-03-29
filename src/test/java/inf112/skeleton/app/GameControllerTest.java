@@ -4,6 +4,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.logic.BoardLogic;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class GameControllerTest {

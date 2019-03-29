@@ -225,15 +225,15 @@ public class PlayerToken extends Sprite {
     }
     
     public Vector2 getBackupPosition() {
-    	return new Vector2(backupPosition.x, backupPosition.y);
+        return new Vector2(backupPosition.x, backupPosition.y);
     }
     
     public void setBackupPosition(Vector2 lastCheckpoint) {
-    	if(numberOfCheckpointsPassed() < 1) {
-    		return; 
-    	} else {
-    		backupPosition = new Vector2(lastCheckpoint.x, lastCheckpoint.y);
-    	}
+        if(numberOfCheckpointsPassed() < 1) {
+            return; 
+        } else {
+            backupPosition = new Vector2(lastCheckpoint.x, lastCheckpoint.y);
+        }
     }
     
     public void moveToLastCheckpoint() {
@@ -241,6 +241,5 @@ public class PlayerToken extends Sprite {
     	setXPositionOnBoard();
     	setYPositionOnBoard();
     }
-    
     
 }
