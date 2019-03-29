@@ -86,20 +86,15 @@ public class PitFallTest {
     /** Funkar ikkje foreløpig 
     @Test
     public void checkIfTwoPlayersCanMoveToSameBackup() {
-    	Vector2 startPos = new Vector2(1, 4);
-    	PlayerToken player1 = new PlayerToken("Player1", "assets/BlueRobotSpriteSheet.png", startPos);
-    	PlayerToken player2 = new PlayerToken("Player2", "assets/BlueRobotSpriteSheet.png", startPos);
-    	board.addPlayerToBoard(startPos, player1.getName());
-    	board.addPlayerToBoard(startPos, player2.getName());
+    	board.addPlayerToBoard(new Vector2(1, 4), "Player1");
+    	board.addPlayerToBoard(new Vector2(1, 4), "player2");
     	board.movePlayer("Player1", Direction.NORTH);
     	board.movePlayer("Player1", Direction.NORTH);
     	board.movePlayer("Player2", Direction.NORTH);
     	board.movePlayer("Player2", Direction.NORTH);
     	System.out.println("P1: " + board.getPlayerLocation("Player1"));
     	System.out.println("P2: " + board.getPlayerLocation("Player2"));
-    	assertEquals(player1.getBackupPosition(), player2.getBackupPosition());
     	assertEquals(board.getPlayerLocation("Player1"), board.getPlayerLocation("Player2"));
-    	assertEquals(board.getPlayerLocation("Player1"), player1.getBackupPosition());
     }
     */
     
