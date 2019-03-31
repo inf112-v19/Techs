@@ -78,7 +78,7 @@ public class Board implements Screen {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            checkAllCheckpoints();
+            checkAllCheckpoints(); 
         }
 
         game.batch.end();
