@@ -2,6 +2,7 @@ package inf112.skeleton.app.logic;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import inf112.skeleton.app.objects.PlayerToken;
 
 public class ProcessCheckpoints implements IBoardFeature {
@@ -19,6 +20,10 @@ public class ProcessCheckpoints implements IBoardFeature {
         for(PlayerToken player : playersList) {
             if(checkIfOnRightCheckpoint(player)) {
                 player.passCheckpoint();
+            }
+            if(player.numberOfCheckpointsPassed() == 3) {
+                System.out.println("The winner is: " + player.getName());
+                Gdx.app.exit();
             }
         }
     }
