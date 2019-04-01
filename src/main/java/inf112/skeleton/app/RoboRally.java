@@ -4,11 +4,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import inf112.skeleton.app.screens.MainMenuScreen;
 
 public class RoboRally extends Game {
     public static final String TITLE = "RoboRally";
-    public static final int WIDTH = 1280;
-    public static final int HEIGHT = 720;
+    public static final int SCREEN_WIDTH = 1280;
+    public static final int SCREEN_HEIGHT = 720;
     public SpriteBatch batch;
 
     @Override
