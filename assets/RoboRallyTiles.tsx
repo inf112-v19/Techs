@@ -16,6 +16,7 @@
  <tile id="14">
   <properties>
    <property name="DOUBLE" value="1"/>
+   <property name="SOUTH" value=""/>
    <property name="WESTRotateLeft" value="1"/>
   </properties>
  </tile>
@@ -23,6 +24,7 @@
   <properties>
    <property name="DOUBLE" value="1"/>
    <property name="NORTHRotateLeft" value="1"/>
+   <property name="WEST" value=""/>
   </properties>
  </tile>
  <tile id="16">
@@ -57,6 +59,7 @@
  <tile id="21">
   <properties>
    <property name="DOUBLE" value="1"/>
+   <property name="EAST" value=""/>
    <property name="SOUTHRotateLeft" value="1"/>
   </properties>
  </tile>
@@ -64,6 +67,7 @@
   <properties>
    <property name="DOUBLE" value="1"/>
    <property name="EASTRotateLeft" value="1"/>
+   <property name="NORTH" value=""/>
   </properties>
  </tile>
  <tile id="23">
