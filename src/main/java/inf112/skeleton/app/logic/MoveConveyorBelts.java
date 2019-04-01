@@ -18,14 +18,19 @@ public class MoveConveyorBelts implements IBoardFeature {
     
     @Override
     public void processFeature() {
+        // Moves all player on double conveyor belts
         playersChecked = new ArrayList<String>();
-        
         for(PlayerToken player : playersList) {
-            movePlayerIfOnConveyorBelt(player);
+            movePlayerIfOnConveyorBelt(player, true);
+        }
+        // Moves all player on single or double conveyor belts
+        playersChecked = new ArrayList<String>();
+        for(PlayerToken player : playersList) {
+            movePlayerIfOnConveyorBelt(player, false);
         }
     }
     
-    private void movePlayerIfOnConveyorBelt(PlayerToken player) {
+    private void movePlayerIfOnConveyorBelt(PlayerToken player, boolean moveDouble) {
         if(playersChecked.contains(player.getName())) {
             return;
         }
@@ -36,25 +41,18 @@ public class MoveConveyorBelts implements IBoardFeature {
 
         if(boardLogic.cellContainsLayer(xPos, yPos, layerName)) {
             for(Direction dir : Direction.values()) {
+                if(moveDouble && !(boardLogic.cellContainsLayerWithKey(xPos, yPos, layerName, "DOUBLE"))) {
+                    System.out.println(moveDouble);
+                    continue;
+                }
                 if(hasConveyorPointingToDirection(player, dir, xPos, yPos)) {
                     // Moves other player on conveyer belts that are standing in the way first  
                     PlayerToken otherPlayer = checkForPlayer(dir, xPos, yPos);
                     if(otherPlayer != null) {
-                        movePlayerIfOnConveyorBelt(otherPlayer);
+                        movePlayerIfOnConveyorBelt(otherPlayer, moveDouble);
                     }
-
-                    if (boardLogic.cellContainsLayerWithKey(xPos, yPos, layerName, "DOUBLE")) {
-                        for (int i = 0; i < 2; i++) {
-                            boardLogic.movePlayer(player.getName(), dir);
-                            rotatePlayerIfMovedToRotatingConveyor(player, xPos, yPos, dir);
-                            if (player.getRecentlyBackuped()) {
-                                return;
-                            }
-                        }
-                    } else {
-                        boardLogic.movePlayer(player.getName(), dir);
-                        rotatePlayerIfMovedToRotatingConveyor(player, xPos, yPos, dir);
-                    }
+                    boardLogic.movePlayer(player.getName(), dir);
+                    rotatePlayerIfMovedToRotatingConveyor(player, xPos, yPos, dir);
                     return;
                 }
             }
