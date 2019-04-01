@@ -55,6 +55,6 @@ Dersom player står på en single conveyorbelt tile, skal spiller bevege seg en 
 Dersom player står på en double conveyorbelt tile, skal spiller bevege seg to tiles i retningen pilen på tilen viser når man trykker 'B'.
 
 **MorePlayersOnConveyorBeltsTest:**
-Dersom flere players står på en conveyorbelt tile, enten om det er single eller double type, så skal alle players flytte seg samtidig deretter.
+Dersom flere players står på en conveyorbelt tile, enten om det er single eller double type, så skal alle players flytte seg samtidig deretter. I logikken er det en forskjell som ikke vises visuelt hvor spilleren på double flyttes først, før spillerne på single flyttes.
 
 
