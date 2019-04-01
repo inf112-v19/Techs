@@ -72,6 +72,9 @@ public class GameController implements IGameController{
             //boardCards.getBoardLogic().getPlayersList().get(currentPlayer).rotatePlayer(programCard.getDirection());
             boardCards.rotatePlayer(playerString.get(currentPlayer), programCard.getDirection());
         }
+        else if (programCard.getMovement() == -1){
+            boardCards.movePlayerBackwards(playerString.get(currentPlayer));
+        }
         else
             for (int i = 0; i < programCard.getMovement(); i++) {
                 //boardCards.getBoardLogic().getPlayersList().get(currentPlayer).moveInFacingDirection();

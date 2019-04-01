@@ -237,11 +237,9 @@ public class PlayerToken extends Sprite {
     }
     
     public void moveToLastCheckpoint() {
-        position = getBackupPosition();
-        setXPositionOnBoard();
-        setYPositionOnBoard();
-        //System.out.println("moving player to backup");
+    	position = getBackupPosition();
+    	setXPositionOnBoard();
+    	setYPositionOnBoard();
     }
-    
     
 }
