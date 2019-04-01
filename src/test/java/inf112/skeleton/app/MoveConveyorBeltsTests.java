@@ -28,6 +28,7 @@ public class MoveConveyorBeltsTests {
 
     private BoardLogic circleBoard;
     private BoardLogic circleBoardRight;
+    private BoardLogic circleBoardDouble;
 
     @Before
     public void setUp() {
@@ -45,8 +46,10 @@ public class MoveConveyorBeltsTests {
         
         TiledMap circleMap = new TmxMapLoader().load("assets/testMaps/mapCircleConveyor.tmx");
         TiledMap circleMapRight = new TmxMapLoader().load("assets/testMaps/mapCircleConveyorRight.tmx");
+        TiledMap circleMapDouble = new TmxMapLoader().load("assets/testMaps/mapDoubleCircleConveyor.tmx");
         circleBoard = new BoardLogic(circleMap);
         circleBoardRight = new BoardLogic(circleMapRight);
+        circleBoardDouble = new BoardLogic(circleMapDouble);
     }
     
     @Test
@@ -55,7 +58,6 @@ public class MoveConveyorBeltsTests {
         circleBoard.moveConveyorBelts();
         assertEquals(new Vector2(0, 2), circleBoard.getPlayerLocation("testPlayerOne"));
     }
-    
     @Test
     public void playerMovesRight() {
         circleBoard.addPlayerToBoard(new Vector2(1, 0), "testPlayerOne");
@@ -148,7 +150,22 @@ public class MoveConveyorBeltsTests {
         assertEquals(new Vector2(2,0), circleBoard.getPlayerLocation("testPlayerTwo"));
         assertEquals(new Vector2(2,1), circleBoard.getPlayerLocation("testPlayerThree"));
     }
+    @Test
+    public void doubleConveyorBeltOnePlayerMoves() {
+        circleBoardDouble.addPlayerToBoard(new Vector2(1, 2), "testPlayerOne");
+        circleBoardDouble.moveConveyorBelts();
+        assertEquals(new Vector2(0, 1), circleBoardDouble.getPlayerLocation("testPlayerOne"));
+    }
+    @Test
+    public void doubleConveyorBeltTwoPlayerMove() {
+        circleBoardDouble.addPlayerToBoard(new Vector2(1, 2), "testPlayerOne");
+        circleBoardDouble.addPlayerToBoard(new Vector2(2, 2), "testPlayerTwo");
+        circleBoardDouble.moveConveyorBelts();
+        assertEquals(new Vector2(0, 1), circleBoardDouble.getPlayerLocation("testPlayerOne"));
+        assertEquals(new Vector2(0, 2), circleBoardDouble.getPlayerLocation("testPlayerTwo"));
+    }
 }
+
 
 
 
