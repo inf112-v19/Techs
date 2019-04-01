@@ -20,6 +20,9 @@ public class GameController implements IGameController{
     private String playerOne = "playerOne";
     private String playerTwo = "playerTwo";
 
+    private HashMap<Integer, IProgramCard> firstCards;
+    private HashMap<IProgramCard, Integer> firstCardsInverse;
+
     public GameController(int numPlayers, BoardCards boardCards){
         this.turns = 0;
         this.numPlayers = numPlayers;
@@ -43,26 +46,29 @@ public class GameController implements IGameController{
     @Override
     public void movePlayers(BoardCards boardCards){
         //makes it only possible to move player if he has cards on hand
-        if (playersCards.get(0).isEmpty()){
+        if (firstCards == null){
+            firstCards = new HashMap<>();
+            firstCardsInverse = new HashMap<>();
+        }
+
+        if (firstCards.isEmpty()) {
+            for (int currentPlayer = 0; currentPlayer < numPlayers; currentPlayer++) {
+                firstCardsInverse.put(playersCards.get(currentPlayer).get(0), currentPlayer);
+                firstCards.put(currentPlayer, playersCards.get(currentPlayer).remove(0));
+            }
+        }
+
+        moveOnePlayer(boardCards);
+        if (playersCards.get(0).isEmpty() && firstCards.isEmpty())
             boardCards.setAllPlayersDonePickingCards(false);
-            return;
-        }
 
+    }
 
-        HashMap<Integer, IProgramCard> firstCards = new HashMap<>();
-        HashMap<IProgramCard, Integer> firstCardsInverse = new HashMap<>();
-        IProgramCard PriorityCard;
-
-        for (int currentPlayer = 0; currentPlayer < numPlayers; currentPlayer++) {
-            firstCardsInverse.put(playersCards.get(currentPlayer).get(0), currentPlayer);
-            firstCards.put(currentPlayer, playersCards.get(currentPlayer).remove(0));
-        }
-
-        while (!firstCards.isEmpty()){
-            PriorityCard = Collections.min(firstCards.values());
-            firstCards.remove(firstCardsInverse.get(PriorityCard));
-            movePlayer(PriorityCard, firstCardsInverse.get(PriorityCard), boardCards);
-        }
+    @Override
+    public void moveOnePlayer(BoardCards boardCards){
+        IProgramCard priorityCard = Collections.max(firstCards.values());
+        firstCards.remove(firstCardsInverse.get(priorityCard));
+        movePlayer(priorityCard, firstCardsInverse.get(priorityCard), boardCards);
     }
 
     @Override

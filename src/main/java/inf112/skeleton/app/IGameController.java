@@ -44,4 +44,6 @@ public interface IGameController {
      */
     int getTurns();
 
+    void moveOnePlayer(BoardCards boardCards);
+
 }
