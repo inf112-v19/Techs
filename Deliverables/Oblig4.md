@@ -95,7 +95,7 @@ Vi ønsker oss et velfungerende program som i første omgang er et minimum viabl
 
 ### Hvordan kjøre test
 * Kjør JUnit testene i mappen scr/test/java
-* For manuelle tester er piltastene implementert til å bevege seg rundt brettet uten bruk av kort.
+* Manuelle tester ligger i mappen src/test/java/.../app/ManuelleTester. Piltastene er implementert til å bevege seg rundt brettet uten bruk av kort.
 
 ### Hvordan spille spillet
 * Kjør main

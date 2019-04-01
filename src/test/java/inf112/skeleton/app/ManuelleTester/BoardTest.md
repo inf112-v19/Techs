@@ -56,3 +56,5 @@ Dersom player står på en double conveyorbelt tile, skal spiller bevege seg to 
 
 **MorePlayersOnConveyorBeltsTest:**
 Dersom flere players står på en conveyorbelt tile, enten om det er single eller double type, så skal alle players flytte seg samtidig deretter.
+
+
