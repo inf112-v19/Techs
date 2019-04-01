@@ -36,9 +36,7 @@ public class PitFallTest {
     private static Application application;
     private TiledMap map;
     private BoardLogic board;
-    
 
-    
     @Before
     public void setUp() {    
         application = new HeadlessApplication(new ApplicationListener() {
@@ -55,8 +53,6 @@ public class PitFallTest {
         
         map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");        
         board = new BoardLogic(map);
-        
-        
     }
     
     @Test
