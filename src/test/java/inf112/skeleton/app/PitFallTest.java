@@ -36,9 +36,7 @@ public class PitFallTest {
     private static Application application;
     private TiledMap map;
     private BoardLogic board;
-    
 
-    
     @Before
     public void setUp() {    
         application = new HeadlessApplication(new ApplicationListener() {
@@ -81,20 +79,17 @@ public class PitFallTest {
     	assertEquals(new Vector2(8, 15), board.getPlayerLocation("Player"));
     }
     
-    /** Funkar ikkje foreløpig 
     @Test
     public void checkIfTwoPlayersCanMoveToSameBackup() {
     	board.addPlayerToBoard(new Vector2(1, 4), "Player1");
-    	board.addPlayerToBoard(new Vector2(1, 4), "player2");
+    	board.addPlayerToBoard(new Vector2(1, 4), "Player2");
     	board.movePlayer("Player1", Direction.NORTH);
     	board.movePlayer("Player1", Direction.NORTH);
     	board.movePlayer("Player2", Direction.NORTH);
     	board.movePlayer("Player2", Direction.NORTH);
-    	System.out.println("P1: " + board.getPlayerLocation("Player1"));
-    	System.out.println("P2: " + board.getPlayerLocation("Player2"));
     	assertEquals(board.getPlayerLocation("Player1"), board.getPlayerLocation("Player2"));
     }
-    */
+    
     
     /**
      * Tests that player moves to backup when moving out of board.
