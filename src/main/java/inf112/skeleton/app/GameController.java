@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+
 public class GameController implements IGameController{
     private int numPlayers;
     //total number of turns
@@ -17,16 +18,18 @@ public class GameController implements IGameController{
     //after starting player
     private HashMap<Integer, ArrayList<IProgramCard>> playersCards;
     private HashMap<Integer, String> playerString;
+    private String playerOne = "playerOne";
+    private String playerTwo = "playerTwo";
 
     public GameController(int numPlayers, BoardCards boardCards){
         this.turns = 0;
         this.numPlayers = numPlayers;
         playersCards = new HashMap<>();
         playerString = new HashMap<>();
-        boardCards.addPlayerToBoard(new Vector2(1,1), "playerOne");
-        playerString.put(0, "playerOne");
-        boardCards.addPlayerToBoard(new Vector2(2,2), "playerTwo");
-        playerString.put(1, "playerTwo");
+        boardCards.addPlayerToBoard(new Vector2(1,1), this.playerOne);
+        playerString.put(0, this.playerOne);
+        boardCards.addPlayerToBoard(new Vector2(2,2), this.playerTwo);
+        playerString.put(1, this.playerTwo);
     }
 
     @Override
