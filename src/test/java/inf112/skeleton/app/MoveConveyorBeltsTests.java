@@ -29,7 +29,8 @@ public class MoveConveyorBeltsTests {
     private BoardLogic circleBoard;
     private BoardLogic circleBoardRight;
     private BoardLogic circleBoardDouble;
-
+    private BoardLogic doubleMovesFirstBoard;
+    
     @Before
     public void setUp() {
         application = new HeadlessApplication(new ApplicationListener() {
@@ -47,9 +48,11 @@ public class MoveConveyorBeltsTests {
         TiledMap circleMap = new TmxMapLoader().load("assets/testMaps/mapCircleConveyor.tmx");
         TiledMap circleMapRight = new TmxMapLoader().load("assets/testMaps/mapCircleConveyorRight.tmx");
         TiledMap circleMapDouble = new TmxMapLoader().load("assets/testMaps/mapDoubleCircleConveyor.tmx");
+        TiledMap doubleMovesFirstMap = new TmxMapLoader().load("assets/testMaps/mapDoubleMovesFirst.tmx");
         circleBoard = new BoardLogic(circleMap);
         circleBoardRight = new BoardLogic(circleMapRight);
         circleBoardDouble = new BoardLogic(circleMapDouble);
+        doubleMovesFirstBoard = new BoardLogic(doubleMovesFirstMap);
     }
     
     @Test
@@ -163,6 +166,15 @@ public class MoveConveyorBeltsTests {
         circleBoardDouble.moveConveyorBelts();
         assertEquals(new Vector2(0, 1), circleBoardDouble.getPlayerLocation("testPlayerOne"));
         assertEquals(new Vector2(0, 2), circleBoardDouble.getPlayerLocation("testPlayerTwo"));
+    }
+    @Test
+    public void doubleMovesFirst() {
+        doubleMovesFirstBoard.addPlayerToBoard(new Vector2(1,0), "testPlayerOne");
+        doubleMovesFirstBoard.addPlayerToBoard(new Vector2(2,1), "testPlayerTwo");
+        doubleMovesFirstBoard.moveConveyorBelts();
+        assertEquals(new Vector2(0, 1), doubleMovesFirstBoard.getPlayerLocation("testPlayerOne"));
+        assertEquals(new Vector2(1, 1), doubleMovesFirstBoard.getPlayerLocation("testPlayerTwo"));
+
     }
 }
 
