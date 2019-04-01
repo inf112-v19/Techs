@@ -20,7 +20,8 @@ public class MovePlayer {
         int yPos = playerToMove.getYPosition();
 
         pitfall = new PitFall(playerToMove, board);
-        
+
+        playerToMove.setRecentlyBackuped(false);
         switch(directionToMove) {
         case EAST:
             if(board.cellContainsLayerWithKey(xPos, yPos, "WallRight", "wallEast")

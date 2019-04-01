@@ -3,11 +3,11 @@ package inf112.skeleton.app;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.logic.BoardCards;
 import inf112.skeleton.app.objects.IProgramCard;
-import inf112.skeleton.app.objects.PlayerToken;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+
 
 public class GameController implements IGameController{
     private int numPlayers;
@@ -17,6 +17,8 @@ public class GameController implements IGameController{
     //after starting player
     private HashMap<Integer, ArrayList<IProgramCard>> playersCards;
     private HashMap<Integer, String> playerString;
+    private String playerOne = "playerOne";
+    private String playerTwo = "playerTwo";
 
     private HashMap<Integer, IProgramCard> firstCards;
     private HashMap<IProgramCard, Integer> firstCardsInverse;
@@ -26,10 +28,10 @@ public class GameController implements IGameController{
         this.numPlayers = numPlayers;
         playersCards = new HashMap<>();
         playerString = new HashMap<>();
-        boardCards.addPlayerToBoard(new Vector2(1,1), "playerOne");
-        playerString.put(0, "playerOne");
-        boardCards.addPlayerToBoard(new Vector2(2,2), "playerTwo");
-        playerString.put(1, "playerTwo");
+        boardCards.addPlayerToBoard(new Vector2(6,1), this.playerOne);
+        playerString.put(0, this.playerOne);
+        boardCards.addPlayerToBoard(new Vector2(7,11), this.playerTwo);
+        playerString.put(1, this.playerTwo);
     }
 
     @Override
@@ -75,15 +77,16 @@ public class GameController implements IGameController{
             //boardCards.getBoardLogic().getPlayersList().get(currentPlayer).rotatePlayer(programCard.getDirection());
             boardCards.rotatePlayer(playerString.get(currentPlayer), programCard.getDirection());
         }
-        else if (programCard.getMovement() == -1){
+        else if (programCard.getMovement() == -1) {
             boardCards.movePlayerBackwards(playerString.get(currentPlayer));
         }
-        else
+        else {
             for (int i = 0; i < programCard.getMovement(); i++) {
                 //boardCards.getBoardLogic().getPlayersList().get(currentPlayer).moveInFacingDirection();
                 boardCards.movePlayerForward(playerString.get(currentPlayer));
                 //boardCards.movePlayerForward(playerString.get(i));
             }
+        }
     }
 
     @Override

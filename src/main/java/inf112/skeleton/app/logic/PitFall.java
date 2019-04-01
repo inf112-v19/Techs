@@ -25,6 +25,7 @@ public class PitFall {
 	public void movePlayerIfPitFall(PlayerToken player, BoardLogic board) {
 		if (checkIfPitfall(player, board)) {
 			player.moveToLastCheckpoint(); // Moves player to current backup position
+			player.setRecentlyBackuped(true);
 			return;
 		} 
 		return;

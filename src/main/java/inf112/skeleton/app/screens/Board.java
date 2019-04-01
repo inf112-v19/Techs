@@ -77,8 +77,12 @@ public class Board implements Screen {
             boardLogic.moveRotateWheel();
         }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
             checkAllCheckpoints(); 
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.B)) {
+            moveConveyorBelts();
         }
 
         game.batch.end();
