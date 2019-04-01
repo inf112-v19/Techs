@@ -43,3 +43,16 @@ Dersom player står på et checkpoint (tile med et lite nummerert flagg i øvre-
 
 **FinishGameWhenEveryCheckpointReachedTest:**
 Dersom player går kronologisk gjennom checkpointene ved å stå på checkpoint-tilen og trykke 'C', vil spille automatisk avsluttes, hvor vinner annoseres i console.
+
+## ***Conveyorbelts tester***
+
+    Til testing av conveyorbelts bruker man tasten 'B' til å simulere bevegelse av players som står på conveyorbelts. Denne sjekken gjøres normalt sett i slutten av runden.
+
+**PlayerOnRegularConveyorBeltTest:**
+Dersom player står på en single conveyorbelt tile, skal spiller bevege seg en tile i retningen pilen på tilen viser når man trykker 'B'.
+
+**PlayerOnDoubleConveyorBeltTest:**
+Dersom player står på en double conveyorbelt tile, skal spiller bevege seg to tiles i retningen pilen på tilen viser når man trykker 'B'.
+
+**MorePlayersOnConveyorBeltsTest:**
+Dersom flere players står på en conveyorbelt tile, enten om det er single eller double type, så skal alle players flytte seg samtidig deretter.

@@ -47,6 +47,9 @@ public class MoveConveyorBelts implements IBoardFeature {
                         for (int i = 0; i < 2; i++) {
                             boardLogic.movePlayer(player.getName(), dir);
                             rotatePlayerIfMovedToRotatingConveyor(player, xPos, yPos, dir);
+                            if (player.getRecentlyBackuped()) {
+                                return;
+                            }
                         }
                     } else {
                         boardLogic.movePlayer(player.getName(), dir);
