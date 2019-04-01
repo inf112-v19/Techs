@@ -111,3 +111,4 @@ Vi ønsker oss et velfungerende program som i første omgang er et minimum viabl
 * 9 - Trykk space for å simulere femte kort fra begge spillere
 * 10 - Trykk space for å simulere conveyer belts/rotasjonsfelt/checkpoint registrering
 * 11 - Tilbake til 1
+Når en spiller har kommet innom alle checkpointene, så avsluttes spillet og navnet til spilleren som vant blir printet ut i konsollen.
