@@ -44,24 +44,12 @@ public class GameController implements IGameController{
     @Override
     public void movePlayers(BoardCards boardCards){
         //makes it only possible to move player if he has cards on hand
-        /*
-        if (playersCards.get(0).isEmpty()){
-            boardCards.setAllPlayersDonePickingCards(false);
-            return;
-        }
-        */
-
         if (firstCards == null){
             firstCards = new HashMap<>();
             firstCardsInverse = new HashMap<>();
         }
 
         if (firstCards.isEmpty()) {
-            if (playersCards.get(0).isEmpty()){
-                boardCards.setAllPlayersDonePickingCards(false);
-                return;
-            }
-
             for (int currentPlayer = 0; currentPlayer < numPlayers; currentPlayer++) {
                 firstCardsInverse.put(playersCards.get(currentPlayer).get(0), currentPlayer);
                 firstCards.put(currentPlayer, playersCards.get(currentPlayer).remove(0));
@@ -69,6 +57,8 @@ public class GameController implements IGameController{
         }
 
         moveOnePlayer(boardCards);
+        if (playersCards.get(0).isEmpty() && firstCards.isEmpty())
+            boardCards.setAllPlayersDonePickingCards(false);
 
     }
 
