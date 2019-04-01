@@ -3,7 +3,6 @@ package inf112.skeleton.app;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.logic.BoardCards;
 import inf112.skeleton.app.objects.IProgramCard;
-import inf112.skeleton.app.objects.PlayerToken;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,9 +25,9 @@ public class GameController implements IGameController{
         this.numPlayers = numPlayers;
         playersCards = new HashMap<>();
         playerString = new HashMap<>();
-        boardCards.addPlayerToBoard(new Vector2(1,1), this.playerOne);
+        boardCards.addPlayerToBoard(new Vector2(6,1), this.playerOne);
         playerString.put(0, this.playerOne);
-        boardCards.addPlayerToBoard(new Vector2(2,2), this.playerTwo);
+        boardCards.addPlayerToBoard(new Vector2(7,1), this.playerTwo);
         playerString.put(1, this.playerTwo);
     }
 
@@ -49,6 +48,7 @@ public class GameController implements IGameController{
             return;
         }
 
+
         HashMap<Integer, IProgramCard> firstCards = new HashMap<>();
         HashMap<IProgramCard, Integer> firstCardsInverse = new HashMap<>();
         IProgramCard PriorityCard;
@@ -63,7 +63,6 @@ public class GameController implements IGameController{
             firstCards.remove(firstCardsInverse.get(PriorityCard));
             movePlayer(PriorityCard, firstCardsInverse.get(PriorityCard), boardCards);
         }
-
     }
 
     @Override
@@ -72,15 +71,16 @@ public class GameController implements IGameController{
             //boardCards.getBoardLogic().getPlayersList().get(currentPlayer).rotatePlayer(programCard.getDirection());
             boardCards.rotatePlayer(playerString.get(currentPlayer), programCard.getDirection());
         }
-        else if (programCard.getMovement() == -1){
+        else if (programCard.getMovement() == -1) {
             boardCards.movePlayerBackwards(playerString.get(currentPlayer));
         }
-        else
+        else {
             for (int i = 0; i < programCard.getMovement(); i++) {
                 //boardCards.getBoardLogic().getPlayersList().get(currentPlayer).moveInFacingDirection();
                 boardCards.movePlayerForward(playerString.get(currentPlayer));
                 //boardCards.movePlayerForward(playerString.get(i));
             }
+        }
     }
 
     @Override

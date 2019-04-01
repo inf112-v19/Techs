@@ -33,7 +33,7 @@ public class MoveConveyorBelts implements IBoardFeature {
         playersChecked.add(player.getName());
         int xPos = player.getXPosition();
         int yPos = player.getYPosition();
-        
+
         if(boardLogic.cellContainsLayer(xPos, yPos, layerName)) {
             for(Direction dir : Direction.values()) {
                 if(hasConveyorPointingToDirection(player, dir, xPos, yPos)) {
@@ -42,9 +42,16 @@ public class MoveConveyorBelts implements IBoardFeature {
                     if(otherPlayer != null) {
                         movePlayerIfOnConveyorBelt(otherPlayer);
                     }
-                    
-                    boardLogic.movePlayer(player.getName(), dir);
-                    rotatePlayerIfMovedToRotatingConveyor(player, xPos, yPos, dir);
+
+                    if (boardLogic.cellContainsLayerWithKey(xPos, yPos, layerName, "DOUBLE")) {
+                        for (int i = 0; i < 2; i++) {
+                            boardLogic.movePlayer(player.getName(), dir);
+                            rotatePlayerIfMovedToRotatingConveyor(player, xPos, yPos, dir);
+                        }
+                    } else {
+                        boardLogic.movePlayer(player.getName(), dir);
+                        rotatePlayerIfMovedToRotatingConveyor(player, xPos, yPos, dir);
+                    }
                     return;
                 }
             }

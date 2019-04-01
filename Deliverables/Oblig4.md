@@ -51,8 +51,7 @@ og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 ![Sprite_sheet](/assets/YellowRobotSpriteSheet.png)
 
 ## Sluttprodukt:
-Vi ønsker oss et velfungerende program som i første omgang er et minimum viable product. Basic med reglene som gjelder
-for å kunne spille.
+Vi ønsker oss et velfungerende program som i første omgang er et minimum viable product. Basic med reglene som gjelder for å kunne spille.
 
 ## Krav for første delinnlevering
 * Et spillebrett
@@ -92,9 +91,11 @@ for å kunne spille.
 * Parprogrammering slik at flere forstår flere deler av koden.
 * Pushe siste arbeid så fort som mulig slik at alle er ajour med koden de jobber med.
 * Bedre på organiseringen av hva som skal bli gjort.
+* Bedre på navngivning av metoder.
 
 ### Hvordan kjøre test
 * Kjør JUnit testene i mappen scr/test/java
+* For manuelle tester er piltastene implementert til å bevege seg rundt brettet uten bruk av kort.
 
 ### Hvordan spille spillet
 * Kjør main

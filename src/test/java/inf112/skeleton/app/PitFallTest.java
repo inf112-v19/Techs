@@ -55,8 +55,6 @@ public class PitFallTest {
         
         map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");        
         board = new BoardLogic(map);
-        
-        
     }
     
     @Test
