@@ -49,7 +49,7 @@ public class BoardCards extends Board {
 
     public BoardCards(RoboRally game, int numPlayers) {
         super(game);
-        gameController = new GameController(8, this);
+        gameController = new GameController(2, this);
         atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
         spriteBatchCards = new SpriteBatch();
         number1 = new Texture("assets/ProgramSheet/numbersInCircle/numberOne.png");
