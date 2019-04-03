@@ -66,7 +66,7 @@ public class MoveConveyorBelts implements IBoardFeature {
 
     // Returns PlayerToken that stand on the tile in the direction dir
     private PlayerToken checkForPlayer(Direction dir, int xPos, int yPos) {        
-        Vector2 checkPosition = addDirectionToLocation(xPos, yPos, dir);
+        Vector2 checkPosition = boardLogic.addDirectionToLocation(xPos, yPos, dir);
 
         for(PlayerToken player : playersList) {
             if(player.getVector2Position().equals(checkPosition)) {
@@ -85,22 +85,6 @@ public class MoveConveyorBelts implements IBoardFeature {
             else if(boardLogic.cellContainsLayerWithKey(player.getXPosition(), player.getYPosition(), layerName, dir.toString() + "RotateRight")) {
                 boardLogic.rotatePlayer(player.getName(), 1);;
             }
-        }
-    }
-    
-    // Calculates the correct vector2 of the tile in direction dir from a position
-    private Vector2 addDirectionToLocation(int x, int y, Direction dir) {
-        switch(dir) {
-        case NORTH: 
-            return new Vector2(x, y + 1);
-        case EAST:
-            return new Vector2(x + 1, y);
-        case SOUTH:
-            return new Vector2(x, y - 1);
-        case WEST:
-            return new Vector2(x - 1, y);
-        default:
-            return null;
         }
     }
 }

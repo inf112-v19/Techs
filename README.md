@@ -104,11 +104,9 @@ Vi ønsker oss et velfungerende program som i første omgang er et minimum viabl
 * 2 - Trykk enter for å bekrefte
 * 3 - Bruk nummer-tallene 1 til 9 for å velge ut 5 kort som spiller 2 skal bruke
 * 4 - Trykk enter for å bekrefte
-* 5 - Trykk space for å simulere første kort fra begge spillere
-* 6 - Trykk space for å simulere andre kort fra begge spillere
-* 7 - Trykk space for å simulere tredje kort fra begge spillere
-* 8 - Trykk space for å simulere fjerde kort fra begge spillere
-* 9 - Trykk space for å simulere femte kort fra begge spillere
+* 5 - Trykk space for å simulere første kort fra spiller med høyest prioritet
+* 6 - Trykk space for å simulere første kort fra spiller med neste prioritet
+* 7 - Repeter 5-6 fire ganger
 * 10 - Trykk space for å simulere conveyer belts/rotasjonsfelt/checkpoint registrering
 * 11 - Tilbake til 1
-Når en spiller har kommet innom alle checkpointene, så avsluttes spillet og navnet til spilleren som vant blir printet ut i konsollen.
+* Når en spiller har kommet innom alle checkpointene, så avsluttes spillet og navnet til spilleren som vant blir printet ut i konsollen.

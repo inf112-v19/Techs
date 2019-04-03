@@ -44,6 +44,9 @@ public class BoardLogic {
      // Checks if tile at (xPos, yPos) is in the specified layer
     public boolean cellContainsLayer(int xPos, int yPos, String layer) {
         TiledMapTileLayer tileLayer = (TiledMapTileLayer) map.getLayers().get(layer);
+        if(tileLayer == null) {
+            return false;
+        }
         return tileLayer.getCell(xPos, yPos) != null;
     }
 
@@ -116,5 +119,37 @@ public class BoardLogic {
 
     public void checkAllCheckpoints() {
         processCheckpoints.processFeature();
+    }
+
+    // Calculates the correct vector2 of the tile in direction dir from a position
+    protected Vector2 addDirectionToLocation(int x, int y, Direction dir) {
+        switch(dir) {
+            case NORTH:
+                return new Vector2(x, y + 1);
+            case EAST:
+                return new Vector2(x + 1, y);
+            case SOUTH:
+                return new Vector2(x, y - 1);
+            case WEST:
+                return new Vector2(x - 1, y);
+            default:
+                return null;
+        }
+    }
+
+    public void shootLaserFromTile(Vector2 fromTilePosition, Direction dir) {
+        Vector2 nextTile = addDirectionToLocation((int)fromTilePosition.x, (int)fromTilePosition.y, dir);
+        int x = (int) nextTile.x;
+        int y = (int) nextTile.y;
+
+        if (!(cellContainsLayer(x, y, "OutsideBoard"))) {
+            for (PlayerToken player : playersList) {
+                if (player.getVector2Position() == nextTile) {
+                    player.addDamageToken();
+                    return;
+                }
+            }
+            shootLaserFromTile(nextTile, dir);
+        }
     }
 }
