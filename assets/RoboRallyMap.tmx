@@ -6,9 +6,14 @@
    eJylkcEKADAIQr3s/3951wgtqyAG5ctowD5eSIQXpBZ7Spv1jHH8GJtnMG+lZTOrnuOrNFvuuqfiOr+8d/cPLuf4qRrjnLxyaufp7Se1aXz4xQIn
   </data>
  </layer>
- <layer id="60" name="OutsideBoard" width="14" height="18">
+ <layer id="60" name="OutsideBoard" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJzzY2Bg8CMTkwpG9Y3qG9VHPX3kYAAoXBJJ
+  </data>
+ </layer>
+ <layer id="58" name="Laser" width="14" height="18" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJxjYBheQBmKNQfaIaNgFAxCAABdCwBw
   </data>
  </layer>
  <layer id="46" name="Upgrade" width="14" height="18" locked="1">
@@ -18,12 +23,12 @@
  </layer>
  <layer id="47" name="WallRight" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFxAJRMuXoDQaTOwdTuCADSt0lSgUzBgIAAB8rAKk=
+   eJxjYBieQJTOZtLCPnLBYHLnYAoXZECpu0SpYMZAAABgIwC+
   </data>
  </layer>
  <layer id="48" name="WallLeft" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjYBg6QHoQ2Udvt+AD9HbnYPI7KYAUd0uTqJ5a9lJDHz4AAPNHASo=
+   eJxjYBg6QJpKaqhhHzXtoRTQ252Dye+kAFLcLU2iemrZSw19+AAAR7YBRQ==
   </data>
  </layer>
  <layer id="49" name="WallDown" width="14" height="18" locked="1">
@@ -34,11 +39,6 @@
  <layer id="50" name="WallUp" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYKAcyKDRuMRGAX0AtnigN2AdQLvRwWj6RAAAsUYBOg==
-  </data>
- </layer>
- <layer id="51" name="Wall" width="14" height="18" locked="1">
-  <data encoding="base64" compression="zlib">
-   eJxjYKAcyKDRuMQoBdJUNIsc+6RwsEFAlMZuwQfQ3SlKpBy17MMFZLDYhx5upAApNBqXGDZ3gACyu0XR5NCBNAN+f4oyEB+W5KZbWqR3ALebAxw=
   </data>
  </layer>
  <layer id="53" name="RotateRight" width="14" height="18" locked="1">
@@ -64,11 +64,6 @@
  <layer id="57" name="Checkpoints" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYBhcwHCgHYAG7AfaAVQCFgPtgFEwKAAAzE8AqQ==
-  </data>
- </layer>
- <layer id="58" name="Laser" width="14" height="18" locked="1">
-  <data encoding="base64" compression="zlib">
-   eJxjYBheQAmIlYFYc6AdMgpGwSAEAFnrAG8=
   </data>
  </layer>
  <layer id="52" name="Conveyor" width="14" height="18" locked="1">
