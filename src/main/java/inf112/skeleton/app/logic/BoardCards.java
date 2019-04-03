@@ -22,6 +22,9 @@ public class BoardCards extends Board {
     private ArrayList<IProgramCard> cardsToSelect;
     private ArrayList<IProgramCard> selectedCards;
 
+    private final int CARD_WIDTH = 94;
+    private final int CARD_HEIGHT = 130;
+
     private TextureAtlas atlasCards;
     private SpriteBatch spriteBatchCards;
     private Sprite cardToSelect0;
@@ -71,7 +74,7 @@ public class BoardCards extends Board {
         spriteBatchCards.draw(cardToSelect1,centerOfScreen - 270,0,94,130);
         spriteBatchCards.draw(cardToSelect2,centerOfScreen - 180,0,94,130);
         spriteBatchCards.draw(cardToSelect3,centerOfScreen - 90,0,94,130);
-        spriteBatchCards.draw(cardToSelect4,centerOfScreen,0,94,130);
+        spriteBatchCards.draw(cardToSelect4, centerOfScreen,0,94,130);
         spriteBatchCards.draw(cardToSelect5,centerOfScreen + 90,0,94,130);
         spriteBatchCards.draw(cardToSelect6,centerOfScreen + 180,0,94,130);
         spriteBatchCards.draw(cardToSelect7,centerOfScreen + 270,0,94,130);
@@ -104,7 +107,7 @@ public class BoardCards extends Board {
                     }
                 }
 
-                if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_2) || (Gdx.input.getX() <= centerOfScreen-360 && Gdx.input.getY() > centerOfScreen-360+CARD_WIDTH && Gdx.input.getY() <= CARD_HEIGHT && Gdx.input.isTouched())) {
                     if (!selectedCards.contains(cardsToSelect.get(1))) {
                         numberXPos.set(selectedCards.size(), centerOfScreen - 240);
                         numberYPos.set(selectedCards.size(), 10);
