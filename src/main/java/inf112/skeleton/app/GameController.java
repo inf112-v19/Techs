@@ -42,22 +42,18 @@ public class GameController implements IGameController{
             playerString.put(i, playerName);
         }
 
-        /*
-        boardCards.addPlayerToBoard(new Vector2(1,1), "playerOne");
-        playerString.put(0, "playerOne");
-        boardCards.addPlayerToBoard(new Vector2(2,2), "playerTwo");
-        playerString.put(1, "playerTwo");
-
-         */
-
     }
 
     @Override
     public void setStartPosition(){
         startPosition.add(new Vector2(6,1));
         startPosition.add(new Vector2(7,1));
-        startPosition.add(new Vector2(2,4));
-        startPosition.add(new Vector2(2,9));
+        startPosition.add(new Vector2(4,2));
+        startPosition.add(new Vector2(9,2));
+        startPosition.add(new Vector2(2,3));
+        startPosition.add(new Vector2(10,3));
+        startPosition.add(new Vector2(1,4));
+        startPosition.add(new Vector2(12,4));
     }
 
     @Override
