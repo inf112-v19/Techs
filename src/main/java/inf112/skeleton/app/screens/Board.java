@@ -156,6 +156,8 @@ public class Board implements Screen {
         moveConveyorBelts();
         moveRotateWheel();
         checkAllCheckpoints();
+        checkForDamageCleanup();
+        
     }
 
     public void addPlayerToBoard(Vector2 startPosition, String playerName) {
@@ -191,5 +193,9 @@ public class Board implements Screen {
     }
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
+    }
+    
+    public void checkForDamageCleanup() {
+    	boardLogic.checkForDamageCleanup();
     }
 }

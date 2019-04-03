@@ -117,4 +117,10 @@ public class BoardLogic {
     public void checkAllCheckpoints() {
         processCheckpoints.processFeature();
     }
+    
+    public void checkForDamageCleanup() {
+    	for (PlayerToken player : playersList) {
+    		player.checkForDamageCleanUp();
+    	}
+    }
 }
