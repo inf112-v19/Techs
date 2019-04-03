@@ -15,6 +15,9 @@ public class BoardLogic {
     private static final String ROBOT_SPRITE_SHEET_GREEN = "assets/GreenRobotSpriteSheet.png";
     private static final String ROBOT_SPRITE_SHEET_RED = "assets/RedRobotSpriteSheet.png";
     private static final String ROBOT_SPRITE_SHEET_YELLOW = "assets/YellowRobotSpriteSheet.png";
+    // Keeps track of which color next player should have 
+    private ArrayList<String> sprites = new ArrayList<String>(); 
+    private int spriteNumber; 
     
     private ArrayList<PlayerToken> playersList;
     private MovePlayer movePlayerBrain;
@@ -31,12 +34,17 @@ public class BoardLogic {
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
         this.processCheckpoints = new ProcessCheckpoints(this, playersList);
         this.moveRotateWheel = new RotateWheel(this, playersList);
+        sprites.add(ROBOT_SPRITE_SHEET_BLUE);
+        sprites.add(ROBOT_SPRITE_SHEET_GREEN);
+        sprites.add(ROBOT_SPRITE_SHEET_RED);
+        sprites.add(ROBOT_SPRITE_SHEET_YELLOW);
     }
 
     // Adds player to the board at specified position
     public void addPlayerToBoard(Vector2 startPosition, String givenName) {
-        PlayerToken newPlayer = new PlayerToken(givenName, ROBOT_SPRITE_SHEET_RED, startPosition);
+        PlayerToken newPlayer = new PlayerToken(givenName, sprites.get(spriteNumber), startPosition);
         newPlayer.setSize(ROBOT_SPRITE_SCALE, ROBOT_SPRITE_SCALE);
+        spriteNumber = (spriteNumber + 1) % 4;
         playersList.add(newPlayer);
         movePlayerBrain.updatePlayersList(playersList);
     }
