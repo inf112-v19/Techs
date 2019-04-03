@@ -38,7 +38,6 @@ public class GameController implements IGameController{
 
         for (int i = 0; i < numPlayers; i++) {
             String playerName = "player " + (i+1);
-            System.out.println(playerName);
             boardCards.addPlayerToBoard(startPosition.get(i), playerName);
             playerString.put(i, playerName);
         }
@@ -48,7 +47,9 @@ public class GameController implements IGameController{
         playerString.put(0, "playerOne");
         boardCards.addPlayerToBoard(new Vector2(2,2), "playerTwo");
         playerString.put(1, "playerTwo");
-        */
+
+         */
+
     }
 
     @Override
