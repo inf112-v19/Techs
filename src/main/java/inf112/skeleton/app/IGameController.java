@@ -44,8 +44,23 @@ public interface IGameController {
      */
     int getTurns();
 
+    /**
+     * Moves the player with the highest unused priority card this turn
+     * @param boardCards
+     */
     void moveOnePlayer(BoardCards boardCards);
 
-    void setStartPosition();
+    /**
+     * Creates an arrayList of start positions
+     * These positions are predetermined in the rule book
+     */
+    void setUpStartPosition();
+
+    /**
+     * Removes the player programCards from the HashMap and reduces the numPlayer variable
+     * This method is used when a player has lost all of it's three life
+     * @param player string to the destroyed player
+     */
+    void playerIsDestroyed(String player);
 
 }

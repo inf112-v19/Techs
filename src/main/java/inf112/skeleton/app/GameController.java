@@ -3,7 +3,6 @@ package inf112.skeleton.app;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.logic.BoardCards;
 import inf112.skeleton.app.objects.IProgramCard;
-import inf112.skeleton.app.objects.PlayerToken;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +33,7 @@ public class GameController implements IGameController{
         playersCards = new HashMap<>();
         playerString = new HashMap<>();
 
-        setStartPosition();
+        setUpStartPosition();
 
         for (int i = 0; i < numPlayers; i++) {
             String playerName = "player " + (i+1);
@@ -45,7 +44,7 @@ public class GameController implements IGameController{
     }
 
     @Override
-    public void setStartPosition(){
+    public void setUpStartPosition(){
         startPosition.add(new Vector2(6,1));
         startPosition.add(new Vector2(7,1));
         startPosition.add(new Vector2(4,2));
@@ -54,6 +53,14 @@ public class GameController implements IGameController{
         startPosition.add(new Vector2(10,3));
         startPosition.add(new Vector2(1,4));
         startPosition.add(new Vector2(12,4));
+    }
+
+    @Override
+    public void playerIsDestroyed(String player) {
+        //if ((numPlayers < 1) || !playerISnotInHashMap)
+        int playerNum = (int) player.charAt(player.length() - 1);
+        numPlayers--;
+        playersCards.remove(player);
     }
 
     @Override
