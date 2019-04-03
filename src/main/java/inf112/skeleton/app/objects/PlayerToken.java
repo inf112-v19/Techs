@@ -28,6 +28,11 @@ public class PlayerToken extends Sprite {
     private boolean rotatingRight;
     private int targetRotation;
     private boolean recentlyBackuped;
+    
+    private int damageToken = 0;
+	private int health = 3;
+	private boolean destroyed = false;
+	private Vector2 archiveMarker;
 
     private int numberOfCheckpointsPassed;
     
@@ -39,6 +44,7 @@ public class PlayerToken extends Sprite {
    
     public PlayerToken(String givenName, String textureSpriteSheet, Vector2 startPosition) {
         this.playerName = givenName;
+        this.archiveMarker = startPosition;
         backupPosition = new Vector2(startPosition.x, startPosition.y);
         position = startPosition;
         facingDirection = Direction.NORTH;
@@ -249,6 +255,71 @@ public class PlayerToken extends Sprite {
     	position = getBackupPosition();
     	setXPositionOnBoard();
     	setYPositionOnBoard();
+    } 
+    
+    public Vector2 getArchiveMarker() {
+    	return new Vector2(archiveMarker.x, archiveMarker.y);
     }
+    
+    public void moveToArchiveMarker() {
+    	position = getArchiveMarker();
+    	setXPositionOnBoard();
+    	setYPositionOnBoard();
+    }
+    
+    public int getDamageToken() {
+    	return this.damageToken;
+    }
+    
+    public void setDamageToken(int damage) {
+    	this.damageToken = damage;
+    }
+    
+    public int getHealth() {
+    	return this.health;
+    }
+    
+    public void setHealth(int health) {
+    	this.health = health;
+    }
+
+    
+	public boolean damageTokenFull() {
+		if (damageToken == 10) {
+			return true;
+		}
+		return false;
+	}
+
+	public void addDamageToken() {
+		damageToken++;	
+		if(damageTokenFull()) {
+			takeHealth(); 
+			setDamageToken(2);
+			moveToArchiveMarker();	
+		} 
+	}
+	
+	public void removeDamageToken() {
+		if(damageToken == 0) {
+			return;
+		}
+		damageToken--;
+	}
+	
+	public void takeHealth() {
+		health--;
+		if(health < 1) {
+			setDestroyed(true);
+		}
+	}
+	
+	public boolean checkIfDestroyed() {
+		return this.destroyed;
+	}
+	
+	public void setDestroyed(boolean destroyed) {
+		this.destroyed = destroyed;
+	}
     
 }
