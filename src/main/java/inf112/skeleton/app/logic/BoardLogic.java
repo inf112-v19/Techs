@@ -46,7 +46,6 @@ public class BoardLogic {
         newPlayer.setSize(ROBOT_SPRITE_SCALE, ROBOT_SPRITE_SCALE);
         spriteNumber = (spriteNumber + 1) % 4;
         playersList.add(newPlayer);
-        movePlayerBrain.updatePlayersList(playersList);
     }
 
      // Checks if tile at (xPos, yPos) is in the specified layer

@@ -87,7 +87,4 @@ public class MovePlayer {
         }
         return true;
     }
-    public void updatePlayersList(ArrayList<PlayerToken> playersList) {
-        this.playersList = playersList;
-    }
 }
