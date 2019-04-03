@@ -35,7 +35,7 @@ public class BoardLogic {
 
     // Adds player to the board at specified position
     public void addPlayerToBoard(Vector2 startPosition, String givenName) {
-        PlayerToken newPlayer = new PlayerToken(givenName, ROBOT_SPRITE_SHEET_YELLOW, startPosition);
+        PlayerToken newPlayer = new PlayerToken(givenName, ROBOT_SPRITE_SHEET_RED, startPosition);
         newPlayer.setSize(ROBOT_SPRITE_SCALE, ROBOT_SPRITE_SCALE);
         playersList.add(newPlayer);
         movePlayerBrain.updatePlayersList(playersList);

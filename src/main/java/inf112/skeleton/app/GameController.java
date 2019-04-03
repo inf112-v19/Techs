@@ -3,7 +3,6 @@ package inf112.skeleton.app;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.logic.BoardCards;
 import inf112.skeleton.app.objects.IProgramCard;
-import inf112.skeleton.app.objects.PlayerToken;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +21,8 @@ public class GameController implements IGameController{
     //after starting player
     private HashMap<Integer, ArrayList<IProgramCard>> playersCards;
     private HashMap<Integer, String> playerString;
+    private String playerOne = "playerOne";
+    private String playerTwo = "playerTwo";
 
     private HashMap<Integer, IProgramCard> firstCards;
     private HashMap<IProgramCard, Integer> firstCardsInverse;
@@ -99,15 +100,16 @@ public class GameController implements IGameController{
             //boardCards.getBoardLogic().getPlayersList().get(currentPlayer).rotatePlayer(programCard.getDirection());
             boardCards.rotatePlayer(playerString.get(currentPlayer), programCard.getDirection());
         }
-        else if (programCard.getMovement() == -1){
+        else if (programCard.getMovement() == -1) {
             boardCards.movePlayerBackwards(playerString.get(currentPlayer));
         }
-        else
+        else {
             for (int i = 0; i < programCard.getMovement(); i++) {
                 //boardCards.getBoardLogic().getPlayersList().get(currentPlayer).moveInFacingDirection();
                 boardCards.movePlayerForward(playerString.get(currentPlayer));
                 //boardCards.movePlayerForward(playerString.get(i));
             }
+        }
     }
 
     @Override

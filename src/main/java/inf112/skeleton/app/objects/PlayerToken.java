@@ -27,6 +27,7 @@ public class PlayerToken extends Sprite {
     private boolean rotatingLeft;
     private boolean rotatingRight;
     private int targetRotation;
+    private boolean recentlyBackuped;
 
     private int numberOfCheckpointsPassed;
     
@@ -41,6 +42,7 @@ public class PlayerToken extends Sprite {
         backupPosition = new Vector2(startPosition.x, startPosition.y);
         position = startPosition;
         facingDirection = Direction.NORTH;
+        recentlyBackuped = true;
 
         // All regarding spritesheet and getting the frames correctly is done here.
         spriteSheet = new Texture(textureSpriteSheet);
@@ -234,6 +236,13 @@ public class PlayerToken extends Sprite {
         } else {
             backupPosition = new Vector2(lastCheckpoint.x, lastCheckpoint.y);
         }
+    }
+
+    public boolean getRecentlyBackuped() {
+        return recentlyBackuped;
+    }
+    public void setRecentlyBackuped(boolean bool) {
+        this.recentlyBackuped = bool;
     }
     
     public void moveToLastCheckpoint() {

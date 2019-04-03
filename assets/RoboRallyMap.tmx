@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="14" height="18" tilewidth="96" tileheight="96" infinite="0" nextlayerid="59" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="14" height="18" tilewidth="96" tileheight="96" infinite="0" nextlayerid="60" nextobjectid="1">
  <tileset firstgid="1" source="RoboRallyTiles.tsx"/>
  <layer id="45" name="Floor" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
@@ -31,14 +31,9 @@
    eJxjYKAcyKDRuMRGAX0AtnigN2AdQLvRwWj6RAAAsUYBOg==
   </data>
  </layer>
- <layer id="51" name="Wall" width="14" height="18" visible="0" locked="1">
+ <layer id="51" name="Wall" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYKAcyKDRuMQoBdJUNIsc+6RwsEFAlMZuwQfQ3SlKpBy17MMFZLDYhx5upAApNBqXGDZ3gACyu0XR5NCBNAN+f4oyEB+W5KZbWqR3ALebAxw=
-  </data>
- </layer>
- <layer id="52" name="Conveyor" width="14" height="18" locked="1">
-  <data encoding="base64" compression="zlib">
-   eJxjYKAO0IbSOmhsZDkY0CVSH7paYu1DB3pImAFJLbI+XiSMDyDrwwV0sWBi5NDdiuxeXiwYHxAm0Z249OFyJwzA1CLrwxUPpOjTY8AOkPXBAK50Rm8AizMFPGpkGXCHpwoDZrzD1KpTx4kMAHe6DEE=
   </data>
  </layer>
  <layer id="53" name="RotateRight" width="14" height="18" locked="1">
@@ -56,7 +51,7 @@
    eJxjYCAf8FGgdxSMAlqA0TSJHwAAR4gAHQ==
   </data>
  </layer>
- <layer id="56" name="Pit" width="14" height="18">
+ <layer id="56" name="Pit" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJwLZGBgCCQTkwrQ9bGRqY9c+0b1Daw+YuObWvYNd33kYACqAxMJ
   </data>
@@ -66,9 +61,14 @@
    eJxjYBhcwHCgHYAG7AfaAVQCFgPtgFEwKAAAzE8AqQ==
   </data>
  </layer>
- <layer id="58" name="Laser" width="14" height="18" locked="1">
+ <layer id="58" name="Laser" width="14" height="18" visible="0" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYBheQAmIlYFYc6AdMgpGwSAEAFnrAG8=
+  </data>
+ </layer>
+ <layer id="52" name="Conveyor" width="14" height="18" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAO0IbSOmhsZDkY0CVSH7paYu1DB3pImAFJLbI+XiSMDyDrwwV0sWBi5NDdiuxeXiwYHxAm0Z249OFyJwzA1CLrwxUPpOjTY8AOkPXBAK50Rm8AizMFPGpkGXCHpwoDZrzD1KpTx4kMAHe6DEE=
   </data>
  </layer>
 </map>
