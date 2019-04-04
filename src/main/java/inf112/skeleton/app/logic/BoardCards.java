@@ -113,7 +113,7 @@ public class BoardCards extends Board {
             if (selectedCards.size() < 5) {
                 if ((Gdx.input.getX() > cardPos0 && Gdx.input.getX() < (cardPos0 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
                     if (!selectedCards.contains(cardsToSelect.get(0))) {
-                        numberXPos.set(selectedCards.size(), centerOfScreen - 330);
+                        numberXPos.set(selectedCards.size(), cardPos0);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(0));
                     }
@@ -121,7 +121,7 @@ public class BoardCards extends Board {
 
                 if ((Gdx.input.getX() > cardPos1 && Gdx.input.getX() < (cardPos1 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
                     if (!selectedCards.contains(cardsToSelect.get(1))) {
-                        numberXPos.set(selectedCards.size(), centerOfScreen - 240);
+                        numberXPos.set(selectedCards.size(), cardPos1);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(1));
                     }
@@ -129,7 +129,7 @@ public class BoardCards extends Board {
 
                 if ((Gdx.input.getX() > cardPos2 && Gdx.input.getX() < (cardPos2 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
                     if (!selectedCards.contains(cardsToSelect.get(2))) {
-                        numberXPos.set(selectedCards.size(), centerOfScreen - 150);
+                        numberXPos.set(selectedCards.size(), cardPos2);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(2));
                     }
@@ -137,7 +137,7 @@ public class BoardCards extends Board {
 
                 if ((Gdx.input.getX() > cardPos3 && Gdx.input.getX() < (cardPos3 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_4)) {
                     if (!selectedCards.contains(cardsToSelect.get(3))) {
-                        numberXPos.set(selectedCards.size(), centerOfScreen - 60);
+                        numberXPos.set(selectedCards.size(), cardPos3);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(3));
                     }
@@ -145,7 +145,7 @@ public class BoardCards extends Board {
 
                 if ((Gdx.input.getX() > cardPos4 && Gdx.input.getX() < (cardPos4 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_5)) {
                     if (!selectedCards.contains(cardsToSelect.get(4))) {
-                        numberXPos.set(selectedCards.size(), centerOfScreen + 30);
+                        numberXPos.set(selectedCards.size(), cardPos4);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(4));
                     }
@@ -153,7 +153,7 @@ public class BoardCards extends Board {
 
                 if ((Gdx.input.getX() > cardPos5 && Gdx.input.getX() < (cardPos5 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_6)) {
                     if (!selectedCards.contains(cardsToSelect.get(5))) {
-                        numberXPos.set(selectedCards.size(), centerOfScreen + 120);
+                        numberXPos.set(selectedCards.size(), cardPos5);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(5));
                     }
@@ -161,7 +161,7 @@ public class BoardCards extends Board {
 
                 if ((Gdx.input.getX() > cardPos6 && Gdx.input.getX() < (cardPos6 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_7)) {
                     if (!selectedCards.contains(cardsToSelect.get(6))) {
-                        numberXPos.set(selectedCards.size(), centerOfScreen + 210);
+                        numberXPos.set(selectedCards.size(), cardPos6);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(6));
                     }
@@ -169,7 +169,7 @@ public class BoardCards extends Board {
 
                 if ((Gdx.input.getX() > cardPos7 && Gdx.input.getX() < (cardPos7 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_8)) {
                     if (!selectedCards.contains(cardsToSelect.get(7))) {
-                        numberXPos.set(selectedCards.size(), centerOfScreen + 300);
+                        numberXPos.set(selectedCards.size(), cardPos7);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(7));
                     }
@@ -177,12 +177,21 @@ public class BoardCards extends Board {
 
                 if ((Gdx.input.getX() > cardPos8 && Gdx.input.getX() < (cardPos8 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
                     if (!selectedCards.contains(cardsToSelect.get(8))) {
-                        numberXPos.set(selectedCards.size(), centerOfScreen + 390);
+                        numberXPos.set(selectedCards.size(), cardPos8);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(8));
                     }
                 }
+                /* TODO: Knut, show me the ropes here
+                if ((Gdx.input.isKeyPressed(Input.Keys.R))) {
+                    if (selectedCards.size() > 0) {
+                        for (int i = 0; i < selectedCards.size()-1; i++) {
+                            selectedCards.remove(i);
+                        }
 
+                    }
+                }
+                */
             } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                 if (cardsToSelect.size() >= 5) {
                     gameController.donePickingCards(selectedCards, this);
