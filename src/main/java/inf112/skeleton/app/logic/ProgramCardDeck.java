@@ -90,6 +90,8 @@ public class ProgramCardDeck {
 			return 3;
 		if (cardType == CardType.MOVEMENT_BACK)
 			return -1;
+		if (cardType == CardType.MOVEMENT_0)
+			return 0;
 		return 0;
 	}
 

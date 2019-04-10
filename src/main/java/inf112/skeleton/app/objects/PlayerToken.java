@@ -342,5 +342,9 @@ public class PlayerToken extends Sprite {
 		}
 		return;
 	}
+	
+	public void doPowerdown() {	
+		this.damageToken = 0;
+	}
 
 }

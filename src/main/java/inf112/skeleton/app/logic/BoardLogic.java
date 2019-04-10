@@ -123,4 +123,9 @@ public class BoardLogic {
     		player.checkForDamageCleanUp();
     	}
     }
+    
+    public void powerdown(String name) {
+    	getPlayerByName(name).doPowerdown();
+    }
+    
 }
