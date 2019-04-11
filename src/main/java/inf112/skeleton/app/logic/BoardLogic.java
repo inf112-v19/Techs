@@ -149,21 +149,26 @@ public class BoardLogic {
         int x = (int) nextTile.x;
         int y = (int) nextTile.y;
 
+        // Checks walls in regards to laser that is shot from players.
+        switch (dir) {
+            case NORTH:
+                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallUp") ||cellContainsLayer(x, y, "WallDown")) { return; }
+                break;
+            case SOUTH:
+                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallDown") ||cellContainsLayer(x, y, "WallUp")) { return; }
+                break;
+            case EAST:
+                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallRight") ||cellContainsLayer(x, y, "WallLeft")) { return; }
+                break;
+            case WEST:
+                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallLeft") ||cellContainsLayer(x, y, "WallRight")) { return; }
+                break;
+        }
+
         for (PlayerToken player : playersList) {
             if (player.getVector2Position().equals(nextTile)) {
                 player.addDamageToken();
                 System.out.println(player.getName() + " got hit and got one damage token. Damage: " + player.getDamageToken());
-                return;
-            }
-        }
-
-        if (dir == Direction.NORTH ||dir == Direction.SOUTH) {
-            if (cellContainsLayer(x, y, "WallUp") || cellContainsLayer(x, y, "WallDown")) {
-                return;
-            }
-        }
-        if (dir == Direction.WEST ||dir == Direction.EAST) {
-            if (cellContainsLayer(x, y, "WallLeft") || cellContainsLayer(x, y, "WallRight")) {
                 return;
             }
         }
