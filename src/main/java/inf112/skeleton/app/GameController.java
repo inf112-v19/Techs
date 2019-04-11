@@ -9,6 +9,10 @@ import java.util.Collections;
 import java.util.HashMap;
 
 
+//i høyre hjørne vises det liv/herter til hver av spillerne som spiller sidelegst
+//tydelig at en spiller har valgt kort
+//det skal være mulig å gå tilbake når du har valgt kort
+
 public class GameController implements IGameController{
     private int numPlayers;
     //total number of turns
@@ -23,15 +27,34 @@ public class GameController implements IGameController{
     private HashMap<Integer, IProgramCard> firstCards;
     private HashMap<IProgramCard, Integer> firstCardsInverse;
 
+    private ArrayList<Vector2> startPosition = new ArrayList<>();
+
     public GameController(int numPlayers, BoardCards boardCards){
         this.turns = 0;
         this.numPlayers = numPlayers;
         playersCards = new HashMap<>();
         playerString = new HashMap<>();
-        boardCards.addPlayerToBoard(new Vector2(6,1), this.playerOne);
-        playerString.put(0, this.playerOne);
-        boardCards.addPlayerToBoard(new Vector2(7,11), this.playerTwo);
-        playerString.put(1, this.playerTwo);
+
+        setStartPosition();
+
+        for (int i = 0; i < numPlayers; i++) {
+            String playerName = "player " + (i+1);
+            boardCards.addPlayerToBoard(startPosition.get(i), playerName);
+            playerString.put(i, playerName);
+        }
+
+    }
+
+    @Override
+    public void setStartPosition(){
+        startPosition.add(new Vector2(6,1));
+        startPosition.add(new Vector2(7,1));
+        startPosition.add(new Vector2(4,2));
+        startPosition.add(new Vector2(9,2));
+        startPosition.add(new Vector2(2,3));
+        startPosition.add(new Vector2(10,3));
+        startPosition.add(new Vector2(1,4));
+        startPosition.add(new Vector2(12,4));
     }
 
     @Override

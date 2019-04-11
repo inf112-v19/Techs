@@ -40,16 +40,16 @@ public class ProgramCard implements IProgramCard {
 	public CardType getCardType() {
 		return this.cardType;
 	}
-	
+
 	@Override
 	public String toString() {
 		return priority + " " + cardType.toString();
 	}
-	
+
 	public void setLocked() {
 		locked = true;
 	}
-	
+
 	public void setUnlocked() {
 		locked = false;
 	}

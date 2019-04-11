@@ -138,7 +138,7 @@ public class BoardLogic {
     }
 
     public void shootLaserFromTile(Vector2 fromTilePosition, Direction dir) {
-        Vector2 nextTile = addDirectionToLocation((int)fromTilePosition.x, (int)fromTilePosition.y, dir);
+        Vector2 nextTile = addDirectionToLocation((int) fromTilePosition.x, (int) fromTilePosition.y, dir);
         int x = (int) nextTile.x;
         int y = (int) nextTile.y;
 
@@ -151,5 +151,11 @@ public class BoardLogic {
             }
             shootLaserFromTile(nextTile, dir);
         }
+    }
+    
+    public void checkForDamageCleanup() {
+    	for (PlayerToken player : playersList) {
+    		player.checkForDamageCleanUp();
+    	}
     }
 }

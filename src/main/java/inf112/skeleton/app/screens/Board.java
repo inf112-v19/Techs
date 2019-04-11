@@ -58,19 +58,19 @@ public class Board implements Screen {
             robot.update(delta);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            movePlayer("playerOne", Direction.EAST);
+            movePlayer("player 1", Direction.EAST);
         }
         
         if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-        	movePlayer("playerOne", Direction.WEST);
+        	movePlayer("player 1", Direction.WEST);
         }
         
         if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-        	movePlayer("playerOne", Direction.NORTH);
+        	movePlayer("player 1", Direction.NORTH);
         }
         
         if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-        	movePlayer("playerOne", Direction.SOUTH);
+        	movePlayer("player 1", Direction.SOUTH);
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
@@ -156,6 +156,8 @@ public class Board implements Screen {
         moveConveyorBelts();
         moveRotateWheel();
         checkAllCheckpoints();
+        checkForDamageCleanup();
+        
     }
 
     public void addPlayerToBoard(Vector2 startPosition, String playerName) {
@@ -191,5 +193,9 @@ public class Board implements Screen {
     }
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
+    }
+    
+    public void checkForDamageCleanup() {
+    	boardLogic.checkForDamageCleanup();
     }
 }
