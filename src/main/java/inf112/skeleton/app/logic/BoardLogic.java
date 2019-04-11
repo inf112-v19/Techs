@@ -137,20 +137,37 @@ public class BoardLogic {
         }
     }
 
+    public void shootPlayerLaser() {
+        for(PlayerToken player : playersList) {
+            shootLaserFromTile(player.getVector2Position(), player.getFacingDirection());
+        }
+    }
     public void shootLaserFromTile(Vector2 fromTilePosition, Direction dir) {
+        if(fromTilePosition.x <= 0 || fromTilePosition.y <= 0 ||fromTilePosition.x > 12 || fromTilePosition.y > 16) { return; }
+
         Vector2 nextTile = addDirectionToLocation((int) fromTilePosition.x, (int) fromTilePosition.y, dir);
         int x = (int) nextTile.x;
         int y = (int) nextTile.y;
 
-        if (!(cellContainsLayer(x, y, "OutsideBoard"))) {
-            for (PlayerToken player : playersList) {
-                if (player.getVector2Position() == nextTile) {
-                    player.addDamageToken();
-                    return;
-                }
+        for (PlayerToken player : playersList) {
+            if (player.getVector2Position().equals(nextTile)) {
+                player.addDamageToken();
+                System.out.println(player.getName() + " got hit and got one damage token. Damage: " + player.getDamageToken());
+                return;
             }
-            shootLaserFromTile(nextTile, dir);
         }
+
+        if (dir == Direction.NORTH ||dir == Direction.SOUTH) {
+            if (cellContainsLayer(x, y, "WallUp") || cellContainsLayer(x, y, "WallDown")) {
+                return;
+            }
+        }
+        if (dir == Direction.WEST ||dir == Direction.EAST) {
+            if (cellContainsLayer(x, y, "WallLeft") || cellContainsLayer(x, y, "WallRight")) {
+                return;
+            }
+        }
+        shootLaserFromTile(nextTile, dir);
     }
     
     public void checkForDamageCleanup() {

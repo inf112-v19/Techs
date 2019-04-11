@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="14" height="18" tilewidth="96" tileheight="96" infinite="0" nextlayerid="60" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="14" height="18" tilewidth="96" tileheight="96" infinite="0" nextlayerid="61" nextobjectid="1">
  <tileset firstgid="1" source="RoboRallyTiles.tsx"/>
  <layer id="45" name="Floor" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
@@ -69,6 +69,11 @@
  <layer id="52" name="Conveyor" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYKAO0IbSOmhsZDkY0CVSH7paYu1DB3pImAFJLbI+XiSMDyDrwwV0sWBi5NDdiuxeXiwYHxAm0Z249OFyJwzA1CLrwxUPpOjTY8AOkPXBAK50Rm8AizMFPGpkGXCHpwoDZrzD1KpTx4kMAHe6DEE=
+  </data>
+ </layer>
+ <layer id="60" name="OutsideBoard" width="14" height="18">
+  <data encoding="base64" compression="zlib">
+   eJwLZGBgCCQTkwpG9Y3qG9VHPX3kYACMMxL9
   </data>
  </layer>
 </map>

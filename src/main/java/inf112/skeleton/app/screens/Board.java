@@ -85,6 +85,10 @@ public class Board implements Screen {
             moveConveyorBelts();
         }
 
+        if(Gdx.input.isKeyJustPressed(Input.Keys.L)) {
+            boardLogic.shootPlayerLaser();
+        }
+
         game.batch.end();
 
         /*
@@ -155,6 +159,7 @@ public class Board implements Screen {
     public void processEndOfTurns() {
         moveConveyorBelts();
         moveRotateWheel();
+        boardLogic.shootPlayerLaser();
         checkAllCheckpoints();
         checkForDamageCleanup();
         
