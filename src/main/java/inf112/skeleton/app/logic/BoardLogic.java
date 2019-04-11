@@ -85,27 +85,22 @@ public class BoardLogic {
     public void moveRotateWheel() {
         moveRotateWheel.processFeature();
     }
-
      // Moves all players standing on conveyer belts
     public void moveConveyorBelts() {
         moveConveyorBelts.processFeature();
     }
-
     // Moves the player one unit in the direction specified
     public boolean movePlayer(String name, Direction directionToMove) {
         return movePlayerBrain.movePlayer(directionToMove, getPlayerByName(name));
     }
-
     public boolean movePlayerForward(String name) {
         PlayerToken player = getPlayerByName(name);
         return movePlayerBrain.movePlayer(player.getFacingDirection(), player);
     }
-
     public boolean movePlayerBackwards(String name) {
         PlayerToken player = getPlayerByName(name);
         return movePlayerBrain.movePlayer(getOppositeDirection(player.getFacingDirection()), player);
     }
-
     private Direction getOppositeDirection(Direction dir) {
         int directionNumber = dir.ordinal() + 2;
         return Direction.values()[directionNumber % 4];
@@ -116,7 +111,6 @@ public class BoardLogic {
         PlayerToken player = getPlayerByName(name);
         player.rotatePlayer(numberOfTimes);
     }
-
     public void checkAllCheckpoints() {
         processCheckpoints.processFeature();
     }
@@ -173,6 +167,18 @@ public class BoardLogic {
             }
         }
         shootLaserFromTile(nextTile, dir);
+    }
+
+    public void repairRobots() {
+        for (PlayerToken player : playersList) {
+            int x = player.getXPosition();
+            int y = player.getYPosition();
+
+            if (cellContainsLayer(x, y, "Repair")) {
+               player.removeDamageToken();
+               System.out.println(player.getName() + " got repaired. Damage: " + player.getDamageToken());
+            }
+        }
     }
     
     public void checkForDamageCleanup() {

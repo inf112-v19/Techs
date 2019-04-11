@@ -77,16 +77,23 @@ public class Board implements Screen {
             boardLogic.moveRotateWheel();
         }
 
+        // To check checkpoints
         if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
             checkAllCheckpoints(); 
         }
 
+        // To check conveyorbelts
         if(Gdx.input.isKeyJustPressed(Input.Keys.B)) {
             moveConveyorBelts();
         }
 
+        // To check lasers shot from robots
         if(Gdx.input.isKeyJustPressed(Input.Keys.L)) {
             boardLogic.shootPlayerLaser();
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+            boardLogic.repairRobots();
         }
 
         game.batch.end();
@@ -161,6 +168,7 @@ public class Board implements Screen {
         moveRotateWheel();
         boardLogic.shootPlayerLaser();
         checkAllCheckpoints();
+        boardLogic.repairRobots();
         checkForDamageCleanup();
         
     }
@@ -199,7 +207,6 @@ public class Board implements Screen {
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
     }
-    
     public void checkForDamageCleanup() {
     	boardLogic.checkForDamageCleanup();
     }
