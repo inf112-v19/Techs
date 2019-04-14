@@ -38,7 +38,7 @@ public class BoardLogic {
      * @param dir The direction in which it calculates
      * @return The new vector2-position
      */
-    private Vector2 addDirectionToLocation(int x, int y, Direction dir) {
+    protected Vector2 addDirectionToLocation(int x, int y, Direction dir) {
         switch(dir) {
             case NORTH:
                 return new Vector2(x, y + 1);

@@ -29,9 +29,11 @@ public class PlayerToken extends Sprite {
 	private int targetRotation;
 	private boolean recentlyBackuped;
 
-	private int damageToken = 0;
-	private int health = 3;
-	private boolean destroyed = false;
+	private int damageToken;
+	private int health;
+	private int numberOfCardsDealt;
+
+	private boolean destroyed;
 	private Vector2 archiveMarker;
 	private int numberOfCheckpointsPassed;
 
@@ -45,8 +47,9 @@ public class PlayerToken extends Sprite {
 		this.playerName = givenName;
 		this.archiveMarker = startPosition;
 		backupPosition = new Vector2(startPosition.x, startPosition.y);
-		position = startPosition;
 		facingDirection = Direction.NORTH;
+		numberOfCardsDealt = 9;
+        position = startPosition;
 		recentlyBackuped = true;
 
 		// All regarding spritesheet and getting the frames correctly is done here.
@@ -73,11 +76,12 @@ public class PlayerToken extends Sprite {
 	}
 
     /**
-     * Adds one damage token to the player
+     * Adds one damage token to the player and also decrement the amount of program cards dealt to player.
      */
 	public void addDamageToken() {
 		if (!damageTokenFull()) {
 			damageToken++;
+			numberOfCardsDealt--;
 		}
 	}
 
@@ -310,13 +314,14 @@ public class PlayerToken extends Sprite {
     }
 
     /**
-     * Removes one damage token from the player. Is used if player stands on a repair tile at the end of a round
+     * Removes one damage token from the player and increment the number of program cards dealt to the player. Is used if player stands on a repair tile at the end of a round
      */
 	public void removeDamageToken() {
 		if (damageToken == 0) {
 			return;
 		}
 		damageToken--;
+		numberOfCardsDealt++;
 	}
 
     /**
@@ -348,11 +353,12 @@ public class PlayerToken extends Sprite {
     }
 
     /**
-     * Sets the damage of the player
+     * Sets the damage of the player of the number of cards dealt accordingly
      * @param damage The damage given to the player
      */
     public void setDamageToken(int damage) {
         this.damageToken = damage;
+        numberOfCardsDealt = 9-damage;
     }
 
     /**
@@ -364,19 +370,19 @@ public class PlayerToken extends Sprite {
 	}
 
     /**
-     * Set the player as recently backuped (i.e. destroyed)
-     * @param bool True if recently destroyed, otherwise false
-     */
-    public void setRecentlyBackuped(boolean bool) {
-        this.recentlyBackuped = bool;
-    }
-
-    /**
      * Sets the health of a player
      * @param health The health the player is given
      */
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    /**
+     * Set the player as recently backuped (i.e. destroyed)
+     * @param bool True if recently destroyed, otherwise false
+     */
+    public void setRecentlyBackuped(boolean bool) {
+        this.recentlyBackuped = bool;
     }
 
     /**
