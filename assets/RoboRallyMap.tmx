@@ -11,6 +11,11 @@
    eJxjYBgFwxmwD7QDRsGgAgASYAAI
   </data>
  </layer>
+ <layer id="58" name="Laser" width="14" height="18" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJxjYBheQBmKNQfaIaNgFAxCAABdCwBw
+  </data>
+ </layer>
  <layer id="47" name="WallRight" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYBgFxAJRMuXoDQaTOwdTuCADSt0lSgUzBgIAAB8rAKk=
@@ -18,7 +23,7 @@
  </layer>
  <layer id="48" name="WallLeft" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjYBg6QHoQ2Udvt+AD9HbnYPI7KYAUd0uTqJ5a9lJDHz4AAPNHASo=
+   eJxjYBg6QJpKaqhhHzXtoRTQ252Dye+kAFLcLU2iemrZSw19+AAAR7YBRQ==
   </data>
  </layer>
  <layer id="49" name="WallDown" width="14" height="18" locked="1">
@@ -56,24 +61,19 @@
    eJwLZGBgCCQTkwrQ9bGRqY9c+0b1Daw+YuObWvYNd33kYACqAxMJ
   </data>
  </layer>
- <layer id="57" name="Checkpoints" width="14" height="18" locked="1">
-  <data encoding="base64" compression="zlib">
-   eJxjYBhcwHCgHYAG7AfaAVQCFgPtgFEwKAAAzE8AqQ==
-  </data>
- </layer>
- <layer id="58" name="Laser" width="14" height="18" visible="0" locked="1">
-  <data encoding="base64" compression="zlib">
-   eJxjYBheQAmIlYFYc6AdMgpGwSAEAFnrAG8=
-  </data>
- </layer>
  <layer id="52" name="Conveyor" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYKAO0IbSOmhsZDkY0CVSH7paYu1DB3pImAFJLbI+XiSMDyDrwwV0sWBi5NDdiuxeXiwYHxAm0Z249OFyJwzA1CLrwxUPpOjTY8AOkPXBAK50Rm8AizMFPGpkGXCHpwoDZrzD1KpTx4kMAHe6DEE=
   </data>
  </layer>
- <layer id="60" name="OutsideBoard" width="14" height="18">
+ <layer id="60" name="OutsideBoard" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJwLZGBgCCQTkwpG9Y3qG9VHPX3kYACMMxL9
+  </data>
+ </layer>
+ <layer id="57" name="Checkpoints" width="14" height="18" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJxjYBhcwHCgHYAG7AfaAVQCFgPtgFEwKAAAzE8AqQ==
   </data>
  </layer>
 </map>

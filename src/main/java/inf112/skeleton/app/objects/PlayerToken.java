@@ -48,6 +48,7 @@ public class PlayerToken extends Sprite {
 		this.archiveMarker = startPosition;
 		backupPosition = new Vector2(startPosition.x, startPosition.y);
 		facingDirection = Direction.NORTH;
+		health = 3;
 		numberOfCardsDealt = 9;
         position = startPosition;
 		recentlyBackuped = true;

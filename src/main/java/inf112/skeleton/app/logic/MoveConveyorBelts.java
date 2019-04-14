@@ -20,12 +20,12 @@ public class MoveConveyorBelts implements IBoardFeature {
     public void processFeature() {
         // Moves all player on double conveyor belts
         playersChecked = new ArrayList<String>();
-        for(PlayerToken player : playersList) {
+        for (PlayerToken player : playersList) {
             movePlayerIfOnConveyorBelt(player, true);
         }
         // Moves all player on single or double conveyor belts
         playersChecked = new ArrayList<String>();
-        for(PlayerToken player : playersList) {
+        for (PlayerToken player : playersList) {
             movePlayerIfOnConveyorBelt(player, false);
         }
     }
