@@ -28,5 +28,12 @@ public class Lasers implements IBoardFeature {
             return;
         }
 
+        int x = player.getXPosition();
+        int y = player.getYPosition();
+
+        if (boardLogic.cellContainsLayer(x, y, layerName)) {
+            System.out.println(player.getName() + " got hit by laser on board");
+            player.addDamageToken();
+        }
     }
 }

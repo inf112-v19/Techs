@@ -83,7 +83,9 @@ public class PlayerToken extends Sprite {
 		if (!damageTokenFull()) {
 			damageToken++;
 			numberOfCardsDealt--;
-		}
+		} else {
+		    takeHealth();
+        }
 	}
 
     /**

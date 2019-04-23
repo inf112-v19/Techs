@@ -18,7 +18,7 @@
  </layer>
  <layer id="47" name="WallRight" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFxAJRMuXoDQaTOwdTuCADSt0lSgUzBgIAAB8rAKk=
+   eJxjYBieQJTOZtLCPnLBYHLnYAoXZECpu0SpYMZAAABgIwC+
   </data>
  </layer>
  <layer id="48" name="WallLeft" width="14" height="18" locked="1">
