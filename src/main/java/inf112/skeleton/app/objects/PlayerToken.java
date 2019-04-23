@@ -69,7 +69,7 @@ public class PlayerToken extends Sprite {
 			}
 		}
 
-		robotAnimation = new Animation<TextureRegion>(ANIMATION_SPEED, animationFrames);
+		robotAnimation = new Animation<>(ANIMATION_SPEED, animationFrames);
 
 		setOrigin(TILE_SCALE / 2, TILE_SCALE / 2);
 

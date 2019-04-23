@@ -1,6 +1,8 @@
 package inf112.skeleton.app.logic;
 
 import java.util.ArrayList;
+
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
@@ -23,14 +25,16 @@ public class BoardLogic {
     private Lasers lasers;
     
     private TiledMap map;
+    private MapProperties prop;
     
     public BoardLogic(TiledMap map) {
         this.map = map;
-        this.playersList = new ArrayList<PlayerToken>();
+        this.prop = map.getProperties();
+        this.playersList = new ArrayList<>();
         this.movePlayerBrain = new MovePlayer(playersList, this);
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
         this.processCheckpoints = new ProcessCheckpoints(this, playersList);
-        this.lasers = new Lasers(this, playersList);
+        this.lasers = new Lasers(this);
     }
 
     /**
@@ -47,7 +51,7 @@ public class BoardLogic {
      * @param dir The direction in which it calculates
      * @return The new vector2-position
      */
-    protected Vector2 addDirectionToLocation(int x, int y, Direction dir) {
+    public Vector2 addDirectionToLocation(int x, int y, Direction dir) {
         switch(dir) {
             case NORTH:
                 return new Vector2(x, y + 1);
@@ -176,6 +180,14 @@ public class BoardLogic {
     }
 
     /**
+     * Gets the map properties of the map. These could be width and height of TiledMap
+     * @return the map properties
+     */
+    public MapProperties getProperties() {
+        return this.prop;
+    }
+
+    /**
      * Moves every player that stands on a conveyor belt accordingly.
      */
     public void moveConveyorBelts() {
@@ -262,8 +274,8 @@ public class BoardLogic {
      * @param fromTilePosition The position from where the laser is shot
      * @param dir The direction the laser moves.
      */
-    private void shootLaserFromTile(Vector2 fromTilePosition, Direction dir) {
-        if(fromTilePosition.x <= 0 || fromTilePosition.y <= 0 ||fromTilePosition.x > 12 || fromTilePosition.y > 16) { return; }
+    public void shootLaserFromTile(Vector2 fromTilePosition, Direction dir) {
+        if(fromTilePosition.x < 0 || fromTilePosition.y < 0 ||fromTilePosition.x >= prop.get("width", Integer.class) || fromTilePosition.y >= prop.get("height", Integer.class)) { return; }
 
         Vector2 nextTile = addDirectionToLocation((int) fromTilePosition.x, (int) fromTilePosition.y, dir);
         int x = (int) nextTile.x;
@@ -286,6 +298,13 @@ public class BoardLogic {
         }
 
         for (PlayerToken player : playersList) {
+            if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "FromLaser")) {
+                if (player.getVector2Position().equals(fromTilePosition)) {
+                    player.addDamageToken();
+                    System.out.println(player.getName() + " got hit and got one damage token. Damage: " + player.getDamageToken());
+                    return;
+                }
+            }
             if (player.getVector2Position().equals(nextTile)) {
                 player.addDamageToken();
                 System.out.println(player.getName() + " got hit and got one damage token. Damage: " + player.getDamageToken());
