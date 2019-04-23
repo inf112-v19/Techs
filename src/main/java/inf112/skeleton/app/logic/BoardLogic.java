@@ -20,6 +20,7 @@ public class BoardLogic {
     private MovePlayer movePlayerBrain;
     private MoveConveyorBelts moveConveyorBelts;
     private ProcessCheckpoints processCheckpoints;
+    private Lasers lasers;
     
     private TiledMap map;
     
@@ -29,6 +30,14 @@ public class BoardLogic {
         this.movePlayerBrain = new MovePlayer(playersList, this);
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
         this.processCheckpoints = new ProcessCheckpoints(this, playersList);
+        this.lasers = new Lasers(this, playersList);
+    }
+
+    /**
+     * The lasers on the board will activate. If any player is in its trajectory, those players will get one damage token.
+     */
+    public void activateLasersOnBoard() {
+        lasers.processFeature();
     }
 
     /**
@@ -129,7 +138,7 @@ public class BoardLogic {
      * @param playerName The name of the player that is searched
      * @return The player
      */
-    private PlayerToken getPlayerByName(String playerName) {
+    public PlayerToken getPlayerByName(String playerName) {
         for(PlayerToken player : playersList) {
             if(player.getName().equals(playerName))
                 return player;

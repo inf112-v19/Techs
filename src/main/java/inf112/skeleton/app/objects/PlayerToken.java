@@ -48,6 +48,7 @@ public class PlayerToken extends Sprite {
 		this.archiveMarker = startPosition;
 		backupPosition = new Vector2(startPosition.x, startPosition.y);
 		facingDirection = Direction.NORTH;
+		damageToken = 0;
 		health = 3;
 		numberOfCardsDealt = 9;
         position = startPosition;
@@ -83,9 +84,7 @@ public class PlayerToken extends Sprite {
 		if (!damageTokenFull()) {
 			damageToken++;
 			numberOfCardsDealt--;
-		} else {
-		    takeHealth();
-        }
+		}
 	}
 
     /**
