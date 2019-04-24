@@ -199,8 +199,8 @@ public class Board implements Screen {
     	boardLogic.checkForDamageCleanup();
     }
     
-    public void doPowerdown() {
-    	boardLogic.powerdown("name");
+    public void doPowerdown(String name) {
+    	boardLogic.powerdown(name);
     }
     
 }

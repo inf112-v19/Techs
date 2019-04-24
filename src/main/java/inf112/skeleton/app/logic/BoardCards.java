@@ -2,12 +2,14 @@ package inf112.skeleton.app.logic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import inf112.skeleton.app.GameController;
 import inf112.skeleton.app.objects.IProgramCard;
+import inf112.skeleton.app.objects.ProgramCard;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.screens.Board;
 
@@ -108,8 +110,14 @@ public class BoardCards extends Board {
                 finishedTurn = false;
             }
             
-            //these if-statements handles which cards has been selected by user
+            if(Gdx.input.isKeyPressed(Keys.P)) {
+            	doPowerdown(gameController.getCurrentPlayerByName()); 
+            	while(selectedCards.size() < 5) {
+            		selectedCards.add(new ProgramCard(CardType.MOVEMENT_0, 0, 0, 0));         		
+            	}
+            }
 
+            //these if-statements handles which cards has been selected by user
             if (selectedCards.size() < 5) {
                 if ((Gdx.input.getX() > cardPos0 && Gdx.input.getX() < (cardPos0 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
                     if (!selectedCards.contains(cardsToSelect.get(0))) {

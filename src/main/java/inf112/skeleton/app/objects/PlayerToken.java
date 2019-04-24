@@ -345,6 +345,7 @@ public class PlayerToken extends Sprite {
 	
 	public void doPowerdown() {	
 		this.damageToken = 0;
+		System.out.println("Doing powerdown");
 	}
 
 }
