@@ -203,4 +203,8 @@ public class Board implements Screen {
     	boardLogic.powerdown(name);
     }
     
+    public boolean getPowerdownStatus(String name) {
+    	return boardLogic.getPowerdownStatus(name);
+    }
+    
 }

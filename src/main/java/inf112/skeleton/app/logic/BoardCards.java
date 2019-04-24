@@ -23,6 +23,7 @@ public class BoardCards extends Board {
     private ProgramCardDeck deck = new ProgramCardDeck();
     private ArrayList<IProgramCard> cardsToSelect;
     private ArrayList<IProgramCard> selectedCards;
+    private boolean isPowerdown = false;
 
     private final int CARD_WIDTH = 94;
     private final int CARD_HEIGHT = 130;
@@ -110,14 +111,14 @@ public class BoardCards extends Board {
                 finishedTurn = false;
             }
             
-            if(Gdx.input.isKeyPressed(Keys.P)) {
+            if(Gdx.input.isKeyJustPressed(Keys.P)) {
             	doPowerdown(gameController.getCurrentPlayerByName()); 
             	while(selectedCards.size() < 5) {
             		selectedCards.add(new ProgramCard(CardType.MOVEMENT_0, 0, 0, 0));         		
             	}
             }
 
-            //these if-statements handles which cards has been selected by user
+            //these if-statements handles which cards has been selected by user         
             if (selectedCards.size() < 5) {
                 if ((Gdx.input.getX() > cardPos0 && Gdx.input.getX() < (cardPos0 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
                     if (!selectedCards.contains(cardsToSelect.get(0))) {
@@ -191,8 +192,8 @@ public class BoardCards extends Board {
                     }
                 }
 
-            } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-                if (cardsToSelect.size() >= 5) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER) || getPowerdownStatus(gameController.getCurrentPlayerByName()) == true) {
+                if (cardsToSelect.size() >= 5) { 
                     gameController.donePickingCards(selectedCards, this);
                     newTurn();
                 }

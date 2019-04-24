@@ -128,4 +128,8 @@ public class BoardLogic {
     	getPlayerByName(name).doPowerdown();
     }
     
+    public boolean getPowerdownStatus(String name) {
+    	return getPlayerByName(name).getPowerdownStatus();
+    }
+    
 }

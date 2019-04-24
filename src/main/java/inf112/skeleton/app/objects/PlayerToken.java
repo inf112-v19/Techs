@@ -33,6 +33,7 @@ public class PlayerToken extends Sprite {
 	private int health = 3;
 	private boolean destroyed = false;
 	private Vector2 archiveMarker;
+	private boolean powerdownStatus = false;
 
 	private int numberOfCheckpointsPassed;
 
@@ -345,7 +346,12 @@ public class PlayerToken extends Sprite {
 	
 	public void doPowerdown() {	
 		this.damageToken = 0;
+		this.powerdownStatus = true;
 		System.out.println("Doing powerdown");
+	}
+	
+	public boolean getPowerdownStatus() {
+		return this.powerdownStatus;
 	}
 
 }
