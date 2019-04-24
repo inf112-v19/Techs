@@ -79,6 +79,7 @@ public class MovePlayer {
         }
         return false;
     }
+
     private boolean moveOtherPlayers(int xPos, int yPos, Direction directionToMove) {
         for(PlayerToken player : playersList) {
             if(player.getXPosition() == xPos && player.getYPosition() == yPos) {
@@ -87,6 +88,7 @@ public class MovePlayer {
         }
         return true;
     }
+
     public void updatePlayersList(ArrayList<PlayerToken> playersList) {
         this.playersList = playersList;
     }
