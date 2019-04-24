@@ -8,5 +8,6 @@ public enum CardType {
 	MOVEMENT_1,
 	MOVEMENT_2,
 	MOVEMENT_3,
-	MOVEMENT_BACK;
+	MOVEMENT_BACK,
+	MOVEMENT_0;
 }

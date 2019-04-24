@@ -318,4 +318,13 @@ public class BoardLogic {
             shootLaserFromTile(player.getVector2Position(), player.getFacingDirection());
         }
     }
+    
+    public void powerdown(String name) {
+    	getPlayerByName(name).doPowerdown();
+    }
+    
+    public boolean getPowerdownStatus(String name) {
+    	return getPlayerByName(name).getPowerdownStatus();
+    }
+    
 }

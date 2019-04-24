@@ -29,8 +29,11 @@ public class PlayerToken extends Sprite {
 	private int targetRotation;
 	private boolean recentlyBackuped;
 
-	private int damageToken;
-	private int health;
+	private int damageToken = 0;
+	private int health = 3;
+	private boolean destroyed = false;
+	private Vector2 archiveMarker;
+	private boolean powerdownStatus = false;
 	private int numberOfCardsDealt;
 
 	private boolean destroyed;
@@ -371,6 +374,25 @@ public class PlayerToken extends Sprite {
 		this.destroyed = destroyed;
 	}
 
+	public void checkForDamageCleanUp() {
+		if (damageTokenFull()) {
+			takeHealth();
+			setDamageToken(2);
+			moveToArchiveMarker();
+			return;
+		}
+		return;
+	}
+	
+	public void doPowerdown() {	
+		this.damageToken = 0;
+		this.powerdownStatus = true;
+		System.out.println("Doing powerdown");
+	}
+	
+	public boolean getPowerdownStatus() {
+		return this.powerdownStatus;
+	}
     /**
      * Sets the health of a player
      * @param health The health the player is given

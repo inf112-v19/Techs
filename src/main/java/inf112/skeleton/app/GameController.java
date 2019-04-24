@@ -124,5 +124,13 @@ public class GameController implements IGameController{
     public int getTurns() {
         return turns;
     }
+    
+    public String getCurrentPlayerByName() {
+    	int currentPlayer = turns % numPlayers;
+    	return playerString.get(currentPlayer);
+    }
+    
+    
+    
 
 }
