@@ -58,6 +58,11 @@ public class Lasers implements IBoardFeature {
         }
     }
 
+    /**
+     * Shoots laser that exists on the board. Functions differently in that it checks the same tile as the board laser begins for a player.
+     * @param fromTilePosition Start location in which the board laser shoots from.
+     * @param dir The direction the board laser shoots.
+     */
     private void shootLaserFromBoardLasers(Vector2 fromTilePosition, Direction dir) {
         if (fromTilePosition.x < 0 || fromTilePosition.y < 0 ||fromTilePosition.x >= prop.get("width", Integer.class) || fromTilePosition.y >= prop.get("height", Integer.class)) {
             return;

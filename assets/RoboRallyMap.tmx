@@ -6,11 +6,6 @@
    eJylkcEKADAIQr3s/3951wgtqyAG5ctowD5eSIQXpBZ7Spv1jHH8GJtnMG+lZTOrnuOrNFvuuqfiOr+8d/cPLuf4qRrjnLxyaufp7Se1aXz4xQIn
   </data>
  </layer>
- <layer id="46" name="Upgrade" width="14" height="18" locked="1">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFwxmwD7QDRsGgAgASYAAI
-  </data>
- </layer>
  <layer id="58" name="Laser" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYBheQBmKR8EoGAWYAADeJABH
@@ -19,6 +14,11 @@
  <layer id="61" name="FromLaser" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYBieQHOgHTAKRsEgBACCyAAq
+  </data>
+ </layer>
+ <layer id="55" name="Repair" width="14" height="18" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJxjYCAf8FGgdxTQB4y0OBpp/iUVAABkaAAr
   </data>
  </layer>
  <layer id="47" name="WallRight" width="14" height="18" locked="1">
@@ -54,11 +54,6 @@
  <layer id="54" name="RotateLeft" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYBhZQH+gHTBIAbZwGQ2r4QcAQIMAjg==
-  </data>
- </layer>
- <layer id="55" name="Repair" width="14" height="18" locked="1">
-  <data encoding="base64" compression="zlib">
-   eJxjYCAf8FGgdxSMAlqA0TSJHwAAR4gAHQ==
   </data>
  </layer>
  <layer id="56" name="Pit" width="14" height="18" locked="1">

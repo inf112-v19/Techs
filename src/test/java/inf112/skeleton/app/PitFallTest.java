@@ -80,7 +80,6 @@ public class PitFallTest {
     	assertEquals(board.getPlayerLocation("Player1"), board.getPlayerLocation("Player2"));
     }
     
-    
     /**
      * Tests that player moves to backup when moving out of board.
      */
@@ -98,6 +97,14 @@ public class PitFallTest {
      */
     public void checkPositionIfContainsPit(Vector2 position) {
     	assertTrue(board.cellContainsLayer((int)position.x, (int)position.y, "Pit"));
+    }
+    @Test
+    public void PlayerLosesHealthIfOutOfBoard() {
+        board.addPlayerToBoard(new Vector2(1, 5), "Player");
+        board.movePlayer("Player", Direction.NORTH);
+        assertEquals(2, board.getPlayerByName("Player").getHealth());
+        assertEquals(2, board.getPlayerByName("Player").getDamageToken());
+
     }
     
 }

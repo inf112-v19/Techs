@@ -99,8 +99,6 @@ public class BoardCards extends Board {
         spriteBatchCards.draw(number5, numberXPos.get(4), numberYPos.get(4), NUMBER_WIDTH, NUMBER_HEIGHT);
         spriteBatchCards.end();
 
-
-
         if (!allPlayersDonePickingCards) {
             
             if(finishedTurn) {
@@ -112,6 +110,8 @@ public class BoardCards extends Board {
             //these if-statements handles which cards has been selected by user
 
             if (selectedCards.size() < 5) {
+
+
                 if ((Gdx.input.getX() > cardPos0 && Gdx.input.getX() < (cardPos0 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
                     if (!selectedCards.contains(cardsToSelect.get(0))) {
                         numberXPos.set(selectedCards.size(), centerOfScreen - 330);

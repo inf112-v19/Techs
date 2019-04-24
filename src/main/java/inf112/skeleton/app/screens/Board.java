@@ -167,7 +167,9 @@ public class Board implements Screen {
         moveConveyorBelts();
         moveRotateWheel();
         boardLogic.shootPlayerLaser();
+        boardLogic.activateLasersOnBoard();
         checkAllCheckpoints();
+        boardLogic.checkPlayersLife();
         boardLogic.repairRobots();
         checkForDamageCleanup();
         
@@ -185,6 +187,9 @@ public class Board implements Screen {
     }
     public void checkAllCheckpoints() {
         boardLogic.checkAllCheckpoints();
+    }
+    public void checkForDamageCleanup() {
+        boardLogic.checkForDamageCleanup();
     }
     public BoardLogic getBoardLogic(){
         return boardLogic;
@@ -206,8 +211,5 @@ public class Board implements Screen {
     }
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
-    }
-    public void checkForDamageCleanup() {
-    	boardLogic.checkForDamageCleanup();
     }
 }

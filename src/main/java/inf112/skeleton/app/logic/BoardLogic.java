@@ -3,6 +3,7 @@ package inf112.skeleton.app.logic;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -125,6 +126,19 @@ public class BoardLogic {
     public void checkForDamageCleanup() {
         for (PlayerToken player : playersList) {
             player.checkForDamageCleanUp();
+        }
+    }
+
+    /**
+     * Checks if any of the players have no lives/health tokens left.
+     * @return True if any player has no lives left, otherwise false
+     */
+    public void checkPlayersLife() {
+        for (PlayerToken player : playersList) {
+            if (player.getHealth() <= 0) {
+                System.out.println(player.getName() + " has no lives left and the game is over.");
+                Gdx.app.exit();
+            }
         }
     }
 

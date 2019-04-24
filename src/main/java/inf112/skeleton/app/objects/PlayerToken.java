@@ -1,6 +1,5 @@
 package inf112.skeleton.app.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
@@ -34,7 +33,6 @@ public class PlayerToken extends Sprite {
 	private int numberOfCardsDealt;
 
 	private boolean destroyed;
-	private Vector2 archiveMarker;
 	private int numberOfCheckpointsPassed;
 
 	// Variables needed for animated sprites
@@ -45,14 +43,13 @@ public class PlayerToken extends Sprite {
 
 	public PlayerToken(String givenName, String textureSpriteSheet, Vector2 startPosition) {
 		this.playerName = givenName;
-		this.archiveMarker = startPosition;
-		backupPosition = new Vector2(startPosition.x, startPosition.y);
-		facingDirection = Direction.NORTH;
-		damageToken = 0;
-		health = 3;
-		numberOfCardsDealt = 9;
-        position = startPosition;
-		recentlyBackuped = true;
+		this.backupPosition = startPosition;
+		this.facingDirection = Direction.NORTH;
+		this.damageToken = 0;
+		this.health = 3;
+		this.numberOfCardsDealt = 9;
+        this.position = startPosition;
+		this.recentlyBackuped = true;
 
 		// All regarding spritesheet and getting the frames correctly is done here.
 		spriteSheet = new Texture(textureSpriteSheet);
@@ -110,7 +107,7 @@ public class PlayerToken extends Sprite {
         if (damageTokenFull()) {
             takeHealth();
             setDamageToken(2);
-            moveToArchiveMarker();
+            moveToBackup();
         }
     }
 
@@ -136,14 +133,6 @@ public class PlayerToken extends Sprite {
      */
     public boolean damageTokenFull() {
         return (damageToken >= 10);
-    }
-
-    /**
-     * Gets the player's archive-position.
-     * @return The vector2-position of the player's archive marker
-     */
-    public Vector2 getArchiveMarker() {
-        return new Vector2(archiveMarker.x, archiveMarker.y);
     }
 
     /**
@@ -273,18 +262,9 @@ public class PlayerToken extends Sprite {
     }
 
     /**
-     * Moves the player to its archived marker-position
-     */
-    public void moveToArchiveMarker() {
-        position = getArchiveMarker();
-        setXPositionOnBoard();
-        setYPositionOnBoard();
-    }
-
-    /**
      * Moves the player to its last checkpoint
      */
-    public void moveToLastCheckpoint() {
+    public void moveToBackup() {
         position = getBackupPosition();
         setXPositionOnBoard();
         setYPositionOnBoard();

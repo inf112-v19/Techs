@@ -42,7 +42,6 @@ public class GameController implements IGameController{
             boardCards.addPlayerToBoard(startPosition.get(i), playerName);
             playerString.put(i, playerName);
         }
-
     }
 
     @Override
