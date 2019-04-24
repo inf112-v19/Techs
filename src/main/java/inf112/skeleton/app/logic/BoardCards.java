@@ -103,6 +103,7 @@ public class BoardCards extends Board {
         spriteBatchCards.end();
 
 
+
         if (!allPlayersDonePickingCards) {
             
             if(finishedTurn) {
@@ -208,32 +209,19 @@ public class BoardCards extends Board {
 
     }
 
-    public void setAllPlayersDonePickingCards(boolean value){
-        allPlayersDonePickingCards = value;
+    /**
+     * Gets the arraylist of selected cards
+     * @return Returns the list of selected cards
+     */
+    public ArrayList<IProgramCard> getSelectedCards() {
+        if (selectedCards == null)
+            throw new IllegalStateException("No cards has been selected");
+        return selectedCards;
     }
 
-    public void setNumberPos(int numberPos){
-        System.out.println(numberPos);
-    }
-
-    //puts all numbers in right corner
-    public void setStandardNumberPosition(){
-        this.numberXPos = new ArrayList<>();
-        this.numberYPos = new ArrayList<>();
-
-        int rightOfScreen = Gdx.graphics.getWidth() - 35;
-        for (int i = 0; i < 5; i++) {
-            numberXPos.add(rightOfScreen);
-        }
-
-        numberYPos.add(160);
-        numberYPos.add(120);
-        numberYPos.add(80);
-        numberYPos.add(40);
-        numberYPos.add(0);
-    }
-
-
+    /**
+     * Start a new turn where a new set of dealt cards are created and added to TextureAtlas to be shown on screen
+     */
     public void newTurn(){
         cardsToSelect = new ArrayList<>();
         selectedCards = new ArrayList<>();
@@ -253,9 +241,34 @@ public class BoardCards extends Board {
         cardToSelect8 = atlasCards.createSprite(cardsToSelect.get(8).toString(), -1);
     }
 
-    public ArrayList<IProgramCard> getSelectedCards(){
-        if (selectedCards == null)
-            throw new IllegalStateException("No cards has been selected");
-        return selectedCards;
+    /**
+     * Used to mark that all players is finished selecting their program cards.
+     * @param value True if all players are finished, otherwise false
+     */
+    public void setAllPlayersDonePickingCards(boolean value){
+        allPlayersDonePickingCards = value;
+    }
+
+    public void setNumberPos(int numberPos){
+        System.out.println(numberPos);
+    }
+
+    /**
+     * Moves the number sprites showing the selected cards to its original position in the lower right corner.
+     */
+    public void setStandardNumberPosition() {
+        this.numberXPos = new ArrayList<>();
+        this.numberYPos = new ArrayList<>();
+
+        int rightOfScreen = Gdx.graphics.getWidth() - 35;
+        for (int i = 0; i < 5; i++) {
+            numberXPos.add(rightOfScreen);
+        }
+
+        numberYPos.add(160);
+        numberYPos.add(120);
+        numberYPos.add(80);
+        numberYPos.add(40);
+        numberYPos.add(0);
     }
 }

@@ -16,7 +16,6 @@ public class PitFall {
 	}
 
 	public void processFeatureCheckForPitFalls(PlayerToken player) {
-		player = this.player;
 		//board = this.board;
 		movePlayerIfPitFall(player, board);
 		// should lose a damagetoken when implemented
@@ -26,6 +25,7 @@ public class PitFall {
 		if (checkIfPitfall(player, board)) {
 			player.moveToLastCheckpoint(); // Moves player to current backup position
 			player.setRecentlyBackuped(true);
+			player.takeHealth();
 			return;
 		} 
 		return;
@@ -41,5 +41,5 @@ public class PitFall {
 			return true;
 		}
 		return false;
-	} 
+	}
 }
