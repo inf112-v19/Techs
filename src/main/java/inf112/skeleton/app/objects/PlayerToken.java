@@ -36,8 +36,6 @@ public class PlayerToken extends Sprite {
 	private boolean powerdownStatus = false;
 	private int numberOfCardsDealt;
 
-	private boolean destroyed;
-	private Vector2 archiveMarker;
 	private int numberOfCheckpointsPassed;
 
 	// Variables needed for animated sprites
@@ -372,16 +370,6 @@ public class PlayerToken extends Sprite {
      */
 	public void setDestroyed(boolean destroyed) {
 		this.destroyed = destroyed;
-	}
-
-	public void checkForDamageCleanUp() {
-		if (damageTokenFull()) {
-			takeHealth();
-			setDamageToken(2);
-			moveToArchiveMarker();
-			return;
-		}
-		return;
 	}
 	
 	public void doPowerdown() {	
