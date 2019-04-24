@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="14" height="18" tilewidth="96" tileheight="96" infinite="0" nextlayerid="61" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="14" height="18" tilewidth="96" tileheight="96" infinite="0" nextlayerid="62" nextobjectid="1">
  <tileset firstgid="1" source="RoboRallyTiles.tsx"/>
  <layer id="45" name="Floor" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
@@ -19,6 +19,16 @@
  <layer id="46" name="Upgrade" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYBgFwxmwD7QDRsGgAgASYAAI
+  </data>
+ </layer>
+ <layer id="58" name="Laser" width="14" height="18" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJxjYBheQBmKR8EoGAWYAADeJABH
+  </data>
+ </layer>
+ <layer id="61" name="FromLaser" width="14" height="18" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJxjYBieQHOgHTAKRsEgBACCyAAq
   </data>
  </layer>
  <layer id="47" name="WallRight" width="14" height="18" locked="1">
@@ -61,14 +71,19 @@
    eJwLZGBgCCQTkwrQ9bGRqY9c+0b1Daw+YuObWvYNd33kYACqAxMJ
   </data>
  </layer>
- <layer id="57" name="Checkpoints" width="14" height="18" locked="1">
-  <data encoding="base64" compression="zlib">
-   eJxjYBhcwHCgHYAG7AfaAVQCFgPtgFEwKAAAzE8AqQ==
-  </data>
- </layer>
  <layer id="52" name="Conveyor" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYKAO0IbSOmhsZDkY0CVSH7paYu1DB3pImAFJLbI+XiSMDyDrwwV0sWBi5NDdiuxeXiwYHxAm0Z249OFyJwzA1CLrwxUPpOjTY8AOkPXBAK50Rm8AizMFPGpkGXCHpwoDZrzD1KpTx4kMAHe6DEE=
+  </data>
+ </layer>
+ <layer id="60" name="OutsideBoard" width="14" height="18" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJwLZGBgCCQTkwpG9Y3qG9VHPX3kYACMMxL9
+  </data>
+ </layer>
+ <layer id="57" name="Checkpoints" width="14" height="18" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJxjYBhcwHCgHYAG7AfaAVQCFgPtgFEwKAAAzE8AqQ==
   </data>
  </layer>
 </map>

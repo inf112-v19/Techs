@@ -121,6 +121,16 @@
    <property name="SOUTH" value="1"/>
   </properties>
  </tile>
+ <tile id="32">
+  <properties>
+   <property name="LaserNorth" value="1"/>
+  </properties>
+ </tile>
+ <tile id="33">
+  <properties>
+   <property name="LaserEast" value="1"/>
+  </properties>
+ </tile>
  <tile id="35">
   <properties>
    <property name="EAST" value="1"/>
@@ -143,6 +153,16 @@
   <properties>
    <property name="SOUTHRotateRight" value="1"/>
    <property name="WEST" value="1"/>
+  </properties>
+ </tile>
+ <tile id="39">
+  <properties>
+   <property name="LaserSouth" value="1"/>
+  </properties>
+ </tile>
+ <tile id="40">
+  <properties>
+   <property name="LaserWest" value="1"/>
   </properties>
  </tile>
  <tile id="42">

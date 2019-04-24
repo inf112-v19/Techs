@@ -58,31 +58,42 @@ public class Board implements Screen {
             robot.update(delta);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            movePlayer("playerOne", Direction.EAST);
+            movePlayer("player 1", Direction.EAST);
         }
         
         if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-        	movePlayer("playerOne", Direction.WEST);
+        	movePlayer("player 1", Direction.WEST);
         }
         
         if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-        	movePlayer("playerOne", Direction.NORTH);
+        	movePlayer("player 1", Direction.NORTH);
         }
         
         if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-        	movePlayer("playerOne", Direction.SOUTH);
+        	movePlayer("player 1", Direction.SOUTH);
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
             boardLogic.moveRotateWheel();
         }
 
+        // To check checkpoints
         if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
             checkAllCheckpoints(); 
         }
 
+        // To check conveyorbelts
         if(Gdx.input.isKeyJustPressed(Input.Keys.B)) {
             moveConveyorBelts();
+        }
+
+        // To check lasers shot from robots
+        if(Gdx.input.isKeyJustPressed(Input.Keys.L)) {
+            boardLogic.shootPlayerLaser();
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+            boardLogic.repairRobots();
         }
 
         game.batch.end();
@@ -155,7 +166,11 @@ public class Board implements Screen {
     public void processEndOfTurns() {
         moveConveyorBelts();
         moveRotateWheel();
+        boardLogic.shootPlayerLaser();
         checkAllCheckpoints();
+        boardLogic.repairRobots();
+        checkForDamageCleanup();
+        
     }
 
     public void addPlayerToBoard(Vector2 startPosition, String playerName) {
@@ -191,5 +206,8 @@ public class Board implements Screen {
     }
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
+    }
+    public void checkForDamageCleanup() {
+    	boardLogic.checkForDamageCleanup();
     }
 }
