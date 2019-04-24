@@ -39,7 +39,6 @@ public class BoardLogic {
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
         this.processCheckpoints = new ProcessCheckpoints(this, playersList);
         this.lasers = new Lasers(this, playersList, prop);
-        this.moveRotateWheel = new RotateWheel(this, playersList);
         sprites.add(ROBOT_SPRITE_SHEET_BLUE);
         sprites.add(ROBOT_SPRITE_SHEET_GREEN);
         sprites.add(ROBOT_SPRITE_SHEET_RED);
