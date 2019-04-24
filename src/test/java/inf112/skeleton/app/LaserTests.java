@@ -56,9 +56,9 @@ public class LaserTests {
         assertTrue(board.cellContainsLayer(0,0, "Laser"));
         assertTrue(board.cellContainsLayer(1,0, "Laser"));
         assertTrue(board.cellContainsLayer(2,0, "Laser"));
-        assertTrue(board.cellContainsLayer(0,1, "Laser"));
-        assertTrue(board.cellContainsLayer(1,1, "Laser"));
-        assertTrue(board.cellContainsLayer(2,1, "Laser"));
+        assertFalse(board.cellContainsLayer(0,1, "Laser"));
+        assertFalse(board.cellContainsLayer(1,1, "Laser"));
+        assertFalse(board.cellContainsLayer(2,1, "Laser"));
         assertTrue(board.cellContainsLayer(0,2, "Laser"));
         assertTrue(board.cellContainsLayer(1,2, "Laser"));
         assertTrue(board.cellContainsLayer(2,2, "Laser"));
@@ -66,14 +66,14 @@ public class LaserTests {
 
     @Test
     public void OneDamageTokenReceivedAfterOneLaserShot() {
-        board.addPlayerToBoard(new Vector2(1, 1), "Player");
+        board.addPlayerToBoard(new Vector2(1, 0), "Player");
         board.activateLasersOnBoard(); // First lasershot
         assertEquals(1, board.getPlayerByName("Player").getDamageToken());
     }
 
     @Test
     public void TwoDamageTokenReceivedAfterTwoLaserShot() {
-        board.addPlayerToBoard(new Vector2(1, 1), "Player");
+        board.addPlayerToBoard(new Vector2(1, 0), "Player");
         board.activateLasersOnBoard(); // First lasershot
         board.activateLasersOnBoard(); // Second lasershot
         assertEquals(2, board.getPlayerByName("Player").getDamageToken());
@@ -81,11 +81,70 @@ public class LaserTests {
 
     @Test
     public void OneHealthRemovedIfTenDamageTokenAfterLaser() {
-        board.addPlayerToBoard(new Vector2(1, 1), "Player");
+        board.addPlayerToBoard(new Vector2(1, 0), "Player");
         board.getPlayerByName("Player").setDamageToken(9);
         board.activateLasersOnBoard();
         board.checkForDamageCleanup();
         assertEquals(2, board.getPlayerByName("Player").getHealth());
         assertEquals(2, board.getPlayerByName("Player").getDamageToken());
+    }
+
+    @Test
+    public void PlayerOnTileWhereLaserShootsGetsDamage() {
+        board.addPlayerToBoard(new Vector2(0,0), "Player");
+        board.activateLasersOnBoard();
+        assertEquals(1, board.getPlayerByName("Player").getDamageToken());
+    }
+
+    @Test
+    public void OnlyOnePlayerGetsDamageOnSameLaserAxisFromBoardLaser() {
+        board.addPlayerToBoard(new Vector2(1,0), "PlayerOne");
+        board.addPlayerToBoard(new Vector2(2,0), "PlayerTwo");
+        board.activateLasersOnBoard();
+        assertEquals(1, board.getPlayerByName("PlayerOne").getDamageToken());
+        assertEquals(0, board.getPlayerByName("PlayerTwo").getDamageToken());
+    }
+
+    @Test
+    public void BothPlayersLoseDamageIfShootingAtEachother() {
+        board.addPlayerToBoard(new Vector2(0, 1), "PlayerOne");
+        board.addPlayerToBoard(new Vector2(2, 1), "PlayerTwo");
+        board.rotatePlayer("PlayerOne", 1);
+        board.rotatePlayer("PlayerTwo", -1);
+        board.shootPlayerLaser();
+        assertEquals(1, board.getPlayerByName("PlayerOne").getDamageToken());
+        assertEquals(1, board.getPlayerByName("PlayerTwo").getDamageToken());
+    }
+
+    @Test
+    public void PlayerReceiveDamageTokenIfShotByOtherPlayer() {
+        board.addPlayerToBoard(new Vector2(0, 1), "PlayerOne");
+        board.addPlayerToBoard(new Vector2(2, 1), "PlayerTwo");
+        board.rotatePlayer("PlayerOne", 1);
+        board.shootPlayerLaser();
+        assertEquals(0, board.getPlayerByName("PlayerOne").getDamageToken());
+        assertEquals(1, board.getPlayerByName("PlayerTwo").getDamageToken());
+    }
+
+    @Test
+    public void ReceivesTwoDamageIfShotByLaserAndPlayer() {
+        board.addPlayerToBoard(new Vector2(0, 2), "PlayerOne");
+        board.addPlayerToBoard(new Vector2(0, 1), "PlayerTwo");
+        board.shootPlayerLaser();
+        board.activateLasersOnBoard();
+        assertEquals(2, board.getPlayerByName("PlayerOne").getDamageToken());
+        assertEquals(0, board.getPlayerByName("PlayerTwo").getDamageToken());
+    }
+
+    @Test
+    public void TwoPlayerShootingEachotherOnLaserOnBoardAxis() {
+        board.addPlayerToBoard(new Vector2(0, 0), "PlayerOne");
+        board.addPlayerToBoard(new Vector2(2, 0), "PlayerTwo");
+        board.rotatePlayer("PlayerOne", 1);
+        board.rotatePlayer("PlayerTwo", -1);
+        board.shootPlayerLaser();
+        board.activateLasersOnBoard();
+        assertEquals(2, board.getPlayerByName("PlayerOne").getDamageToken());
+        assertEquals(1, board.getPlayerByName("PlayerTwo").getDamageToken());
     }
 }

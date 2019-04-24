@@ -1,5 +1,6 @@
 package inf112.skeleton.app.logic;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.maps.MapProperties;
@@ -34,7 +35,7 @@ public class BoardLogic {
         this.movePlayerBrain = new MovePlayer(playersList, this);
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
         this.processCheckpoints = new ProcessCheckpoints(this, playersList);
-        this.lasers = new Lasers(this);
+        this.lasers = new Lasers(this, playersList, prop);
     }
 
     /**
@@ -275,7 +276,9 @@ public class BoardLogic {
      * @param dir The direction the laser moves.
      */
     public void shootLaserFromTile(Vector2 fromTilePosition, Direction dir) {
-        if(fromTilePosition.x < 0 || fromTilePosition.y < 0 ||fromTilePosition.x >= prop.get("width", Integer.class) || fromTilePosition.y >= prop.get("height", Integer.class)) { return; }
+        if (fromTilePosition.x < 0 || fromTilePosition.y < 0 ||fromTilePosition.x >= prop.get("width", Integer.class) || fromTilePosition.y >= prop.get("height", Integer.class)) {
+            return;
+        }
 
         Vector2 nextTile = addDirectionToLocation((int) fromTilePosition.x, (int) fromTilePosition.y, dir);
         int x = (int) nextTile.x;
@@ -284,27 +287,20 @@ public class BoardLogic {
         // Checks walls in regards to laser that is shot from players.
         switch (dir) {
             case NORTH:
-                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallUp") ||cellContainsLayer(x, y, "WallDown")) { return; }
+                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallUp") || cellContainsLayer(x, y, "WallDown")) { return; }
                 break;
             case SOUTH:
-                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallDown") ||cellContainsLayer(x, y, "WallUp")) { return; }
+                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallDown") || cellContainsLayer(x, y, "WallUp")) { return; }
                 break;
             case EAST:
-                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallRight") ||cellContainsLayer(x, y, "WallLeft")) { return; }
+                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallRight") || cellContainsLayer(x, y, "WallLeft")) { return; }
                 break;
             case WEST:
-                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallLeft") ||cellContainsLayer(x, y, "WallRight")) { return; }
+                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallLeft") || cellContainsLayer(x, y, "WallRight")) { return; }
                 break;
         }
 
         for (PlayerToken player : playersList) {
-            if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "FromLaser")) {
-                if (player.getVector2Position().equals(fromTilePosition)) {
-                    player.addDamageToken();
-                    System.out.println(player.getName() + " got hit and got one damage token. Damage: " + player.getDamageToken());
-                    return;
-                }
-            }
             if (player.getVector2Position().equals(nextTile)) {
                 player.addDamageToken();
                 System.out.println(player.getName() + " got hit and got one damage token. Damage: " + player.getDamageToken());

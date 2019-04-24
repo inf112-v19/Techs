@@ -11,21 +11,21 @@
  <layer id="8" name="Laser" width="3" height="3">
   <data encoding="csv">
 34,35,35,
-34,35,35,
+0,0,0,
 34,35,35
 </data>
  </layer>
  <layer id="12" name="FromLaser" width="3" height="3">
   <data encoding="csv">
 34,0,0,
-34,0,0,
+0,0,0,
 34,0,0
 </data>
  </layer>
  <layer id="9" name="WallRight" width="3" height="3">
   <data encoding="csv">
 0,0,21,
-0,0,21,
+0,0,0,
 0,0,21
 </data>
  </layer>
