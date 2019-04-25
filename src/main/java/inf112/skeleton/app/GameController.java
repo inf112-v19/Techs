@@ -15,10 +15,9 @@ import java.util.HashMap;
 
 public class GameController implements IGameController{
     private int numPlayers;
-    //total number of turns
     private int turns;
-    //Integer = player, ArrayList<IProgramCard> cards to player. Key 0 is starting player, Key 1 is player
-    //after starting player
+    // Keeps track of how many times a player has moved (used to detect when endOfTurn should run)
+    private int movesDone = 0;  
     private HashMap<Integer, ArrayList<IProgramCard>> playersCards;
     private HashMap<Integer, String> playerString;
     private HashMap<Integer, IProgramCard> firstCards;
@@ -85,8 +84,17 @@ public class GameController implements IGameController{
         }
 
         moveOnePlayer(boardCards);
+        
+        movesDone++;
+        if(movesDone % numPlayers == 0) {
+            System.out.println("Do end of turn");
+            boardCards.processEndOfTurns();
+        }
+        
+        
         if (playersCards.get(0).isEmpty() && firstCards.isEmpty()) {
             boardCards.setAllPlayersDonePickingCards(false);
+            movesDone = 0;
         }
 
     }

@@ -54,7 +54,6 @@ public class BoardCards extends Board {
     private ArrayList<Integer> numberYPos;
 
     private boolean allPlayersDonePickingCards = false;
-    private boolean finishedTurn = false;
 
     public BoardCards(RoboRally game, int numPlayers) {
         super(game);
@@ -106,13 +105,6 @@ public class BoardCards extends Board {
 
 
         if (!allPlayersDonePickingCards) {
-
-            if(finishedTurn) {
-                System.out.println("do end of turn");
-                processEndOfTurns();
-                finishedTurn = false;
-            }
-            
             if(Gdx.input.isKeyJustPressed(Keys.P)) {
             	doPowerdown(gameController.getCurrentPlayerByName()); 
             	while(selectedCards.size() < 5) {
@@ -217,7 +209,6 @@ public class BoardCards extends Board {
         else {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 gameController.movePlayers(this);
-                finishedTurn = true;
             }
         }
     }
@@ -247,10 +238,8 @@ public class BoardCards extends Board {
 
         // Gets the cards that weren't played last turn and adds them to this turns hand
         ArrayList<IProgramCard> keptCards = gameController.getCardsThatWereNotPlayed();
-        System.out.println(keptCards.size());
         for(IProgramCard card : keptCards) {
             cardsToSelect.add(card);
-            System.out.println("getting previous cards");
         }
         
         while(cardsToSelect.size() < 9) {
