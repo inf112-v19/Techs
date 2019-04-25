@@ -21,18 +21,25 @@ public class BoardCards extends Board {
 
     //Card handling
     private ProgramCardDeck deck = new ProgramCardDeck();
+    // Contains all cards that are possible to select
     private ArrayList<IProgramCard> cardsToSelect;
+    // Contains all cards that are selected
     private ArrayList<IProgramCard> selectedCards;
-    private ArrayList<Integer> numberOfSelectedCards;
-    private boolean isPowerdown = false;
+    // Contains the number of cards that are not selected. Number corresponds to cards in cardsToSelect.
+    private ArrayList<Integer> numberOfNonSelectedCards;
 
     private final int CARD_WIDTH = 94;
     private final int CARD_HEIGHT = 130;
     private final int NUMBER_WIDTH = 35;
     private final int NUMBER_HEIGHT = 35;
+    
+    private int handSize;
 
     private TextureAtlas atlasCards;
     private SpriteBatch spriteBatchCards;
+    private ArrayList<Sprite> cardsToSelectSprite;
+    private ArrayList<Integer> cardsPositionOnScreen;
+    /*
     private Sprite cardToSelect0;
     private Sprite cardToSelect1;
     private Sprite cardToSelect2;
@@ -42,7 +49,7 @@ public class BoardCards extends Board {
     private Sprite cardToSelect6;
     private Sprite cardToSelect7;
     private Sprite cardToSelect8;
-
+    */
     private Texture number1;
     private Texture number2;
     private Texture number3;
@@ -71,19 +78,16 @@ public class BoardCards extends Board {
     @Override
     public void render(float v) {
         super.render(v);
-        int centerOfScreen = Gdx.graphics.getWidth()/2;
-        int cardPos0 = centerOfScreen - 360;
-        int cardPos1 = centerOfScreen - 270;
-        int cardPos2 = centerOfScreen - 180;
-        int cardPos3 = centerOfScreen - 90;
-        int cardPos4 = centerOfScreen;
-        int cardPos5 = centerOfScreen + 90;
-        int cardPos6 = centerOfScreen + 180;
-        int cardPos7 = centerOfScreen + 270;
-        int cardPos8 = centerOfScreen + 360;
+        int centerOfScreen = Gdx.graphics.getWidth() / 2;
+        updateCardPositionOnScreen(centerOfScreen);
 
         //shows 9 cards player can select
         spriteBatchCards.begin();
+        System.out.println(handSize);
+        for(int i = 0; i < handSize; i++) {
+            spriteBatchCards.draw(cardsToSelectSprite.get(i), cardsPositionOnScreen.get(i), 0, CARD_WIDTH, CARD_HEIGHT);
+        }
+        /*
         spriteBatchCards.draw(cardToSelect0, cardPos0,0, CARD_WIDTH, CARD_HEIGHT);
         spriteBatchCards.draw(cardToSelect1, cardPos1,0,CARD_WIDTH, CARD_HEIGHT);
         spriteBatchCards.draw(cardToSelect2, cardPos2,0,CARD_WIDTH, CARD_HEIGHT);
@@ -93,7 +97,8 @@ public class BoardCards extends Board {
         spriteBatchCards.draw(cardToSelect6, cardPos6,0,CARD_WIDTH, CARD_HEIGHT);
         spriteBatchCards.draw(cardToSelect7, cardPos7,0,CARD_WIDTH, CARD_HEIGHT);
         spriteBatchCards.draw(cardToSelect8, cardPos8,0,CARD_WIDTH, CARD_HEIGHT);
-
+        */
+        
         //shows numbers for order of selected cards
         spriteBatchCards.draw(number1, numberXPos.get(0), numberYPos.get(0), NUMBER_WIDTH, NUMBER_HEIGHT);
         spriteBatchCards.draw(number2, numberXPos.get(1), numberYPos.get(1), NUMBER_WIDTH, NUMBER_HEIGHT);
@@ -114,85 +119,85 @@ public class BoardCards extends Board {
 
             //these if-statements handles which cards has been selected by user         
             if (selectedCards.size() < 5) {
-                if ((Gdx.input.getX() > cardPos0 && Gdx.input.getX() < (cardPos0 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
+                if ((Gdx.input.getX() > cardsPositionOnScreen.get(0) && Gdx.input.getX() < (cardsPositionOnScreen.get(0) + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
                     if (!selectedCards.contains(cardsToSelect.get(0))) {
                         numberXPos.set(selectedCards.size(), centerOfScreen - 330);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(0));
-                        numberOfSelectedCards.remove((Integer) 0);
+                        numberOfNonSelectedCards.remove((Integer) 0);
                     }
                 }
 
-                if ((Gdx.input.getX() > cardPos1 && Gdx.input.getX() < (cardPos1 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
+                if ((Gdx.input.getX() > cardsPositionOnScreen.get(1) && Gdx.input.getX() < (cardsPositionOnScreen.get(1) + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
                     if (!selectedCards.contains(cardsToSelect.get(1))) {
                         numberXPos.set(selectedCards.size(), centerOfScreen - 240);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(1));
-                        numberOfSelectedCards.remove((Integer) 1);
+                        numberOfNonSelectedCards.remove((Integer) 1);
                     }
                 }
 
-                if ((Gdx.input.getX() > cardPos2 && Gdx.input.getX() < (cardPos2 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
+                if ((Gdx.input.getX() > cardsPositionOnScreen.get(2) && Gdx.input.getX() < (cardsPositionOnScreen.get(2) + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
                     if (!selectedCards.contains(cardsToSelect.get(2))) {
                         numberXPos.set(selectedCards.size(), centerOfScreen - 150);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(2));
-                        numberOfSelectedCards.remove((Integer) 2);
+                        numberOfNonSelectedCards.remove((Integer) 2);
                     }
                 }
 
-                if ((Gdx.input.getX() > cardPos3 && Gdx.input.getX() < (cardPos3 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_4)) {
+                if ((Gdx.input.getX() > cardsPositionOnScreen.get(3) && Gdx.input.getX() < (cardsPositionOnScreen.get(3) + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_4)) {
                     if (!selectedCards.contains(cardsToSelect.get(3))) {
                         numberXPos.set(selectedCards.size(), centerOfScreen - 60);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(3));
-                        numberOfSelectedCards.remove((Integer) 3);
+                        numberOfNonSelectedCards.remove((Integer) 3);
                     }
                 }
                 
 
-                if ((Gdx.input.getX() > cardPos4 && Gdx.input.getX() < (cardPos4 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_5)) {
+                if ((Gdx.input.getX() > cardsPositionOnScreen.get(4) && Gdx.input.getX() < (cardsPositionOnScreen.get(4) + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_5)) {
                     if (!selectedCards.contains(cardsToSelect.get(4))) {
                         numberXPos.set(selectedCards.size(), centerOfScreen + 30);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(4));
-                        numberOfSelectedCards.remove((Integer) 4);
+                        numberOfNonSelectedCards.remove((Integer) 4);
                     }
                 }
 
-                if ((Gdx.input.getX() > cardPos5 && Gdx.input.getX() < (cardPos5 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_6)) {
+                if ((Gdx.input.getX() > cardsPositionOnScreen.get(5) && Gdx.input.getX() < (cardsPositionOnScreen.get(5) + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_6)) {
                     if (!selectedCards.contains(cardsToSelect.get(5))) {
                         numberXPos.set(selectedCards.size(), centerOfScreen + 120);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(5));
-                        numberOfSelectedCards.remove((Integer) 5);
+                        numberOfNonSelectedCards.remove((Integer) 5);
                     }
                 }
 
-                if ((Gdx.input.getX() > cardPos6 && Gdx.input.getX() < (cardPos6 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_7)) {
+                if ((Gdx.input.getX() > cardsPositionOnScreen.get(6) && Gdx.input.getX() < (cardsPositionOnScreen.get(6) + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_7)) {
                     if (!selectedCards.contains(cardsToSelect.get(6))) {
                         numberXPos.set(selectedCards.size(), centerOfScreen + 210);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(6));
-                        numberOfSelectedCards.remove((Integer) 6);
+                        numberOfNonSelectedCards.remove((Integer) 6);
                     }
                 }
 
-                if ((Gdx.input.getX() > cardPos7 && Gdx.input.getX() < (cardPos7 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_8)) {
+                if ((Gdx.input.getX() > cardsPositionOnScreen.get(7) && Gdx.input.getX() < (cardsPositionOnScreen.get(7) + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_8)) {
                     if (!selectedCards.contains(cardsToSelect.get(7))) {
                         numberXPos.set(selectedCards.size(), centerOfScreen + 300);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(7));
-                        numberOfSelectedCards.remove((Integer) 7);
+                        numberOfNonSelectedCards.remove((Integer) 7);
                     }
                 }
 
-                if ((Gdx.input.getX() > cardPos8 && Gdx.input.getX() < (cardPos8 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
+                if ((Gdx.input.getX() > cardsPositionOnScreen.get(8) && Gdx.input.getX() < (cardsPositionOnScreen.get(8) + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
                     if (!selectedCards.contains(cardsToSelect.get(8))) {
                         numberXPos.set(selectedCards.size(), centerOfScreen + 390);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(8));
-                        numberOfSelectedCards.remove((Integer) 8);
+                        numberOfNonSelectedCards.remove((Integer) 8);
                     }
                 }
                 
@@ -229,9 +234,9 @@ public class BoardCards extends Board {
     public void newTurn(){
         cardsToSelect = new ArrayList<IProgramCard>();
         selectedCards = new ArrayList<IProgramCard>();
-        numberOfSelectedCards = new ArrayList<Integer>();
+        numberOfNonSelectedCards = new ArrayList<Integer>();
         for(int i = 0; i < 9; i++) {
-            numberOfSelectedCards.add(i);
+            numberOfNonSelectedCards.add(i);
         }
         
         setStandardNumberPosition();
@@ -242,10 +247,20 @@ public class BoardCards extends Board {
             cardsToSelect.add(card);
         }
         
-        while(cardsToSelect.size() < 9) {
+        int maxNumberOfCards = 9 - getDamageTokens(gameController.getCurrentPlayerByName());
+        while(cardsToSelect.size() < maxNumberOfCards) {
             cardsToSelect.add(deck.getTopCard());
         }
-
+        
+        handSize = Integer.max(keptCards.size(), maxNumberOfCards);
+        
+        cardsToSelectSprite = new ArrayList<Sprite>();
+        for(int i = 0; i < handSize; i++) {
+            cardsToSelectSprite.add(atlasCards.createSprite(cardsToSelect.get(i).toString(), -1));
+        }
+        
+        
+        /*
         cardToSelect0 = atlasCards.createSprite(cardsToSelect.get(0).toString(), -1);
         cardToSelect1 = atlasCards.createSprite(cardsToSelect.get(1).toString(), -1);
         cardToSelect2 = atlasCards.createSprite(cardsToSelect.get(2).toString(), -1);
@@ -255,6 +270,7 @@ public class BoardCards extends Board {
         cardToSelect6 = atlasCards.createSprite(cardsToSelect.get(6).toString(), -1);
         cardToSelect7 = atlasCards.createSprite(cardsToSelect.get(7).toString(), -1);
         cardToSelect8 = atlasCards.createSprite(cardsToSelect.get(8).toString(), -1);
+        */
     }
 
     /**
@@ -271,7 +287,7 @@ public class BoardCards extends Board {
     }
 
     /**
-     * Moves the number sprites showing the selected cards to its original position in the lower right corner.
+     * Moves the number sprite showing the selected cards to its original position in the lower right corner.
      */
     public void setStandardNumberPosition() {
         this.numberXPos = new ArrayList<>();
@@ -298,9 +314,19 @@ public class BoardCards extends Board {
         
         // For unplayed cards:
         ArrayList<IProgramCard> unplayedCards = new ArrayList<IProgramCard>();
-        for(Integer i : numberOfSelectedCards) {
+        for(Integer i : numberOfNonSelectedCards) {
             unplayedCards.add(cardsToSelect.get(i));
         }
         gameController.setCardsThatWereNotPlayed(unplayedCards);
+    }
+    
+    /*
+     * Recalculates the position of where the cards should be
+     */
+    private void updateCardPositionOnScreen(int centerOfScreen) {
+        cardsPositionOnScreen = new ArrayList<Integer>();
+        for(int i = 0; i < 9; i++) {
+            cardsPositionOnScreen.add(centerOfScreen - 360 + (i * 90));
+        }
     }
 }
