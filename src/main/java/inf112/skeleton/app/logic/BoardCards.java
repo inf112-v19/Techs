@@ -23,6 +23,7 @@ public class BoardCards extends Board {
     private ProgramCardDeck deck = new ProgramCardDeck();
     private ArrayList<IProgramCard> cardsToSelect;
     private ArrayList<IProgramCard> selectedCards;
+    private ArrayList<Integer> numberOfSelectedCards;
     private boolean isPowerdown = false;
 
     private final int CARD_WIDTH = 94;
@@ -105,7 +106,7 @@ public class BoardCards extends Board {
 
 
         if (!allPlayersDonePickingCards) {
-            
+
             if(finishedTurn) {
                 System.out.println("do end of turn");
                 processEndOfTurns();
@@ -126,6 +127,7 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen - 330);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(0));
+                        numberOfSelectedCards.remove((Integer) 0);
                     }
                 }
 
@@ -134,6 +136,7 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen - 240);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(1));
+                        numberOfSelectedCards.remove((Integer) 1);
                     }
                 }
 
@@ -142,6 +145,7 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen - 150);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(2));
+                        numberOfSelectedCards.remove((Integer) 2);
                     }
                 }
 
@@ -150,14 +154,17 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen - 60);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(3));
+                        numberOfSelectedCards.remove((Integer) 3);
                     }
                 }
+                
 
                 if ((Gdx.input.getX() > cardPos4 && Gdx.input.getX() < (cardPos4 + CARD_WIDTH) && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() || Gdx.input.isKeyPressed(Input.Keys.NUM_5)) {
                     if (!selectedCards.contains(cardsToSelect.get(4))) {
                         numberXPos.set(selectedCards.size(), centerOfScreen + 30);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(4));
+                        numberOfSelectedCards.remove((Integer) 4);
                     }
                 }
 
@@ -166,6 +173,7 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen + 120);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(5));
+                        numberOfSelectedCards.remove((Integer) 5);
                     }
                 }
 
@@ -174,6 +182,7 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen + 210);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(6));
+                        numberOfSelectedCards.remove((Integer) 6);
                     }
                 }
 
@@ -182,6 +191,7 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen + 300);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(7));
+                        numberOfSelectedCards.remove((Integer) 7);
                     }
                 }
 
@@ -190,23 +200,26 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen + 390);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(8));
+                        numberOfSelectedCards.remove((Integer) 8);
                     }
                 }
-
+                
+            // This runs after the player has selected 5 cards and then presses ENTER
             } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER) || getPowerdownStatus(gameController.getCurrentPlayerByName()) == true) {
-                if (cardsToSelect.size() >= 5) { 
+                if (cardsToSelect.size() >= 5) {
+                    setCardsThatWerePlayedAndKeptInGameController();
                     gameController.donePickingCards(selectedCards, this);
                     newTurn();
                 }
             }
         }
+  
         else {
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 gameController.movePlayers(this);
                 finishedTurn = true;
             }
         }
-
     }
 
     /**
@@ -223,12 +236,26 @@ public class BoardCards extends Board {
      * Start a new turn where a new set of dealt cards are created and added to TextureAtlas to be shown on screen
      */
     public void newTurn(){
-        cardsToSelect = new ArrayList<>();
-        selectedCards = new ArrayList<>();
+        cardsToSelect = new ArrayList<IProgramCard>();
+        selectedCards = new ArrayList<IProgramCard>();
+        numberOfSelectedCards = new ArrayList<Integer>();
+        for(int i = 0; i < 9; i++) {
+            numberOfSelectedCards.add(i);
+        }
+        
         setStandardNumberPosition();
 
-        for (int i = 0; i < 9; i++)
+        // Gets the cards that weren't played last turn and adds them to this turns hand
+        ArrayList<IProgramCard> keptCards = gameController.getCardsThatWereNotPlayed();
+        System.out.println(keptCards.size());
+        for(IProgramCard card : keptCards) {
+            cardsToSelect.add(card);
+            System.out.println("getting previous cards");
+        }
+        
+        while(cardsToSelect.size() < 9) {
             cardsToSelect.add(deck.getTopCard());
+        }
 
         cardToSelect0 = atlasCards.createSprite(cardsToSelect.get(0).toString(), -1);
         cardToSelect1 = atlasCards.createSprite(cardsToSelect.get(1).toString(), -1);
@@ -249,6 +276,7 @@ public class BoardCards extends Board {
         allPlayersDonePickingCards = value;
     }
 
+    // TODO: What is this?
     public void setNumberPos(int numberPos){
         System.out.println(numberPos);
     }
@@ -270,5 +298,20 @@ public class BoardCards extends Board {
         numberYPos.add(80);
         numberYPos.add(40);
         numberYPos.add(0);
+    }
+    
+    /*
+     * Gives GameController two lists, one with cards played this turn, the other with unplayed cards
+     */
+    private void setCardsThatWerePlayedAndKeptInGameController() {
+        // For played cards:
+        gameController.setCardsThatWerePlayedInRegister(selectedCards);
+        
+        // For unplayed cards:
+        ArrayList<IProgramCard> unplayedCards = new ArrayList<IProgramCard>();
+        for(Integer i : numberOfSelectedCards) {
+            unplayedCards.add(cardsToSelect.get(i));
+        }
+        gameController.setCardsThatWereNotPlayed(unplayedCards);
     }
 }
