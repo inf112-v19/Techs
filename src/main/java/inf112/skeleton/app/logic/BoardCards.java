@@ -25,8 +25,6 @@ public class BoardCards extends Board {
     private ArrayList<IProgramCard> cardsToSelect;
     // Contains all cards that are selected
     private ArrayList<IProgramCard> selectedCards;
-    // Contains the number of cards that are not selected. Number corresponds to cards in cardsToSelect.
-    private ArrayList<Integer> numberOfNonSelectedCards;
 
     private final int CARD_WIDTH = 94;
     private final int CARD_HEIGHT = 130;
@@ -34,6 +32,8 @@ public class BoardCards extends Board {
     private final int NUMBER_HEIGHT = 35;
     
     private int handSize;
+    private boolean movingPlayers = false;
+    private boolean givenCardsToPlayer;
 
     private TextureAtlas atlasCards;
     private SpriteBatch spriteBatchCards;
@@ -80,24 +80,15 @@ public class BoardCards extends Board {
         super.render(v);
         int centerOfScreen = Gdx.graphics.getWidth() / 2;
         updateCardPositionOnScreen(centerOfScreen);
-
+        if(!givenCardsToPlayer && !movingPlayers) {
+            giveCardsToPlayer();
+        }
         //shows 9 cards player can select
         spriteBatchCards.begin();
-        System.out.println(handSize);
+
         for(int i = 0; i < handSize; i++) {
             spriteBatchCards.draw(cardsToSelectSprite.get(i), cardsPositionOnScreen.get(i), 0, CARD_WIDTH, CARD_HEIGHT);
         }
-        /*
-        spriteBatchCards.draw(cardToSelect0, cardPos0,0, CARD_WIDTH, CARD_HEIGHT);
-        spriteBatchCards.draw(cardToSelect1, cardPos1,0,CARD_WIDTH, CARD_HEIGHT);
-        spriteBatchCards.draw(cardToSelect2, cardPos2,0,CARD_WIDTH, CARD_HEIGHT);
-        spriteBatchCards.draw(cardToSelect3, cardPos3,0,CARD_WIDTH, CARD_HEIGHT);
-        spriteBatchCards.draw(cardToSelect4, cardPos4,0, CARD_WIDTH, CARD_HEIGHT);
-        spriteBatchCards.draw(cardToSelect5, cardPos5,0,CARD_WIDTH, CARD_HEIGHT);
-        spriteBatchCards.draw(cardToSelect6, cardPos6,0,CARD_WIDTH, CARD_HEIGHT);
-        spriteBatchCards.draw(cardToSelect7, cardPos7,0,CARD_WIDTH, CARD_HEIGHT);
-        spriteBatchCards.draw(cardToSelect8, cardPos8,0,CARD_WIDTH, CARD_HEIGHT);
-        */
         
         //shows numbers for order of selected cards
         spriteBatchCards.draw(number1, numberXPos.get(0), numberYPos.get(0), NUMBER_WIDTH, NUMBER_HEIGHT);
@@ -124,7 +115,6 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen - 330);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(0));
-                        numberOfNonSelectedCards.remove((Integer) 0);
                     }
                 }
 
@@ -133,7 +123,6 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen - 240);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(1));
-                        numberOfNonSelectedCards.remove((Integer) 1);
                     }
                 }
 
@@ -142,7 +131,6 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen - 150);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(2));
-                        numberOfNonSelectedCards.remove((Integer) 2);
                     }
                 }
 
@@ -151,7 +139,6 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen - 60);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(3));
-                        numberOfNonSelectedCards.remove((Integer) 3);
                     }
                 }
                 
@@ -161,7 +148,6 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen + 30);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(4));
-                        numberOfNonSelectedCards.remove((Integer) 4);
                     }
                 }
 
@@ -170,7 +156,6 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen + 120);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(5));
-                        numberOfNonSelectedCards.remove((Integer) 5);
                     }
                 }
 
@@ -179,7 +164,6 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen + 210);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(6));
-                        numberOfNonSelectedCards.remove((Integer) 6);
                     }
                 }
 
@@ -188,7 +172,6 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen + 300);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(7));
-                        numberOfNonSelectedCards.remove((Integer) 7);
                     }
                 }
 
@@ -197,14 +180,13 @@ public class BoardCards extends Board {
                         numberXPos.set(selectedCards.size(), centerOfScreen + 390);
                         numberYPos.set(selectedCards.size(), 10);
                         selectedCards.add(cardsToSelect.get(8));
-                        numberOfNonSelectedCards.remove((Integer) 8);
                     }
                 }
                 
             // This runs after the player has selected 5 cards and then presses ENTER
             } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER) || getPowerdownStatus(gameController.getCurrentPlayerByName()) == true) {
                 if (cardsToSelect.size() >= 5) {
-                    setCardsThatWerePlayedAndKeptInGameController();
+                    gameController.setCardsThatWerePlayedInRegister(selectedCards);
                     gameController.donePickingCards(selectedCards, this);
                     newTurn();
                 }
@@ -232,45 +214,33 @@ public class BoardCards extends Board {
      * Start a new turn where a new set of dealt cards are created and added to TextureAtlas to be shown on screen
      */
     public void newTurn(){
+        givenCardsToPlayer = false;
+        handSize = 0;
+        
         cardsToSelect = new ArrayList<IProgramCard>();
         selectedCards = new ArrayList<IProgramCard>();
-        numberOfNonSelectedCards = new ArrayList<Integer>();
-        for(int i = 0; i < 9; i++) {
-            numberOfNonSelectedCards.add(i);
-        }
+        cardsToSelectSprite = new ArrayList<Sprite>();
         
         setStandardNumberPosition();
-
-        // Gets the cards that weren't played last turn and adds them to this turns hand
-        ArrayList<IProgramCard> keptCards = gameController.getCardsThatWereNotPlayed();
-        for(IProgramCard card : keptCards) {
-            cardsToSelect.add(card);
+        if(!movingPlayers) {
+            System.out.println("giving cards to players");
+            giveCardsToPlayer();
         }
-        
-        int maxNumberOfCards = 9 - getDamageTokens(gameController.getCurrentPlayerByName());
-        while(cardsToSelect.size() < maxNumberOfCards) {
+    }
+    
+    private void giveCardsToPlayer() {
+        handSize = 9 - getDamageTokens(gameController.getCurrentPlayerByName());
+        System.out.println(handSize);
+        while(cardsToSelect.size() < handSize) {
             cardsToSelect.add(deck.getTopCard());
         }
         
-        handSize = Integer.max(keptCards.size(), maxNumberOfCards);
         
-        cardsToSelectSprite = new ArrayList<Sprite>();
+        
         for(int i = 0; i < handSize; i++) {
             cardsToSelectSprite.add(atlasCards.createSprite(cardsToSelect.get(i).toString(), -1));
         }
-        
-        
-        /*
-        cardToSelect0 = atlasCards.createSprite(cardsToSelect.get(0).toString(), -1);
-        cardToSelect1 = atlasCards.createSprite(cardsToSelect.get(1).toString(), -1);
-        cardToSelect2 = atlasCards.createSprite(cardsToSelect.get(2).toString(), -1);
-        cardToSelect3 = atlasCards.createSprite(cardsToSelect.get(3).toString(), -1);
-        cardToSelect4 = atlasCards.createSprite(cardsToSelect.get(4).toString(), -1);
-        cardToSelect5 = atlasCards.createSprite(cardsToSelect.get(5).toString(), -1);
-        cardToSelect6 = atlasCards.createSprite(cardsToSelect.get(6).toString(), -1);
-        cardToSelect7 = atlasCards.createSprite(cardsToSelect.get(7).toString(), -1);
-        cardToSelect8 = atlasCards.createSprite(cardsToSelect.get(8).toString(), -1);
-        */
+        givenCardsToPlayer = true;
     }
 
     /**
@@ -279,6 +249,7 @@ public class BoardCards extends Board {
      */
     public void setAllPlayersDonePickingCards(boolean value){
         allPlayersDonePickingCards = value;
+        movingPlayers = value;
     }
 
     // TODO: What is this?
@@ -303,21 +274,6 @@ public class BoardCards extends Board {
         numberYPos.add(80);
         numberYPos.add(40);
         numberYPos.add(0);
-    }
-    
-    /*
-     * Gives GameController two lists, one with cards played this turn, the other with unplayed cards
-     */
-    private void setCardsThatWerePlayedAndKeptInGameController() {
-        // For played cards:
-        gameController.setCardsThatWerePlayedInRegister(selectedCards);
-        
-        // For unplayed cards:
-        ArrayList<IProgramCard> unplayedCards = new ArrayList<IProgramCard>();
-        for(Integer i : numberOfNonSelectedCards) {
-            unplayedCards.add(cardsToSelect.get(i));
-        }
-        gameController.setCardsThatWereNotPlayed(unplayedCards);
     }
     
     /*

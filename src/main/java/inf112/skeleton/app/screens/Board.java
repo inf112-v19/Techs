@@ -170,7 +170,6 @@ public class Board implements Screen {
         checkAllCheckpoints();
         boardLogic.repairRobots();
         checkForDamageCleanup();
-        
     }
 
     public void addPlayerToBoard(Vector2 startPosition, String playerName) {

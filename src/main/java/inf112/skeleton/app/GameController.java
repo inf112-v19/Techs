@@ -26,7 +26,6 @@ public class GameController implements IGameController{
     private ArrayList<Vector2> startPosition = new ArrayList<>();
     
     private ArrayList<ArrayList<IProgramCard>> cardsPlayedInRegister = new ArrayList<>();
-    private ArrayList<ArrayList<IProgramCard>> cardsKeptBetweenTurn = new ArrayList<>();
     
     public GameController(int numPlayers, BoardCards boardCards){
         this.turns = 0;
@@ -42,7 +41,6 @@ public class GameController implements IGameController{
             playerString.put(i, playerName);
             
             cardsPlayedInRegister.add(new ArrayList<IProgramCard>());
-            cardsKeptBetweenTurn.add(new ArrayList<IProgramCard>());
         }
 
     }
@@ -64,6 +62,7 @@ public class GameController implements IGameController{
     public void donePickingCards(ArrayList<IProgramCard> cardsCurrentPlayer, BoardCards boardCards){
         playersCards.put(getNumberOfCurrentPlayer(), cardsCurrentPlayer);
         turns++;
+        // Checks if all players have chosen their cards
         if (turns % numPlayers == 0)
             boardCards.setAllPlayersDonePickingCards(true);
     }
@@ -154,16 +153,5 @@ public class GameController implements IGameController{
     
     public ArrayList<IProgramCard> getCardsThatWerePlayedLastTurn() {
         return cardsPlayedInRegister.get(getNumberOfCurrentPlayer());
-    }
-    
-    public void setCardsThatWereNotPlayed(ArrayList<IProgramCard> cards) {
-        cardsKeptBetweenTurn.get(getNumberOfCurrentPlayer()).clear();
-        for(IProgramCard card : cards) {
-            cardsKeptBetweenTurn.get(getNumberOfCurrentPlayer()).add(card);
-        }
-    }
-    
-    public ArrayList<IProgramCard> getCardsThatWereNotPlayed() {
-        return cardsKeptBetweenTurn.get(getNumberOfCurrentPlayer());
     }
 }
