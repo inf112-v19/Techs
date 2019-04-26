@@ -77,6 +77,7 @@ public class PitFallTest {
     	board.movePlayer("Player1", Direction.NORTH);
     	board.movePlayer("Player2", Direction.NORTH);
     	board.movePlayer("Player2", Direction.NORTH);
+    	assertEquals(board.getPlayerByName("Player1").getBackupPosition(), board.getPlayerByName("Player2").getBackupPosition());
     	assertEquals(board.getPlayerLocation("Player1"), board.getPlayerLocation("Player2"));
     }
     
@@ -88,7 +89,7 @@ public class PitFallTest {
     	board.addPlayerToBoard(new Vector2(2,2), "Player"); 
     	board.movePlayer("Player", Direction.WEST);
     	board.movePlayer("Player", Direction.WEST); //(0,2) out of board
-    	assertEquals(board.getPlayerLocation("Player"), new Vector2(2, 2));
+        assertEquals(board.getPlayerByName("Player").getBackupPosition(), board.getPlayerLocation("Player"));
     }
     
     /**
@@ -98,6 +99,7 @@ public class PitFallTest {
     public void checkPositionIfContainsPit(Vector2 position) {
     	assertTrue(board.cellContainsLayer((int)position.x, (int)position.y, "Pit"));
     }
+
     @Test
     public void PlayerLosesHealthIfOutOfBoard() {
         board.addPlayerToBoard(new Vector2(1, 5), "Player");

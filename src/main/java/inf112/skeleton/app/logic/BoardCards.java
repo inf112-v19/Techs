@@ -30,6 +30,31 @@ public class BoardCards extends Board {
     private final int NUMBER_WIDTH = 35;
     private final int NUMBER_HEIGHT = 35;
 
+    private final int DAMAGE_WIDTH = 35;
+    private final int DAMAGE_HEIGHT = 35;
+    private final int HEALTH_WIDTH = 70;
+    private final int HEALTH_HEIGHT = 70;
+
+    // The X and Y-value of each damage token
+    private final int DAMAGE_X = 1245;
+    private final int DAMAGE_TEN = 678;
+    private final int DAMAGE_NINE = 624;
+    private final int DAMAGE_EIGHT = 571;
+    private final int DAMAGE_SEVEN = 518;
+    private final int DAMAGE_SIX = 465;
+    private final int DAMAGE_FIVE = 412;
+    private final int DAMAGE_FOUR = 359;
+    private final int DAMAGE_THREE = 306;
+    private final int DAMAGE_TWO = 253;
+    private final int DAMAGE_ONE = 200;
+
+    // The X and Y-value of each health
+    private final int HEALTH_X = 1175;
+    private final int HEALTH_ONE = 0;
+    private final int HEALTH_TWO = 70;
+    private final int HEALTH_THREE = 140;
+
+
     private TextureAtlas atlasCards;
     private SpriteBatch spriteBatchCards;
     private Sprite cardToSelect0;
@@ -75,7 +100,7 @@ public class BoardCards extends Board {
         this.activeDamage = new Texture("assets/activeDamage.png");
         this.activeHealth = new Texture("assets/activeHealth.png");
         this.deactiveDamage = new Texture("assets/deactiveDamage.png");
-        this.deactiveHealth = new Texture("assets/deactiveHealth");
+        this.deactiveHealth = new Texture("assets/deactiveHealth.png");
 
         newTurn();
     }
@@ -112,6 +137,23 @@ public class BoardCards extends Board {
         spriteBatchCards.draw(number3, numberXPos.get(2), numberYPos.get(2), NUMBER_WIDTH, NUMBER_HEIGHT);
         spriteBatchCards.draw(number4, numberXPos.get(3), numberYPos.get(3), NUMBER_WIDTH, NUMBER_HEIGHT);
         spriteBatchCards.draw(number5, numberXPos.get(4), numberYPos.get(4), NUMBER_WIDTH, NUMBER_HEIGHT);
+
+
+        spriteBatchCards.draw(deactiveDamage, DAMAGE_X, DAMAGE_TEN, DAMAGE_WIDTH, DAMAGE_HEIGHT);
+        spriteBatchCards.draw(deactiveDamage, DAMAGE_X, DAMAGE_NINE, DAMAGE_WIDTH, DAMAGE_HEIGHT);
+        spriteBatchCards.draw(deactiveDamage, DAMAGE_X, DAMAGE_EIGHT, DAMAGE_WIDTH, DAMAGE_HEIGHT);
+        spriteBatchCards.draw(deactiveDamage, DAMAGE_X, DAMAGE_SEVEN, DAMAGE_WIDTH, DAMAGE_HEIGHT);
+        spriteBatchCards.draw(deactiveDamage, DAMAGE_X, DAMAGE_SIX, DAMAGE_WIDTH, DAMAGE_HEIGHT);
+        spriteBatchCards.draw(deactiveDamage, DAMAGE_X, DAMAGE_FIVE, DAMAGE_WIDTH, DAMAGE_HEIGHT);
+        spriteBatchCards.draw(deactiveDamage, DAMAGE_X, DAMAGE_FOUR, DAMAGE_WIDTH, DAMAGE_HEIGHT);
+        spriteBatchCards.draw(deactiveDamage, DAMAGE_X, DAMAGE_THREE, DAMAGE_WIDTH, DAMAGE_HEIGHT);
+        spriteBatchCards.draw(deactiveDamage, DAMAGE_X, DAMAGE_TWO, DAMAGE_WIDTH, DAMAGE_HEIGHT);
+        spriteBatchCards.draw(deactiveDamage, DAMAGE_X, DAMAGE_ONE, DAMAGE_WIDTH, DAMAGE_HEIGHT);
+
+        spriteBatchCards.draw(activeHealth, HEALTH_X, HEALTH_ONE, HEALTH_WIDTH, HEALTH_HEIGHT);
+        spriteBatchCards.draw(activeHealth, HEALTH_X, HEALTH_TWO, HEALTH_WIDTH, HEALTH_HEIGHT);
+        spriteBatchCards.draw(activeHealth, HEALTH_X, HEALTH_THREE, HEALTH_WIDTH, HEALTH_HEIGHT);
+
         spriteBatchCards.end();
 
 

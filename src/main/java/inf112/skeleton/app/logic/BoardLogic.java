@@ -20,7 +20,7 @@ public class BoardLogic {
     private static final String ROBOT_SPRITE_SHEET_RED = "assets/RedRobotSpriteSheet.png";
     private static final String ROBOT_SPRITE_SHEET_YELLOW = "assets/YellowRobotSpriteSheet.png";
     // Keeps track of which color next player should have 
-    private ArrayList<String> sprites = new ArrayList<String>(); 
+    private ArrayList<String> sprites = new ArrayList<>();
     private int spriteNumber; 
     
     private ArrayList<PlayerToken> playersList;

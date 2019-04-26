@@ -66,11 +66,6 @@
    eJxjYBhZQH+gHTBIAbZwGQ2r4QcAQIMAjg==
   </data>
  </layer>
- <layer id="56" name="Pit" width="14" height="18" locked="1">
-  <data encoding="base64" compression="zlib">
-   eJwLZGBgCCQTkwrQ9bGRqY9c+0b1Daw+YuObWvYNd33kYACqAxMJ
-  </data>
- </layer>
  <layer id="52" name="Conveyor" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJxjYKAO0IbSOmhsZDkY0CVSH7paYu1DB3pImAFJLbI+XiSMDyDrwwV0sWBi5NDdiuxeXiwYHxAm0Z249OFyJwzA1CLrwxUPpOjTY8AOkPXBAK50Rm8AizMFPGpkGXCHpwoDZrzD1KpTx4kMAHe6DEE=
@@ -79,6 +74,11 @@
  <layer id="60" name="OutsideBoard" width="14" height="18" locked="1">
   <data encoding="base64" compression="zlib">
    eJwLZGBgCCQTkwpG9Y3qG9VHPX3kYACMMxL9
+  </data>
+ </layer>
+ <layer id="56" name="Pit" width="14" height="18">
+  <data encoding="base64" compression="zlib">
+   eJwLZGBgCCQTkwrQ9bGRqY9c+0b1Daw+YuObWvYNd33kYACqAxMJ
   </data>
  </layer>
  <layer id="57" name="Checkpoints" width="14" height="18" locked="1">

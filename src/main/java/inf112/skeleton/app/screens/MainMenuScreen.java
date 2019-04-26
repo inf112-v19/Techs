@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import inf112.skeleton.app.logic.BoardCards;
 import inf112.skeleton.app.RoboRally;
+import inf112.skeleton.app.logic.Hud;
 
 public class MainMenuScreen implements Screen {
     private static final int PLAYBUTTON_WIDTH = 200;
@@ -23,7 +24,6 @@ public class MainMenuScreen implements Screen {
     private Texture exitButtonInactive;
 
     private RoboRally game;
-
     private BoardCards BoardScreen;
 
     public MainMenuScreen(RoboRally game) {

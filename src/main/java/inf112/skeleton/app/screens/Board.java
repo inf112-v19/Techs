@@ -4,12 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.logic.BoardLogic;
 import inf112.skeleton.app.logic.Direction;
+import inf112.skeleton.app.logic.Hud;
 import inf112.skeleton.app.objects.PlayerToken;
 import inf112.skeleton.app.RoboRally;
 
@@ -33,6 +36,7 @@ public class Board implements Screen {
         this.game = game;
         boardLogic = new BoardLogic(this.map);
         statetime = 0f;
+
     }
         
     @Override
@@ -52,6 +56,7 @@ public class Board implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
+
         for (PlayerToken robot : boardLogic.getPlayersList()) {
             game.batch.draw(robot.getRobotAnimation().getKeyFrame(statetime,true), robot.getX(), robot.getY(), 
                     ROBOT_WIDTH/2, ROBOT_HEIGHT/2, ROBOT_WIDTH, ROBOT_HEIGHT, 1, 1, robot.getRotation());

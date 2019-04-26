@@ -327,9 +327,7 @@ public class PlayerToken extends Sprite {
      * @param lastCheckpoint The last checkpoint the player has passed is set as new backup-position
      */
     public void setBackupPosition(Vector2 lastCheckpoint) {
-        if (numberOfCheckpointsPassed() < 1) {
-            return;
-        } else {
+        if (numberOfCheckpointsPassed() > 0) {
             backupPosition = new Vector2(lastCheckpoint.x, lastCheckpoint.y);
         }
     }
