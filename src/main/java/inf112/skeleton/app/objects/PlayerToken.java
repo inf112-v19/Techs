@@ -32,8 +32,6 @@ public class PlayerToken extends Sprite {
 	private int health = 3;
 	private boolean destroyed = false;
 	private boolean powerdownStatus = false;
-	// TODO: Remove
-	private int numberOfCardsDealt;
 	private int numberOfCheckpointsPassed;
 
 	// Variables needed for animated sprites
@@ -48,7 +46,6 @@ public class PlayerToken extends Sprite {
 		this.facingDirection = Direction.NORTH;
 		this.damageToken = 0;
 		this.health = 3;
-		this.numberOfCardsDealt = 9;
         this.position = startPosition;
 		this.recentlyBackuped = true;
 
@@ -81,7 +78,6 @@ public class PlayerToken extends Sprite {
 	public void addDamageToken() {
 		if (!damageTokenFull()) {
 			damageToken++;
-			numberOfCardsDealt--;
 		}
 	}
 
@@ -304,7 +300,6 @@ public class PlayerToken extends Sprite {
 			return;
 		}
 		damageToken--;
-		numberOfCardsDealt++;
 	}
 
     /**
@@ -328,7 +323,9 @@ public class PlayerToken extends Sprite {
      * @param lastCheckpoint The last checkpoint the player has passed is set as new backup-position
      */
     public void setBackupPosition(Vector2 lastCheckpoint) {
-        if (numberOfCheckpointsPassed() > 0) {
+        if (numberOfCheckpointsPassed() < 1) {
+            return;
+        } else {
             backupPosition = new Vector2(lastCheckpoint.x, lastCheckpoint.y);
         }
     }
@@ -339,7 +336,6 @@ public class PlayerToken extends Sprite {
      */
     public void setDamageToken(int damage) {
         this.damageToken = damage;
-        numberOfCardsDealt = 9-damage;
     }
 
     /**
