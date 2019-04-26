@@ -35,6 +35,8 @@ public class BoardCards extends Board {
     
     private int handSize;
     private int centerOfScreen;
+    private int numberOfCardsSelected = 0;
+    private int numberOfLockedRegisters;
     private boolean movingPlayers = false;
     private boolean givenCardsToPlayer;
 
@@ -94,6 +96,8 @@ public class BoardCards extends Board {
         // If the player hasn't gotten cards yet, give cards
         if(!givenCardsToPlayer && !movingPlayers) {
             giveCardsToPlayer();
+            System.out.println(getDamageTokens(gameController.getCurrentPlayerByName()));
+
         }
         //shows 9 cards player can select
         spriteBatchCards.begin();
@@ -128,7 +132,7 @@ public class BoardCards extends Board {
                             Gdx.input.getX() < (cardsPositionOnScreen.get(i) + CARD_WIDTH) && 
                             Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() 
                             || Gdx.input.isKeyPressed(keysForChoosingCards.get(i))) {
-                        selectCard(i, centerOfScreen);
+                        selectCard(i, centerOfScreen, -1);
                     }
                 }
                 
@@ -150,11 +154,22 @@ public class BoardCards extends Board {
         }
     }
     
-    private void selectCard(int cardToSelect, int centerOfScreen) {
+    private void selectCard(int cardToSelect, int centerOfScreen, int locationInRegister) {
         if (!selectedCards.contains(cardsToSelect.get(cardToSelect))) {
-            numberXPos.set(selectedCards.size(), centerOfScreen - 330 + (cardToSelect * 90));
-            numberYPos.set(selectedCards.size(), 10);
-            selectedCards.add(cardsToSelect.get(cardToSelect));
+         
+            if(locationInRegister != -1) {
+                numberXPos.set(locationInRegister, centerOfScreen - 330 + (cardToSelect * 90));
+                numberYPos.set(locationInRegister, 10);
+                selectedCards.add(cardsToSelect.get(cardToSelect));
+                numberOfLockedRegisters++;
+            } else {
+                numberXPos.set(numberOfCardsSelected, centerOfScreen - 330 + (cardToSelect * 90));
+                numberYPos.set(numberOfCardsSelected, 10);
+                selectedCards.add(selectedCards.size() - numberOfLockedRegisters, cardsToSelect.get(cardToSelect));
+                numberOfCardsSelected++;
+            }
+            //selectedCards.add(selectedCards.size() - numberOfLockedRegisters, cardsToSelect.get(cardToSelect));
+            
         }
     }
 
@@ -174,6 +189,8 @@ public class BoardCards extends Board {
     public void newTurn(){
         givenCardsToPlayer = false;
         handSize = 0;
+        numberOfCardsSelected = 0;
+        numberOfLockedRegisters = 0;
         
         cardsToSelect = new ArrayList<IProgramCard>();
         selectedCards = new ArrayList<IProgramCard>();
@@ -184,6 +201,7 @@ public class BoardCards extends Board {
         // Give cards to player if the move phase hasn't started
         if(!movingPlayers) {
             giveCardsToPlayer();
+            System.out.println(getDamageTokens(gameController.getCurrentPlayerByName()));
         }
     }
     
@@ -194,14 +212,11 @@ public class BoardCards extends Board {
             cardsToSelect.add(deck.getTopCard());
         }
         
-        System.out.println("number of damage tokens: " + damageTokens);
-        for(int i = damageTokens - 4; i > 0; i--) {
-            int registerToLock = 5 - i;
-            System.out.println("locking register " + registerToLock);
+        for(int i = 9 - damageTokens; i < 5; i++) {
             // add card to hand
-            cardsToSelect.add(registerToLock, gameController.getCardsThatWerePlayedLastTurn().get(registerToLock));
+            cardsToSelect.add(i, gameController.getCardsThatWerePlayedLastTurn().get(i));
             // Select that card
-            selectCard(registerToLock, centerOfScreen);
+            selectCard(i, centerOfScreen, i);
         }
         
         for(int i = 0; i < handSize; i++) {
