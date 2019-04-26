@@ -135,6 +135,9 @@ public class BoardCards extends Board {
         spriteBatchCards.draw(number5, numberXPos.get(4), numberYPos.get(4), NUMBER_WIDTH, NUMBER_HEIGHT);
 
 
+        int damage = getDamageTokens(gameController.getCurrentPlayerByName());
+
+        for (int i = )
         spriteBatchCards.draw(deactiveDamage, DAMAGE_X, DAMAGE_TEN, DAMAGE_WIDTH, DAMAGE_HEIGHT);
         spriteBatchCards.draw(deactiveDamage, DAMAGE_X, DAMAGE_NINE, DAMAGE_WIDTH, DAMAGE_HEIGHT);
         spriteBatchCards.draw(deactiveDamage, DAMAGE_X, DAMAGE_EIGHT, DAMAGE_WIDTH, DAMAGE_HEIGHT);
@@ -288,9 +291,7 @@ public class BoardCards extends Board {
         while(cardsToSelect.size() < handSize) {
             cardsToSelect.add(deck.getTopCard());
         }
-        
-        
-        
+
         for(int i = 0; i < handSize; i++) {
             cardsToSelectSprite.add(atlasCards.createSprite(cardsToSelect.get(i).toString(), -1));
         }
