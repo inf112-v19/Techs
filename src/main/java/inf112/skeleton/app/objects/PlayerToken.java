@@ -32,11 +32,7 @@ public class PlayerToken extends Sprite {
 	private int damageToken = 0;
 	private int health = 3;
 	private boolean destroyed = false;
-	private Vector2 archiveMarker;
 	private boolean powerdownStatus = false;
-	// TODO: Remove
-	private int numberOfCardsDealt;
-
 	private int numberOfCheckpointsPassed;
 
 	// Variables needed for animated sprites
@@ -47,14 +43,12 @@ public class PlayerToken extends Sprite {
 
 	public PlayerToken(String givenName, String textureSpriteSheet, Vector2 startPosition) {
 		this.playerName = givenName;
-		this.archiveMarker = startPosition;
-		backupPosition = new Vector2(startPosition.x, startPosition.y);
-		facingDirection = Direction.NORTH;
-		damageToken = 0;
-		health = 3;
-		numberOfCardsDealt = 9;
-        position = startPosition;
-		recentlyBackuped = true;
+		this.backupPosition = new Vector2(startPosition.x, startPosition.y);
+		this.facingDirection = Direction.NORTH;
+		this.damageToken = 0;
+		this.health = 3;
+        this.position = startPosition;
+		this.recentlyBackuped = true;
 
 		// All regarding spritesheet and getting the frames correctly is done here.
 		spriteSheet = new Texture(textureSpriteSheet);
@@ -85,7 +79,6 @@ public class PlayerToken extends Sprite {
 	public void addDamageToken() {
 		if (!damageTokenFull()) {
 			damageToken++;
-			numberOfCardsDealt--;
 		}
 	}
 
@@ -112,7 +105,7 @@ public class PlayerToken extends Sprite {
         if (damageTokenFull()) {
             takeHealth();
             setDamageToken(2);
-            moveToArchiveMarker();
+            moveToBackup();
         }
     }
 
@@ -138,14 +131,6 @@ public class PlayerToken extends Sprite {
      */
     public boolean damageTokenFull() {
         return (damageToken >= 10);
-    }
-
-    /**
-     * Gets the player's archive-position.
-     * @return The vector2-position of the player's archive marker
-     */
-    public Vector2 getArchiveMarker() {
-        return new Vector2(archiveMarker.x, archiveMarker.y);
     }
 
     /**
@@ -275,18 +260,9 @@ public class PlayerToken extends Sprite {
     }
 
     /**
-     * Moves the player to its archived marker-position
-     */
-    public void moveToArchiveMarker() {
-        position = getArchiveMarker();
-        setXPositionOnBoard();
-        setYPositionOnBoard();
-    }
-
-    /**
      * Moves the player to its last checkpoint
      */
-    public void moveToLastCheckpoint() {
+    public void moveToBackup() {
         position = getBackupPosition();
         setXPositionOnBoard();
         setYPositionOnBoard();
@@ -325,7 +301,6 @@ public class PlayerToken extends Sprite {
 			return;
 		}
 		damageToken--;
-		numberOfCardsDealt++;
 	}
 
     /**
@@ -362,7 +337,6 @@ public class PlayerToken extends Sprite {
      */
     public void setDamageToken(int damage) {
         this.damageToken = damage;
-        numberOfCardsDealt = 9-damage;
     }
 
     /**
@@ -382,6 +356,7 @@ public class PlayerToken extends Sprite {
 	public boolean getPowerdownStatus() {
 		return this.powerdownStatus;
 	}
+
     /**
      * Sets the health of a player
      * @param health The health the player is given

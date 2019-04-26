@@ -37,10 +37,28 @@ public class BoardCards extends Board {
     private boolean movingPlayers = false;
     private boolean givenCardsToPlayer;
 
+    private final int DAMAGE_WIDTH = 35;
+    private final int DAMAGE_HEIGHT = 35;
+    private final int HEALTH_WIDTH = 70;
+    private final int HEALTH_HEIGHT = 70;
+
+    // The X and Y-value of each damage token
+    private final int DAMAGE_X = 1245;
+
+    // The X and Y-value of each health
+    private final int HEALTH_X = 1175;
+    private final int HEALTH_ONE = 0;
+    private final int HEALTH_TWO = 70;
+    private final int HEALTH_THREE = 140;
+
+
     private TextureAtlas atlasCards;
     private SpriteBatch spriteBatchCards;
     private ArrayList<Sprite> cardsToSelectSprite;
     private ArrayList<Integer> cardsPositionOnScreen;
+    private ArrayList<Integer> damageTokensOnScreen;
+    private ArrayList<Integer> healthTokensOnScreen;
+
     /*
     private Sprite cardToSelect0;
     private Sprite cardToSelect1;
@@ -58,6 +76,12 @@ public class BoardCards extends Board {
     private Texture number4;
     private Texture number5;
 
+    // Sprites regarding health and damage tokens
+    private Texture activeHealth;
+    private Texture deactiveHealth;
+    private Texture activeDamage;
+    private Texture deactiveDamage;
+
     //shows order of selected cards
     private ArrayList<Integer> numberXPos;
     private ArrayList<Integer> numberYPos;
@@ -74,6 +98,12 @@ public class BoardCards extends Board {
         number3 = new Texture("assets/ProgramSheet/numbersInCircle/numberThree.png");
         number4 = new Texture("assets/ProgramSheet/numbersInCircle/numberFour.png");
         number5 = new Texture("assets/ProgramSheet/numbersInCircle/numberFive.png");
+
+        this.activeDamage = new Texture("assets/activeDamage.png");
+        this.activeHealth = new Texture("assets/activeHealth.png");
+        this.deactiveDamage = new Texture("assets/deactiveDamage.png");
+        this.deactiveHealth = new Texture("assets/deactiveHealth.png");
+
         newTurn();
         
         // Creates and fills keysForChoosingCards with the correct numbers
@@ -89,6 +119,8 @@ public class BoardCards extends Board {
         super.render(v);
         int centerOfScreen = Gdx.graphics.getWidth() / 2;
         updateCardPositionOnScreen(centerOfScreen);
+        getdamageTokenOnScreenLocation();
+        getHealthTokensOnScreen();
         
         // If the player hasn't gotten cards yet, give cards
         if(!givenCardsToPlayer && !movingPlayers) {
@@ -107,6 +139,30 @@ public class BoardCards extends Board {
         spriteBatchCards.draw(number3, numberXPos.get(2), numberYPos.get(2), NUMBER_WIDTH, NUMBER_HEIGHT);
         spriteBatchCards.draw(number4, numberXPos.get(3), numberYPos.get(3), NUMBER_WIDTH, NUMBER_HEIGHT);
         spriteBatchCards.draw(number5, numberXPos.get(4), numberYPos.get(4), NUMBER_WIDTH, NUMBER_HEIGHT);
+
+
+        int damage = getDamageTokens(gameController.getCurrentPlayerByName());
+        int health = getHealth(gameController.getCurrentPlayerByName());
+
+        for (int i = 0; i < 10; i++) {
+            if (damage > 0) {
+                spriteBatchCards.draw(activeDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH, DAMAGE_HEIGHT);
+                damage--;
+                continue;
+            }
+            spriteBatchCards.draw(deactiveDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH, DAMAGE_HEIGHT);
+        }
+
+        for (int i = 0; i < 3; i++) {
+            if (health > 0) {
+                spriteBatchCards.draw(activeHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
+                health--;
+                continue;
+            }
+            spriteBatchCards.draw(deactiveHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
+        }
+
+
         spriteBatchCards.end();
 
 
@@ -238,6 +294,24 @@ public class BoardCards extends Board {
         cardsPositionOnScreen = new ArrayList<Integer>();
         for(int i = 0; i < 9; i++) {
             cardsPositionOnScreen.add(centerOfScreen - 360 + (i * 90));
+        }
+    }
+
+    private void getdamageTokenOnScreenLocation() {
+        damageTokensOnScreen = new ArrayList<>();
+        int y = 200;
+        for (int i = 0; i < 10; i++) {
+            damageTokensOnScreen.add(y);
+            y += 53;
+        }
+    }
+
+    private void getHealthTokensOnScreen() {
+        healthTokensOnScreen = new ArrayList<>();
+        int y = 0;
+        for (int i = 0; i < 3; i++) {
+            healthTokensOnScreen.add(y);
+            y += 70;
         }
     }
 }

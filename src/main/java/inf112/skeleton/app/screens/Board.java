@@ -4,12 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.logic.BoardLogic;
 import inf112.skeleton.app.logic.Direction;
+import inf112.skeleton.app.logic.Hud;
 import inf112.skeleton.app.objects.PlayerToken;
 import inf112.skeleton.app.RoboRally;
 
@@ -33,6 +36,7 @@ public class Board implements Screen {
         this.game = game;
         boardLogic = new BoardLogic(this.map);
         statetime = 0f;
+
     }
         
     @Override
@@ -52,6 +56,7 @@ public class Board implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
+
         for (PlayerToken robot : boardLogic.getPlayersList()) {
             game.batch.draw(robot.getRobotAnimation().getKeyFrame(statetime,true), robot.getX(), robot.getY(), 
                     ROBOT_WIDTH/2, ROBOT_HEIGHT/2, ROBOT_WIDTH, ROBOT_HEIGHT, 1, 1, robot.getRotation());
@@ -167,7 +172,9 @@ public class Board implements Screen {
         moveConveyorBelts();
         moveRotateWheel();
         boardLogic.shootPlayerLaser();
+        boardLogic.activateLasersOnBoard();
         checkAllCheckpoints();
+        boardLogic.checkPlayersLife();
         boardLogic.repairRobots();
         checkForDamageCleanup();
     }
@@ -185,8 +192,17 @@ public class Board implements Screen {
     public void checkAllCheckpoints() {
         boardLogic.checkAllCheckpoints();
     }
+    public void checkForDamageCleanup() {
+        boardLogic.checkForDamageCleanup();
+    }
+    public void doPowerdown(String name) {
+        boardLogic.powerdown(name);
+    }
     public BoardLogic getBoardLogic(){
         return boardLogic;
+    }
+    public boolean getPowerdownStatus(String name) {
+        return boardLogic.getPowerdownStatus(name);
     }
     public void moveConveyorBelts() {
         boardLogic.moveConveyorBelts();
@@ -206,17 +222,23 @@ public class Board implements Screen {
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
     }
-    public void checkForDamageCleanup() {
-    	boardLogic.checkForDamageCleanup();
-    }
-    public void doPowerdown(String name) {
-    	boardLogic.powerdown(name);
-    }
-    public boolean getPowerdownStatus(String name) {
-    	return boardLogic.getPowerdownStatus(name);
-    }
+
+    /**
+     * This method is used to get information about player damage over to BoardCards
+     * @param name The name of the player who we want information about
+     * @return The number of damage tokens received
+     */
     public int getDamageTokens(String name) {
         return boardLogic.getDamageTokens(name);
+    }
+
+    /**
+     * This method is used to get information about player health over to BoardCards
+     * @param name The name of the player who we want information about
+     * @return The number of health tokens left
+     */
+    public int getHealth(String name) {
+        return boardLogic.getHealth(name);
     }
     
 }
