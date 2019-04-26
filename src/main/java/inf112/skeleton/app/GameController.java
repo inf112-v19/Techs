@@ -15,20 +15,18 @@ import java.util.HashMap;
 
 public class GameController implements IGameController{
     private int numPlayers;
-    //total number of turns
     private int turns;
-    //Integer = player, ArrayList<IProgramCard> cards to player. Key 0 is starting player, Key 1 is player
-    //after starting player
+    // Keeps track of how many times a player has moved (used to detect when endOfTurn should run)
+    private int movesDone = 0;  
     private HashMap<Integer, ArrayList<IProgramCard>> playersCards;
     private HashMap<Integer, String> playerString;
-    private String playerOne = "playerOne";
-    private String playerTwo = "playerTwo";
-
     private HashMap<Integer, IProgramCard> firstCards;
     private HashMap<IProgramCard, Integer> firstCardsInverse;
 
     private ArrayList<Vector2> startPosition = new ArrayList<>();
-
+    
+    private ArrayList<ArrayList<IProgramCard>> cardsPlayedInRegister = new ArrayList<>();
+    
     public GameController(int numPlayers, BoardCards boardCards){
         this.turns = 0;
         this.numPlayers = numPlayers;
@@ -41,6 +39,8 @@ public class GameController implements IGameController{
             String playerName = "player " + (i+1);
             boardCards.addPlayerToBoard(startPosition.get(i), playerName);
             playerString.put(i, playerName);
+            
+            cardsPlayedInRegister.add(new ArrayList<IProgramCard>());
         }
     }
 
@@ -56,11 +56,12 @@ public class GameController implements IGameController{
         startPosition.add(new Vector2(12,4));
     }
 
+    // This runs when the player has chosen 5 cards and presses ENTER
     @Override
     public void donePickingCards(ArrayList<IProgramCard> cardsCurrentPlayer, BoardCards boardCards){
-        int currentPlayer = turns % numPlayers;
-        playersCards.put(currentPlayer, cardsCurrentPlayer);
+        playersCards.put(getNumberOfCurrentPlayer(), cardsCurrentPlayer);
         turns++;
+        // Checks if all players have chosen their cards
         if (turns % numPlayers == 0)
             boardCards.setAllPlayersDonePickingCards(true);
     }
@@ -81,8 +82,18 @@ public class GameController implements IGameController{
         }
 
         moveOnePlayer(boardCards);
-        if (playersCards.get(0).isEmpty() && firstCards.isEmpty())
+        
+        movesDone++;
+        if(movesDone % numPlayers == 0) {
+            System.out.println("Do end of turn");
+            boardCards.processEndOfTurns();
+        }
+        
+        
+        if (playersCards.get(0).isEmpty() && firstCards.isEmpty()) {
             boardCards.setAllPlayersDonePickingCards(false);
+            movesDone = 0;
+        }
 
     }
 
@@ -124,12 +135,22 @@ public class GameController implements IGameController{
         return turns;
     }
     
-    public String getCurrentPlayerByName() {
-    	int currentPlayer = turns % numPlayers;
-    	return playerString.get(currentPlayer);
+    public int getNumberOfCurrentPlayer() {
+        return turns % numPlayers;
     }
     
+    public String getCurrentPlayerByName() {
+    	return playerString.get(getNumberOfCurrentPlayer());
+    }
     
+    public void setCardsThatWerePlayedInRegister(ArrayList<IProgramCard> cards) {
+        cardsPlayedInRegister.get(getNumberOfCurrentPlayer()).clear();
+        for(IProgramCard card : cards) {
+            cardsPlayedInRegister.get(getNumberOfCurrentPlayer()).add(card);
+        }    
+    }
     
-
+    public ArrayList<IProgramCard> getCardsThatWerePlayedLastTurn() {
+        return cardsPlayedInRegister.get(getNumberOfCurrentPlayer());
+    }
 }

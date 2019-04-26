@@ -350,4 +350,7 @@ public class BoardLogic {
     	return getPlayerByName(name).getPowerdownStatus();
     }
     
+    public int getDamageTokens(String name) {
+        return getPlayerByName(name).getDamageToken();
+    }
 }

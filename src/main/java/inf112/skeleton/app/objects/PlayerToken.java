@@ -32,6 +32,7 @@ public class PlayerToken extends Sprite {
 	private int health = 3;
 	private boolean destroyed = false;
 	private boolean powerdownStatus = false;
+	// TODO: Remove
 	private int numberOfCardsDealt;
 	private int numberOfCheckpointsPassed;
 

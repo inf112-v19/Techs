@@ -177,7 +177,6 @@ public class Board implements Screen {
         boardLogic.checkPlayersLife();
         boardLogic.repairRobots();
         checkForDamageCleanup();
-        
     }
 
     public void addPlayerToBoard(Vector2 startPosition, String playerName) {
@@ -223,4 +222,8 @@ public class Board implements Screen {
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
     }
+    public int getDamageTokens(String name) {
+        return boardLogic.getDamageTokens(name);
+    }
+    
 }
