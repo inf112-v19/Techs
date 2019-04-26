@@ -2,12 +2,14 @@ package inf112.skeleton.app.logic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import inf112.skeleton.app.GameController;
 import inf112.skeleton.app.objects.IProgramCard;
+import inf112.skeleton.app.objects.ProgramCard;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.screens.Board;
 
@@ -21,6 +23,7 @@ public class BoardCards extends Board {
     private ProgramCardDeck deck = new ProgramCardDeck();
     private ArrayList<IProgramCard> cardsToSelect;
     private ArrayList<IProgramCard> selectedCards;
+    private boolean isPowerdown = false;
 
     private final int CARD_WIDTH = 94;
     private final int CARD_HEIGHT = 130;
@@ -121,8 +124,14 @@ public class BoardCards extends Board {
                 finishedTurn = false;
             }
             
-            //these if-statements handles which cards has been selected by user
+            if(Gdx.input.isKeyJustPressed(Keys.P)) {
+            	doPowerdown(gameController.getCurrentPlayerByName()); 
+            	while(selectedCards.size() < 5) {
+            		selectedCards.add(new ProgramCard(CardType.MOVEMENT_0, 0, 0, 0));         		
+            	}
+            }
 
+            //these if-statements handles which cards has been selected by user         
             if (selectedCards.size() < 5) {
 
 
@@ -198,8 +207,8 @@ public class BoardCards extends Board {
                     }
                 }
 
-            } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-                if (cardsToSelect.size() >= 5) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER) || getPowerdownStatus(gameController.getCurrentPlayerByName()) == true) {
+                if (cardsToSelect.size() >= 5) { 
                     gameController.donePickingCards(selectedCards, this);
                     newTurn();
                 }

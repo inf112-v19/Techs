@@ -191,8 +191,14 @@ public class Board implements Screen {
     public void checkForDamageCleanup() {
         boardLogic.checkForDamageCleanup();
     }
+    public void doPowerdown(String name) {
+        boardLogic.powerdown(name);
+    }
     public BoardLogic getBoardLogic(){
         return boardLogic;
+    }
+    public boolean getPowerdownStatus(String name) {
+        return boardLogic.getPowerdownStatus(name);
     }
     public void moveConveyorBelts() {
         boardLogic.moveConveyorBelts();

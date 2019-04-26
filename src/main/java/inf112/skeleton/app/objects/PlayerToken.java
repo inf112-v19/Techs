@@ -28,11 +28,11 @@ public class PlayerToken extends Sprite {
 	private int targetRotation;
 	private boolean recentlyBackuped;
 
-	private int damageToken;
-	private int health;
+	private int damageToken = 0;
+	private int health = 3;
+	private boolean destroyed = false;
+	private boolean powerdownStatus = false;
 	private int numberOfCardsDealt;
-
-	private boolean destroyed;
 	private int numberOfCheckpointsPassed;
 
 	// Variables needed for animated sprites
@@ -350,7 +350,16 @@ public class PlayerToken extends Sprite {
 	public void setDestroyed(boolean destroyed) {
 		this.destroyed = destroyed;
 	}
-
+	
+	public void doPowerdown() {	
+		this.damageToken = 0;
+		this.powerdownStatus = true;
+		System.out.println("Doing powerdown");
+	}
+	
+	public boolean getPowerdownStatus() {
+		return this.powerdownStatus;
+	}
     /**
      * Sets the health of a player
      * @param health The health the player is given
