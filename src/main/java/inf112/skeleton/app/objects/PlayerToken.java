@@ -394,8 +394,6 @@ public class PlayerToken extends Sprite {
         health--;
         if (health < 1) {
             setDestroyed(true);
-            System.out.println(playerName + " has no lives left. Game over");
-            Gdx.app.exit();
         }
     }
 

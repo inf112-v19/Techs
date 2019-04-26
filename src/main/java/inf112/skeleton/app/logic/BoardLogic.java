@@ -145,8 +145,7 @@ public class BoardLogic {
     public void checkPlayersLife() {
         for (PlayerToken player : playersList) {
             if (player.getHealth() <= 0) {
-                System.out.println(player.getName() + " has no lives left and the game is over.");
-                Gdx.app.exit();
+                System.out.println(player.getName() + " has no lives left.");
             }
         }
     }
