@@ -45,6 +45,12 @@ public class BoardCards extends Board {
     private Texture number4;
     private Texture number5;
 
+    // Sprites regarding health and damage tokens
+    private Texture activeHealth;
+    private Texture deactiveHealth;
+    private Texture activeDamage;
+    private Texture deactiveDamage;
+
     //shows order of selected cards
     private ArrayList<Integer> numberXPos;
     private ArrayList<Integer> numberYPos;
@@ -62,6 +68,12 @@ public class BoardCards extends Board {
         number3 = new Texture("assets/ProgramSheet/numbersInCircle/numberThree.png");
         number4 = new Texture("assets/ProgramSheet/numbersInCircle/numberFour.png");
         number5 = new Texture("assets/ProgramSheet/numbersInCircle/numberFive.png");
+
+        this.activeDamage = new Texture("assets/activeDamage.png");
+        this.activeHealth = new Texture("assets/activeHealth.png");
+        this.deactiveDamage = new Texture("assets/deactiveDamage.png");
+        this.deactiveHealth = new Texture("assets/deactiveHealth");
+
         newTurn();
     }
 
@@ -98,6 +110,8 @@ public class BoardCards extends Board {
         spriteBatchCards.draw(number4, numberXPos.get(3), numberYPos.get(3), NUMBER_WIDTH, NUMBER_HEIGHT);
         spriteBatchCards.draw(number5, numberXPos.get(4), numberYPos.get(4), NUMBER_WIDTH, NUMBER_HEIGHT);
         spriteBatchCards.end();
+
+
 
         if (!allPlayersDonePickingCards) {
             
@@ -197,7 +211,6 @@ public class BoardCards extends Board {
                 finishedTurn = true;
             }
         }
-
     }
 
     /**
