@@ -353,4 +353,8 @@ public class BoardLogic {
     public int getDamageTokens(String name) {
         return getPlayerByName(name).getDamageToken();
     }
+
+    public int getHealth(String name) {
+        return  getPlayerByName(name).getHealth();
+    }
 }

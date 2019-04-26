@@ -222,8 +222,23 @@ public class Board implements Screen {
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
     }
+
+    /**
+     * This method is used to get information about player damage over to BoardCards
+     * @param name The name of the player who we want information about
+     * @return The number of damage tokens received
+     */
     public int getDamageTokens(String name) {
         return boardLogic.getDamageTokens(name);
+    }
+
+    /**
+     * This method is used to get information about player health over to BoardCards
+     * @param name The name of the player who we want information about
+     * @return The number of health tokens left
+     */
+    public int getHealth(String name) {
+        return boardLogic.getHealth(name);
     }
     
 }

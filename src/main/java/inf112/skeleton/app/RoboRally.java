@@ -29,11 +29,4 @@ public class RoboRally extends Game {
     public void dispose() {
         batch.dispose();
     }
-
-    public int getScreenWidth() {
-        return SCREEN_WIDTH;
-    }
-    public int getScreenHeight() {
-        return SCREEN_HEIGHT;
-    }
 }
