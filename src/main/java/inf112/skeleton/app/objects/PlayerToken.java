@@ -34,6 +34,7 @@ public class PlayerToken extends Sprite {
 	private boolean destroyed = false;
 	private Vector2 archiveMarker;
 	private boolean powerdownStatus = false;
+	// TODO: Remove
 	private int numberOfCardsDealt;
 
 	private int numberOfCheckpointsPassed;

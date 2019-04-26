@@ -170,7 +170,6 @@ public class Board implements Screen {
         checkAllCheckpoints();
         boardLogic.repairRobots();
         checkForDamageCleanup();
-        
     }
 
     public void addPlayerToBoard(Vector2 startPosition, String playerName) {
@@ -210,13 +209,14 @@ public class Board implements Screen {
     public void checkForDamageCleanup() {
     	boardLogic.checkForDamageCleanup();
     }
-    
     public void doPowerdown(String name) {
     	boardLogic.powerdown(name);
     }
-    
     public boolean getPowerdownStatus(String name) {
     	return boardLogic.getPowerdownStatus(name);
+    }
+    public int getDamageTokens(String name) {
+        return boardLogic.getDamageTokens(name);
     }
     
 }
