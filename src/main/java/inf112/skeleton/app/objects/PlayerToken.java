@@ -1,5 +1,6 @@
 package inf112.skeleton.app.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
@@ -42,7 +43,7 @@ public class PlayerToken extends Sprite {
 
 	public PlayerToken(String givenName, String textureSpriteSheet, Vector2 startPosition) {
 		this.playerName = givenName;
-		this.backupPosition = startPosition;
+		this.backupPosition = new Vector2(startPosition.x, startPosition.y);
 		this.facingDirection = Direction.NORTH;
 		this.damageToken = 0;
 		this.health = 3;
@@ -355,6 +356,7 @@ public class PlayerToken extends Sprite {
 	public boolean getPowerdownStatus() {
 		return this.powerdownStatus;
 	}
+
     /**
      * Sets the health of a player
      * @param health The health the player is given
@@ -392,6 +394,8 @@ public class PlayerToken extends Sprite {
         health--;
         if (health < 1) {
             setDestroyed(true);
+            System.out.println(playerName + " has no lives left. Game over");
+            Gdx.app.exit();
         }
     }
 
