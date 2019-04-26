@@ -106,6 +106,10 @@ public class Board implements Screen {
             camera.translate(-Gdx.input.getDeltaX(), Gdx.input.getDeltaY());
             camera.update();
         }
+        
+        if(Gdx.input.isKeyJustPressed(Input.Keys.V)) {
+            boardLogic.getPlayerByName("player 1").addDamageToken();
+        }
 
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             camera.zoom += ZOOM_SPEED;

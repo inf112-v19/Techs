@@ -34,6 +34,7 @@ public class BoardCards extends Board {
     private final int NUMBER_HEIGHT = 35;
     
     private int handSize;
+    private int centerOfScreen;
     private boolean movingPlayers = false;
     private boolean givenCardsToPlayer;
 
@@ -87,7 +88,7 @@ public class BoardCards extends Board {
     @Override
     public void render(float v) {
         super.render(v);
-        int centerOfScreen = Gdx.graphics.getWidth() / 2;
+        centerOfScreen = Gdx.graphics.getWidth() / 2;
         updateCardPositionOnScreen(centerOfScreen);
         
         // If the player hasn't gotten cards yet, give cards
@@ -187,14 +188,28 @@ public class BoardCards extends Board {
     }
     
     private void giveCardsToPlayer() {
-        handSize = 9 - getDamageTokens(gameController.getCurrentPlayerByName());
+        int damageTokens = getDamageTokens(gameController.getCurrentPlayerByName());
+        handSize = Integer.max(9 - damageTokens, 5);
         while(cardsToSelect.size() < handSize) {
             cardsToSelect.add(deck.getTopCard());
+        }
+        
+        System.out.println("number of damage tokens: " + damageTokens);
+        for(int i = damageTokens - 4; i > 0; i--) {
+            int registerToLock = 5 - i;
+            System.out.println("locking register " + registerToLock);
+            // add card to hand
+            cardsToSelect.add(registerToLock, gameController.getCardsThatWerePlayedLastTurn().get(registerToLock));
+            // Select that card
+            selectCard(registerToLock, centerOfScreen);
         }
         
         for(int i = 0; i < handSize; i++) {
             cardsToSelectSprite.add(atlasCards.createSprite(cardsToSelect.get(i).toString(), -1));
         }
+        
+        
+        
         givenCardsToPlayer = true;
     }
 
