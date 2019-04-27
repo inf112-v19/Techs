@@ -255,7 +255,7 @@ public class BoardCards extends Board {
         // Give cards to player if the move phase hasn't started
         if(!movingPlayers) {
             giveCardsToPlayer();
-            }
+        }
     }
     
     private void giveCardsToPlayer() {
