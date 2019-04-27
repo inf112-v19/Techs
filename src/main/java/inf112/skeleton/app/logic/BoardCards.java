@@ -96,8 +96,6 @@ public class BoardCards extends Board {
         // If the player hasn't gotten cards yet, give cards
         if(!givenCardsToPlayer && !movingPlayers) {
             giveCardsToPlayer();
-            System.out.println(getDamageTokens(gameController.getCurrentPlayerByName()));
-
         }
         //shows 9 cards player can select
         spriteBatchCards.begin();
@@ -201,8 +199,7 @@ public class BoardCards extends Board {
         // Give cards to player if the move phase hasn't started
         if(!movingPlayers) {
             giveCardsToPlayer();
-            System.out.println(getDamageTokens(gameController.getCurrentPlayerByName()));
-        }
+            }
     }
     
     private void giveCardsToPlayer() {
