@@ -3,6 +3,7 @@ package inf112.skeleton.app.logic;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -19,7 +20,7 @@ public class BoardLogic {
     private static final String ROBOT_SPRITE_SHEET_RED = "assets/RedRobotSpriteSheet.png";
     private static final String ROBOT_SPRITE_SHEET_YELLOW = "assets/YellowRobotSpriteSheet.png";
     // Keeps track of which color next player should have 
-    private ArrayList<String> sprites = new ArrayList<String>(); 
+    private ArrayList<String> sprites = new ArrayList<>();
     private int spriteNumber; 
     
     private ArrayList<PlayerToken> playersList;
@@ -134,6 +135,18 @@ public class BoardLogic {
     public void checkForDamageCleanup() {
         for (PlayerToken player : playersList) {
             player.checkForDamageCleanUp();
+        }
+    }
+
+    /**
+     * Checks if any of the players have no lives/health tokens left.
+     * @return True if any player has no lives left, otherwise false
+     */
+    public void checkPlayersLife() {
+        for (PlayerToken player : playersList) {
+            if (player.getHealth() <= 0) {
+                System.out.println(player.getName() + " has no lives left.");
+            }
         }
     }
 
@@ -338,5 +351,9 @@ public class BoardLogic {
     
     public int getDamageTokens(String name) {
         return getPlayerByName(name).getDamageToken();
+    }
+
+    public int getHealth(String name) {
+        return  getPlayerByName(name).getHealth();
     }
 }

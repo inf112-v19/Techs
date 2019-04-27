@@ -42,7 +42,6 @@ public class GameController implements IGameController{
             
             cardsPlayedInRegister.add(new ArrayList<IProgramCard>());
         }
-
     }
 
     @Override
