@@ -50,10 +50,6 @@ public class BoardCards extends Board {
 
     // The X and Y-value of each health
     private final int HEALTH_X = 1175;
-    private final int HEALTH_ONE = 0;
-    private final int HEALTH_TWO = 70;
-    private final int HEALTH_THREE = 140;
-
 
     private TextureAtlas atlasCards;
     private SpriteBatch spriteBatchCards;
@@ -82,7 +78,7 @@ public class BoardCards extends Board {
 
     public BoardCards(RoboRally game, int numPlayers) {
         super(game);
-        gameController = new GameController(2, this);
+        gameController = new GameController(numPlayers, this);
         atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
         spriteBatchCards = new SpriteBatch();
         number1 = new Texture("assets/ProgramSheet/numbersInCircle/numberOne.png");
