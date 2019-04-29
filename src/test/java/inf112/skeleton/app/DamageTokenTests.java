@@ -1,6 +1,7 @@
 package inf112.skeleton.app;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -77,7 +78,18 @@ private BoardLogic board1;
 		 board.getPlayerByName("Player").checkForDamageCleanUp();
 		 assertEquals(2, board.getPlayerByName("Player").getHealth());
 		 assertEquals(2, board.getPlayerByName("Player").getDamageToken());
-		 ;
+	 }
+	 
+	 @Test 
+	 public void isDestroyedWhen0Health() { 
+		 board.addPlayerToBoard(new Vector2(11, 14), "Player");
+		 for(int i = 3; i > 0; i--) {
+			 for(int j = 0; j < 10; j++) {
+			 board.getPlayerByName("Player").addDamageToken();
+				board.getPlayerByName("Player").checkForDamageCleanUp();
+			 }	 
+		 }
+		 assertTrue(board.getPlayerByName("Player").checkIfDestroyed());
 	 }
 	 
 	 
