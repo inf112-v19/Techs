@@ -20,8 +20,8 @@ public class MainMenuScreen implements Screen {
     private static final int PLAYERONE_X = PLAYERTWO_X - DISTANCE_BETWEEN_BUTTONS;
     private static final int PLAYERTHREE_X = MIDDLE_OF_SCREEN + (DISTANCE_BETWEEN_BUTTONS / 2);
     private static final int PLAYERFOUR_X = PLAYERTHREE_X + DISTANCE_BETWEEN_BUTTONS;
-    private static final int EXITBUTTON_WIDTH = 160;
-    private static final int EXITBUTTON_HEIGHT = 80;
+    private static final int EXITBUTTON_WIDTH = 400;
+    private static final int EXITBUTTON_HEIGHT = 117;
     private static final int EXITBUTTON_X = (RoboRally.SCREEN_WIDTH - EXITBUTTON_WIDTH) / 2;
     private static final int EXITBUTTON_Y = 220;
 
