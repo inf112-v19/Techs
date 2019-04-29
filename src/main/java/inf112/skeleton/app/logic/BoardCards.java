@@ -34,6 +34,9 @@ public class BoardCards extends Board {
     private final int NUMBER_HEIGHT = 35;
     
     private int handSize;
+    private int centerOfScreen;
+    private int numberOfCardsSelected = 0;
+    private int numberOfLockedRegisters;
     private boolean movingPlayers = false;
     private boolean givenCardsToPlayer;
 
@@ -117,7 +120,7 @@ public class BoardCards extends Board {
     @Override
     public void render(float v) {
         super.render(v);
-        int centerOfScreen = Gdx.graphics.getWidth() / 2;
+        centerOfScreen = Gdx.graphics.getWidth() / 2;
         updateCardPositionOnScreen(centerOfScreen);
         getdamageTokenOnScreenLocation();
         getHealthTokensOnScreen();
@@ -183,7 +186,7 @@ public class BoardCards extends Board {
                             Gdx.input.getX() < (cardsPositionOnScreen.get(i) + CARD_WIDTH) && 
                             Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() 
                             || Gdx.input.isKeyPressed(keysForChoosingCards.get(i))) {
-                        selectCard(i, centerOfScreen);
+                        selectCard(i, centerOfScreen, -1);
                     }
                 }
                 
@@ -205,11 +208,22 @@ public class BoardCards extends Board {
         }
     }
     
-    private void selectCard(int cardToSelect, int centerOfScreen) {
+    private void selectCard(int cardToSelect, int centerOfScreen, int locationInRegister) {
         if (!selectedCards.contains(cardsToSelect.get(cardToSelect))) {
-            numberXPos.set(selectedCards.size(), centerOfScreen - 330 + (cardToSelect * 90));
-            numberYPos.set(selectedCards.size(), 10);
-            selectedCards.add(cardsToSelect.get(cardToSelect));
+         
+            if(locationInRegister != -1) {
+                numberXPos.set(locationInRegister, centerOfScreen - 330 + (cardToSelect * 90));
+                numberYPos.set(locationInRegister, 10);
+                selectedCards.add(cardsToSelect.get(cardToSelect));
+                numberOfLockedRegisters++;
+            } else {
+                numberXPos.set(numberOfCardsSelected, centerOfScreen - 330 + (cardToSelect * 90));
+                numberYPos.set(numberOfCardsSelected, 10);
+                selectedCards.add(selectedCards.size() - numberOfLockedRegisters, cardsToSelect.get(cardToSelect));
+                numberOfCardsSelected++;
+            }
+            //selectedCards.add(selectedCards.size() - numberOfLockedRegisters, cardsToSelect.get(cardToSelect));
+            
         }
     }
 
@@ -229,6 +243,8 @@ public class BoardCards extends Board {
     public void newTurn(){
         givenCardsToPlayer = false;
         handSize = 0;
+        numberOfCardsSelected = 0;
+        numberOfLockedRegisters = 0;
         
         cardsToSelect = new ArrayList<IProgramCard>();
         selectedCards = new ArrayList<IProgramCard>();
@@ -243,14 +259,25 @@ public class BoardCards extends Board {
     }
     
     private void giveCardsToPlayer() {
-        handSize = 9 - getDamageTokens(gameController.getCurrentPlayerByName());
+        int damageTokens = getDamageTokens(gameController.getCurrentPlayerByName());
+        handSize = Integer.max(9 - damageTokens, 5);
         while(cardsToSelect.size() < handSize) {
             cardsToSelect.add(deck.getTopCard());
+        }
+        
+        for(int i = 9 - damageTokens; i < 5; i++) {
+            // add card to hand
+            cardsToSelect.add(i, gameController.getCardsThatWerePlayedLastTurn().get(i));
+            // Select that card
+            selectCard(i, centerOfScreen, i);
         }
         
         for(int i = 0; i < handSize; i++) {
             cardsToSelectSprite.add(atlasCards.createSprite(cardsToSelect.get(i).toString(), -1));
         }
+        
+        
+        
         givenCardsToPlayer = true;
     }
 
