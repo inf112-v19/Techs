@@ -62,17 +62,6 @@ public class BoardCards extends Board {
     private ArrayList<Integer> damageTokensOnScreen;
     private ArrayList<Integer> healthTokensOnScreen;
 
-    /*
-    private Sprite cardToSelect0;
-    private Sprite cardToSelect1;
-    private Sprite cardToSelect2;
-    private Sprite cardToSelect3;
-    private Sprite cardToSelect4;
-    private Sprite cardToSelect5;
-    private Sprite cardToSelect6;
-    private Sprite cardToSelect7;
-    private Sprite cardToSelect8;
-    */
     private Texture number1;
     private Texture number2;
     private Texture number3;
@@ -143,32 +132,33 @@ public class BoardCards extends Board {
         spriteBatchCards.draw(number4, numberXPos.get(3), numberYPos.get(3), NUMBER_WIDTH, NUMBER_HEIGHT);
         spriteBatchCards.draw(number5, numberXPos.get(4), numberYPos.get(4), NUMBER_WIDTH, NUMBER_HEIGHT);
 
-
         int damage = getDamageTokens(gameController.getCurrentPlayerByName());
         int health = getHealth(gameController.getCurrentPlayerByName());
 
-        for (int i = 0; i < 10; i++) {
-            if (damage > 0) {
-                spriteBatchCards.draw(activeDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH, DAMAGE_HEIGHT);
-                damage--;
-                continue;
+        while (!this.movingPlayers) {
+            // Drawing damagetokens for player
+            for (int i = 0; i < 10; i++) {
+                if (damage > 0) {
+                    spriteBatchCards.draw(activeDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH, DAMAGE_HEIGHT);
+                    damage--;
+                    continue;
+                }
+                spriteBatchCards.draw(deactiveDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH, DAMAGE_HEIGHT);
             }
-            spriteBatchCards.draw(deactiveDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH, DAMAGE_HEIGHT);
-        }
 
-        for (int i = 0; i < 3; i++) {
-            if (health > 0) {
-                spriteBatchCards.draw(activeHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
-                health--;
-                continue;
+            // Drawing healthtokens for player
+            for (int i = 0; i < 3; i++) {
+                if (health > 0) {
+                    spriteBatchCards.draw(activeHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
+                    health--;
+                    continue;
+                }
+                spriteBatchCards.draw(deactiveHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
             }
-            spriteBatchCards.draw(deactiveHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
+            break;
         }
-
 
         spriteBatchCards.end();
-
-
 
         if (!allPlayersDonePickingCards) {
             // If player presses P, enters powerdown
@@ -191,7 +181,7 @@ public class BoardCards extends Board {
                 }
                 
             // if the players has selected 5 cards and presses Enter (or has started powerdown), ends this players turn
-            } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER) || getPowerdownStatus(gameController.getCurrentPlayerByName()) == true) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER) || getPowerdownStatus(gameController.getCurrentPlayerByName())) {
                 if (cardsToSelect.size() >= 5) {
                     gameController.setCardsThatWerePlayedInRegister(selectedCards);
                     gameController.donePickingCards(selectedCards, this);
@@ -201,6 +191,7 @@ public class BoardCards extends Board {
         }
   
         else {
+            this.movingPlayers = true;
             // If all players have selected cards, player can press SPACE to move a player
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 gameController.movePlayers(this);
@@ -222,8 +213,6 @@ public class BoardCards extends Board {
                 selectedCards.add(selectedCards.size() - numberOfLockedRegisters, cardsToSelect.get(cardToSelect));
                 numberOfCardsSelected++;
             }
-            //selectedCards.add(selectedCards.size() - numberOfLockedRegisters, cardsToSelect.get(cardToSelect));
-            
         }
     }
 
@@ -275,9 +264,6 @@ public class BoardCards extends Board {
         for(int i = 0; i < handSize; i++) {
             cardsToSelectSprite.add(atlasCards.createSprite(cardsToSelect.get(i).toString(), -1));
         }
-        
-        
-        
         givenCardsToPlayer = true;
     }
 
