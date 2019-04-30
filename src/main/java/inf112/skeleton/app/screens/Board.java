@@ -252,4 +252,8 @@ public class Board implements Screen {
     public boolean getAI(String name) {
     	return boardLogic.getAI(name);
     }
+    
+    public boolean playerIsDestroyed(String name) {
+        return boardLogic.playerIsDestroyed(name);
+    }
 }

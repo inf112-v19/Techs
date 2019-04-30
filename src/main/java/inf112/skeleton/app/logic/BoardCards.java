@@ -162,26 +162,20 @@ public class BoardCards extends Board {
 		spriteBatchCards.end();
 
 		if (!allPlayersDonePickingCards) {
-			if (getAI(gameController.getCurrentPlayerByName())) {
+		    if(playerIsDestroyed((gameController.getCurrentPlayerByName()))) {
+                fillHandWithBlanks();
+                playerHasFinishedTurn();
+            } else if (getAI(gameController.getCurrentPlayerByName())) {
 				Random random = new Random();
 
 				if (getDamageTokens(gameController.getCurrentPlayerByName()) > 5) {
 					int randomPowerdown = random.nextInt(1) + 3;
 					if (randomPowerdown == 2) { // 1/3 chance of AI doing powerdown if Damage is more than 5
-						doPowerdown(gameController.getCurrentPlayerByName());
-						while (selectedCards.size() < 5) {
-							selectedCards.add(new ProgramCard(CardType.MOVEMENT_0, 0, 0, 0));
-						}
+						engagePowerdown();
 					}
 				}
 
-				if (getPowerdownStatus(gameController.getCurrentPlayerByName())) {
-					if (cardsToSelect.size() >= 5) {
-						gameController.setCardsThatWerePlayedInRegister(selectedCards);
-						gameController.donePickingCards(selectedCards, this);
-						newTurn();
-					}
-				} else {
+				if (!getPowerdownStatus(gameController.getCurrentPlayerByName())) {
 					while (selectedCards.size() < 5) {
 						int randomNumber = random.nextInt(9);
 						selectCard(randomNumber, centerOfScreen, -1);
@@ -190,36 +184,33 @@ public class BoardCards extends Board {
 				playerHasFinishedTurn();
 			} else {
 
-			// If player presses P, enters powerdown
-			if (Gdx.input.isKeyJustPressed(Keys.P)) {
-				doPowerdown(gameController.getCurrentPlayerByName());
-				while (selectedCards.size() < 5) {
-					selectedCards.add(new ProgramCard(CardType.MOVEMENT_0, 0, 0, 0));
-				}
-			}
+			    // If player presses P, enters powerdown
+			    if (Gdx.input.isKeyJustPressed(Keys.P)) {
+			        engagePowerdown();
+			    }
 
-			if (selectedCards.size() < 5) {
-				// if the players hasn't selected 5 cards yet, checks if player has selected any
-				// card
-				for (int i = 0; i < handSize; i++) {
-					if ((Gdx.input.getX() > cardsPositionOnScreen.get(i)
-							&& Gdx.input.getX() < (cardsPositionOnScreen.get(i) + CARD_WIDTH)
-							&& Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched()
-							|| Gdx.input.isKeyPressed(keysForChoosingCards.get(i))) {
-						selectCard(i, centerOfScreen, -1);
-					}
-				}
+			    if (selectedCards.size() < 5) {
+			        // if the players hasn't selected 5 cards yet, checks if player has selected any
+			        // card
+			        for (int i = 0; i < handSize; i++) {
+			            if ((Gdx.input.getX() > cardsPositionOnScreen.get(i)
+			                    && Gdx.input.getX() < (cardsPositionOnScreen.get(i) + CARD_WIDTH)
+			                    && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched()
+			                    || Gdx.input.isKeyPressed(keysForChoosingCards.get(i))) {
+			                selectCard(i, centerOfScreen, -1);
+			            }
+			        }
 
-				// if the players has selected 5 cards and presses Enter (or has started
-				// powerdown), ends this players turn
-			} else if (Gdx.input.isKeyPressed(Input.Keys.ENTER) 
-					|| getPowerdownStatus(gameController.getCurrentPlayerByName())) {
-				if (cardsToSelect.size() >= 5) {
-					playerHasFinishedTurn();
-				}
+			        // if the players has selected 5 cards and presses Enter (or has started
+			        // powerdown), ends this players turn
+			    } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER) 
+			            || playerCannotMoveByCards()) {
+			        if (cardsToSelect.size() >= 5) {
+			            playerHasFinishedTurn();
+			        }
+			    }
 			}
-		}
-	} else {
+		} else {
 			this.movingPlayers = true;
 			// If all players have selected cards, player can press SPACE to move a player
 			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
@@ -361,4 +352,19 @@ public class BoardCards extends Board {
 		gameController.donePickingCards(selectedCards, this);
 		newTurn();
 	}
+	
+	private void engagePowerdown() {
+	    doPowerdown(gameController.getCurrentPlayerByName());
+        fillHandWithBlanks();
+	}
+	
+	private void fillHandWithBlanks() {
+        while(selectedCards.size() < 5) {
+            selectedCards.add(new ProgramCard(CardType.MOVEMENT_0, 0, 0, 0));               
+        }
+    }
+	
+	private boolean playerCannotMoveByCards() {
+        return getPowerdownStatus(gameController.getCurrentPlayerByName()) || playerIsDestroyed((gameController.getCurrentPlayerByName()));
+    }
 }
