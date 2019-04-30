@@ -48,6 +48,7 @@ public class MainMenuScreen implements Screen {
     private RoboRally game;
     private BoardCards BoardScreen;
     private int numberOfPlayers;
+    private boolean playersError = false;
 
     public MainMenuScreen(RoboRally game) {
         this.game = game;
@@ -83,6 +84,9 @@ public class MainMenuScreen implements Screen {
         This part of the code is where the main menu buttons are handled. The if-statement is there to register the coordinates of the mouse, where
         we will be able to make it so that each button is highlighted as the mouse hovers over. We need to make an if-statement for each button.
          */
+        if (playersError) {
+            game.font.draw(game.batch, "Must choose number of players! Use the buttons at the bottom to choose.", 420, 285);
+        }
 
         switch (this.numberOfPlayers) {
             case 1:
@@ -123,15 +127,19 @@ public class MainMenuScreen implements Screen {
                     this.BoardScreen = new BoardCards(game, numberOfPlayers);
                     this.dispose();
                     game.setScreen(BoardScreen);
+                } else {
+                    playersError = true;
                 }
             }
-        } else { game.batch.draw(playButtonInactive, PLAYBUTTON_X, BUTTONS_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
+        } else {
+            game.batch.draw(playButtonInactive, PLAYBUTTON_X, BUTTONS_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
     }
 
         if(Gdx.input.getX() < PLAYERONE_X + PLAYERBUTTON_WIDTH && Gdx.input.getX() > PLAYERONE_X && RoboRally.SCREEN_HEIGHT - Gdx.input.getY() < PLAYERBUTTONS_Y + PLAYERBUTTON_HEIGHT && RoboRally.SCREEN_HEIGHT - Gdx.input.getY() > PLAYERBUTTONS_Y) {
             game.batch.draw(onePlayerActive, PLAYERONE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
             if(Gdx.input.isTouched()) {
                 this.numberOfPlayers = 1;
+                this.playersError = false;
             }
         }
 
@@ -139,6 +147,7 @@ public class MainMenuScreen implements Screen {
             game.batch.draw(twoPlayerActive, PLAYERTWO_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
                 this.numberOfPlayers = 2;
+                this.playersError = false;
             }
         }
 
@@ -146,6 +155,7 @@ public class MainMenuScreen implements Screen {
             game.batch.draw(threePlayerActive, PLAYERTHREE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
                 this.numberOfPlayers = 3;
+                this.playersError = false;
             }
         }
 
@@ -153,6 +163,7 @@ public class MainMenuScreen implements Screen {
             game.batch.draw(fourPlayerActive, PLAYERFOUR_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
                 this.numberOfPlayers = 4;
+                this.playersError = false;
             }
         }
 
