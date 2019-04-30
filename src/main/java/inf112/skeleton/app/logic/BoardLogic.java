@@ -365,4 +365,8 @@ public class BoardLogic {
     public int getHealth(String name) {
         return  getPlayerByName(name).getHealth();
     }
+    
+    public boolean playerIsDestroyed(String name) {
+        return getPlayerByName(name).checkIfDestroyed();
+    }
 }
