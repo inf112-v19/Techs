@@ -82,8 +82,8 @@ public class BoardLogic {
      * @param startPosition The startposition of the player
      * @param givenName The name of the player
      */
-    public void addPlayerToBoard(Vector2 startPosition, String givenName) {
-        PlayerToken newPlayer = new PlayerToken(givenName, sprites.get(spriteNumber), startPosition);
+    public void addPlayerToBoard(Vector2 startPosition, Vector2 deathPosition, String givenName) {
+        PlayerToken newPlayer = new PlayerToken(givenName, sprites.get(spriteNumber), startPosition, deathPosition);
         newPlayer.setSize(ROBOT_SPRITE_SCALE, ROBOT_SPRITE_SCALE);
         spriteNumber = (spriteNumber + 1) % 4;
         playersList.add(newPlayer);

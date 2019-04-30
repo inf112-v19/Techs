@@ -75,6 +75,7 @@ public class BoardCards extends Board {
     private ArrayList<Integer> numberYPos;
 
     private boolean allPlayersDonePickingCards = false;
+    private boolean finishedRound = false;
 
     public BoardCards(RoboRally game, int numPlayers) {
         super(game);
@@ -132,31 +133,18 @@ public class BoardCards extends Board {
         int health = getHealth(gameController.getCurrentPlayerByName());
 
         if (!this.movingPlayers) {
-
-            // Drawing damagetokens for player
-            for (int i = 0; i < 10; i++) {
-                if (damage > 0) {
-                    spriteBatchCards.draw(activeDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH, DAMAGE_HEIGHT);
-                    damage--;
-                    continue;
-                }
-                spriteBatchCards.draw(deactiveDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH, DAMAGE_HEIGHT);
-            }
-
-            // Drawing healthtokens for player
-            for (int i = 0; i < 3; i++) {
-                if (health > 0) {
-                    spriteBatchCards.draw(activeHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
-                    health--;
-                    continue;
-                }
-                spriteBatchCards.draw(deactiveHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
-            }
+            drawTokensOnScreen(damage, health);
         }
+
 
         spriteBatchCards.end();
 
         if (!allPlayersDonePickingCards) {
+            if (finishedRound) {
+                processEndOfRound();
+                finishedRound = false;
+            }
+
             // If player presses P, enters powerdown
             if(Gdx.input.isKeyJustPressed(Keys.P)) {
             	doPowerdown(gameController.getCurrentPlayerByName()); 
@@ -191,6 +179,7 @@ public class BoardCards extends Board {
             // If all players have selected cards, player can press SPACE to move a player
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
                 gameController.movePlayers(this);
+                finishedRound = true;
             }
         }
     }
@@ -321,6 +310,28 @@ public class BoardCards extends Board {
         for (int i = 0; i < 3; i++) {
             healthTokensOnScreen.add(y);
             y += 70;
+        }
+    }
+
+    private void drawTokensOnScreen(int damage, int health) {
+        // Drawing damagetokens for player
+        for (int i = 0; i < 10; i++) {
+            if (damage > 0) {
+                spriteBatchCards.draw(activeDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH, DAMAGE_HEIGHT);
+                damage--;
+                continue;
+            }
+            spriteBatchCards.draw(deactiveDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH, DAMAGE_HEIGHT);
+        }
+
+        // Drawing healthtokens for player
+        for (int i = 0; i < 3; i++) {
+            if (health > 0) {
+                spriteBatchCards.draw(activeHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
+                health--;
+                continue;
+            }
+            spriteBatchCards.draw(deactiveHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
         }
     }
 }

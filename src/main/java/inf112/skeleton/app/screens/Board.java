@@ -174,15 +174,16 @@ public class Board implements Screen {
         boardLogic.activateLasersOnBoard();
         checkAllCheckpoints();
         boardLogic.checkPlayersLife();
+        checkForDamageCleanup();
     }
 
     public void processEndOfRound() {
         boardLogic.repairRobots();
-        checkForDamageCleanup();
+        //TODO: metode som henter inn spillere igjen som fortsatt har liv igjen
     }
 
-    public void addPlayerToBoard(Vector2 startPosition, String playerName) {
-        boardLogic.addPlayerToBoard(startPosition, playerName);
+    public void addPlayerToBoard(Vector2 startPosition, Vector2 deathPosition, String playerName) {
+        boardLogic.addPlayerToBoard(startPosition, deathPosition, playerName);
     }
     // Checks if tile at (xPos, yPos) is in the specified layer
     public boolean cellContainsLayer(int xPos, int yPos, String layer) {

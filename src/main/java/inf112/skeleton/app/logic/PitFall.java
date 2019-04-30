@@ -22,10 +22,9 @@ public class PitFall {
 
 	public void movePlayerIfPitFall(PlayerToken player, BoardLogic board) {
 		if (checkIfPitfall(player, board)) {
-			player.moveToBackup(); // Moves player to current backup position
-			player.setRecentlyBackuped(true);
-			player.takeHealth();
-			player.setDamageToken(2);
+			player.setDamageToken(10);
+			player.setDestroyed(true);
+			player.moveToDeathPosition();
 			return;
 		} 
 		return;

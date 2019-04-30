@@ -16,6 +16,7 @@ public class PlayerToken extends Sprite {
 	private static final float TILE_SCALE = 96;
 	// Variables needed for movement, direction and position
 	private Vector2 movementVelocity = new Vector2();
+	private Vector2 deathPosition;
 	private Vector2 backupPosition;
 	private Vector2 position;
 	private Direction facingDirection;
@@ -41,13 +42,14 @@ public class PlayerToken extends Sprite {
 	private Animation<TextureRegion> robotAnimation;
 	private Texture spriteSheet;
 
-	public PlayerToken(String givenName, String textureSpriteSheet, Vector2 startPosition) {
+	public PlayerToken(String givenName, String textureSpriteSheet, Vector2 startPosition, Vector2 deathPosition) {
 		this.playerName = givenName;
 		this.backupPosition = new Vector2(startPosition.x, startPosition.y);
 		this.facingDirection = Direction.NORTH;
 		this.damageToken = 0;
 		this.health = 3;
         this.position = startPosition;
+        this.deathPosition = deathPosition;
 		this.recentlyBackuped = true;
 
 		// All regarding spritesheet and getting the frames correctly is done here.
@@ -105,7 +107,7 @@ public class PlayerToken extends Sprite {
         if (damageTokenFull()) {
             takeHealth();
             setDamageToken(2);
-            moveToBackup();
+            moveToDeathPosition();
         }
     }
 
@@ -148,6 +150,12 @@ public class PlayerToken extends Sprite {
     public int getDamageToken() {
         return this.damageToken;
     }
+
+    /**
+     * Gets the position where the player is sent if destroyed
+     * @return The position where the player is sent if destroyed
+     */
+    public Vector2 getDeathPosition() { return new Vector2(deathPosition.x, deathPosition.y); }
 
     /**
      * Gets the facing direction of the player
@@ -264,6 +272,12 @@ public class PlayerToken extends Sprite {
      */
     public void moveToBackup() {
         position = getBackupPosition();
+        setXPositionOnBoard();
+        setYPositionOnBoard();
+    }
+
+    public void moveToDeathPosition() {
+        position = getDeathPosition();
         setXPositionOnBoard();
         setYPositionOnBoard();
     }

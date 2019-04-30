@@ -60,7 +60,7 @@ public class CheckpointTests {
         public void testBackupPositionUpdatedAfterCheckpoint() {
         	checkPositionIfContainsCheckpoint(new Vector2(1, 1));
         	checkPositionIfContainsPit(new Vector2(2, 0));
-        	board.addPlayerToBoard(new Vector2(2, 1), "Player"); //startposition
+        	board.addPlayerToBoard(new Vector2(2, 1), new Vector2(2, 4), "Player"); //startposition
             board.movePlayer("Player", Direction.WEST); //Checkpoint (1, 1)
             board.checkAllCheckpoints();
             board.movePlayer("Player", Direction.SOUTH);
@@ -71,7 +71,7 @@ public class CheckpointTests {
         @Test
         public void testCantProcessCheckpoint2beforeCheckpoint1() {
         	checkPositionIfContainsCheckpoint(new Vector2(3, 1)); //checkpoint2 position
-        	board.addPlayerToBoard(new Vector2(2, 1), "Player"); //startposition
+        	board.addPlayerToBoard(new Vector2(2, 1), new Vector2(2, 4), "Player"); //startposition
         	board.movePlayer("Player", Direction.EAST);       //checkpoint 2    
         	board.checkAllCheckpoints();
         	board.movePlayer("Player", Direction.WEST);          
@@ -83,7 +83,7 @@ public class CheckpointTests {
         public void testCanProcessCheckpoint2AfterCheckpoint1 () {
         	checkPositionIfContainsCheckpoint(new Vector2(1, 1)); //checkpoint1 position
         	checkPositionIfContainsCheckpoint(new Vector2(3, 1)); //checkpoint2 position
-        	board.addPlayerToBoard(new Vector2(2, 1), "Player"); //startposition
+        	board.addPlayerToBoard(new Vector2(2, 1), new Vector2(2, 4), "Player"); //startposition
         	board.movePlayer("Player", Direction.WEST);
         	board.checkAllCheckpoints();        	
         	board.movePlayer("Player", Direction.EAST);       //checkpoint 2    
@@ -97,7 +97,7 @@ public class CheckpointTests {
         @Test
         public void testCantMakeNewBackupAtNonCheckpointTiles() {
         	checkPositionIfNotContainsCheckpoint(new Vector2(1, 0)); 
-        	board.addPlayerToBoard(new Vector2(0, 0), "Player"); //startposition
+        	board.addPlayerToBoard(new Vector2(0, 0), new Vector2(2, 4), "Player"); //startposition
         	board.movePlayer("Player", Direction.EAST);           
         	board.checkAllCheckpoints();          
         	board.movePlayer("Player", Direction.EAST); //pit position

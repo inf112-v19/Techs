@@ -24,6 +24,7 @@ public class GameController implements IGameController{
     private HashMap<IProgramCard, Integer> firstCardsInverse;
 
     private ArrayList<Vector2> startPosition = new ArrayList<>();
+    private ArrayList<Vector2> deathPosition = new ArrayList<>();
     
     private ArrayList<ArrayList<IProgramCard>> cardsPlayedInRegister = new ArrayList<>();
     
@@ -34,14 +35,22 @@ public class GameController implements IGameController{
         playerString = new HashMap<>();
 
         setStartPosition();
+        setDeathPosition();
 
         for (int i = 0; i < numPlayers; i++) {
             String playerName = "player " + (i+1);
-            boardCards.addPlayerToBoard(startPosition.get(i), playerName);
+            boardCards.addPlayerToBoard(startPosition.get(i), deathPosition.get(i), playerName);
             playerString.put(i, playerName);
             
             cardsPlayedInRegister.add(new ArrayList<IProgramCard>());
         }
+    }
+
+    private void setDeathPosition() {
+        deathPosition.add(new Vector2(2, 18));
+        deathPosition.add(new Vector2(3, 18));
+        deathPosition.add(new Vector2(4, 18));
+        deathPosition.add(new Vector2(5, 18));
     }
 
     @Override
