@@ -47,6 +47,7 @@ public class MainMenuScreen implements Screen {
 
     private RoboRally game;
     private BoardCards BoardScreen;
+    private int numberOfPlayers;
 
     public MainMenuScreen(RoboRally game) {
         this.game = game;
@@ -62,6 +63,8 @@ public class MainMenuScreen implements Screen {
         this.playButtonInactive = new Texture("assets/PlayButtonInactive.png");
         this.exitButtonActive = new Texture("assets/ExitButtonActive.png");
         this.exitButtonInactive = new Texture("assets/ExitButtonInactive.png");
+
+        this.numberOfPlayers = 0;
     }
 
     @Override
@@ -80,59 +83,77 @@ public class MainMenuScreen implements Screen {
         This part of the code is where the main menu buttons are handled. The if-statement is there to register the coordinates of the mouse, where
         we will be able to make it so that each button is highlighted as the mouse hovers over. We need to make an if-statement for each button.
          */
+
+        switch (this.numberOfPlayers) {
+            case 1:
+                game.batch.draw(onePlayerActive, PLAYERONE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                game.batch.draw(twoPlayerInactive, PLAYERTWO_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                game.batch.draw(threePlayerInactive, PLAYERTHREE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                game.batch.draw(fourPlayerInactive, PLAYERFOUR_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                break;
+            case 2:
+                game.batch.draw(onePlayerInactive, PLAYERONE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                game.batch.draw(twoPlayerActive, PLAYERTWO_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                game.batch.draw(threePlayerInactive, PLAYERTHREE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                game.batch.draw(fourPlayerInactive, PLAYERFOUR_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                break;
+            case 3:
+                game.batch.draw(onePlayerInactive, PLAYERONE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                game.batch.draw(twoPlayerInactive, PLAYERTWO_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                game.batch.draw(threePlayerActive, PLAYERTHREE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                game.batch.draw(fourPlayerInactive, PLAYERFOUR_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                break;
+            case 4:
+                game.batch.draw(onePlayerInactive, PLAYERONE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                game.batch.draw(twoPlayerInactive, PLAYERTWO_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                game.batch.draw(threePlayerInactive, PLAYERTHREE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                game.batch.draw(fourPlayerActive, PLAYERFOUR_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                break;
+            default:
+                game.batch.draw(onePlayerInactive, PLAYERONE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                game.batch.draw(twoPlayerInactive, PLAYERTWO_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                game.batch.draw(threePlayerInactive, PLAYERTHREE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+                game.batch.draw(fourPlayerInactive, PLAYERFOUR_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
+        }
+
         if(Gdx.input.getX() < PLAYBUTTON_X + BUTTON_WIDTH && Gdx.input.getX() > PLAYBUTTON_X && RoboRally.SCREEN_HEIGHT - Gdx.input.getY() < BUTTONS_Y + BUTTON_HEIGHT && RoboRally.SCREEN_HEIGHT - Gdx.input.getY() > BUTTONS_Y) {
             game.batch.draw(playButtonActive, PLAYBUTTON_X, BUTTONS_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
-            if(Gdx.input.isTouched()) {
-                this.BoardScreen = new BoardCards(game, 1);
-                this.dispose();
-                game.setScreen(BoardScreen);
+            if (Gdx.input.isTouched()) {
+                if (this.numberOfPlayers > 0) {
+                    this.BoardScreen = new BoardCards(game, numberOfPlayers);
+                    this.dispose();
+                    game.setScreen(BoardScreen);
+                }
             }
-        } else {
-            game.batch.draw(playButtonInactive, PLAYBUTTON_X, BUTTONS_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
-        }
+        } else { game.batch.draw(playButtonInactive, PLAYBUTTON_X, BUTTONS_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
+    }
 
         if(Gdx.input.getX() < PLAYERONE_X + PLAYERBUTTON_WIDTH && Gdx.input.getX() > PLAYERONE_X && RoboRally.SCREEN_HEIGHT - Gdx.input.getY() < PLAYERBUTTONS_Y + PLAYERBUTTON_HEIGHT && RoboRally.SCREEN_HEIGHT - Gdx.input.getY() > PLAYERBUTTONS_Y) {
             game.batch.draw(onePlayerActive, PLAYERONE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
             if(Gdx.input.isTouched()) {
-                this.BoardScreen = new BoardCards(game, 1);
-                this.dispose();
-                game.setScreen(BoardScreen);
+                this.numberOfPlayers = 1;
             }
-        } else {
-            game.batch.draw(onePlayerInactive, PLAYERONE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
         }
 
         if(Gdx.input.getX() < PLAYERTWO_X + PLAYERBUTTON_WIDTH && Gdx.input.getX() > PLAYERTWO_X && RoboRally.SCREEN_HEIGHT - Gdx.input.getY() < PLAYERBUTTONS_Y + PLAYERBUTTON_HEIGHT && RoboRally.SCREEN_HEIGHT - Gdx.input.getY() > PLAYERBUTTONS_Y) {
             game.batch.draw(twoPlayerActive, PLAYERTWO_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
-                this.BoardScreen = new BoardCards(game, 2);
-                this.dispose();
-                game.setScreen(BoardScreen);
+                this.numberOfPlayers = 2;
             }
-        } else {
-            game.batch.draw(twoPlayerInactive, PLAYERTWO_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
         }
 
         if(Gdx.input.getX() < PLAYERTHREE_X + PLAYERBUTTON_WIDTH && Gdx.input.getX() > PLAYERTHREE_X && RoboRally.SCREEN_HEIGHT - Gdx.input.getY() < PLAYERBUTTONS_Y + PLAYERBUTTON_HEIGHT && RoboRally.SCREEN_HEIGHT - Gdx.input.getY() > PLAYERBUTTONS_Y) {
             game.batch.draw(threePlayerActive, PLAYERTHREE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
-                this.BoardScreen = new BoardCards(game, 3);
-                this.dispose();
-                game.setScreen(BoardScreen);
+                this.numberOfPlayers = 3;
             }
-        } else {
-            game.batch.draw(threePlayerInactive, PLAYERTHREE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
         }
 
         if(Gdx.input.getX() < PLAYERFOUR_X + PLAYERBUTTON_WIDTH && Gdx.input.getX() > PLAYERFOUR_X && RoboRally.SCREEN_HEIGHT - Gdx.input.getY() < PLAYERBUTTONS_Y + PLAYERBUTTON_HEIGHT && RoboRally.SCREEN_HEIGHT - Gdx.input.getY() > PLAYERBUTTONS_Y) {
             game.batch.draw(fourPlayerActive, PLAYERFOUR_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
-                this.BoardScreen = new BoardCards(game, 4);
-                this.dispose();
-                game.setScreen(BoardScreen);
+                this.numberOfPlayers = 4;
             }
-        } else {
-            game.batch.draw(fourPlayerInactive, PLAYERFOUR_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
         }
 
         // The exit-buttion
