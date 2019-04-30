@@ -16,7 +16,6 @@ public class PitFall {
 	}
 
 	public void processFeatureCheckForPitFalls(PlayerToken player) {
-		//board = this.board;
 		movePlayerIfPitFall(player, board);
 		// should lose a damagetoken when implemented
 	}

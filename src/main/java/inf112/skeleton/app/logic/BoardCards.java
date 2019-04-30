@@ -167,7 +167,7 @@ public class BoardCards extends Board {
        
             if (selectedCards.size() < 5) {
                 // if the players hasn't selected 5 cards yet, checks if player has selected any card
-                for(int i = 0; i < 9; i++) {
+                for(int i = 0; i < handSize; i++) {
                     if ((Gdx.input.getX() > cardsPositionOnScreen.get(i) && 
                             Gdx.input.getX() < (cardsPositionOnScreen.get(i) + CARD_WIDTH) && 
                             Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched() 

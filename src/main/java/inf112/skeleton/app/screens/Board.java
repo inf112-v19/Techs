@@ -174,6 +174,9 @@ public class Board implements Screen {
         boardLogic.activateLasersOnBoard();
         checkAllCheckpoints();
         boardLogic.checkPlayersLife();
+    }
+
+    public void processEndOfRound() {
         boardLogic.repairRobots();
         checkForDamageCleanup();
     }
