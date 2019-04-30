@@ -131,7 +131,8 @@ public class BoardCards extends Board {
         int damage = getDamageTokens(gameController.getCurrentPlayerByName());
         int health = getHealth(gameController.getCurrentPlayerByName());
 
-        while (!this.movingPlayers) {
+        if (!this.movingPlayers) {
+
             // Drawing damagetokens for player
             for (int i = 0; i < 10; i++) {
                 if (damage > 0) {
@@ -151,7 +152,6 @@ public class BoardCards extends Board {
                 }
                 spriteBatchCards.draw(deactiveHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
             }
-            break;
         }
 
         spriteBatchCards.end();
@@ -300,7 +300,7 @@ public class BoardCards extends Board {
      * Recalculates the position of where the cards should be
      */
     private void updateCardPositionOnScreen(int centerOfScreen) {
-        cardsPositionOnScreen = new ArrayList<Integer>();
+        cardsPositionOnScreen = new ArrayList<>();
         for(int i = 0; i < 9; i++) {
             cardsPositionOnScreen.add(centerOfScreen - 360 + (i * 90));
         }
