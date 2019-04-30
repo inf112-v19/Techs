@@ -28,6 +28,7 @@ public class BoardLogic {
     private MoveConveyorBelts moveConveyorBelts;
     private ProcessCheckpoints processCheckpoints;
     private Lasers lasers;
+    private PitFall pitfall;
     
     private TiledMap map;
     private MapProperties prop;
@@ -40,6 +41,7 @@ public class BoardLogic {
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
         this.processCheckpoints = new ProcessCheckpoints(this, playersList);
         this.lasers = new Lasers(this, playersList, prop);
+        this.pitfall = new PitFall(this, playersList);
         sprites.add(ROBOT_SPRITE_SHEET_BLUE);
         sprites.add(ROBOT_SPRITE_SHEET_GREEN);
         sprites.add(ROBOT_SPRITE_SHEET_RED);
@@ -52,7 +54,6 @@ public class BoardLogic {
      */
     public void activateLasersOnBoard() {
         lasers.processFeature();
-
     }
 
     /**
@@ -136,6 +137,10 @@ public class BoardLogic {
         for (PlayerToken player : playersList) {
             player.checkForDamageCleanUp();
         }
+    }
+
+    public void checkPitfalls() {
+        pitfall.processFeature();
     }
 
     /**
@@ -265,6 +270,10 @@ public class BoardLogic {
                 player.rotatePlayer(1);
             }
         }
+    }
+
+    public void pitFalls() {
+
     }
 
     /**

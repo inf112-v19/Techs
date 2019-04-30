@@ -27,6 +27,12 @@ public class PitFallTest {
     private TiledMap map;
     private BoardLogic board;
 
+    private Vector2 startPos1 = new Vector2(1, 2);
+    private Vector2 deathPos1 = new Vector2(1, 5);
+
+    private Vector2 startPos2 = new Vector2(3, 2);
+    private Vector2 deathPos2 = new Vector2(2,5);
+
     @Before
     public void setUp() {    
         application = new HeadlessApplication(new ApplicationListener() {
@@ -41,52 +47,36 @@ public class PitFallTest {
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
         
-        map = new TmxMapLoader().load("assets/RoboRallyMap.tmx");        
+        map = new TmxMapLoader().load("assets/TestMaps/mapPitFalls.tmx");
         board = new BoardLogic(map);
     }
     
     @Test
-    public void movePlayerToStartpositionAfterPitFall() {
-    	board.addPlayerToBoard(new Vector2(1, 4), new Vector2(2, 18), "Player"); //StartPosition (1, 4)
+    public void movePlayerToDeathPositionAfterPitFall() {
+    	board.addPlayerToBoard(this.startPos1, this.deathPos1, "Player"); //StartPosition (1, 4)
     	board.movePlayer("Player", Direction.NORTH);
-    	board.movePlayer("Player", Direction.NORTH);
-    	checkPositionIfContainsPit(new Vector2(1, 6));  //Check if tile contains Pit
-    	assertEquals(new Vector2(1, 4), board.getPlayerLocation("Player"));  
-    } 
-    
-    @Test
-    public void movePlayerToCheckpointAfterPitFall() {
-    	Vector2 startPos = new Vector2(9, 15);
-    	board.addPlayerToBoard(startPos, new Vector2(2, 18), "Player");
-    	checkPositionIfContainsPit(new Vector2(3, 15));
-    	board.movePlayer("Player", Direction.WEST); //(8, 15)
-    	board.checkAllCheckpoints(); 
-    	board.movePlayer("Player", Direction.WEST); //(7, 15)
-    	board.movePlayer("Player", Direction.WEST); //(6, 15)
-    	board.movePlayer("Player", Direction.WEST); //(5, 15)
-    	board.movePlayer("Player", Direction.WEST); //(4, 15)
-    	board.movePlayer("Player", Direction.WEST); //Pitfall (3, 15)
-    	assertEquals(new Vector2(8, 15), board.getPlayerLocation("Player"));
+    	board.movePlayer("Player", Direction.EAST);
+        board.movePlayer("Player", Direction.EAST);
+    	board.checkPitfalls();
+    	assertEquals(this.deathPos1, board.getPlayerLocation("Player"));
     }
     
     @Test
-    public void checkIfTwoPlayersCanMoveToSameBackup() {
-    	board.addPlayerToBoard(new Vector2(1, 4), new Vector2(2, 18), "Player1");
-    	board.addPlayerToBoard(new Vector2(1, 4), new Vector2(2, 18), "Player2");
-    	board.movePlayer("Player1", Direction.NORTH);
-    	board.movePlayer("Player1", Direction.NORTH);
-    	board.movePlayer("Player2", Direction.NORTH);
-    	board.movePlayer("Player2", Direction.NORTH);
-    	assertEquals(board.getPlayerByName("Player1").getBackupPosition(), board.getPlayerByName("Player2").getBackupPosition());
-    	assertEquals(board.getPlayerLocation("Player1"), board.getPlayerLocation("Player2"));
+    public void checkIfTwoPlayersMovesToTheirDeathPositions() {
+    	board.addPlayerToBoard(this.startPos1, this.deathPos1, "Player1");
+    	board.addPlayerToBoard(this.startPos2, this.deathPos2, "Player2");
+    	board.movePlayer("Player1", Direction.WEST);
+    	board.movePlayer("Player2", Direction.EAST);
+    	assertEquals(deathPos1, board.getPlayerLocation("Player1"));
+    	assertEquals(deathPos2, board.getPlayerLocation("Player2"));
     }
     
     /**
      * Tests that player moves to backup when moving out of board.
      */
     @Test
-    public void moveToBackupIfOutOfBoardTest() {
-    	board.addPlayerToBoard(new Vector2(2,2), new Vector2(2, 18), "Player");
+    public void moveToDeathPositionIfOutOfBoardTest() {
+    	board.addPlayerToBoard(new Vector2(2,2), new Vector2(2, 5), "Player");
     	board.movePlayer("Player", Direction.WEST);
     	board.movePlayer("Player", Direction.WEST); //(0,2) out of board
         assertEquals(board.getPlayerByName("Player").getBackupPosition(), board.getPlayerLocation("Player"));

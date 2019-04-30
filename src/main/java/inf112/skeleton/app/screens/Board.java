@@ -168,6 +168,7 @@ public class Board implements Screen {
     }
 
     public void processEndOfTurns() {
+        boardLogic.checkPitfalls();
         moveConveyorBelts();
         moveRotateWheel();
         boardLogic.shootPlayerLaser();
