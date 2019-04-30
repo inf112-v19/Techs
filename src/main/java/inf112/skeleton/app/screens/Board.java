@@ -221,6 +221,9 @@ public class Board implements Screen {
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
     }
+    public boolean playerIsDestroyed(String name) {
+        return boardLogic.playerIsDestroyed(name);
+    }
 
     /**
      * This method is used to get information about player damage over to BoardCards

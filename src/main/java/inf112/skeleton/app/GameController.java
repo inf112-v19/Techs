@@ -89,7 +89,6 @@ public class GameController implements IGameController{
             boardCards.processEndOfTurns();
         }
         
-        
         if (playersCards.get(0).isEmpty() && firstCards.isEmpty()) {
             boardCards.setAllPlayersDonePickingCards(false);
             movesDone = 0;
@@ -106,6 +105,9 @@ public class GameController implements IGameController{
 
     @Override
     public void movePlayer(IProgramCard programCard, int currentPlayer, BoardCards boardCards) {
+        if(boardCards.playerIsDestroyed(playerString.get(currentPlayer))) {
+            return;
+        }
         if (programCard.getDirection() != 0) {
             //boardCards.getBoardLogic().getPlayersList().get(currentPlayer).rotatePlayer(programCard.getDirection());
             boardCards.rotatePlayer(playerString.get(currentPlayer), programCard.getDirection());

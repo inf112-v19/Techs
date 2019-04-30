@@ -157,12 +157,13 @@ public class BoardCards extends Board {
         spriteBatchCards.end();
 
         if (!allPlayersDonePickingCards) {
+            if(playerIsDestroyed((gameController.getCurrentPlayerByName()))) {
+                fillHandWithBlanks();
+            }
             // If player presses P, enters powerdown
             if(Gdx.input.isKeyJustPressed(Keys.P)) {
             	doPowerdown(gameController.getCurrentPlayerByName()); 
-            	while(selectedCards.size() < 5) {
-            		selectedCards.add(new ProgramCard(CardType.MOVEMENT_0, 0, 0, 0));         		
-            	}
+            	fillHandWithBlanks();
             }
        
             if (selectedCards.size() < 5) {
@@ -177,7 +178,7 @@ public class BoardCards extends Board {
                 }
                 
             // if the players has selected 5 cards and presses Enter (or has started powerdown), ends this players turn
-            } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER) || getPowerdownStatus(gameController.getCurrentPlayerByName())) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER) || playerCannotMoveByCards()) {
                 if (cardsToSelect.size() >= 5) {
                     gameController.setCardsThatWerePlayedInRegister(selectedCards);
                     gameController.donePickingCards(selectedCards, this);
@@ -322,5 +323,19 @@ public class BoardCards extends Board {
             healthTokensOnScreen.add(y);
             y += 70;
         }
+    }
+    
+    private void fillHandWithBlanks() {
+        while(selectedCards.size() < 5) {
+            selectedCards.add(new ProgramCard(CardType.MOVEMENT_0, 0, 0, 0));               
+        }
+    }
+    
+    /*
+     * Returns true if a player for some reason cannot move through cards this turn.
+     * 
+     */
+    private boolean playerCannotMoveByCards() {
+        return getPowerdownStatus(gameController.getCurrentPlayerByName()) || playerIsDestroyed((gameController.getCurrentPlayerByName()));
     }
 }
