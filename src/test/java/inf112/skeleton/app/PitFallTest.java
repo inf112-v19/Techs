@@ -47,7 +47,7 @@ public class PitFallTest {
     
     @Test
     public void movePlayerToStartpositionAfterPitFall() {
-    	board.addPlayerToBoard(new Vector2(1, 4), "Player"); //StartPosition (1, 4)
+    	board.addPlayerToBoard(new Vector2(1, 4), "Player", false); //StartPosition (1, 4)
     	board.movePlayer("Player", Direction.NORTH);
     	board.movePlayer("Player", Direction.NORTH);
     	checkPositionIfContainsPit(new Vector2(1, 6));  //Check if tile contains Pit
@@ -57,7 +57,7 @@ public class PitFallTest {
     @Test
     public void movePlayerToCheckpointAfterPitFall() {
     	Vector2 startPos = new Vector2(9, 15);
-    	board.addPlayerToBoard(startPos, "Player");
+    	board.addPlayerToBoard(startPos, "Player", false);
     	checkPositionIfContainsPit(new Vector2(3, 15));
     	board.movePlayer("Player", Direction.WEST); //(8, 15)
     	board.checkAllCheckpoints(); 
@@ -71,8 +71,8 @@ public class PitFallTest {
     
     @Test
     public void checkIfTwoPlayersCanMoveToSameBackup() {
-    	board.addPlayerToBoard(new Vector2(1, 4), "Player1");
-    	board.addPlayerToBoard(new Vector2(1, 4), "Player2");
+    	board.addPlayerToBoard(new Vector2(1, 4), "Player1", false);
+    	board.addPlayerToBoard(new Vector2(1, 4), "Player2", false);
     	board.movePlayer("Player1", Direction.NORTH);
     	board.movePlayer("Player1", Direction.NORTH);
     	board.movePlayer("Player2", Direction.NORTH);
@@ -86,7 +86,7 @@ public class PitFallTest {
      */
     @Test
     public void moveToBackupIfOutOfBoardTest() {
-    	board.addPlayerToBoard(new Vector2(2,2), "Player"); 
+    	board.addPlayerToBoard(new Vector2(2,2), "Player", false); 
     	board.movePlayer("Player", Direction.WEST);
     	board.movePlayer("Player", Direction.WEST); //(0,2) out of board
         assertEquals(board.getPlayerByName("Player").getBackupPosition(), board.getPlayerLocation("Player"));
@@ -102,7 +102,7 @@ public class PitFallTest {
 
     @Test
     public void PlayerLosesHealthIfOutOfBoard() {
-        board.addPlayerToBoard(new Vector2(1, 5), "Player");
+        board.addPlayerToBoard(new Vector2(1, 5), "Player", false);
         board.movePlayer("Player", Direction.NORTH);
         assertEquals(2, board.getPlayerByName("Player").getHealth());
         assertEquals(2, board.getPlayerByName("Player").getDamageToken());

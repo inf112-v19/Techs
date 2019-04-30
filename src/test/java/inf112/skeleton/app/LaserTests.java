@@ -65,14 +65,14 @@ public class LaserTests {
 
     @Test
     public void OneDamageTokenReceivedAfterOneLaserShot() {
-        board.addPlayerToBoard(new Vector2(1, 0), "Player");
+        board.addPlayerToBoard(new Vector2(1, 0), "Player", false);
         board.activateLasersOnBoard(); // First lasershot
         assertEquals(1, board.getPlayerByName("Player").getDamageToken());
     }
 
     @Test
     public void TwoDamageTokenReceivedAfterTwoLaserShot() {
-        board.addPlayerToBoard(new Vector2(1, 0), "Player");
+        board.addPlayerToBoard(new Vector2(1, 0), "Player", false);
         board.activateLasersOnBoard(); // First lasershot
         board.activateLasersOnBoard(); // Second lasershot
         assertEquals(2, board.getPlayerByName("Player").getDamageToken());
@@ -80,7 +80,7 @@ public class LaserTests {
 
     @Test
     public void OneHealthRemovedIfTenDamageTokenAfterLaser() {
-        board.addPlayerToBoard(new Vector2(1, 0), "Player");
+        board.addPlayerToBoard(new Vector2(1, 0), "Player", false);
         board.getPlayerByName("Player").setDamageToken(9);
         board.activateLasersOnBoard();
         board.checkForDamageCleanup();
@@ -90,15 +90,15 @@ public class LaserTests {
 
     @Test
     public void PlayerOnTileWhereLaserShootsGetsDamage() {
-        board.addPlayerToBoard(new Vector2(0,0), "Player");
+        board.addPlayerToBoard(new Vector2(0,0), "Player", false);
         board.activateLasersOnBoard();
         assertEquals(1, board.getPlayerByName("Player").getDamageToken());
     }
 
     @Test
     public void OnlyOnePlayerGetsDamageOnSameLaserAxisFromBoardLaser() {
-        board.addPlayerToBoard(new Vector2(1,0), "PlayerOne");
-        board.addPlayerToBoard(new Vector2(2,0), "PlayerTwo");
+        board.addPlayerToBoard(new Vector2(1,0), "PlayerOne", false);
+        board.addPlayerToBoard(new Vector2(2,0), "PlayerTwo", false);
         board.activateLasersOnBoard();
         assertEquals(1, board.getPlayerByName("PlayerOne").getDamageToken());
         assertEquals(0, board.getPlayerByName("PlayerTwo").getDamageToken());
@@ -106,8 +106,8 @@ public class LaserTests {
 
     @Test
     public void BothPlayersLoseDamageIfShootingAtEachother() {
-        board.addPlayerToBoard(new Vector2(0, 1), "PlayerOne");
-        board.addPlayerToBoard(new Vector2(2, 1), "PlayerTwo");
+        board.addPlayerToBoard(new Vector2(0, 1), "PlayerOne", false);
+        board.addPlayerToBoard(new Vector2(2, 1), "PlayerTwo", false);
         board.rotatePlayer("PlayerOne", 1);
         board.rotatePlayer("PlayerTwo", -1);
         board.shootPlayerLaser();
@@ -117,8 +117,8 @@ public class LaserTests {
 
     @Test
     public void PlayerReceiveDamageTokenIfShotByOtherPlayer() {
-        board.addPlayerToBoard(new Vector2(0, 1), "PlayerOne");
-        board.addPlayerToBoard(new Vector2(2, 1), "PlayerTwo");
+        board.addPlayerToBoard(new Vector2(0, 1), "PlayerOne", false);
+        board.addPlayerToBoard(new Vector2(2, 1), "PlayerTwo", false);
         board.rotatePlayer("PlayerOne", 1);
         board.shootPlayerLaser();
         assertEquals(0, board.getPlayerByName("PlayerOne").getDamageToken());
@@ -127,8 +127,8 @@ public class LaserTests {
 
     @Test
     public void ReceivesTwoDamageIfShotByLaserAndPlayer() {
-        board.addPlayerToBoard(new Vector2(0, 2), "PlayerOne");
-        board.addPlayerToBoard(new Vector2(0, 1), "PlayerTwo");
+        board.addPlayerToBoard(new Vector2(0, 2), "PlayerOne", false);
+        board.addPlayerToBoard(new Vector2(0, 1), "PlayerTwo", false);
         board.shootPlayerLaser();
         board.activateLasersOnBoard();
         assertEquals(2, board.getPlayerByName("PlayerOne").getDamageToken());
@@ -137,8 +137,8 @@ public class LaserTests {
 
     @Test
     public void TwoPlayerShootingEachotherOnLaserOnBoardAxis() {
-        board.addPlayerToBoard(new Vector2(0, 0), "PlayerOne");
-        board.addPlayerToBoard(new Vector2(2, 0), "PlayerTwo");
+        board.addPlayerToBoard(new Vector2(0, 0), "PlayerOne", false);
+        board.addPlayerToBoard(new Vector2(2, 0), "PlayerTwo", false);
         board.rotatePlayer("PlayerOne", 1);
         board.rotatePlayer("PlayerTwo", -1);
         board.shootPlayerLaser();
