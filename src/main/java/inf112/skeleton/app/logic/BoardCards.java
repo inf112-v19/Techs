@@ -210,7 +210,7 @@ public class BoardCards extends Board {
                 numberOfCardsSelected++;
             }
         }
-    }
+    } 
 
     /**
      * Gets the arraylist of selected cards
