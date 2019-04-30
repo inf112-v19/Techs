@@ -36,7 +36,6 @@ public class Board implements Screen {
         this.game = game;
         boardLogic = new BoardLogic(this.map);
         statetime = 0f;
-
     }
         
     @Override
