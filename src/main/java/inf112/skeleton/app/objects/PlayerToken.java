@@ -34,7 +34,6 @@ public class PlayerToken extends Sprite {
 	private boolean destroyed = false;
 	private boolean powerdownStatus = false;
 	private int numberOfCheckpointsPassed;
-	private boolean AI;
 
 	// Variables needed for animated sprites
 	private String playerName;
@@ -464,13 +463,5 @@ public class PlayerToken extends Sprite {
             }
         }
     }
-
-	public boolean isAI() {
-		return AI;
-	}
-
-	public void setAI(boolean aI) {
-		AI = aI;
-	}
 
 }
