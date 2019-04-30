@@ -361,4 +361,8 @@ public class BoardLogic {
 	public boolean getAI(String name) {
 		return getPlayerByName(name).isAI();
 	}
+
+    public boolean playerIsDestroyed(String name) {
+        return getPlayerByName(name).checkIfDestroyed();
+    }
 }
