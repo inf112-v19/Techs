@@ -81,9 +81,10 @@ public class BoardLogic {
      * Adds a player at a given position.
      * @param startPosition The startposition of the player
      * @param givenName The name of the player
+     * @param aI if player is AI or not
      */
-    public void addPlayerToBoard(Vector2 startPosition, String givenName) {
-        PlayerToken newPlayer = new PlayerToken(givenName, sprites.get(spriteNumber), startPosition);
+    public void addPlayerToBoard(Vector2 startPosition, String givenName, boolean aI) {
+        PlayerToken newPlayer = new PlayerToken(givenName, sprites.get(spriteNumber), startPosition, aI);
         newPlayer.setSize(ROBOT_SPRITE_SCALE, ROBOT_SPRITE_SCALE);
         spriteNumber = (spriteNumber + 1) % 4;
         playersList.add(newPlayer);
@@ -356,4 +357,8 @@ public class BoardLogic {
     public int getHealth(String name) {
         return  getPlayerByName(name).getHealth();
     }
+
+	public boolean getAI(String name) {
+		return getPlayerByName(name).isAI();
+	}
 }

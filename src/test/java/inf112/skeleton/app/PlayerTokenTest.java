@@ -39,7 +39,7 @@ public class PlayerTokenTest {
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
         
-        player = new PlayerToken("testPlayer", SPRITE, new Vector2(1,1));
+        player = new PlayerToken("testPlayer", SPRITE, new Vector2(1,1), false);
     }
     
     @Test

@@ -30,8 +30,8 @@ public class GameControllerTest {
         noWallMap = new TmxMapLoader().load("assets/testMaps/mapNoWalls.tmx");
         boardLogic = new BoardLogic(noWallMap);
         roboRally = new RoboRally();
-        boardCards = new BoardCards(roboRally, 2);
-        gameController = new GameController(2, boardCards);
+        boardCards = new BoardCards(roboRally, 2, 0);
+        gameController = new GameController(2, 0, boardCards);
     }
 
     @Test
