@@ -56,18 +56,19 @@ private BoardLogic board1;
 		 
 	 }
 	 
-//	 @Test
+	 /**
+	 @Test
 	 public void testPlayerHaveTwoDamageTokensAfterPitfall() {
-		 board.addPlayerToBoard(new Vector2(1, 1), "Player"); 
-		 board.getPlayerByName("Player").moveDirection(Direction.SOUTH); //Moves into pit
-		 board.getPlayerByName("Player").moveDirection(Direction.SOUTH); //Moves into pit
-		 board.getPlayerByName("Player").moveDirection(Direction.SOUTH); //Moves into pit
-		 board.getPlayerByName("Player").moveDirection(Direction.SOUTH); //Moves into pit
+		 board.addPlayerToBoard(new Vector2(1, 5), "Player"); 
+		 board.getPlayerByName("Player").moveDirection(Direction.NORTH); //Moves into pit
+		 board.checkForDamageCleanup();
+		 board.checkPlayersLife();
 		 System.out.println(board.getPlayerByName("Player").getDamageToken());
 		 System.out.println(board.getPlayerByName("Player").getHealth());
 		 //assertEquals(2, board.getPlayerByName("Player").getDamageToken());
 		 
 	 }
+	 */
 	 
 	 @Test 
 	 public void looseHealthWhen10DamageTokensAndStartsWith2DamageTokens() {
