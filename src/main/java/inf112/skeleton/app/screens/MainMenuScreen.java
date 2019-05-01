@@ -46,10 +46,10 @@ public class MainMenuScreen implements Screen {
     private Texture exitButtonInactive;
 
     private RoboRally game;
-    private BoardCards BoardScreen;
+    private BoardCards boardScreen;
     private int numberOfPlayers;
+    private int numberOfAI;
     private boolean playersError = false;
-	private int numberOfAI;
 
     public MainMenuScreen(RoboRally game) {
         this.game = game;
@@ -126,9 +126,9 @@ public class MainMenuScreen implements Screen {
             game.batch.draw(playButtonActive, PLAYBUTTON_X, BUTTONS_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
                 if (this.numberOfPlayers > 0) {
-                    this.BoardScreen = new BoardCards(game, numberOfPlayers, numberOfAI);
+                    this.boardScreen = new BoardCards(game, numberOfPlayers, numberOfAI);
                     this.dispose();
-                    game.setScreen(BoardScreen);
+                    game.setScreen(boardScreen);
                 } else {
                     playersError = true;
                 }

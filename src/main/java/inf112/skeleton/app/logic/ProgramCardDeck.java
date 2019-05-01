@@ -33,6 +33,24 @@ public class ProgramCardDeck {
 	}
 
 	/**
+	 * Deals out the correct amount of program cards to a player based on its health.
+	 * @return The arraylist of program cards dealt to the player
+	 */
+	public ArrayList<IProgramCard> dealToPlayer() {
+		int playerHealth = 10;
+		ArrayList<IProgramCard> playerHand = new ArrayList<>();
+		for(int i = 0; i < playerHealth - 1; i++) {
+			if(deck.isEmpty()) {
+				System.out.println("Deck is empty... Player hand currently got " + i + " cards.");
+				return playerHand;
+			} else {
+				playerHand.add(getTopCard());
+			}
+		}
+		return playerHand;
+	}
+
+	/**
 	 * Checks if the deck is empty
 	 * @return True if deck is empty, otherwise false
 	 */
@@ -125,16 +143,6 @@ public class ProgramCardDeck {
 	}
 
 	/**
-	 * Prints out the program cards in string-form in the console.
-	 */
-	public void printDeck() {
-		System.out.println(deck.size());
-		for (IProgramCard card : deck) {
-			System.out.println(card.toString());
-		}
-	}
-
-	/**
 	 * Clears the deck, makes a new deck and then shuffles the new program cards in the new deck.
 	 */
 	public void resetDeck() {
@@ -150,22 +158,5 @@ public class ProgramCardDeck {
 	public void shuffle() {
 		Collections.shuffle(deck); 
 	}
-	
-	/**
-	 * Deals out the correct amount of program cards to a player based on its health.
-	 * @return The arraylist of program cards dealt to the player
-	 */
-	public ArrayList<IProgramCard> dealToPlayer() {
-		int playerHealth = 10;
-		ArrayList<IProgramCard> playerHand = new ArrayList<>();
-		for(int i = 0; i < playerHealth - 1; i++) {
-			if(deck.isEmpty()) {
-				System.out.println("Deck is empty... Player hand currently got " + i + " cards.");
-				return playerHand;
-			} else {
-				playerHand.add(getTopCard());
-			}
-		}
-		return playerHand;
-	}
+
 }

@@ -154,6 +154,18 @@ public class BoardLogic {
         }
     }
 
+    public boolean getAI(String name) {
+        return getPlayerByName(name).isAI();
+    }
+
+    public int getDamageTokens(String name) {
+        return getPlayerByName(name).getDamageToken();
+    }
+
+    public int getHealth(String name) {
+        return  getPlayerByName(name).getHealth();
+    }
+
     /**
      * Get the opposite direction of a given direction.
      * @param dir The direction from where the opposite is calculates
@@ -204,6 +216,10 @@ public class BoardLogic {
     public Direction getPlayerRotation(String name) {
         PlayerToken player = getPlayerByName(name);
         return player.getFacingDirection();
+    }
+
+    public boolean getPowerdownStatus(String name) {
+        return getPlayerByName(name).getPowerdownStatus();
     }
 
     /**
@@ -271,8 +287,12 @@ public class BoardLogic {
         }
     }
 
-    public void pitFalls() {
+    public boolean playerIsDestroyed(String name) {
+        return getPlayerByName(name).checkDestroyedStatus();
+    }
 
+    public void powerdown(String name) {
+        getPlayerByName(name).doPowerdown();
     }
 
     /**
@@ -286,6 +306,17 @@ public class BoardLogic {
             if (cellContainsLayer(x, y, "Repair")) {
                 player.removeDamageToken();
                 System.out.println(player.getName() + " got repaired. Damage: " + player.getDamageToken());
+            }
+        }
+    }
+
+    /**
+     * This method should return all players that are destroyed, but still have more lives. It is used when processing end of rounds.
+     */
+    public void returnDestroyedPlayers() {
+        for (PlayerToken player : playersList) {
+            if (player.checkDestroyedStatus() && player.getHealth() > 0) {
+                player.moveToBackup();
             }
         }
     }
@@ -347,37 +378,5 @@ public class BoardLogic {
         for(PlayerToken player : playersList) {
             shootLaserFromTile(player.getVector2Position(), player.getFacingDirection());
         }
-    }
-    
-    public void powerdown(String name) {
-    	getPlayerByName(name).doPowerdown();
-    }
-    
-    public boolean getPowerdownStatus(String name) {
-    	return getPlayerByName(name).getPowerdownStatus();
-    }
-    
-    public int getDamageTokens(String name) {
-        return getPlayerByName(name).getDamageToken();
-    }
-
-    public int getHealth(String name) {
-        return  getPlayerByName(name).getHealth();
-    }
-    
-    public boolean playerIsDestroyed(String name) {
-        return getPlayerByName(name).checkDestroyedStatus();
-    }
-
-    public void returnDestroyedPlayers() {
-        for (PlayerToken player : playersList) {
-            if (player.checkDestroyedStatus() && player.getHealth() > 0) {
-                player.moveToBackup();
-            }
-        }
-    }
-
-	public boolean getAI(String name) {
-		return getPlayerByName(name).isAI();
     }
 }

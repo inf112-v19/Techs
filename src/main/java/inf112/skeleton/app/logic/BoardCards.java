@@ -42,6 +42,7 @@ public class BoardCards extends Board {
 	private int numberOfLockedRegisters;
 	private boolean movingPlayers = false;
 	private boolean givenCardsToPlayer;
+	private boolean allPlayersDonePickingCards = false;
 
 	private final int DAMAGE_WIDTH = 35;
 	private final int DAMAGE_HEIGHT = 35;
@@ -70,16 +71,14 @@ public class BoardCards extends Board {
 
 	// Sprites regarding health and damage tokens
 	private Texture activeHealth;
-	private Texture deactiveHealth;
+	private Texture inactiveHealth;
 	private Texture activeDamage;
-	private Texture deactiveDamage;
+	private Texture inactiveDamage;
 
 	// shows order of selected cards
 	private ArrayList<Integer> numberXPos;
 	private ArrayList<Integer> numberYPos;
 	private ArrayList<String> playerList;
-
-	private boolean allPlayersDonePickingCards = false;
 
 	public BoardCards(RoboRally game, int numPlayers, int numAI) {
 		super(game);
@@ -97,8 +96,8 @@ public class BoardCards extends Board {
 		this.playerList = gameController.getListOfPlayers();
 		this.activeDamage = new Texture("assets/activeDamage.png");
 		this.activeHealth = new Texture("assets/activeHealth.png");
-		this.deactiveDamage = new Texture("assets/deactiveDamage.png");
-		this.deactiveHealth = new Texture("assets/deactiveHealth.png");
+		this.inactiveDamage = new Texture("assets/inactiveDamage.png");
+		this.inactiveHealth = new Texture("assets/inactiveHealth.png");
 
 		newTurn();
 
@@ -110,13 +109,142 @@ public class BoardCards extends Board {
 		}
 	}
 
+	private void drawAllPlayersDamageAndHealth() {
+
+		int y = 100;
+
+		for (String player : playerList) {
+			int damage = getDamageTokens(player);
+			int health = getHealth(player);
+
+			font.draw(spriteBatchCards, player + " Health: " + health + ", Damage: " + damage, 55, y);
+			y -= 20;
+		}
+
+
+	}
+
+	private void drawTokensOnScreen(int damage, int health) {
+		// Drawing damagetokens for player
+		for (int i = 0; i < 10; i++) {
+			if (damage > 0) {
+				spriteBatchCards.draw(activeDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH, DAMAGE_HEIGHT);
+				damage--;
+				continue;
+			}
+			spriteBatchCards.draw(inactiveDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH, DAMAGE_HEIGHT);
+		}
+
+		// Drawing healthtokens for player
+		for (int i = 0; i < 3; i++) {
+			if (health > 0) {
+				spriteBatchCards.draw(activeHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
+				health--;
+				continue;
+			}
+			spriteBatchCards.draw(inactiveHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
+		}
+	}
+
+	private void engagePowerdown() {
+		doPowerdown(gameController.getCurrentPlayerByName());
+		fillHandWithBlanks();
+	}
+
+	private void fillHandWithBlanks() {
+		while(selectedCards.size() < 5) {
+			selectedCards.add(new ProgramCard(CardType.MOVEMENT_0, 0, 0, 0));
+		}
+	}
+
+	private void getDamageTokenOnScreenLocation() {
+		damageTokensOnScreen = new ArrayList<>();
+		int y = 200;
+		for (int i = 0; i < 10; i++) {
+			damageTokensOnScreen.add(y);
+			y += 53;
+		}
+	}
+
+	private void getHealthTokensOnScreenLocation() {
+		healthTokensOnScreen = new ArrayList<>();
+		int y = 0;
+		for (int i = 0; i < 3; i++) {
+			healthTokensOnScreen.add(y);
+			y += 70;
+		}
+	}
+
+	/**
+	 * Gets the arraylist of selected cards
+	 *
+	 * @return Returns the list of selected cards
+	 */
+	public ArrayList<IProgramCard> getSelectedCards() {
+		if (selectedCards == null)
+			throw new IllegalStateException("No cards has been selected");
+		return selectedCards;
+	}
+
+	private void giveCardsToPlayer() {
+		int damageTokens = getDamageTokens(gameController.getCurrentPlayerByName());
+		handSize = Integer.max(9 - damageTokens, 5);
+		while (cardsToSelect.size() < handSize) {
+			cardsToSelect.add(deck.getTopCard());
+		}
+
+		for (int i = 9 - damageTokens; i < 5; i++) {
+			// add card to hand
+			cardsToSelect.add(i, gameController.getCardsThatWerePlayedLastTurn().get(i));
+			// Select that card
+			selectCard(i, centerOfScreen, i);
+		}
+
+		for (int i = 0; i < handSize; i++) {
+			cardsToSelectSprite.add(atlasCards.createSprite(cardsToSelect.get(i).toString(), -1));
+		}
+		givenCardsToPlayer = true;
+	}
+
+	/**
+	 * Start a new turn where a new set of dealt cards are created and added to
+	 * TextureAtlas to be shown on screen
+	 */
+	public void newTurn() {
+		givenCardsToPlayer = false;
+		handSize = 0;
+		numberOfCardsSelected = 0;
+		numberOfLockedRegisters = 0;
+
+		cardsToSelect = new ArrayList<IProgramCard>();
+		selectedCards = new ArrayList<IProgramCard>();
+		cardsToSelectSprite = new ArrayList<Sprite>();
+
+		setStandardNumberPosition();
+
+		// Give cards to player if the move phase hasn't started
+		if (!movingPlayers) {
+			giveCardsToPlayer();
+		}
+	}
+
+	private boolean playerCannotMoveByCards() {
+		return getPowerdownStatus(gameController.getCurrentPlayerByName()) || playerIsDestroyed((gameController.getCurrentPlayerByName()));
+	}
+
+	public void playerHasFinishedTurn() {
+		gameController.setCardsThatWerePlayedInRegister(selectedCards);
+		gameController.donePickingCards(selectedCards, this);
+		newTurn();
+	}
+
 	@Override
 	public void render(float v) {
 		super.render(v);
 		centerOfScreen = Gdx.graphics.getWidth() / 2;
 		updateCardPositionOnScreen(centerOfScreen);
-		getdamageTokenOnScreenLocation();
-		getHealthTokensOnScreen();
+		getDamageTokenOnScreenLocation();
+		getHealthTokensOnScreenLocation();
 
 		// If the player hasn't gotten cards yet, give cards
 		if (!givenCardsToPlayer && !movingPlayers) {
@@ -149,10 +277,10 @@ public class BoardCards extends Board {
 		spriteBatchCards.end();
 
 		if (!allPlayersDonePickingCards) {
-		    if(playerIsDestroyed((gameController.getCurrentPlayerByName()))) {
-                fillHandWithBlanks();
-                playerHasFinishedTurn();
-            } else if (getAI(gameController.getCurrentPlayerByName())) {
+			if(playerIsDestroyed((gameController.getCurrentPlayerByName()))) {
+				fillHandWithBlanks();
+				playerHasFinishedTurn();
+			} else if (getAI(gameController.getCurrentPlayerByName())) {
 				Random random = new Random();
 
 				if (getDamageTokens(gameController.getCurrentPlayerByName()) > 5) {
@@ -171,31 +299,31 @@ public class BoardCards extends Board {
 				playerHasFinishedTurn();
 			} else {
 
-			    // If player presses P, enters powerdown
-			    if (Gdx.input.isKeyJustPressed(Keys.P)) {
-			        engagePowerdown();
-			    }
+				// If player presses P, enters powerdown
+				if (Gdx.input.isKeyJustPressed(Keys.P)) {
+					engagePowerdown();
+				}
 
-			    if (selectedCards.size() < 5) {
-			        // if the players hasn't selected 5 cards yet, checks if player has selected any
-			        // card
-			        for (int i = 0; i < handSize; i++) {
-			            if ((Gdx.input.getX() > cardsPositionOnScreen.get(i)
-			                    && Gdx.input.getX() < (cardsPositionOnScreen.get(i) + CARD_WIDTH)
-			                    && Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched()
-			                    || Gdx.input.isKeyPressed(keysForChoosingCards.get(i))) {
-			                selectCard(i, centerOfScreen, -1);
-			            }
-			        }
+				if (selectedCards.size() < 5) {
+					// if the players hasn't selected 5 cards yet, checks if player has selected any
+					// card
+					for (int i = 0; i < handSize; i++) {
+						if ((Gdx.input.getX() > cardsPositionOnScreen.get(i)
+								&& Gdx.input.getX() < (cardsPositionOnScreen.get(i) + CARD_WIDTH)
+								&& Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched()
+								|| Gdx.input.isKeyPressed(keysForChoosingCards.get(i))) {
+							selectCard(i, centerOfScreen, -1);
+						}
+					}
 
-			        // if the players has selected 5 cards and presses Enter (or has started
-			        // powerdown), ends this players turn
-			    } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)
-			            || playerCannotMoveByCards()) {
-			        if (cardsToSelect.size() >= 5) {
-			            playerHasFinishedTurn();
-			        }
-			    }
+					// if the players has selected 5 cards and presses Enter (or has started
+					// powerdown), ends this players turn
+				} else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)
+						|| playerCannotMoveByCards()) {
+					if (cardsToSelect.size() >= 5) {
+						playerHasFinishedTurn();
+					}
+				}
 			}
 		} else {
 			this.movingPlayers = true;
@@ -221,59 +349,6 @@ public class BoardCards extends Board {
 				numberOfCardsSelected++;
 			}
 		}
-	}
-
-	/**
-	 * Gets the arraylist of selected cards
-	 * 
-	 * @return Returns the list of selected cards
-	 */
-	public ArrayList<IProgramCard> getSelectedCards() {
-		if (selectedCards == null)
-			throw new IllegalStateException("No cards has been selected");
-		return selectedCards;
-	}
-
-	/**
-	 * Start a new turn where a new set of dealt cards are created and added to
-	 * TextureAtlas to be shown on screen
-	 */
-	public void newTurn() {
-		givenCardsToPlayer = false;
-		handSize = 0;
-		numberOfCardsSelected = 0;
-		numberOfLockedRegisters = 0;
-
-		cardsToSelect = new ArrayList<IProgramCard>();
-		selectedCards = new ArrayList<IProgramCard>();
-		cardsToSelectSprite = new ArrayList<Sprite>();
-
-		setStandardNumberPosition();
-
-		// Give cards to player if the move phase hasn't started
-		if (!movingPlayers) {
-			giveCardsToPlayer();
-		}
-	}
-
-	private void giveCardsToPlayer() {
-		int damageTokens = getDamageTokens(gameController.getCurrentPlayerByName());
-		handSize = Integer.max(9 - damageTokens, 5);
-		while (cardsToSelect.size() < handSize) {
-			cardsToSelect.add(deck.getTopCard());
-		}
-
-		for (int i = 9 - damageTokens; i < 5; i++) {
-			// add card to hand
-			cardsToSelect.add(i, gameController.getCardsThatWerePlayedLastTurn().get(i));
-			// Select that card
-			selectCard(i, centerOfScreen, i);
-		}
-
-		for (int i = 0; i < handSize; i++) {
-			cardsToSelectSprite.add(atlasCards.createSprite(cardsToSelect.get(i).toString(), -1));
-		}
-		givenCardsToPlayer = true;
 	}
 
 	/**
@@ -306,7 +381,7 @@ public class BoardCards extends Board {
 		numberYPos.add(0);
 	}
 
-	/*
+	/**
 	 * Recalculates the position of where the cards should be
 	 */
 	private void updateCardPositionOnScreen(int centerOfScreen) {
@@ -314,81 +389,5 @@ public class BoardCards extends Board {
 		for (int i = 0; i < 9; i++) {
 			cardsPositionOnScreen.add(centerOfScreen - 360 + (i * 90));
 		}
-	}
-
-	private void getdamageTokenOnScreenLocation() {
-		damageTokensOnScreen = new ArrayList<>();
-		int y = 200;
-		for (int i = 0; i < 10; i++) {
-			damageTokensOnScreen.add(y);
-			y += 53;
-		}
-	}
-
-	private void getHealthTokensOnScreen() {
-		healthTokensOnScreen = new ArrayList<>();
-		int y = 0;
-		for (int i = 0; i < 3; i++) {
-			healthTokensOnScreen.add(y);
-			y += 70;
-		}
-	}
-
-	public void playerHasFinishedTurn() {
-		gameController.setCardsThatWerePlayedInRegister(selectedCards);
-		gameController.donePickingCards(selectedCards, this);
-		newTurn();
-	}
-	
-	private void engagePowerdown() {
-	    doPowerdown(gameController.getCurrentPlayerByName());
-        fillHandWithBlanks();
-	}
-	
-	private void fillHandWithBlanks() {
-        while(selectedCards.size() < 5) {
-            selectedCards.add(new ProgramCard(CardType.MOVEMENT_0, 0, 0, 0));               
-        }
-    }
-	
-	private boolean playerCannotMoveByCards() {
-        return getPowerdownStatus(gameController.getCurrentPlayerByName()) || playerIsDestroyed((gameController.getCurrentPlayerByName()));
-    }
-
-    private void drawTokensOnScreen(int damage, int health) {
-        // Drawing damagetokens for player
-        for (int i = 0; i < 10; i++) {
-            if (damage > 0) {
-                spriteBatchCards.draw(activeDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH, DAMAGE_HEIGHT);
-                damage--;
-                continue;
-            }
-            spriteBatchCards.draw(deactiveDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH, DAMAGE_HEIGHT);
-        }
-
-        // Drawing healthtokens for player
-        for (int i = 0; i < 3; i++) {
-            if (health > 0) {
-                spriteBatchCards.draw(activeHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
-                health--;
-                continue;
-            }
-            spriteBatchCards.draw(deactiveHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
-        }
-    }
-
-    private void drawAllPlayersDamageAndHealth() {
-
-		int y = 100;
-
-		for (String player : playerList) {
-			int damage = getDamageTokens(player);
-			int health = getHealth(player);
-
-			font.draw(spriteBatchCards, player + " Health: " + health + ", Damage: " + damage, 55, y);
-			y -= 20;
-		}
-
-
 	}
 }
