@@ -2,6 +2,7 @@ package inf112.skeleton.app.logic;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -379,5 +380,15 @@ public class BoardLogic {
 
 	public boolean getAI(String name) {
 		return getPlayerByName(name).isAI();
+    }
+
+    public void checkIfEveryoneIsDead() {
+        for(PlayerToken player : playersList) {
+            if(player.getHealth() > 0) {
+                return;
+            }
+        }
+        System.out.println("All robots have lost their lives, everyone loses!");
+        Gdx.app.exit();
     }
 }

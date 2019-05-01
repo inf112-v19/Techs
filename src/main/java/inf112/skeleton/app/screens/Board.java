@@ -178,6 +178,7 @@ public class Board implements Screen {
     public void processEndOfRound() {
         boardLogic.repairRobots();
         boardLogic.returnDestroyedPlayers();
+        boardLogic.checkIfEveryoneIsDead();
     }
 
     public void addPlayerToBoard(Vector2 startPosition, Vector2 deathPosition, String playerName, boolean aI) {
