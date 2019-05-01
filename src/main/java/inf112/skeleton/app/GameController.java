@@ -25,6 +25,7 @@ public class GameController implements IGameController{
     private HashMap<IProgramCard, Integer> firstCardsInverse;
 
     private ArrayList<Vector2> startPosition = new ArrayList<>();
+    private ArrayList<Vector2> deathPosition = new ArrayList<>();
     
     private ArrayList<ArrayList<IProgramCard>> cardsPlayedInRegister = new ArrayList<>();
     
@@ -36,20 +37,28 @@ public class GameController implements IGameController{
         playerString = new HashMap<>();
 
         setStartPosition();
+        setDeathPosition();
 
         for (int i = 0; i < numPlayers + numAI; i++) {
         	if(i < numPlayers) {
         		String playerName = "player " + (i+1);
-        		boardCards.addPlayerToBoard(startPosition.get(i), playerName, false); 		
+        		boardCards.addPlayerToBoard(startPosition.get(i), deathPosition.get(i), playerName, false);
         		playerString.put(i, playerName);
         	} else {
         		String playerName = "player " + (i+1);
-        		boardCards.addPlayerToBoard(startPosition.get(i), playerName, true); 		
+        		boardCards.addPlayerToBoard(startPosition.get(i), deathPosition.get(i), playerName, true);
         		playerString.put(i, playerName);
         	}
             
             cardsPlayedInRegister.add(new ArrayList<IProgramCard>());
         }
+    }
+
+    private void setDeathPosition() {
+        deathPosition.add(new Vector2(2, 18));
+        deathPosition.add(new Vector2(3, 18));
+        deathPosition.add(new Vector2(4, 18));
+        deathPosition.add(new Vector2(5, 18));
     }
 
     @Override
@@ -96,7 +105,6 @@ public class GameController implements IGameController{
             System.out.println("Do end of turn");
             boardCards.processEndOfTurns();
         }
-        
         
         if (playersCards.get(0).isEmpty() && firstCards.isEmpty()) {
             boardCards.setAllPlayersDonePickingCards(false);

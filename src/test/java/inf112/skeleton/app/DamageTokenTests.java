@@ -17,8 +17,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
 import inf112.skeleton.app.logic.BoardLogic;
-import inf112.skeleton.app.logic.Direction;
-import inf112.skeleton.app.objects.PlayerToken;
 
 public class DamageTokenTests {
 	
@@ -50,7 +48,7 @@ private BoardLogic board1;
 	 
 	 @Test
 	 public void testLaserIncreaseDamage() {
-		 board.addPlayerToBoard(new Vector2(11, 14), "Player", false); //placed on laser tile
+		 board.addPlayerToBoard(new Vector2(11, 14), new Vector2(2, 18), "Player", false); //placed on laser tile
 		 board.activateLasersOnBoard();
 		 assertEquals(1, board.getPlayerByName("Player").getDamageToken());
 		 
@@ -72,25 +70,25 @@ private BoardLogic board1;
 	 
 	 @Test 
 	 public void looseHealthWhen10DamageTokensAndStartsWith2DamageTokens() {
-		 board.addPlayerToBoard(new Vector2(11, 14), "Player", false);
+		 board.addPlayerToBoard(new Vector2(11, 14), new Vector2(2, 18), "Player", false);
 		 for(int i = 0; i < 10; i++) {
 			 board.getPlayerByName("Player").addDamageToken();
 		 }	 
-		 board.getPlayerByName("Player").checkForDamageCleanUp();
+		 board.getPlayerByName("Player").damageCleanup();
 		 assertEquals(2, board.getPlayerByName("Player").getHealth());
 		 assertEquals(2, board.getPlayerByName("Player").getDamageToken());
 	 }
 	 
 	 @Test 
 	 public void isDestroyedWhen0Health() { 
-		 board.addPlayerToBoard(new Vector2(11, 14), "Player", false);
+		 board.addPlayerToBoard(new Vector2(11, 14), new Vector2(2, 18), "Player", false);
 		 for(int i = 3; i > 0; i--) {
 			 for(int j = 0; j < 10; j++) {
 			 board.getPlayerByName("Player").addDamageToken();
-				board.getPlayerByName("Player").checkForDamageCleanUp();
+				board.getPlayerByName("Player").damageCleanup();
 			 }	 
 		 }
-		 assertTrue(board.getPlayerByName("Player").checkIfDestroyed());
+		 assertTrue(board.getPlayerByName("Player").checkDestroyedStatus());
 	 }
 	 
 	 

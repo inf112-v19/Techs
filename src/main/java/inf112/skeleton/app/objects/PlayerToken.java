@@ -16,9 +16,11 @@ public class PlayerToken extends Sprite {
 	private static final float TILE_SCALE = 96;
 	// Variables needed for movement, direction and position
 	private Vector2 movementVelocity = new Vector2();
+	private Vector2 deathPosition;
 	private Vector2 backupPosition;
 	private Vector2 position;
 	private Direction facingDirection;
+	private Direction lastFacingDirection;
 	private boolean movingNorth = true;
 	private boolean movingSouth = true;
 	private boolean movingEast = true;
@@ -42,7 +44,7 @@ public class PlayerToken extends Sprite {
 	private Animation<TextureRegion> robotAnimation;
 	private Texture spriteSheet;
 
-	public PlayerToken(String givenName, String textureSpriteSheet, Vector2 startPosition, boolean aI) {
+	public PlayerToken(String givenName, String textureSpriteSheet, Vector2 startPosition, Vector2 deathPosition, boolean aI) {
 		this.AI = aI;
 		this.playerName = givenName;
 		this.backupPosition = new Vector2(startPosition.x, startPosition.y);
@@ -50,7 +52,9 @@ public class PlayerToken extends Sprite {
 		this.damageToken = 0;
 		this.health = 3;
         this.position = startPosition;
+        this.deathPosition = deathPosition;
 		this.recentlyBackuped = true;
+		numberOfCheckpointsPassed = 0;
 
 		// All regarding spritesheet and getting the frames correctly is done here.
 		spriteSheet = new Texture(textureSpriteSheet);
@@ -103,11 +107,12 @@ public class PlayerToken extends Sprite {
     /**
      * If the player has full damage, the player loses one health, is moved to its backup-position and starts with two damage tokens.
      */
-    public void checkForDamageCleanUp() {
+    public void damageCleanup() {
         if (damageTokenFull()) {
             takeHealth();
             setDamageToken(2);
-            moveToBackup();
+            setDestroyed(true);
+            moveToDeathPosition();
         }
     }
 
@@ -115,7 +120,7 @@ public class PlayerToken extends Sprite {
      * Checks if player is destroyed.
      * @return Returns true if destroyed, otherwise false.
      */
-    public boolean checkIfDestroyed() {
+    public boolean checkDestroyedStatus() {
         return this.destroyed;
     }
 
@@ -150,6 +155,12 @@ public class PlayerToken extends Sprite {
     public int getDamageToken() {
         return this.damageToken;
     }
+
+    /**
+     * Gets the position where the player is sent if destroyed
+     * @return The position where the player is sent if destroyed
+     */
+    public Vector2 getDeathPosition() { return new Vector2(deathPosition.x, deathPosition.y); }
 
     /**
      * Gets the facing direction of the player
@@ -239,13 +250,6 @@ public class PlayerToken extends Sprite {
     }
 
     /**
-     * Moves the player in its facing direction
-     */
-    public void moveInFacingDirection() {
-        moveDirection(facingDirection);
-    }
-
-    /**
      * Moves the player in the north direction
      */
     private void moveNorth() {
@@ -266,6 +270,12 @@ public class PlayerToken extends Sprite {
      */
     public void moveToBackup() {
         position = getBackupPosition();
+        setXPositionOnBoard();
+        setYPositionOnBoard();
+    }
+
+    public void moveToDeathPosition() {
+        position = getDeathPosition();
         setXPositionOnBoard();
         setYPositionOnBoard();
     }
@@ -326,9 +336,7 @@ public class PlayerToken extends Sprite {
      * @param lastCheckpoint The last checkpoint the player has passed is set as new backup-position
      */
     public void setBackupPosition(Vector2 lastCheckpoint) {
-        if (numberOfCheckpointsPassed() < 1) {
-            return;
-        } else {
+        if (numberOfCheckpointsPassed() > 0) {
             backupPosition = new Vector2(lastCheckpoint.x, lastCheckpoint.y);
         }
     }
@@ -348,6 +356,14 @@ public class PlayerToken extends Sprite {
 	public void setDestroyed(boolean destroyed) {
 		this.destroyed = destroyed;
 	}
+
+	public void setFacingDirection(Direction dir) {
+	    this.facingDirection = dir;
+    }
+
+	public void setLastFacingDirection(Direction dir) {
+	    this.lastFacingDirection = dir;
+    }
 	
 	public void doPowerdown() {	
 		this.damageToken = 0;
@@ -358,14 +374,6 @@ public class PlayerToken extends Sprite {
 	public boolean getPowerdownStatus() {
 		return this.powerdownStatus;
 	}
-
-    /**
-     * Sets the health of a player
-     * @param health The health the player is given
-     */
-    public void setHealth(int health) {
-        this.health = health;
-    }
 
     /**
      * Set the player as recently backuped (i.e. destroyed)
@@ -393,7 +401,7 @@ public class PlayerToken extends Sprite {
      * Takes health from player and sets the player as destroyed if health is less than 1
      */
     public void takeHealth() {
-        health--;
+        this.health--;
         if (health < 1) {
             setDestroyed(true);
         }

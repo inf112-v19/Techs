@@ -1,9 +1,7 @@
 package inf112.skeleton.app.logic;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -28,6 +26,7 @@ public class BoardLogic {
     private MoveConveyorBelts moveConveyorBelts;
     private ProcessCheckpoints processCheckpoints;
     private Lasers lasers;
+    private PitFall pitfall;
     
     private TiledMap map;
     private MapProperties prop;
@@ -40,6 +39,7 @@ public class BoardLogic {
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
         this.processCheckpoints = new ProcessCheckpoints(this, playersList);
         this.lasers = new Lasers(this, playersList, prop);
+        this.pitfall = new PitFall(this, playersList);
         sprites.add(ROBOT_SPRITE_SHEET_BLUE);
         sprites.add(ROBOT_SPRITE_SHEET_GREEN);
         sprites.add(ROBOT_SPRITE_SHEET_RED);
@@ -52,7 +52,6 @@ public class BoardLogic {
      */
     public void activateLasersOnBoard() {
         lasers.processFeature();
-
     }
 
     /**
@@ -83,8 +82,8 @@ public class BoardLogic {
      * @param givenName The name of the player
      * @param aI if player is AI or not
      */
-    public void addPlayerToBoard(Vector2 startPosition, String givenName, boolean aI) {
-        PlayerToken newPlayer = new PlayerToken(givenName, sprites.get(spriteNumber), startPosition, aI);
+    public void addPlayerToBoard(Vector2 startPosition, Vector2 deathPosition, String givenName, boolean aI) {
+        PlayerToken newPlayer = new PlayerToken(givenName, sprites.get(spriteNumber), startPosition, deathPosition, aI);
         newPlayer.setSize(ROBOT_SPRITE_SCALE, ROBOT_SPRITE_SCALE);
         spriteNumber = (spriteNumber + 1) % 4;
         playersList.add(newPlayer);
@@ -135,8 +134,12 @@ public class BoardLogic {
      */
     public void checkForDamageCleanup() {
         for (PlayerToken player : playersList) {
-            player.checkForDamageCleanUp();
+            player.damageCleanup();
         }
+    }
+
+    public void checkPitfalls() {
+        pitfall.processFeature();
     }
 
     /**
@@ -268,6 +271,10 @@ public class BoardLogic {
         }
     }
 
+    public void pitFalls() {
+
+    }
+
     /**
      * Checks if any of the players stands on a repair tile and removes one damage token if they are.
      */
@@ -357,12 +364,20 @@ public class BoardLogic {
     public int getHealth(String name) {
         return  getPlayerByName(name).getHealth();
     }
+    
+    public boolean playerIsDestroyed(String name) {
+        return getPlayerByName(name).checkDestroyedStatus();
+    }
+
+    public void returnDestroyedPlayers() {
+        for (PlayerToken player : playersList) {
+            if (player.checkDestroyedStatus() && player.getHealth() > 0) {
+                player.moveToBackup();
+            }
+        }
+    }
 
 	public boolean getAI(String name) {
 		return getPlayerByName(name).isAI();
-	}
-
-    public boolean playerIsDestroyed(String name) {
-        return getPlayerByName(name).checkIfDestroyed();
     }
 }

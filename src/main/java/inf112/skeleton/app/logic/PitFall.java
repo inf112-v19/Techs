@@ -2,43 +2,41 @@ package inf112.skeleton.app.logic;
 
 
 import inf112.skeleton.app.objects.PlayerToken;
-import inf112.skeleton.app.screens.Board;
+
+import java.util.ArrayList;
 
 public class PitFall {
 
 	private BoardLogic board;
-	private PlayerToken player;
+	private ArrayList<PlayerToken> playerList;
 	private String layerName = "Pit";
 
-	public PitFall(PlayerToken player, BoardLogic board) {
-		this.player = player;
+	public PitFall(BoardLogic board, ArrayList<PlayerToken> playerList) {
+		this.playerList = playerList;
 		this.board = board;
 	}
 
-	public void processFeatureCheckForPitFalls(PlayerToken player) {
-		//board = this.board;
-		movePlayerIfPitFall(player, board);
-		// should lose a damagetoken when implemented
+	public void processFeature() {
+		for (PlayerToken player : playerList) {
+			movePlayerIfPitFall(player);
+			// should lose a damagetoken when implemented
+		}
 	}
 
-	public void movePlayerIfPitFall(PlayerToken player, BoardLogic board) {
-		if (checkIfPitfall(player, board)) {
-			player.moveToBackup(); // Moves player to current backup position
-			player.setRecentlyBackuped(true);
-			player.takeHealth();
-			player.setDamageToken(2);
-			return;
-		} 
-		return;
+	public void movePlayerIfPitFall(PlayerToken player) {
+		if (checkIfPitfall(player)) {
+			player.setDamageToken(10);
+			player.damageCleanup();
+		}
 	}
 	
-	public boolean checkIfPitfall(PlayerToken player, BoardLogic board) {
+	public boolean checkIfPitfall(PlayerToken player) {
 		
 		int xPos = player.getXPosition();
 		int yPos = player.getYPosition();
 		
 		if(board.cellContainsLayer(xPos, yPos, layerName)) {
-			System.out.println(player.getName() + " fell into pit. Moved to last backup");
+			System.out.println(player.getName() + " fell into pit.");
 			return true;
 		}
 		return false;
