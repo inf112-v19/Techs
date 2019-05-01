@@ -93,6 +93,14 @@ private BoardLogic board1;
 		 assertTrue(board.getPlayerByName("Player").checkIfDestroyed());
 	 }
 	 
+	 @Test
+	    public void checkDamageToken() {
+	    	board.addPlayerToBoard(new Vector2(2, 2), "Player", true);
+	    	assertEquals(board.getPlayerByName("Player").getDamageToken(), 0);
+	    	board.getPlayerByName("Player").addDamageToken();
+	    	assertEquals(board.getPlayerByName("Player").getDamageToken(), 1);
+	    }
+	 
 	 
 
 }
