@@ -2,6 +2,7 @@ package inf112.skeleton.app;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -56,28 +57,15 @@ private BoardLogic board1;
 		 
 	 }
 	 
-	 /**
-	 @Test
-	 public void testPlayerHaveTwoDamageTokensAfterPitfall() {
-		 board.addPlayerToBoard(new Vector2(1, 5), "Player"); 
-		 board.getPlayerByName("Player").moveDirection(Direction.NORTH); //Moves into pit
-		 board.checkForDamageCleanup();
-		 board.checkPlayersLife();
-		 System.out.println(board.getPlayerByName("Player").getDamageToken());
-		 System.out.println(board.getPlayerByName("Player").getHealth());
-		 //assertEquals(2, board.getPlayerByName("Player").getDamageToken());
-		 
-	 }
-	 */
-	 
 	 @Test 
 	 public void looseHealthWhen10DamageTokensAndStartsWith2DamageTokens() {
 		 board.addPlayerToBoard(new Vector2(11, 14), "Player", false);
+		 int maxHealth = board.getPlayerByName("Player").getHealth();
 		 for(int i = 0; i < 10; i++) {
 			 board.getPlayerByName("Player").addDamageToken();
 		 }	 
 		 board.getPlayerByName("Player").checkForDamageCleanUp();
-		 assertEquals(2, board.getPlayerByName("Player").getHealth());
+		 assertEquals(maxHealth - 1, board.getPlayerByName("Player").getHealth());
 		 assertEquals(2, board.getPlayerByName("Player").getDamageToken());
 	 }
 	 
@@ -94,13 +82,36 @@ private BoardLogic board1;
 	 }
 	 
 	 @Test
-	    public void checkDamageToken() {
+	    public void testGetDamageToken() {
 	    	board.addPlayerToBoard(new Vector2(2, 2), "Player", true);
 	    	assertEquals(board.getPlayerByName("Player").getDamageToken(), 0);
 	    	board.getPlayerByName("Player").addDamageToken();
 	    	assertEquals(board.getPlayerByName("Player").getDamageToken(), 1);
 	    }
 	 
+	 @Test
+	 public void checkIfDamageTokenIsFull() {
+		 board.addPlayerToBoard(new Vector2(2, 2), "Player", true);
+		 board.getPlayerByName("Player").setDamageToken(10);
+		 assertTrue(board.getPlayerByName("Player").damageTokenFull());
+	 }
+	 
+	 @Test
+	 public void testSetGetDamageToken() {
+		 int dam = 4;
+		 board.addPlayerToBoard(new Vector2(2, 2), "Player", true);
+		 board.getPlayerByName("Player").setDamageToken(dam);
+		 assertEquals(board.getPlayerByName("Player").getDamageToken(), dam);
+	 }
+	 
+	 @Test
+	 public void testRemoveDamageToken() {
+		 int dam = 4;
+		 board.addPlayerToBoard(new Vector2(2, 2), "Player", true);
+		 board.getPlayerByName("Player").setDamageToken(dam);
+		 board.getPlayerByName("Player").removeDamageToken();
+		 assertEquals(board.getPlayerByName("Player").getDamageToken(), dam - 1);
+	 }
 	 
 
 }
