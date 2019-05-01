@@ -96,7 +96,7 @@ public class BoardCards extends Board {
 		newTurn();
 
 		// Creates and fills keysForChoosingCards with the correct numbers
-		keysForChoosingCards = new ArrayList<Integer>();
+		keysForChoosingCards = new ArrayList<>();
 		int keyOne = Input.Keys.NUM_1;
 		for (int i = 0; i < 9; i++) {
 			keysForChoosingCards.add(keyOne + i);
@@ -133,30 +133,7 @@ public class BoardCards extends Board {
 		int health = getHealth(gameController.getCurrentPlayerByName());
 
 		if (!this.movingPlayers) {
-
-			// Drawing damagetokens for player
-			for (int i = 0; i < 10; i++) {
-				if (damage > 0) {
-					spriteBatchCards.draw(activeDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH,
-							DAMAGE_HEIGHT);
-					damage--;
-					continue;
-				}
-				spriteBatchCards.draw(deactiveDamage, DAMAGE_X, damageTokensOnScreen.get(i), DAMAGE_WIDTH,
-						DAMAGE_HEIGHT);
-			}
-
-			// Drawing healthtokens for player
-			for (int i = 0; i < 3; i++) {
-				if (health > 0) {
-					spriteBatchCards.draw(activeHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH,
-							HEALTH_HEIGHT);
-					health--;
-					continue;
-				}
-				spriteBatchCards.draw(deactiveHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH,
-						HEALTH_HEIGHT);
-			}
+			drawTokensOnScreen(damage, health);
 		}
 
 		spriteBatchCards.end();
@@ -203,7 +180,7 @@ public class BoardCards extends Board {
 
 			        // if the players has selected 5 cards and presses Enter (or has started
 			        // powerdown), ends this players turn
-			    } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER) 
+			    } else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)
 			            || playerCannotMoveByCards()) {
 			        if (cardsToSelect.size() >= 5) {
 			            playerHasFinishedTurn();
@@ -388,19 +365,5 @@ public class BoardCards extends Board {
             }
             spriteBatchCards.draw(deactiveHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
         }
-    }
-    
-    private void fillHandWithBlanks() {
-        while(selectedCards.size() < 5) {
-            selectedCards.add(new ProgramCard(CardType.MOVEMENT_0, 0, 0, 0));               
-        }
-    }
-    
-    /*
-     * Returns true if a player for some reason cannot move through cards this turn.
-     * 
-     */
-    private boolean playerCannotMoveByCards() {
-        return getPowerdownStatus(gameController.getCurrentPlayerByName()) || playerIsDestroyed((gameController.getCurrentPlayerByName()));
     }
 }

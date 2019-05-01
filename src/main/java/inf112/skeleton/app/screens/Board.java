@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -179,7 +177,7 @@ public class Board implements Screen {
 
     public void processEndOfRound() {
         boardLogic.repairRobots();
-        boardLogic.getRemainingPlayers();
+        boardLogic.returnDestroyedPlayers();
     }
 
     public void addPlayerToBoard(Vector2 startPosition, Vector2 deathPosition, String playerName, boolean aI) {
@@ -258,9 +256,5 @@ public class Board implements Screen {
      */
     public boolean getAI(String name) {
     	return boardLogic.getAI(name);
-    }
-    
-    public boolean playerIsDestroyed(String name) {
-        return boardLogic.playerIsDestroyed(name);
     }
 }

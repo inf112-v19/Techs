@@ -42,11 +42,11 @@ public class GameController implements IGameController{
         for (int i = 0; i < numPlayers + numAI; i++) {
         	if(i < numPlayers) {
         		String playerName = "player " + (i+1);
-        		boardCards.addPlayerToBoard(startPosition.get(i), playerName, false); 		
+        		boardCards.addPlayerToBoard(startPosition.get(i), deathPosition.get(i), playerName, false);
         		playerString.put(i, playerName);
         	} else {
         		String playerName = "player " + (i+1);
-        		boardCards.addPlayerToBoard(startPosition.get(i), playerName, true); 		
+        		boardCards.addPlayerToBoard(startPosition.get(i), deathPosition.get(i), playerName, true);
         		playerString.put(i, playerName);
         	}
             

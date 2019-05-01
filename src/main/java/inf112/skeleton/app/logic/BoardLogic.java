@@ -369,10 +369,10 @@ public class BoardLogic {
         return getPlayerByName(name).checkDestroyedStatus();
     }
 
-    public void getRemainingPlayers() {
+    public void returnDestroyedPlayers() {
         for (PlayerToken player : playersList) {
-            if (player.checkDestroyedStatus()) {
-
+            if (player.checkDestroyedStatus() && player.getHealth() > 0) {
+                player.moveToBackup();
             }
         }
     }

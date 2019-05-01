@@ -82,7 +82,7 @@ public class BoardLogicTest {
 
     @Test
     public void wallCollisionTest() {
-        wallBoard.addPlayerToBoard(new Vector2(1,1), new Vector(2,4), "PlayerOne", false);
+        wallBoard.addPlayerToBoard(new Vector2(1,1), new Vector2(2,4), "PlayerOne", false);
 		assertEquals(new Vector2(1,1), wallBoard.getPlayerLocation("PlayerOne"));
 		wallBoard.movePlayer("PlayerOne", Direction.NORTH);
 		assertEquals(new Vector2(1,1), wallBoard.getPlayerLocation("PlayerOne"));

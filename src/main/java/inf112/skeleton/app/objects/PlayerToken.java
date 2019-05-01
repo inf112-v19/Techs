@@ -20,6 +20,7 @@ public class PlayerToken extends Sprite {
 	private Vector2 backupPosition;
 	private Vector2 position;
 	private Direction facingDirection;
+	private Direction lastFacingDirection;
 	private boolean movingNorth = true;
 	private boolean movingSouth = true;
 	private boolean movingEast = true;
@@ -110,6 +111,7 @@ public class PlayerToken extends Sprite {
         if (damageTokenFull()) {
             takeHealth();
             setDamageToken(2);
+            setDestroyed(true);
             moveToDeathPosition();
         }
     }
@@ -248,13 +250,6 @@ public class PlayerToken extends Sprite {
     }
 
     /**
-     * Moves the player in its facing direction
-     */
-    public void moveInFacingDirection() {
-        moveDirection(facingDirection);
-    }
-
-    /**
      * Moves the player in the north direction
      */
     private void moveNorth() {
@@ -361,6 +356,14 @@ public class PlayerToken extends Sprite {
 	public void setDestroyed(boolean destroyed) {
 		this.destroyed = destroyed;
 	}
+
+	public void setFacingDirection(Direction dir) {
+	    this.facingDirection = dir;
+    }
+
+	public void setLastFacingDirection(Direction dir) {
+	    this.lastFacingDirection = dir;
+    }
 	
 	public void doPowerdown() {	
 		this.damageToken = 0;
@@ -371,14 +374,6 @@ public class PlayerToken extends Sprite {
 	public boolean getPowerdownStatus() {
 		return this.powerdownStatus;
 	}
-
-    /**
-     * Sets the health of a player
-     * @param health The health the player is given
-     */
-    public void setHealth(int health) {
-        this.health = health;
-    }
 
     /**
      * Set the player as recently backuped (i.e. destroyed)
