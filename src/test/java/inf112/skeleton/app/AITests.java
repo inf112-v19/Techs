@@ -46,15 +46,15 @@ public class AITests {
     
     @Test
     public void testIfPlayerIsAi() {
-    	board.addPlayerToBoard(new Vector2(2, 2), "Player", true);
+    	board.addPlayerToBoard(new Vector2(2, 2), new Vector2(2, 18), "Player", true);
     	assertTrue(board.getPlayerByName("Player").isAI());
-    	board.addPlayerToBoard(new Vector2(2, 3), "Player1", false);
+    	board.addPlayerToBoard(new Vector2(2, 3), new Vector2(2, 18), "Player1", false);
     	assertFalse(board.getPlayerByName("Player1").isAI());
     }
     
     @Test
     public void testSetAI() { 
-    	board.addPlayerToBoard(new Vector2(2, 2), "Player", true);
+    	board.addPlayerToBoard(new Vector2(2, 2), new Vector2(2, 18), "Player", true);
     	assertTrue(board.getPlayerByName("Player").isAI());
     	board.getPlayerByName("Player").setAI(false);
     	assertFalse(board.getPlayerByName("Player").isAI());
