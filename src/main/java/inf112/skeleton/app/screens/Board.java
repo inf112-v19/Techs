@@ -4,15 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.logic.BoardLogic;
 import inf112.skeleton.app.logic.Direction;
-import inf112.skeleton.app.logic.Hud;
 import inf112.skeleton.app.objects.PlayerToken;
 import inf112.skeleton.app.RoboRally;
 
@@ -168,22 +165,27 @@ public class Board implements Screen {
     }
 
     public void processEndOfTurns() {
+        boardLogic.checkPitfalls();
         moveConveyorBelts();
         moveRotateWheel();
         boardLogic.shootPlayerLaser();
         boardLogic.activateLasersOnBoard();
         checkAllCheckpoints();
         boardLogic.checkPlayersLife();
-        boardLogic.repairRobots();
         checkForDamageCleanup();
     }
 
-    public void addPlayerToBoard(Vector2 startPosition, String playerName, boolean aI) {
-        boardLogic.addPlayerToBoard(startPosition, playerName, aI);
+    public void processEndOfRound() {
+        boardLogic.repairRobots();
+        boardLogic.returnDestroyedPlayers();
+    }
+
+    public void addPlayerToBoard(Vector2 startPosition, Vector2 deathPosition, String playerName, boolean aI) {
+        boardLogic.addPlayerToBoard(startPosition, deathPosition, playerName, aI);
     }
     
-    public void addAiToBoard(Vector2 startPosition, String playerName, boolean aI) {
-    	boardLogic.addPlayerToBoard(startPosition, playerName, aI);
+    public void addAiToBoard(Vector2 startPosition, Vector2 deathPosition, String playerName, boolean aI) {
+    	boardLogic.addPlayerToBoard(startPosition, deathPosition, playerName, aI);
     }
     // Checks if tile at (xPos, yPos) is in the specified layer
     public boolean cellContainsLayer(int xPos, int yPos, String layer) {
@@ -225,6 +227,9 @@ public class Board implements Screen {
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
     }
+    public boolean playerIsDestroyed(String name) {
+        return boardLogic.playerIsDestroyed(name);
+    }
 
     /**
      * This method is used to get information about player damage over to BoardCards
@@ -251,9 +256,5 @@ public class Board implements Screen {
      */
     public boolean getAI(String name) {
     	return boardLogic.getAI(name);
-    }
-    
-    public boolean playerIsDestroyed(String name) {
-        return boardLogic.playerIsDestroyed(name);
     }
 }

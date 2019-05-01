@@ -62,13 +62,13 @@ public class BoardLogicTest {
 
     @Test
     public void addPlayerToBoard() {
-        noWallBoard.addPlayerToBoard(new Vector2(0,0), "newPlayer", false);
+        noWallBoard.addPlayerToBoard(new Vector2(0,0), new Vector2(2,4), "newPlayer", false);
         assertEquals(new Vector2(0,0), noWallBoard.getPlayerLocation("newPlayer"));
     }
     
     @Test
     public void movePlayerTest() {
-        noWallBoard.addPlayerToBoard(new Vector2(1,1), "PlayerOne", false);
+        noWallBoard.addPlayerToBoard(new Vector2(1,1), new Vector2(2, 4), "PlayerOne", false);
         assertEquals(new Vector2(1,1), noWallBoard.getPlayerLocation("PlayerOne"));
         noWallBoard.movePlayer("PlayerOne", Direction.NORTH);
         assertEquals(new Vector2(1,2), noWallBoard.getPlayerLocation("PlayerOne"));
@@ -82,7 +82,7 @@ public class BoardLogicTest {
 
     @Test
     public void wallCollisionTest() {
-        wallBoard.addPlayerToBoard(new Vector2(1,1), "PlayerOne", false);
+        wallBoard.addPlayerToBoard(new Vector2(1,1), new Vector2(2,4), "PlayerOne", false);
 		assertEquals(new Vector2(1,1), wallBoard.getPlayerLocation("PlayerOne"));
 		wallBoard.movePlayer("PlayerOne", Direction.NORTH);
 		assertEquals(new Vector2(1,1), wallBoard.getPlayerLocation("PlayerOne"));
@@ -96,7 +96,7 @@ public class BoardLogicTest {
 
     @Test
     public void playerRotationTest() {
-        noWallBoard.addPlayerToBoard(new Vector2(1,1), "PlayerOne", false);
+        noWallBoard.addPlayerToBoard(new Vector2(1,1), new Vector2(2, 4), "PlayerOne", false);
 		assertEquals(Direction.NORTH, noWallBoard.getPlayerRotation("PlayerOne"));
 		noWallBoard.rotatePlayer("PlayerOne", 1);
 		assertEquals(Direction.EAST, noWallBoard.getPlayerRotation("PlayerOne"));
