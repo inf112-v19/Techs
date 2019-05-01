@@ -80,6 +80,8 @@ public class BoardCards extends Board {
 	private ArrayList<String> playerList;
 
 	private boolean allPlayersDonePickingCards = false;
+    private boolean finishedTurn = false;
+
 
 	public BoardCards(RoboRally game, int numPlayers, int numAI) {
 		super(game);
@@ -149,7 +151,15 @@ public class BoardCards extends Board {
 		spriteBatchCards.end();
 
 		if (!allPlayersDonePickingCards) {
+
+		    if(finishedTurn) {
+                System.out.println("do end of round");
+                processEndOfRound();
+                finishedTurn = false;
+            }
+		    
 		    if(playerIsDestroyed((gameController.getCurrentPlayerByName()))) {
+		        System.out.println("player is destroyed");
                 fillHandWithBlanks();
                 playerHasFinishedTurn();
             } else if (getAI(gameController.getCurrentPlayerByName())) {
@@ -202,6 +212,7 @@ public class BoardCards extends Board {
 			// If all players have selected cards, player can press SPACE to move a player
 			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 				gameController.movePlayers(this);
+                finishedTurn = true;
 			}
 		}
 	}
