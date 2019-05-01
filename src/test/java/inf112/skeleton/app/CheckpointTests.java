@@ -68,7 +68,7 @@ public class CheckpointTests {
         
     @Test
     public void backupPositionUpdatedAfterFirstCheckpoint() {
-        board.addPlayerToBoard(startPos1, deathPos1, "Player"); //startposition
+        board.addPlayerToBoard(startPos1, deathPos1, "Player", false); //startposition
         board.movePlayer("Player", Direction.NORTH); //Checkpoint (1, 1)
         board.checkAllCheckpoints();
         assertEquals(new Vector2(1, 2), board.getPlayerByName("Player").getBackupPosition());
@@ -76,7 +76,7 @@ public class CheckpointTests {
 
     @Test
     public void backupPositionUpdatedAfterSecondCheckpoint() {
-        board.addPlayerToBoard(startPos1, deathPos1, "Player"); //startposition
+        board.addPlayerToBoard(startPos1, deathPos1, "Player", false); //startposition
         board.movePlayer("Player", Direction.NORTH); //Checkpoint (1, 1)
         board.checkAllCheckpoints();
         board.movePlayer("Player", Direction.EAST);
@@ -87,7 +87,7 @@ public class CheckpointTests {
 
     @Test
     public void backupPositionUpdatedAfterThirdCheckpoint() {
-        board.addPlayerToBoard(startPos1, deathPos1, "Player"); //startposition
+        board.addPlayerToBoard(startPos1, deathPos1, "Player", false); //startposition
         board.movePlayer("Player", Direction.NORTH); //Checkpoint (1, 1)
         board.checkAllCheckpoints();
         board.movePlayer("Player", Direction.EAST);
@@ -101,7 +101,7 @@ public class CheckpointTests {
 
     @Test
     public void notProcessThirdCheckpointBeforeSecondCheckpoint() {
-        board.addPlayerToBoard(startPos1, deathPos1, "Player");
+        board.addPlayerToBoard(startPos1, deathPos1, "Player", false);
         board.movePlayer("Player", Direction.NORTH);
         board.checkAllCheckpoints();
         board.movePlayer("Player", Direction.EAST);
@@ -112,7 +112,7 @@ public class CheckpointTests {
 
     @Test
     public void notMakeNewBackupAtNonCheckpointTiles() {
-        board.addPlayerToBoard(startPos1, deathPos1, "Player");
+        board.addPlayerToBoard(startPos1, deathPos1, "Player", false);
         board.movePlayer("Player", Direction.EAST);
         board.checkAllCheckpoints();
         assertEquals(new Vector2(1,1), board.getPlayerByName("Player").getBackupPosition());

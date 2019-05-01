@@ -80,9 +80,10 @@ public class BoardLogic {
      * Adds a player at a given position.
      * @param startPosition The startposition of the player
      * @param givenName The name of the player
+     * @param aI if player is AI or not
      */
-    public void addPlayerToBoard(Vector2 startPosition, Vector2 deathPosition, String givenName) {
-        PlayerToken newPlayer = new PlayerToken(givenName, sprites.get(spriteNumber), startPosition, deathPosition);
+    public void addPlayerToBoard(Vector2 startPosition, Vector2 deathPosition, String givenName, boolean aI) {
+        PlayerToken newPlayer = new PlayerToken(givenName, sprites.get(spriteNumber), startPosition, deathPosition, aI);
         newPlayer.setSize(ROBOT_SPRITE_SCALE, ROBOT_SPRITE_SCALE);
         spriteNumber = (spriteNumber + 1) % 4;
         playersList.add(newPlayer);
@@ -371,8 +372,12 @@ public class BoardLogic {
     public void getRemainingPlayers() {
         for (PlayerToken player : playersList) {
             if (player.checkDestroyedStatus()) {
-                
+
             }
         }
+    }
+
+	public boolean getAI(String name) {
+		return getPlayerByName(name).isAI();
     }
 }

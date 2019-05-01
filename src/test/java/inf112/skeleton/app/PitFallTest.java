@@ -58,7 +58,7 @@ public class PitFallTest {
     
     @Test
     public void movePlayerToDeathPositionAfterPitFall() {
-    	board.addPlayerToBoard(this.startPos1, this.deathPos1, "Player"); //StartPosition (1, 4)
+    	board.addPlayerToBoard(this.startPos1, this.deathPos1, "Player", false); //StartPosition (1, 4)
     	board.movePlayer("Player", Direction.NORTH);
     	board.movePlayer("Player", Direction.EAST);
         board.movePlayer("Player", Direction.EAST);
@@ -68,8 +68,8 @@ public class PitFallTest {
     
     @Test
     public void checkIfTwoPlayersMovesToTheirDeathPositions() {
-    	board.addPlayerToBoard(this.startPos1, this.deathPos1, "Player1");
-    	board.addPlayerToBoard(this.startPos2, this.deathPos2, "Player2");
+    	board.addPlayerToBoard(this.startPos1, this.deathPos1, "Player1", false);
+    	board.addPlayerToBoard(this.startPos2, this.deathPos2, "Player2", false);
     	board.movePlayer("Player1", Direction.WEST);
     	board.movePlayer("Player2", Direction.EAST);
     	assertEquals(deathPos1, board.getPlayerLocation("Player1"));
@@ -81,7 +81,7 @@ public class PitFallTest {
      */
     @Test
     public void moveToDeathPositionIfOutOfBoardTest() {
-    	board.addPlayerToBoard(startPos1, deathPos1, "Player");
+    	board.addPlayerToBoard(startPos1, deathPos1, "Player", false);
     	board.movePlayer("Player", Direction.WEST);
         assertEquals(deathPos1, board.getPlayerLocation("Player"));
     }
@@ -89,7 +89,7 @@ public class PitFallTest {
 
     @Test
     public void PlayerLosesHealthIfOutOfBoard() {
-        board.addPlayerToBoard(startPos1, deathPos1, "Player");
+        board.addPlayerToBoard(startPos1, deathPos1, "Player", false);
         board.movePlayer("Player", Direction.WEST);
         assertEquals(2, board.getPlayerByName("Player").getDamageToken());
         assertEquals(2, board.getPlayerByName("Player").getHealth());

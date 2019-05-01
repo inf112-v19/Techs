@@ -182,8 +182,12 @@ public class Board implements Screen {
         boardLogic.getRemainingPlayers();
     }
 
-    public void addPlayerToBoard(Vector2 startPosition, Vector2 deathPosition, String playerName) {
-        boardLogic.addPlayerToBoard(startPosition, deathPosition, playerName);
+    public void addPlayerToBoard(Vector2 startPosition, Vector2 deathPosition, String playerName, boolean aI) {
+        boardLogic.addPlayerToBoard(startPosition, deathPosition, playerName, aI);
+    }
+    
+    public void addAiToBoard(Vector2 startPosition, Vector2 deathPosition, String playerName, boolean aI) {
+    	boardLogic.addPlayerToBoard(startPosition, deathPosition, playerName, aI);
     }
     // Checks if tile at (xPos, yPos) is in the specified layer
     public boolean cellContainsLayer(int xPos, int yPos, String layer) {
@@ -247,4 +251,16 @@ public class Board implements Screen {
         return boardLogic.getHealth(name);
     }
     
+    /**
+     * This method is used to get AI status
+     * @param name The name of player we want to know AI status about
+     * @return true if AI, false if not
+     */
+    public boolean getAI(String name) {
+    	return boardLogic.getAI(name);
+    }
+    
+    public boolean playerIsDestroyed(String name) {
+        return boardLogic.playerIsDestroyed(name);
+    }
 }

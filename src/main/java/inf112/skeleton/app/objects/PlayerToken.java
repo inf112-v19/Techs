@@ -34,6 +34,7 @@ public class PlayerToken extends Sprite {
 	private int health = 3;
 	private boolean destroyed = false;
 	private boolean powerdownStatus = false;
+	private boolean AI;
 	private int numberOfCheckpointsPassed;
 
 	// Variables needed for animated sprites
@@ -42,7 +43,8 @@ public class PlayerToken extends Sprite {
 	private Animation<TextureRegion> robotAnimation;
 	private Texture spriteSheet;
 
-	public PlayerToken(String givenName, String textureSpriteSheet, Vector2 startPosition, Vector2 deathPosition) {
+	public PlayerToken(String givenName, String textureSpriteSheet, Vector2 startPosition, Vector2 deathPosition, boolean aI) {
+		this.AI = aI;
 		this.playerName = givenName;
 		this.backupPosition = new Vector2(startPosition.x, startPosition.y);
 		this.facingDirection = Direction.NORTH;
@@ -476,5 +478,13 @@ public class PlayerToken extends Sprite {
             }
         }
     }
+
+	public boolean isAI() {
+		return AI;
+	}
+
+	public void setAI(boolean aI) {
+		AI = aI;
+	}
 
 }

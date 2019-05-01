@@ -49,6 +49,7 @@ public class MainMenuScreen implements Screen {
     private BoardCards BoardScreen;
     private int numberOfPlayers;
     private boolean playersError = false;
+	private int numberOfAI;
 
     public MainMenuScreen(RoboRally game) {
         this.game = game;
@@ -66,6 +67,7 @@ public class MainMenuScreen implements Screen {
         this.exitButtonInactive = new Texture("assets/ExitButtonInactive.png");
 
         this.numberOfPlayers = 0;
+        this.numberOfAI = 0;
     }
 
     @Override
@@ -124,7 +126,7 @@ public class MainMenuScreen implements Screen {
             game.batch.draw(playButtonActive, PLAYBUTTON_X, BUTTONS_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
                 if (this.numberOfPlayers > 0) {
-                    this.BoardScreen = new BoardCards(game, numberOfPlayers);
+                    this.BoardScreen = new BoardCards(game, numberOfPlayers, numberOfAI);
                     this.dispose();
                     game.setScreen(BoardScreen);
                 } else {
@@ -139,6 +141,7 @@ public class MainMenuScreen implements Screen {
             game.batch.draw(onePlayerActive, PLAYERONE_X, PLAYERBUTTONS_Y, PLAYERBUTTON_WIDTH, PLAYERBUTTON_HEIGHT);
             if(Gdx.input.isTouched()) {
                 this.numberOfPlayers = 1;
+                this.numberOfAI = 1;
                 this.playersError = false;
             }
         }
