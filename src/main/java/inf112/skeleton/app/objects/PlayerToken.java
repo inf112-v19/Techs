@@ -54,7 +54,7 @@ public class PlayerToken extends Sprite {
         this.position = startPosition;
         this.deathPosition = deathPosition;
 		this.recentlyBackuped = true;
-		numberOfCheckpointsPassed = 0;
+		this.numberOfCheckpointsPassed = 0;
 
 		// All regarding spritesheet and getting the frames correctly is done here.
 		spriteSheet = new Texture(textureSpriteSheet);

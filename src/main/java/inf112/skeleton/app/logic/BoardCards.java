@@ -3,7 +3,9 @@ package inf112.skeleton.app.logic;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -54,6 +56,7 @@ public class BoardCards extends Board {
 
 	private TextureAtlas atlasCards;
 	private SpriteBatch spriteBatchCards;
+	public BitmapFont font;
 	private ArrayList<Sprite> cardsToSelectSprite;
 	private ArrayList<Integer> cardsPositionOnScreen;
 	private ArrayList<Integer> damageTokensOnScreen;
@@ -74,6 +77,7 @@ public class BoardCards extends Board {
 	// shows order of selected cards
 	private ArrayList<Integer> numberXPos;
 	private ArrayList<Integer> numberYPos;
+	private ArrayList<String> playerList;
 
 	private boolean allPlayersDonePickingCards = false;
 
@@ -82,12 +86,15 @@ public class BoardCards extends Board {
 		gameController = new GameController(numPlayers, numAI, this);
 		atlasCards = new TextureAtlas("assets/ProgramSheet/ProgramCardsTexturePack/cardsTexture.atlas");
 		spriteBatchCards = new SpriteBatch();
+		font = new BitmapFont();
+		font.setColor(Color.WHITE);
 		number1 = new Texture("assets/ProgramSheet/numbersInCircle/numberOne.png");
 		number2 = new Texture("assets/ProgramSheet/numbersInCircle/numberTwo.png");
 		number3 = new Texture("assets/ProgramSheet/numbersInCircle/numberThree.png");
 		number4 = new Texture("assets/ProgramSheet/numbersInCircle/numberFour.png");
 		number5 = new Texture("assets/ProgramSheet/numbersInCircle/numberFive.png");
 
+		this.playerList = gameController.getListOfPlayers();
 		this.activeDamage = new Texture("assets/activeDamage.png");
 		this.activeHealth = new Texture("assets/activeHealth.png");
 		this.deactiveDamage = new Texture("assets/deactiveDamage.png");
@@ -132,9 +139,12 @@ public class BoardCards extends Board {
 		int damage = getDamageTokens(gameController.getCurrentPlayerByName());
 		int health = getHealth(gameController.getCurrentPlayerByName());
 
+
 		if (!this.movingPlayers) {
 			drawTokensOnScreen(damage, health);
 		}
+
+		drawAllPlayersDamageAndHealth();
 
 		spriteBatchCards.end();
 
@@ -366,4 +376,19 @@ public class BoardCards extends Board {
             spriteBatchCards.draw(deactiveHealth, HEALTH_X, healthTokensOnScreen.get(i), HEALTH_WIDTH, HEALTH_HEIGHT);
         }
     }
+
+    private void drawAllPlayersDamageAndHealth() {
+
+		int y = 100;
+
+		for (String player : playerList) {
+			int damage = getDamageTokens(player);
+			int health = getHealth(player);
+
+			font.draw(spriteBatchCards, player + " Health: " + health + ", Damage: " + damage, 55, y);
+			y -= 20;
+		}
+
+
+	}
 }

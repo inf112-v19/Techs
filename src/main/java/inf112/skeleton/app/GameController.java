@@ -55,10 +55,10 @@ public class GameController implements IGameController{
     }
 
     private void setDeathPosition() {
-        deathPosition.add(new Vector2(2, 18));
-        deathPosition.add(new Vector2(3, 18));
-        deathPosition.add(new Vector2(4, 18));
-        deathPosition.add(new Vector2(5, 18));
+        deathPosition.add(new Vector2(-1, 18));
+        deathPosition.add(new Vector2(-2, 18));
+        deathPosition.add(new Vector2(-3, 18));
+        deathPosition.add(new Vector2(-4, 18));
     }
 
     @Override
@@ -160,6 +160,14 @@ public class GameController implements IGameController{
     
     public String getCurrentPlayerByName() {
     	return playerString.get(getNumberOfCurrentPlayer());
+    }
+
+    public ArrayList<String> getListOfPlayers() {
+        ArrayList<String> playerList = new ArrayList<>();
+        for (int i = 0; i < numPlayers + numAI; i++) {
+            playerList.add(playerString.get(i));
+        }
+        return  playerList;
     }
     
     public void setCardsThatWerePlayedInRegister(ArrayList<IProgramCard> cards) {
