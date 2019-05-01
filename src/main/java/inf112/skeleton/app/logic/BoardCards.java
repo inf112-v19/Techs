@@ -56,7 +56,7 @@ public class BoardCards extends Board {
 
 	private TextureAtlas atlasCards;
 	private SpriteBatch spriteBatchCards;
-	public BitmapFont font;
+	private BitmapFont font;
 	private ArrayList<Sprite> cardsToSelectSprite;
 	private ArrayList<Integer> cardsPositionOnScreen;
 	private ArrayList<Integer> damageTokensOnScreen;
@@ -142,9 +142,9 @@ public class BoardCards extends Board {
 
 		if (!this.movingPlayers) {
 			drawTokensOnScreen(damage, health);
+			drawAllPlayersDamageAndHealth();
 		}
 
-		drawAllPlayersDamageAndHealth();
 
 		spriteBatchCards.end();
 
