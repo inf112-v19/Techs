@@ -51,6 +51,7 @@ public class PlayerToken extends Sprite {
         this.position = startPosition;
         this.deathPosition = deathPosition;
 		this.recentlyBackuped = true;
+		numberOfCheckpointsPassed = 0;
 
 		// All regarding spritesheet and getting the frames correctly is done here.
 		spriteSheet = new Texture(textureSpriteSheet);
@@ -103,7 +104,7 @@ public class PlayerToken extends Sprite {
     /**
      * If the player has full damage, the player loses one health, is moved to its backup-position and starts with two damage tokens.
      */
-    public void checkForDamageCleanUp() {
+    public void damageCleanup() {
         if (damageTokenFull()) {
             takeHealth();
             setDamageToken(2);
@@ -115,7 +116,7 @@ public class PlayerToken extends Sprite {
      * Checks if player is destroyed.
      * @return Returns true if destroyed, otherwise false.
      */
-    public boolean checkIfDestroyed() {
+    public boolean checkDestroyedStatus() {
         return this.destroyed;
     }
 
@@ -338,9 +339,7 @@ public class PlayerToken extends Sprite {
      * @param lastCheckpoint The last checkpoint the player has passed is set as new backup-position
      */
     public void setBackupPosition(Vector2 lastCheckpoint) {
-        if (numberOfCheckpointsPassed() < 1) {
-            return;
-        } else {
+        if (numberOfCheckpointsPassed() > 0) {
             backupPosition = new Vector2(lastCheckpoint.x, lastCheckpoint.y);
         }
     }
@@ -405,7 +404,7 @@ public class PlayerToken extends Sprite {
      * Takes health from player and sets the player as destroyed if health is less than 1
      */
     public void takeHealth() {
-        health--;
+        this.health--;
         if (health < 1) {
             setDestroyed(true);
         }

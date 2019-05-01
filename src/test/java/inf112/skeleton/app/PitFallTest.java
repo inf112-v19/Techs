@@ -50,6 +50,11 @@ public class PitFallTest {
         map = new TmxMapLoader().load("assets/TestMaps/mapPitFalls.tmx");
         board = new BoardLogic(map);
     }
+
+    @Test
+    public void checkPositionIfContainsPit() {
+        assertTrue(board.cellContainsLayer(3, 3, "Pit"));
+    }
     
     @Test
     public void movePlayerToDeathPositionAfterPitFall() {
@@ -76,26 +81,18 @@ public class PitFallTest {
      */
     @Test
     public void moveToDeathPositionIfOutOfBoardTest() {
-    	board.addPlayerToBoard(new Vector2(2,2), new Vector2(2, 5), "Player");
+    	board.addPlayerToBoard(startPos1, deathPos1, "Player");
     	board.movePlayer("Player", Direction.WEST);
-    	board.movePlayer("Player", Direction.WEST); //(0,2) out of board
-        assertEquals(board.getPlayerByName("Player").getBackupPosition(), board.getPlayerLocation("Player"));
+        assertEquals(deathPos1, board.getPlayerLocation("Player"));
     }
-    
-    /**
-     * check if a position contains pit
-     * @param position
-     */
-    public void checkPositionIfContainsPit(Vector2 position) {
-    	assertTrue(board.cellContainsLayer((int)position.x, (int)position.y, "Pit"));
-    }
+
 
     @Test
     public void PlayerLosesHealthIfOutOfBoard() {
-        board.addPlayerToBoard(new Vector2(1, 5), new Vector2(2, 18), "Player");
-        board.movePlayer("Player", Direction.NORTH);
-        assertEquals(2, board.getPlayerByName("Player").getHealth());
+        board.addPlayerToBoard(startPos1, deathPos1, "Player");
+        board.movePlayer("Player", Direction.WEST);
         assertEquals(2, board.getPlayerByName("Player").getDamageToken());
+        assertEquals(2, board.getPlayerByName("Player").getHealth());
 
     }
     

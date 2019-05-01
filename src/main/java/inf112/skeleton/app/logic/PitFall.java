@@ -2,7 +2,6 @@ package inf112.skeleton.app.logic;
 
 
 import inf112.skeleton.app.objects.PlayerToken;
-import inf112.skeleton.app.screens.Board;
 
 import java.util.ArrayList;
 
@@ -27,11 +26,8 @@ public class PitFall {
 	public void movePlayerIfPitFall(PlayerToken player) {
 		if (checkIfPitfall(player)) {
 			player.setDamageToken(10);
-			player.setDestroyed(true);
-			player.moveToDeathPosition();
-			return;
-		} 
-		return;
+			player.damageCleanup();
+		}
 	}
 	
 	public boolean checkIfPitfall(PlayerToken player) {

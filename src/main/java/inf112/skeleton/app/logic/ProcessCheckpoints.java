@@ -17,7 +17,7 @@ public class ProcessCheckpoints implements IBoardFeature {
     }
     
     public void processFeature() {
-        for(PlayerToken player : playersList) {
+        for (PlayerToken player : playersList) {
             if(checkIfOnRightCheckpoint(player)) {
                 player.passCheckpoint();
             }

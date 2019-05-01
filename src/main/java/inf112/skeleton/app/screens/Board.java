@@ -12,7 +12,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.logic.BoardLogic;
 import inf112.skeleton.app.logic.Direction;
-import inf112.skeleton.app.logic.Hud;
 import inf112.skeleton.app.objects.PlayerToken;
 import inf112.skeleton.app.RoboRally;
 
@@ -180,7 +179,7 @@ public class Board implements Screen {
 
     public void processEndOfRound() {
         boardLogic.repairRobots();
-        //TODO: metode som henter inn spillere igjen som fortsatt har liv igjen
+        boardLogic.getRemainingPlayers();
     }
 
     public void addPlayerToBoard(Vector2 startPosition, Vector2 deathPosition, String playerName) {

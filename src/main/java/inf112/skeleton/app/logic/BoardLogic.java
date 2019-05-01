@@ -1,9 +1,7 @@
 package inf112.skeleton.app.logic;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -135,7 +133,7 @@ public class BoardLogic {
      */
     public void checkForDamageCleanup() {
         for (PlayerToken player : playersList) {
-            player.checkForDamageCleanUp();
+            player.damageCleanup();
         }
     }
 
@@ -367,6 +365,14 @@ public class BoardLogic {
     }
     
     public boolean playerIsDestroyed(String name) {
-        return getPlayerByName(name).checkIfDestroyed();
+        return getPlayerByName(name).checkDestroyedStatus();
+    }
+
+    public void getRemainingPlayers() {
+        for (PlayerToken player : playersList) {
+            if (player.checkDestroyedStatus()) {
+                
+            }
+        }
     }
 }

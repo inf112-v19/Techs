@@ -10,15 +10,6 @@
 0,0,0,0,0
 </data>
  </layer>
- <layer id="17" name="Pit" width="5" height="5">
-  <data encoding="csv">
-81,81,81,81,81,
-81,0,0,6,81,
-81,0,0,0,81,
-81,0,0,0,81,
-81,81,81,81,81
-</data>
- </layer>
  <layer id="21" name="OutsideBoard" width="5" height="5">
   <data encoding="csv">
 81,81,81,81,81,
@@ -44,6 +35,15 @@
 0,0,0,0,0,
 0,0,0,0,0,
 0,0,0,0,0
+</data>
+ </layer>
+ <layer id="17" name="Pit" width="5" height="5">
+  <data encoding="csv">
+81,81,81,81,81,
+81,0,0,6,81,
+81,0,0,0,81,
+81,0,0,0,81,
+81,81,81,81,81
 </data>
  </layer>
  <layer id="20" name="Checkpoints" width="5" height="5">

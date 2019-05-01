@@ -17,8 +17,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
 import inf112.skeleton.app.logic.BoardLogic;
-import inf112.skeleton.app.logic.Direction;
-import inf112.skeleton.app.objects.PlayerToken;
 
 public class DamageTokenTests {
 	
@@ -76,7 +74,7 @@ private BoardLogic board1;
 		 for(int i = 0; i < 10; i++) {
 			 board.getPlayerByName("Player").addDamageToken();
 		 }	 
-		 board.getPlayerByName("Player").checkForDamageCleanUp();
+		 board.getPlayerByName("Player").damageCleanup();
 		 assertEquals(2, board.getPlayerByName("Player").getHealth());
 		 assertEquals(2, board.getPlayerByName("Player").getDamageToken());
 	 }
@@ -87,10 +85,10 @@ private BoardLogic board1;
 		 for(int i = 3; i > 0; i--) {
 			 for(int j = 0; j < 10; j++) {
 			 board.getPlayerByName("Player").addDamageToken();
-				board.getPlayerByName("Player").checkForDamageCleanUp();
+				board.getPlayerByName("Player").damageCleanup();
 			 }	 
 		 }
-		 assertTrue(board.getPlayerByName("Player").checkIfDestroyed());
+		 assertTrue(board.getPlayerByName("Player").checkDestroyedStatus());
 	 }
 	 
 	 
