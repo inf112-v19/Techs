@@ -105,7 +105,7 @@ public class PlayerToken extends Sprite {
     }
 
     /**
-     * If the player has full damage, the player loses one health, is moved to its backup-position and starts with two damage tokens.
+     * If the player has full damage, the player loses one health, is moved to its death position and starts with two damage tokens.
      */
     public void damageCleanup() {
         if (damageTokenFull()) {
@@ -270,6 +270,7 @@ public class PlayerToken extends Sprite {
      */
     public void moveToBackup() {
         position = getBackupPosition();
+        destroyed = false;
         setXPositionOnBoard();
         setYPositionOnBoard();
     }
