@@ -105,7 +105,7 @@ Kommunikasjonen over Slack har under siste delinnlevering vært noe dårligere e
 
 Underveis har vi gitt mer kodeoppgaver til de som har kodet litt mindre tidligere for at de skal beherske koden mer, og sagt at de som har kodet mer skal gjøre mer av annet gruppearbeid som å skrive referat når vi har møter.
 
-***Hva har fungert best, og hvorfor? (Hva er dere mest fornøyde med?)* **
+***Hva har fungert best, og hvorfor? (Hva er dere mest fornøyde med?)***
 
 - 
 
@@ -113,7 +113,7 @@ Underveis har vi gitt mer kodeoppgaver til de som har kodet litt mindre tidliger
 
 -
 
-*Hva er det viktigste dere har lært?*
+***Hva er det viktigste dere har lært?***
 
 -
 

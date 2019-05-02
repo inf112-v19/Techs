@@ -221,8 +221,9 @@ public class BoardCards extends Board {
 		for (String player : playerList) {
 			int damage = getDamageTokens(player);
 			int health = getHealth(player);
+			int checkpoints = getCheckpoints(player);
 
-			font.draw(spriteBatchCards, player + " Health: " + health + ", Damage: " + damage, 55, y);
+			font.draw(spriteBatchCards, player + " Health: " + health + ", Damage: " + damage + ", Flags: " + checkpoints, 20, y);
 			y -= 20;
 		}
 

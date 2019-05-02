@@ -154,6 +154,10 @@ public class PlayerToken extends Sprite {
         return new Vector2(backupPosition.x, backupPosition.y);
     }
 
+    public int getCheckpoints() {
+        return this.numberOfCheckpointsPassed;
+    }
+
     /**
      * Gets the number of damage tokens of the player
      * @return The number of damage tokens
@@ -294,6 +298,7 @@ public class PlayerToken extends Sprite {
      */
     public void moveToDeathPosition() {
         position = getDeathPosition();
+
         setXPositionOnBoard();
         setYPositionOnBoard();
     }

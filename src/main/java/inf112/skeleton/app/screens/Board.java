@@ -206,6 +206,11 @@ public class Board implements Screen {
     public int getDamageTokens(String name) {
         return boardLogic.getDamageTokens(name);
     }
+
+    public int getCheckpoints(String name) {
+        return boardLogic.getCheckpoints(name);
+    }
+
     /**
      * This method is used to get information about player health over to BoardCards
      * @param name The name of the player who we want information about

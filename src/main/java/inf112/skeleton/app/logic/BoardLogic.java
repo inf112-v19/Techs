@@ -180,6 +180,10 @@ public class BoardLogic {
         return getPlayerByName(name).isAI();
     }
 
+    public int getCheckpoints(String name) {
+        return getPlayerByName(name).getCheckpoints();
+    }
+
     /**
      * Gets the number of damage taken by the player by name
      * @param name The name of the player's damage to get

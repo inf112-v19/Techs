@@ -42,7 +42,7 @@ public class GameController implements IGameController{
         		boardCards.addPlayerToBoard(startPosition.get(i), deathPosition.get(i), playerName, false);
         		playerString.put(i, playerName);
         	} else {
-        		String playerName = "player " + (i+1);
+        		String playerName = "Player " + (i+1);
         		boardCards.addPlayerToBoard(startPosition.get(i), deathPosition.get(i), playerName, true);
         		playerString.put(i, playerName);
         	}
