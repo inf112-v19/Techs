@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-up" width="4" height="3" tilewidth="96" tileheight="96" infinite="0" nextlayerid="7" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-up" width="5" height="5" tilewidth="96" tileheight="96" infinite="0" nextlayerid="10" nextobjectid="1">
  <tileset firstgid="1" source="../RoboRallyTiles.tsx"/>
- <layer id="4" name="Floor" width="4" height="3">
+ <layer id="7" name="Floor" width="5" height="5" locked="1">
   <data encoding="csv">
-5,5,5,5,
-5,5,5,5,
-5,5,5,5
+0,0,0,0,0,
+0,5,5,5,0,
+0,5,5,5,0,
+0,5,5,5,0,
+0,0,0,0,0
 </data>
  </layer>
- <layer id="5" name="Pit" width="4" height="3">
+ <layer id="9" name="Checkpoints" width="5" height="5" locked="1">
   <data encoding="csv">
-0,0,0,0,
-0,0,0,0,
-0,0,6,0
-</data>
- </layer>
- <layer id="6" name="Checkpoints" width="4" height="3">
-  <data encoding="csv">
-0,0,63,0,
-0,49,0,56,
-0,0,0,0
+0,0,0,0,0,
+0,0,63,0,0,
+0,49,0,56,0,
+0,0,0,0,0,
+0,0,0,0,0
 </data>
  </layer>
 </map>

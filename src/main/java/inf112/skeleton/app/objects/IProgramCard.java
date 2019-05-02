@@ -1,9 +1,6 @@
 package inf112.skeleton.app.objects;
 
 import inf112.skeleton.app.logic.CardType;
-import inf112.skeleton.app.logic.Direction;
-
-import java.util.ArrayList;
 
 public interface IProgramCard extends Comparable<IProgramCard> {
 	

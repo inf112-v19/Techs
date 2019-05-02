@@ -57,97 +57,97 @@ public class MoveConveyorBeltsTests {
     
     @Test
     public void playerMovesLeft() {
-        circleBoard.addPlayerToBoard(new Vector2(1, 2), "testPlayerOne");
+        circleBoard.addPlayerToBoard(new Vector2(1, 2), new Vector2(2, 4), "testPlayerOne", false);
         circleBoard.moveConveyorBelts();
         assertEquals(new Vector2(0, 2), circleBoard.getPlayerLocation("testPlayerOne"));
     }
     @Test
     public void playerMovesRight() {
-        circleBoard.addPlayerToBoard(new Vector2(1, 0), "testPlayerOne");
+        circleBoard.addPlayerToBoard(new Vector2(1, 0), new Vector2(2, 4), "testPlayerOne", false);
         circleBoard.moveConveyorBelts();
         assertEquals(new Vector2(2, 0), circleBoard.getPlayerLocation("testPlayerOne"));
     }
     @Test
     public void playerMovesDown() {
-        circleBoard.addPlayerToBoard(new Vector2(0, 1), "testPlayerOne");
+        circleBoard.addPlayerToBoard(new Vector2(0, 1), new Vector2(2, 4), "testPlayerOne", false);
         circleBoard.moveConveyorBelts();
         assertEquals(new Vector2(0, 0), circleBoard.getPlayerLocation("testPlayerOne"));
     }
     @Test
     public void playerMovesUp() {
-        circleBoard.addPlayerToBoard(new Vector2(2, 1), "testPlayerOne");
+        circleBoard.addPlayerToBoard(new Vector2(2, 1), new Vector2(2, 4), "testPlayerOne", false);
         circleBoard.moveConveyorBelts();
         assertEquals(new Vector2(2, 2), circleBoard.getPlayerLocation("testPlayerOne"));
     }
     @Test
     public void playerRotatesLeftBottomLeftCorner() {
-        circleBoard.addPlayerToBoard(new Vector2(1, 0), "testPlayerOne");
+        circleBoard.addPlayerToBoard(new Vector2(1, 0), new Vector2(2, 4), "testPlayerOne", false);
         circleBoard.moveConveyorBelts();
         assertEquals(Direction.WEST, circleBoard.getPlayerRotation("testPlayerOne"));
     }
     @Test
     public void playerRotatesLeftBottomRightCorner() {
-        circleBoard.addPlayerToBoard(new Vector2(1, 0), "testPlayerOne");
+        circleBoard.addPlayerToBoard(new Vector2(1, 0), new Vector2(2, 4), "testPlayerOne", false);
         circleBoard.moveConveyorBelts();
         assertEquals(Direction.WEST, circleBoard.getPlayerRotation("testPlayerOne"));
     }
     @Test
     public void playerRotatesLeftUpperRightCorner() {
-        circleBoard.addPlayerToBoard(new Vector2(2, 1), "testPlayerOne");
+        circleBoard.addPlayerToBoard(new Vector2(2, 1), new Vector2(2, 4), "testPlayerOne", false);
         circleBoard.moveConveyorBelts();
         assertEquals(Direction.WEST, circleBoard.getPlayerRotation("testPlayerOne"));
     }
     @Test
     public void playerRotatesLeftUpperLeftCorner() {
-        circleBoard.addPlayerToBoard(new Vector2(1, 2), "testPlayerOne");
+        circleBoard.addPlayerToBoard(new Vector2(1, 2), new Vector2(2, 4), "testPlayerOne", false);
         circleBoard.moveConveyorBelts();
         assertEquals(Direction.WEST, circleBoard.getPlayerRotation("testPlayerOne"));
     }
     @Test
     public void playerRotatesRightUpperLeftCorner() {
-        circleBoardRight.addPlayerToBoard(new Vector2(0, 1), "testPlayerOne");
+        circleBoardRight.addPlayerToBoard(new Vector2(0, 1), new Vector2(2, 4), "testPlayerOne", false);
         circleBoardRight.moveConveyorBelts();
         assertEquals(Direction.EAST, circleBoardRight.getPlayerRotation("testPlayerOne"));
     }
     @Test
     public void playerRotatesRightBottomLeftCorner() {
-        circleBoardRight.addPlayerToBoard(new Vector2(1, 0), "testPlayerOne");
+        circleBoardRight.addPlayerToBoard(new Vector2(1, 0), new Vector2(2, 4), "testPlayerOne", false);
         circleBoardRight.moveConveyorBelts();
         assertEquals(Direction.EAST, circleBoardRight.getPlayerRotation("testPlayerOne"));
     }
     @Test
     public void playerRotatesRightBottomRightCorner() {
-        circleBoardRight.addPlayerToBoard(new Vector2(2, 1), "testPlayerOne");
+        circleBoardRight.addPlayerToBoard(new Vector2(2, 1), new Vector2(2, 4), "testPlayerOne", false);
         circleBoardRight.moveConveyorBelts();
         assertEquals(Direction.EAST, circleBoardRight.getPlayerRotation("testPlayerOne"));
     }
     @Test
     public void playerRotatesRightUpperRightCorner() {
-        circleBoardRight.addPlayerToBoard(new Vector2(1, 2), "testPlayerOne");
+        circleBoardRight.addPlayerToBoard(new Vector2(1, 2), new Vector2(2, 4), "testPlayerOne", false);
         circleBoardRight.moveConveyorBelts();
         assertEquals(Direction.EAST, circleBoardRight.getPlayerRotation("testPlayerOne"));
     }
     @Test
     public void twoPlayersStraightForward() {
-        circleBoard.addPlayerToBoard(new Vector2(0,0), "testPlayerOne");
-        circleBoard.addPlayerToBoard(new Vector2(1,0), "testPlayerTwo");
+        circleBoard.addPlayerToBoard(new Vector2(0,0), new Vector2(2, 4), "testPlayerOne", false);
+        circleBoard.addPlayerToBoard(new Vector2(1,0), new Vector2(2, 4), "testPlayerTwo", false);
         circleBoard.moveConveyorBelts();
         assertEquals(new Vector2(1,0), circleBoard.getPlayerLocation("testPlayerOne"));
         assertEquals(new Vector2(2,0), circleBoard.getPlayerLocation("testPlayerTwo"));
     }
     @Test
     public void twoPlayersOneGetsMovedUp() {
-        circleBoard.addPlayerToBoard(new Vector2(1,0), "testPlayerOne");
-        circleBoard.addPlayerToBoard(new Vector2(2,0), "testPlayerTwo");
+        circleBoard.addPlayerToBoard(new Vector2(1,0), new Vector2(2, 4), "testPlayerOne", false);
+        circleBoard.addPlayerToBoard(new Vector2(2,0), new Vector2(2, 4), "testPlayerTwo", false);
         circleBoard.moveConveyorBelts();
         assertEquals(new Vector2(2,0), circleBoard.getPlayerLocation("testPlayerOne"));
         assertEquals(new Vector2(2,1), circleBoard.getPlayerLocation("testPlayerTwo"));
     }
     @Test
     public void threePlayersInALine() {
-        circleBoard.addPlayerToBoard(new Vector2(0,0), "testPlayerOne");
-        circleBoard.addPlayerToBoard(new Vector2(1,0), "testPlayerTwo");
-        circleBoard.addPlayerToBoard(new Vector2(2,0), "testPlayerThree");
+        circleBoard.addPlayerToBoard(new Vector2(0,0), new Vector2(2, 4), "testPlayerOne", false);
+        circleBoard.addPlayerToBoard(new Vector2(1,0), new Vector2(2, 4), "testPlayerTwo", false);
+        circleBoard.addPlayerToBoard(new Vector2(2,0), new Vector2(2, 4), "testPlayerThree", false);
         circleBoard.moveConveyorBelts();
         assertEquals(new Vector2(1,0), circleBoard.getPlayerLocation("testPlayerOne"));
         assertEquals(new Vector2(2,0), circleBoard.getPlayerLocation("testPlayerTwo"));
@@ -155,22 +155,22 @@ public class MoveConveyorBeltsTests {
     }
     @Test
     public void doubleConveyorBeltOnePlayerMoves() {
-        circleBoardDouble.addPlayerToBoard(new Vector2(1, 2), "testPlayerOne");
+        circleBoardDouble.addPlayerToBoard(new Vector2(1, 2), new Vector2(2, 4), "testPlayerOne", false);
         circleBoardDouble.moveConveyorBelts();
         assertEquals(new Vector2(0, 1), circleBoardDouble.getPlayerLocation("testPlayerOne"));
     }
     @Test
     public void doubleConveyorBeltTwoPlayerMove() {
-        circleBoardDouble.addPlayerToBoard(new Vector2(1, 2), "testPlayerOne");
-        circleBoardDouble.addPlayerToBoard(new Vector2(2, 2), "testPlayerTwo");
+        circleBoardDouble.addPlayerToBoard(new Vector2(1, 2), new Vector2(2, 4), "testPlayerOne", false);
+        circleBoardDouble.addPlayerToBoard(new Vector2(2, 2), new Vector2(2, 4), "testPlayerTwo", false);
         circleBoardDouble.moveConveyorBelts();
         assertEquals(new Vector2(0, 1), circleBoardDouble.getPlayerLocation("testPlayerOne"));
         assertEquals(new Vector2(0, 2), circleBoardDouble.getPlayerLocation("testPlayerTwo"));
     }
     @Test
     public void doubleMovesFirst() {
-        doubleMovesFirstBoard.addPlayerToBoard(new Vector2(1,0), "testPlayerOne");
-        doubleMovesFirstBoard.addPlayerToBoard(new Vector2(2,1), "testPlayerTwo");
+        doubleMovesFirstBoard.addPlayerToBoard(new Vector2(1,0), new Vector2(2, 4), "testPlayerOne", false);
+        doubleMovesFirstBoard.addPlayerToBoard(new Vector2(2,1), new Vector2(2, 4), "testPlayerTwo", false);
         doubleMovesFirstBoard.moveConveyorBelts();
         assertEquals(new Vector2(0, 1), doubleMovesFirstBoard.getPlayerLocation("testPlayerOne"));
         assertEquals(new Vector2(1, 1), doubleMovesFirstBoard.getPlayerLocation("testPlayerTwo"));

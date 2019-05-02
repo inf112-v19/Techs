@@ -52,37 +52,49 @@ public class Board implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
+
         for (PlayerToken robot : boardLogic.getPlayersList()) {
             game.batch.draw(robot.getRobotAnimation().getKeyFrame(statetime,true), robot.getX(), robot.getY(), 
                     ROBOT_WIDTH/2, ROBOT_HEIGHT/2, ROBOT_WIDTH, ROBOT_HEIGHT, 1, 1, robot.getRotation());
             robot.update(delta);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            movePlayer("playerOne", Direction.EAST);
+            boardLogic.movePlayer("Player 1", Direction.EAST);
         }
         
         if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-        	movePlayer("playerOne", Direction.WEST);
+        	boardLogic.movePlayer("Player 1", Direction.WEST);
         }
         
         if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-        	movePlayer("playerOne", Direction.NORTH);
+        	boardLogic.movePlayer("Player 1", Direction.NORTH);
         }
         
         if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-        	movePlayer("playerOne", Direction.SOUTH);
+        	boardLogic.movePlayer("Player 1", Direction.SOUTH);
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
             boardLogic.moveRotateWheel();
         }
 
+        // To check checkpoints
         if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
-            checkAllCheckpoints(); 
+            boardLogic.checkAllCheckpoints();
         }
 
+        // To check conveyorbelts
         if(Gdx.input.isKeyJustPressed(Input.Keys.B)) {
-            moveConveyorBelts();
+            boardLogic.moveConveyorBelts();
+        }
+
+        // To check lasers shot from robots
+        if(Gdx.input.isKeyJustPressed(Input.Keys.L)) {
+            boardLogic.shootPlayerLaser();
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+            boardLogic.repairRobots();
         }
 
         game.batch.end();
@@ -153,35 +165,62 @@ public class Board implements Screen {
     }
 
     public void processEndOfTurns() {
-        moveConveyorBelts();
-        moveRotateWheel();
-        checkAllCheckpoints();
+        boardLogic.checkPitfalls();
+        boardLogic.moveConveyorBelts();
+        boardLogic.moveRotateWheel();
+        boardLogic.shootPlayerLaser();
+        boardLogic.activateLasersOnBoard();
+        boardLogic.checkAllCheckpoints();
+        boardLogic.checkPlayersLife();
+        boardLogic.checkForDamageCleanup();
     }
 
-    public void addPlayerToBoard(Vector2 startPosition, String playerName) {
-        boardLogic.addPlayerToBoard(startPosition, playerName);
+    public void processEndOfRound() {
+        boardLogic.repairRobots();
+        boardLogic.returnDestroyedPlayers();
+        boardLogic.checkIfEveryoneIsDead();
     }
-    // Checks if tile at (xPos, yPos) is in the specified layer
-    public boolean cellContainsLayer(int xPos, int yPos, String layer) {
-        return boardLogic.cellContainsLayer(xPos,  yPos, layer);
+
+    public void addAiToBoard(Vector2 startPosition, Vector2 deathPosition, String playerName, boolean aI) {
+        boardLogic.addPlayerToBoard(startPosition, deathPosition, playerName, aI);
     }
-    public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
-        return boardLogic.cellContainsLayerWithKey(xPos, yPos, layer, key);
+    public void addPlayerToBoard(Vector2 startPosition, Vector2 deathPosition, String playerName, boolean aI) {
+        boardLogic.addPlayerToBoard(startPosition, deathPosition, playerName, aI);
     }
-    public void checkAllCheckpoints() {
-        boardLogic.checkAllCheckpoints();
+    public void doPowerdown(String name) {
+        boardLogic.powerdown(name);
     }
-    public BoardLogic getBoardLogic(){
-        return boardLogic;
+    /**
+     * This method is used to get AI status
+     * @param name The name of player we want to know AI status about
+     * @return true if AI, false if not
+     */
+    public boolean getAI(String name) {
+        return boardLogic.getAI(name);
     }
-    public void moveConveyorBelts() {
-        boardLogic.moveConveyorBelts();
+    /**
+     * This method is used to get information about player damage over to BoardCards
+     * @param name The name of the player who we want information about
+     * @return The number of damage tokens received
+     */
+    public int getDamageTokens(String name) {
+        return boardLogic.getDamageTokens(name);
     }
-    public void moveRotateWheel() {
-        boardLogic.moveRotateWheel();
+
+    public int getCheckpoints(String name) {
+        return boardLogic.getCheckpoints(name);
     }
-    public boolean movePlayer(String name, Direction directionToMove) {
-        return boardLogic.movePlayer(name, directionToMove);
+
+    /**
+     * This method is used to get information about player health over to BoardCards
+     * @param name The name of the player who we want information about
+     * @return The number of health tokens left
+     */
+    public int getHealth(String name) {
+        return boardLogic.getHealth(name);
+    }
+    public boolean getPowerdownStatus(String name) {
+        return boardLogic.getPowerdownStatus(name);
     }
     public boolean movePlayerForward(String name) {
         return boardLogic.movePlayerForward(name);
@@ -189,7 +228,11 @@ public class Board implements Screen {
     public boolean movePlayerBackwards(String name) {
         return boardLogic.movePlayerBackwards(name);
     }
+    public boolean playerIsDestroyed(String name) {
+        return boardLogic.playerIsDestroyed(name);
+    }
     public void rotatePlayer(String name, int numberOfTimes) {
         boardLogic.rotatePlayer(name, numberOfTimes);
     }
+
 }

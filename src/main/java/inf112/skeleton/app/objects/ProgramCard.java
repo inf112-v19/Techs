@@ -22,8 +22,17 @@ public class ProgramCard implements IProgramCard {
 	}
 
 	@Override
-	public int getPriority() {
-		return this.priority;
+	public int compareTo(IProgramCard other) {
+		if (priority > other.getPriority())
+			return 1;
+		else if (priority == other.getPriority())
+			return 0;
+		return -1;
+	}
+
+	@Override
+	public CardType getCardType() {
+		return this.cardType;
 	}
 
 	@Override
@@ -32,34 +41,26 @@ public class ProgramCard implements IProgramCard {
 	}
 
 	@Override
+	public int getPriority() {
+		return this.priority;
+	}
+
+	@Override
 	public int getMovement() {
 		return movement;
 	}
 
-	@Override
-	public CardType getCardType() {
-		return this.cardType;
-	}
-	
-	@Override
-	public String toString() {
-		return priority + " " + cardType.toString();
-	}
-	
 	public void setLocked() {
 		locked = true;
 	}
-	
+
 	public void setUnlocked() {
 		locked = false;
 	}
 
 	@Override
-	public int compareTo(IProgramCard other) {
-		if (priority > other.getPriority())
-			return 1;
-		else if (priority == other.getPriority())
-			return 0;
-		return -1;
+	public String toString() {
+		return priority + " " + cardType.toString();
 	}
+
 }

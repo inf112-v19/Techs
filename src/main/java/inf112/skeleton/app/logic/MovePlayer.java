@@ -8,8 +8,7 @@ public class MovePlayer {
 
     private BoardLogic board;
     private ArrayList<PlayerToken> playersList;
-    private PitFall pitfall;
-    
+
     public MovePlayer(ArrayList<PlayerToken> playersList, BoardLogic board) {
         this.playersList = playersList;
         this.board = board;
@@ -19,7 +18,7 @@ public class MovePlayer {
         int xPos = playerToMove.getXPosition();
         int yPos = playerToMove.getYPosition();
 
-        pitfall = new PitFall(playerToMove, board);
+        PitFall pitfall = new PitFall(board, playersList);
 
         playerToMove.setRecentlyBackuped(false);
         switch(directionToMove) {
@@ -33,7 +32,7 @@ public class MovePlayer {
                 return false;
             playerToMove.moveDirection(Direction.EAST);
             System.out.println(playerToMove.getName() + " moved right and its direction is " + playerToMove.getFacingDirection());
-            pitfall.processFeatureCheckForPitFalls(playerToMove);
+            pitfall.processFeature();
             return true;
             
         case NORTH:
@@ -46,7 +45,7 @@ public class MovePlayer {
                 return false;
             playerToMove.moveDirection(Direction.NORTH);
             System.out.println(playerToMove.getName() + " moved up and its direction is " + playerToMove.getFacingDirection());
-            pitfall.processFeatureCheckForPitFalls(playerToMove);
+            pitfall.processFeature();
             return true;
             
         case SOUTH:
@@ -60,7 +59,7 @@ public class MovePlayer {
             }
             playerToMove.moveDirection(Direction.SOUTH);
             System.out.println(playerToMove.getName() + " moved down and its direction is " + playerToMove.getFacingDirection());
-            pitfall.processFeatureCheckForPitFalls(playerToMove);
+            pitfall.processFeature();
             return true;
             
         case WEST:
@@ -74,11 +73,12 @@ public class MovePlayer {
             }
             playerToMove.moveDirection(Direction.WEST);
             System.out.println(playerToMove.getName() + " moved left and its direction is " + playerToMove.getFacingDirection());
-            pitfall.processFeatureCheckForPitFalls(playerToMove);
+            pitfall.processFeature();
             return true;       
         }
         return false;
     }
+
     private boolean moveOtherPlayers(int xPos, int yPos, Direction directionToMove) {
         for(PlayerToken player : playersList) {
             if(player.getXPosition() == xPos && player.getYPosition() == yPos) {
@@ -87,7 +87,9 @@ public class MovePlayer {
         }
         return true;
     }
+  
     public void updatePlayersList(ArrayList<PlayerToken> playersList) {
         this.playersList = playersList;
     }
+
 }

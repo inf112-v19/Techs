@@ -46,4 +46,6 @@ public interface IGameController {
 
     void moveOnePlayer(BoardCards boardCards);
 
+    void setStartPosition();
+
 }
