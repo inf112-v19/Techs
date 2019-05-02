@@ -19,7 +19,6 @@ public class PitFall {
 	public void processFeature() {
 		for (PlayerToken player : playerList) {
 			movePlayerIfPitFall(player);
-			// should lose a damagetoken when implemented
 		}
 	}
 

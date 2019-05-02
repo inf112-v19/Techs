@@ -53,19 +53,19 @@ og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 ## Sluttprodukt:
 Vi ønsker oss et velfungerende program som i første omgang er et minimum viable product. Basic med reglene som gjelder for å kunne spille.
 
-## Krav for første delinnlevering
+## Krav for første delinnlevering (Oblig. 2)
 * Et spillebrett
 * En brikke på brettet
 * Bevegelse på brikke
 
-## Krav for andre delinnlevering
+## Krav for andre delinnlevering (Oblig. 3)
 * Få på plass scaling
 * ProgramCard objects
 * Sprites
 * Skrive mer tester
 * Basic UserInterface
 
-## Krav for tredje delinnlevering
+## Krav for tredje delinnlevering (Oblig. 4)
 * Animerte sprites
 * Fungerende conveyor belts
 * Fungerende pitfalls
@@ -74,7 +74,7 @@ Vi ønsker oss et velfungerende program som i første omgang er et minimum viabl
 * Spillet avsluttes når spiller har vært innom alle checkpoints
 * Skrive flere tester
 
-## Krav for fjerne delinnlevering
+## Krav for fjerne delinnlevering (Oblig. 5)
 * Laser fra spiller
 * Laser fra brett
 * Velge antall spillere
@@ -89,7 +89,7 @@ Vi ønsker oss et velfungerende program som i første omgang er et minimum viabl
 * Spillet avsluttes dersom alle har mistet alle healthtokens
 
 ## Prosjekt og prosjektstruktur
-***Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt å nevne? Synes teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre måten teamet fungerer på?***
+***Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt å nevne? Synes teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre måten teamet fungerer på?***
 
 Sette krav for hva som skal gjøres hver uke har fungert bra.
 

@@ -25,7 +25,6 @@ private static Application application;
 private TiledMap map;
 private BoardLogic board;
 private TiledMap map1;
-private BoardLogic board1;
 
 	 @Before
 	    public void setUp() {
@@ -43,7 +42,6 @@ private BoardLogic board1;
 	        
 	        map = new TmxMapLoader().load("assets/RoboRallyMap.tmx"); 
 	        map1 = new TmxMapLoader().load("assets/TestMaps/checkpointMap.tmx");
-	        board1 = new BoardLogic(map1);
 	        board = new BoardLogic(map);
 	    }
 	 
