@@ -90,11 +90,6 @@ public class GameController implements IGameController{
     }
 
     @Override
-    public int getTurns() {
-        return turns;
-    }
-
-    @Override
     public void moveOnePlayer(BoardCards boardCards){
         IProgramCard priorityCard = Collections.max(firstCards.values());
         firstCards.remove(firstCardsInverse.get(priorityCard));

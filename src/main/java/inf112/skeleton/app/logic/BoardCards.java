@@ -54,7 +54,7 @@ public class BoardCards extends Board {
 	private final int DAMAGE_X = 1245;
 
 	// The X and Y-value of each health
-	private final int HEALTH_X = 1175;
+	private final int HEALTH_X = 1170;
 
 	private TextureAtlas atlasCards;
 	private SpriteBatch spriteBatchCards;
@@ -282,20 +282,9 @@ public class BoardCards extends Board {
 		}
 	}
 
-	/**
-	 * Gets the arraylist of selected cards
-	 *
-	 * @return Returns the list of selected cards
-	 */
-	public ArrayList<IProgramCard> getSelectedCards() {
-		if (selectedCards == null)
-			throw new IllegalStateException("No cards has been selected");
-		return selectedCards;
-	}
-
 	private void giveCardsToPlayer() {
 		int damageTokens = getDamageTokens(gameController.getCurrentPlayerByName());
-		handSize = Integer.max(9 - damageTokens, 5);
+		handSize = Math.max(9 - damageTokens, 5);
 		while (cardsToSelect.size() < handSize) {
 			cardsToSelect.add(deck.getTopCard());
 		}

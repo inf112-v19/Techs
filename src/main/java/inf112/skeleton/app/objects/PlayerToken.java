@@ -352,10 +352,6 @@ public class PlayerToken extends Sprite {
         }
     }
 
-    public void setAI(boolean aI) {
-        AI = aI;
-    }
-
     /**
      * Updates the players backup-position to a given vector2-position
      * @param lastCheckpoint The last checkpoint the player has passed is set as new backup-position
@@ -381,10 +377,6 @@ public class PlayerToken extends Sprite {
 	public void setDestroyed(boolean destroyed) {
 		this.destroyed = destroyed;
 	}
-
-	public void setFacingDirection(Direction dir) {
-	    this.facingDirection = dir;
-    }
 
     /**
      * Set the player as recently backuped (i.e. destroyed)

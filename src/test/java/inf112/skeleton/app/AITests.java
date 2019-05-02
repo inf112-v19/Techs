@@ -51,11 +51,9 @@ public class AITests {
     }
     
     @Test
-    public void testSetAI() { 
+    public void testIfPLayerIsNotAI() { 
     	board.addPlayerToBoard(new Vector2(2, 2), new Vector2(2, 18), "Player", true);
     	assertTrue(board.getPlayerByName("Player").isAI());
-    	board.getPlayerByName("Player").setAI(false);
-    	assertFalse(board.getPlayerByName("Player").isAI());
     }
 
 }
