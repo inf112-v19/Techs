@@ -45,9 +45,9 @@ public class MoveConveyorBelts implements IBoardFeature {
                     System.out.println(moveDouble);
                     continue;
                 }
-                if(hasConveyorPointingToDirection(player, dir, xPos, yPos)) {
+                if(hasConveyorPointingToDirection(xPos, yPos, dir)) {
                     // Moves other player on conveyer belts that are standing in the way first  
-                    PlayerToken otherPlayer = checkForPlayer(dir, xPos, yPos);
+                    PlayerToken otherPlayer = checkForPlayer(xPos, yPos, dir);
                     if(otherPlayer != null) {
                         movePlayerIfOnConveyorBelt(otherPlayer, moveDouble);
                     }
@@ -59,13 +59,11 @@ public class MoveConveyorBelts implements IBoardFeature {
         }
     }
 
-    // Checks if a tile has a conveyor belt pointing to direction dir.
-    private boolean hasConveyorPointingToDirection(PlayerToken player, Direction dir, int xPos, int yPos) {
+    private boolean hasConveyorPointingToDirection(int xPos, int yPos, Direction dir) {
         return boardLogic.cellContainsLayerWithKey(xPos, yPos, layerName, dir.toString());
     }
 
-    // Returns PlayerToken that stand on the tile in the direction dir
-    private PlayerToken checkForPlayer(Direction dir, int xPos, int yPos) {        
+    private PlayerToken checkForPlayer(int xPos, int yPos, Direction dir) {
         Vector2 checkPosition = boardLogic.addDirectionToLocation(xPos, yPos, dir);
 
         for(PlayerToken player : playersList) {
@@ -75,8 +73,7 @@ public class MoveConveyorBelts implements IBoardFeature {
         }
         return null;
     }
-    
-    // Rotates the player if they have moved and are now standing on a conveyer belt that rotates
+
     private void rotatePlayerIfMovedToRotatingConveyor(PlayerToken player, int xPos, int yPos, Direction dir) {
         if(xPos != player.getXPosition() || yPos != player.getYPosition()) {
             if(boardLogic.cellContainsLayerWithKey(player.getXPosition(), player.getYPosition(), layerName, dir.toString() + "RotateLeft")) {

@@ -25,7 +25,7 @@ public class BoardLogic {
     private ArrayList<PlayerToken> playersList;
     private MovePlayer movePlayerBrain;
     private MoveConveyorBelts moveConveyorBelts;
-    private ProcessCheckpoints processCheckpoints;
+    private Checkpoints checkpoints;
     private Lasers lasers;
     private PitFall pitfall;
     
@@ -38,7 +38,7 @@ public class BoardLogic {
         this.playersList = new ArrayList<>();
         this.movePlayerBrain = new MovePlayer(playersList, this);
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
-        this.processCheckpoints = new ProcessCheckpoints(this, playersList);
+        this.checkpoints = new Checkpoints(this, playersList);
         this.lasers = new Lasers(this, playersList, prop);
         this.pitfall = new PitFall(this, playersList);
         sprites.add(ROBOT_SPRITE_SHEET_BLUE);
@@ -127,7 +127,7 @@ public class BoardLogic {
      * Checks if any of the players stands on a checkpoint. Is done at the end of a turn
      */
     public void checkAllCheckpoints() {
-        processCheckpoints.processFeature();
+        checkpoints.processFeature();
     }
 
     /**
@@ -139,6 +139,22 @@ public class BoardLogic {
         }
     }
 
+    /**
+     * Goes through the list of players. If all players are destroyed with no lives left, the game is over
+     */
+    public void checkIfEveryoneIsDead() {
+        for(PlayerToken player : playersList) {
+            if(player.getHealth() > 0) {
+                return;
+            }
+        }
+        System.out.println("All robots have lost their lives, everyone loses!");
+        Gdx.app.exit();
+    }
+
+    /**
+     * Checks and process if any of the players are on a pitfall.
+     */
     public void checkPitfalls() {
         pitfall.processFeature();
     }
@@ -153,6 +169,37 @@ public class BoardLogic {
                 System.out.println(player.getName() + " has no lives left.");
             }
         }
+    }
+
+    /**
+     * Checks if player is an AI or not by name
+     * @param name The name of the player to check
+     * @return true if AI, otherwise false
+     */
+    public boolean getAI(String name) {
+        return getPlayerByName(name).isAI();
+    }
+
+    public int getCheckpoints(String name) {
+        return getPlayerByName(name).getCheckpoints();
+    }
+
+    /**
+     * Gets the number of damage taken by the player by name
+     * @param name The name of the player's damage to get
+     * @return The number og damage tokens received
+     */
+    public int getDamageTokens(String name) {
+        return getPlayerByName(name).getDamageToken();
+    }
+
+    /**
+     * Gets the number of lives the player have by name
+     * @param name The name of the player's lives to get
+     * @return The number of lives left
+     */
+    public int getHealth(String name) {
+        return  getPlayerByName(name).getHealth();
     }
 
     /**
@@ -205,6 +252,15 @@ public class BoardLogic {
     public Direction getPlayerRotation(String name) {
         PlayerToken player = getPlayerByName(name);
         return player.getFacingDirection();
+    }
+
+    /**
+     * Gets the powerdown status of a player.
+     * @param name The name of the player that is checked
+     * @return true if player is going to powerdown, otherwise false
+     */
+    public boolean getPowerdownStatus(String name) {
+        return getPlayerByName(name).getPowerdownStatus();
     }
 
     /**
@@ -272,8 +328,21 @@ public class BoardLogic {
         }
     }
 
-    public void pitFalls() {
+    /**
+     * Checks if the player is destroyed using the players name
+     * @param name The name of the player that is being checked
+     * @return true if destroyed, otherwise false
+     */
+    public boolean playerIsDestroyed(String name) {
+        return getPlayerByName(name).checkDestroyedStatus();
+    }
 
+    /**
+     * Makes the player do a powerdown
+     * @param name The name of the player that is doing a powerdown
+     */
+    public void powerdown(String name) {
+        getPlayerByName(name).doPowerdown();
     }
 
     /**
@@ -287,6 +356,17 @@ public class BoardLogic {
             if (cellContainsLayer(x, y, "Repair")) {
                 player.removeDamageToken();
                 System.out.println(player.getName() + " got repaired. Damage: " + player.getDamageToken());
+            }
+        }
+    }
+
+    /**
+     * This method should return all players that are destroyed, but still have more lives. It is used when processing end of rounds.
+     */
+    public void returnDestroyedPlayers() {
+        for (PlayerToken player : playersList) {
+            if (player.checkDestroyedStatus() && player.getHealth() > 0) {
+                player.moveToBackup();
             }
         }
     }
@@ -348,47 +428,5 @@ public class BoardLogic {
         for(PlayerToken player : playersList) {
             shootLaserFromTile(player.getVector2Position(), player.getFacingDirection());
         }
-    }
-    
-    public void powerdown(String name) {
-    	getPlayerByName(name).doPowerdown();
-    }
-    
-    public boolean getPowerdownStatus(String name) {
-    	return getPlayerByName(name).getPowerdownStatus();
-    }
-    
-    public int getDamageTokens(String name) {
-        return getPlayerByName(name).getDamageToken();
-    }
-
-    public int getHealth(String name) {
-        return  getPlayerByName(name).getHealth();
-    }
-    
-    public boolean playerIsDestroyed(String name) {
-        return getPlayerByName(name).checkDestroyedStatus();
-    }
-
-    public void returnDestroyedPlayers() {
-        for (PlayerToken player : playersList) {
-            if (player.checkDestroyedStatus() && player.getHealth() > 0) {
-                player.moveToBackup();
-            }
-        }
-    }
-
-	public boolean getAI(String name) {
-		return getPlayerByName(name).isAI();
-    }
-
-    public void checkIfEveryoneIsDead() {
-        for(PlayerToken player : playersList) {
-            if(player.getHealth() > 0) {
-                return;
-            }
-        }
-        System.out.println("All robots have lost their lives, everyone loses!");
-        Gdx.app.exit();
     }
 }

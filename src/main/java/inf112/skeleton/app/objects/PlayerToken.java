@@ -16,9 +16,9 @@ public class PlayerToken extends Sprite {
 	private static final float TILE_SCALE = 96;
 	// Variables needed for movement, direction and position
 	private Vector2 movementVelocity = new Vector2();
-	private Vector2 deathPosition;
-	private Vector2 backupPosition;
-	private Vector2 position;
+    private Vector2 position;
+    private Vector2 deathPosition;
+    private Vector2 backupPosition;
 	private Direction facingDirection;
 	private Direction lastFacingDirection;
 	private boolean movingNorth = true;
@@ -140,12 +140,22 @@ public class PlayerToken extends Sprite {
         return (damageToken >= 10);
     }
 
+    public void doPowerdown() {
+        this.damageToken = 0;
+        this.powerdownStatus = true;
+        System.out.println("Doing powerdown");
+    }
+
     /**
      * Gets the player's backup-position
      * @return The vector2-position of the player's backup-position
      */
     public Vector2 getBackupPosition() {
         return new Vector2(backupPosition.x, backupPosition.y);
+    }
+
+    public int getCheckpoints() {
+        return this.numberOfCheckpointsPassed;
     }
 
     /**
@@ -186,6 +196,10 @@ public class PlayerToken extends Sprite {
         return playerName;
     }
 
+    public boolean getPowerdownStatus() {
+        return this.powerdownStatus;
+    }
+
     /**
      * Gets the animation for the spritesheet
      * @return The animation that uses the spritesheet
@@ -216,6 +230,10 @@ public class PlayerToken extends Sprite {
      */
     public int getYPosition() {
         return (int) position.y;
+    }
+
+    public boolean isAI() {
+        return AI;
     }
 
     /**
@@ -275,8 +293,12 @@ public class PlayerToken extends Sprite {
         setYPositionOnBoard();
     }
 
+    /**
+     * Moves the player to a designated death position
+     */
     public void moveToDeathPosition() {
         position = getDeathPosition();
+
         setXPositionOnBoard();
         setYPositionOnBoard();
     }
@@ -332,6 +354,10 @@ public class PlayerToken extends Sprite {
         }
     }
 
+    public void setAI(boolean aI) {
+        AI = aI;
+    }
+
     /**
      * Updates the players backup-position to a given vector2-position
      * @param lastCheckpoint The last checkpoint the player has passed is set as new backup-position
@@ -365,16 +391,6 @@ public class PlayerToken extends Sprite {
 	public void setLastFacingDirection(Direction dir) {
 	    this.lastFacingDirection = dir;
     }
-	
-	public void doPowerdown() {	
-		this.damageToken = 0;
-		this.powerdownStatus = true;
-		System.out.println("Doing powerdown");
-	}
-	
-	public boolean getPowerdownStatus() {
-		return this.powerdownStatus;
-	}
 
     /**
      * Set the player as recently backuped (i.e. destroyed)
@@ -475,12 +491,5 @@ public class PlayerToken extends Sprite {
         }
     }
 
-	public boolean isAI() {
-		return AI;
-	}
-
-	public void setAI(boolean aI) {
-		AI = aI;
-	}
 
 }

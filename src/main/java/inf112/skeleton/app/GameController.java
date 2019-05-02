@@ -9,9 +9,6 @@ import java.util.Collections;
 import java.util.HashMap;
 
 
-//i høyre hjørne vises det liv/herter til hver av spillerne som spiller sidelegst
-//tydelig at en spiller har valgt kort
-//det skal være mulig å gå tilbake når du har valgt kort
 
 public class GameController implements IGameController{
     private int numPlayers;
@@ -41,36 +38,17 @@ public class GameController implements IGameController{
 
         for (int i = 0; i < numPlayers + numAI; i++) {
         	if(i < numPlayers) {
-        		String playerName = "player " + (i+1);
+        		String playerName = "Player " + (i+1);
         		boardCards.addPlayerToBoard(startPosition.get(i), deathPosition.get(i), playerName, false);
         		playerString.put(i, playerName);
         	} else {
-        		String playerName = "player " + (i+1);
+        		String playerName = "Player " + (i+1);
         		boardCards.addPlayerToBoard(startPosition.get(i), deathPosition.get(i), playerName, true);
         		playerString.put(i, playerName);
         	}
             
             cardsPlayedInRegister.add(new ArrayList<IProgramCard>());
         }
-    }
-
-    private void setDeathPosition() {
-        deathPosition.add(new Vector2(-1, 18));
-        deathPosition.add(new Vector2(-2, 18));
-        deathPosition.add(new Vector2(-3, 18));
-        deathPosition.add(new Vector2(-4, 18));
-    }
-
-    @Override
-    public void setStartPosition(){
-        startPosition.add(new Vector2(6,1));
-        startPosition.add(new Vector2(7,1));
-        startPosition.add(new Vector2(4,2));
-        startPosition.add(new Vector2(9,2));
-        startPosition.add(new Vector2(2,3));
-        startPosition.add(new Vector2(10,3));
-        startPosition.add(new Vector2(1,4));
-        startPosition.add(new Vector2(12,4));
     }
 
     // This runs when the player has chosen 5 cards and presses ENTER
@@ -83,34 +61,37 @@ public class GameController implements IGameController{
             boardCards.setAllPlayersDonePickingCards(true);
     }
 
+    public ArrayList<IProgramCard> getCardsThatWerePlayedLastTurn() {
+        return cardsPlayedInRegister.get(getNumberOfCurrentPlayer());
+    }
+
+    public String getCurrentPlayerByName() {
+        return playerString.get(getNumberOfCurrentPlayer());
+    }
+
+    public ArrayList<String> getListOfPlayers() {
+        ArrayList<String> playerList = new ArrayList<>();
+        for (int i = 0; i < numPlayers + numAI; i++) {
+            playerList.add(playerString.get(i));
+        }
+        return  playerList;
+    }
+
+    public int getNumberOfCurrentPlayer() {
+        return turns % (numPlayers + numAI);
+    }
+
     @Override
-    public void movePlayers(BoardCards boardCards){
-        //makes it only possible to move player if he has cards on hand
-        if (firstCards == null){
-            firstCards = new HashMap<>();
-            firstCardsInverse = new HashMap<>();
+    public ArrayList<IProgramCard> getProgramCardToPlayer(int player) {
+        if (player >= playersCards.keySet().size() || player < 0){
+            throw new IllegalArgumentException("Player does not exist");
         }
+        return playersCards.get(player);
+    }
 
-        if (firstCards.isEmpty()) {
-            for (int currentPlayer = 0; currentPlayer < (numPlayers + numAI); currentPlayer++) {
-                firstCardsInverse.put(playersCards.get(currentPlayer).get(0), currentPlayer);
-                firstCards.put(currentPlayer, playersCards.get(currentPlayer).remove(0));
-            }
-        }
-
-        moveOnePlayer(boardCards);
-        
-        movesDone++;
-        if(movesDone % (numPlayers + numAI) == 0) {
-            System.out.println("Do end of turn");
-            boardCards.processEndOfTurns();
-        }
-        
-        if (playersCards.get(0).isEmpty() && firstCards.isEmpty()) {
-            boardCards.setAllPlayersDonePickingCards(false);
-            movesDone = 0;
-        }
-
+    @Override
+    public int getTurns() {
+        return turns;
     }
 
     @Override
@@ -142,42 +123,58 @@ public class GameController implements IGameController{
     }
 
     @Override
-    public ArrayList<IProgramCard> getProgramCardToPlayer(int player) {
-        if (player >= playersCards.keySet().size() || player < 0){
-            throw new IllegalArgumentException("Player does not exist");
+    public void movePlayers(BoardCards boardCards){
+        //makes it only possible to move player if he has cards on hand
+        if (firstCards == null){
+            firstCards = new HashMap<>();
+            firstCardsInverse = new HashMap<>();
         }
-        return playersCards.get(player);
+
+        if (firstCards.isEmpty()) {
+            for (int currentPlayer = 0; currentPlayer < (numPlayers + numAI); currentPlayer++) {
+                firstCardsInverse.put(playersCards.get(currentPlayer).get(0), currentPlayer);
+                firstCards.put(currentPlayer, playersCards.get(currentPlayer).remove(0));
+            }
+        }
+
+        moveOnePlayer(boardCards);
+
+        movesDone++;
+        if(movesDone % (numPlayers + numAI) == 0) {
+            System.out.println("Do end of turn");
+            boardCards.processEndOfTurns();
+        }
+
+        if (playersCards.get(0).isEmpty() && firstCards.isEmpty()) {
+            boardCards.setAllPlayersDonePickingCards(false);
+            movesDone = 0;
+        }
+
     }
 
-    @Override
-    public int getTurns() {
-        return turns;
-    }
-    
-    public int getNumberOfCurrentPlayer() {
-        return turns % (numPlayers + numAI);
-    }
-    
-    public String getCurrentPlayerByName() {
-    	return playerString.get(getNumberOfCurrentPlayer());
-    }
-
-    public ArrayList<String> getListOfPlayers() {
-        ArrayList<String> playerList = new ArrayList<>();
-        for (int i = 0; i < numPlayers + numAI; i++) {
-            playerList.add(playerString.get(i));
-        }
-        return  playerList;
-    }
-    
     public void setCardsThatWerePlayedInRegister(ArrayList<IProgramCard> cards) {
         cardsPlayedInRegister.get(getNumberOfCurrentPlayer()).clear();
         for(IProgramCard card : cards) {
             cardsPlayedInRegister.get(getNumberOfCurrentPlayer()).add(card);
-        }    
+        }
     }
-    
-    public ArrayList<IProgramCard> getCardsThatWerePlayedLastTurn() {
-        return cardsPlayedInRegister.get(getNumberOfCurrentPlayer());
+
+    private void setDeathPosition() {
+        deathPosition.add(new Vector2(-1, 18));
+        deathPosition.add(new Vector2(-2, 18));
+        deathPosition.add(new Vector2(-3, 18));
+        deathPosition.add(new Vector2(-4, 18));
+    }
+
+    @Override
+    public void setStartPosition(){
+        startPosition.add(new Vector2(6,1));
+        startPosition.add(new Vector2(7,1));
+        startPosition.add(new Vector2(4,2));
+        startPosition.add(new Vector2(9,2));
+        startPosition.add(new Vector2(2,3));
+        startPosition.add(new Vector2(10,3));
+        startPosition.add(new Vector2(1,4));
+        startPosition.add(new Vector2(12,4));
     }
 }

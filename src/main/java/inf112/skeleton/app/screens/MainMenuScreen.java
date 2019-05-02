@@ -10,18 +10,21 @@ import inf112.skeleton.app.RoboRally;
 public class MainMenuScreen implements Screen {
 
     // Aspect ratio lengths for the buttons
-    private static final int PLAYERBUTTON_WIDTH = 52;
-    private static final int PLAYERBUTTON_HEIGHT = 46;
+    private static final int LOGO_WIDTH = 200;
+    private static final int LOGO_HEIGHT = 200;
     private static final int BUTTON_WIDTH = 233;
     private static final int BUTTON_HEIGHT = 68;
+    private static final int PLAYERBUTTON_WIDTH = 52;
+    private static final int PLAYERBUTTON_HEIGHT = 46;
 
-    // Just need to change these if moving around the player buttons and if they shall be horizontally placed
+    // Just need to change these if moving around the assets and if they shall be horizontally placed
+    private static final int GAMELOGO_X = (RoboRally.SCREEN_WIDTH - LOGO_WIDTH) / 2;
+    private static final int GAMELOGO_Y = 380;
     private static final int PLAYERBUTTONS_MIDDLE = (RoboRally.SCREEN_WIDTH - PLAYERBUTTON_WIDTH) / 2;
     private static final int BUTTONS_MIDDLE = (RoboRally.SCREEN_WIDTH - BUTTON_WIDTH) / 2;
     private static final int BUTTONS_Y = 200;
     private static final int DISTANCE_BETWEEN_BUTTONS_X = 60;
     private static final int DISTANCE_BETWEEN_BUTTONS_Y = 7;
-
 
     private static final int PLAYBUTTON_X = BUTTONS_MIDDLE;
     private static final int EXITBUTTON_X = BUTTONS_MIDDLE;
@@ -32,6 +35,7 @@ public class MainMenuScreen implements Screen {
     private static final int EXITBUTTON_Y = BUTTONS_Y - BUTTON_HEIGHT - DISTANCE_BETWEEN_BUTTONS_Y;
     private static final int PLAYERBUTTONS_Y = EXITBUTTON_Y - PLAYERBUTTON_HEIGHT - DISTANCE_BETWEEN_BUTTONS_Y;
 
+    private Texture gameLogo;
     private Texture onePlayerActive;
     private Texture onePlayerInactive;
     private Texture twoPlayerActive;
@@ -46,13 +50,14 @@ public class MainMenuScreen implements Screen {
     private Texture exitButtonInactive;
 
     private RoboRally game;
-    private BoardCards BoardScreen;
+    private BoardCards boardScreen;
     private int numberOfPlayers;
+    private int numberOfAI;
     private boolean playersError = false;
-	private int numberOfAI;
 
     public MainMenuScreen(RoboRally game) {
         this.game = game;
+        this.gameLogo = new Texture("assets/GreenRobot.png");
         this.onePlayerActive = new Texture("assets/1Active.png");
         this.onePlayerInactive = new Texture("assets/1Inactive.png");
         this.twoPlayerActive = new Texture("assets/2Active.png");
@@ -81,6 +86,8 @@ public class MainMenuScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
+
+        game.batch.draw(gameLogo, GAMELOGO_X, GAMELOGO_Y, LOGO_WIDTH, LOGO_HEIGHT);
 
         /*
         This part of the code is where the main menu buttons are handled. The if-statement is there to register the coordinates of the mouse, where
@@ -126,9 +133,9 @@ public class MainMenuScreen implements Screen {
             game.batch.draw(playButtonActive, PLAYBUTTON_X, BUTTONS_Y, BUTTON_WIDTH, BUTTON_HEIGHT);
             if (Gdx.input.isTouched()) {
                 if (this.numberOfPlayers > 0) {
-                    this.BoardScreen = new BoardCards(game, numberOfPlayers, numberOfAI);
+                    this.boardScreen = new BoardCards(game, numberOfPlayers, numberOfAI);
                     this.dispose();
-                    game.setScreen(BoardScreen);
+                    game.setScreen(boardScreen);
                 } else {
                     playersError = true;
                 }

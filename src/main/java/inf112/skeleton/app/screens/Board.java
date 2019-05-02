@@ -59,19 +59,19 @@ public class Board implements Screen {
             robot.update(delta);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            movePlayer("player 1", Direction.EAST);
+            boardLogic.movePlayer("Player 1", Direction.EAST);
         }
         
         if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-        	movePlayer("player 1", Direction.WEST);
+        	boardLogic.movePlayer("Player 1", Direction.WEST);
         }
         
         if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-        	movePlayer("player 1", Direction.NORTH);
+        	boardLogic.movePlayer("Player 1", Direction.NORTH);
         }
         
         if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-        	movePlayer("player 1", Direction.SOUTH);
+        	boardLogic.movePlayer("Player 1", Direction.SOUTH);
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
@@ -80,12 +80,12 @@ public class Board implements Screen {
 
         // To check checkpoints
         if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
-            checkAllCheckpoints(); 
+            boardLogic.checkAllCheckpoints();
         }
 
         // To check conveyorbelts
         if(Gdx.input.isKeyJustPressed(Input.Keys.B)) {
-            moveConveyorBelts();
+            boardLogic.moveConveyorBelts();
         }
 
         // To check lasers shot from robots
@@ -166,13 +166,13 @@ public class Board implements Screen {
 
     public void processEndOfTurns() {
         boardLogic.checkPitfalls();
-        moveConveyorBelts();
-        moveRotateWheel();
+        boardLogic.moveConveyorBelts();
+        boardLogic.moveRotateWheel();
         boardLogic.shootPlayerLaser();
         boardLogic.activateLasersOnBoard();
-        checkAllCheckpoints();
+        boardLogic.checkAllCheckpoints();
         boardLogic.checkPlayersLife();
-        checkForDamageCleanup();
+        boardLogic.checkForDamageCleanup();
     }
 
     public void processEndOfRound() {
@@ -181,57 +181,23 @@ public class Board implements Screen {
         boardLogic.checkIfEveryoneIsDead();
     }
 
-    public void addPlayerToBoard(Vector2 startPosition, Vector2 deathPosition, String playerName, boolean aI) {
+    public void addAiToBoard(Vector2 startPosition, Vector2 deathPosition, String playerName, boolean aI) {
         boardLogic.addPlayerToBoard(startPosition, deathPosition, playerName, aI);
     }
-    
-    public void addAiToBoard(Vector2 startPosition, Vector2 deathPosition, String playerName, boolean aI) {
-    	boardLogic.addPlayerToBoard(startPosition, deathPosition, playerName, aI);
-    }
-    // Checks if tile at (xPos, yPos) is in the specified layer
-    public boolean cellContainsLayer(int xPos, int yPos, String layer) {
-        return boardLogic.cellContainsLayer(xPos,  yPos, layer);
-    }
-    public boolean cellContainsLayerWithKey(int xPos, int yPos, String layer, String key) {
-        return boardLogic.cellContainsLayerWithKey(xPos, yPos, layer, key);
-    }
-    public void checkAllCheckpoints() {
-        boardLogic.checkAllCheckpoints();
-    }
-    public void checkForDamageCleanup() {
-        boardLogic.checkForDamageCleanup();
+    public void addPlayerToBoard(Vector2 startPosition, Vector2 deathPosition, String playerName, boolean aI) {
+        boardLogic.addPlayerToBoard(startPosition, deathPosition, playerName, aI);
     }
     public void doPowerdown(String name) {
         boardLogic.powerdown(name);
     }
-    public BoardLogic getBoardLogic(){
-        return boardLogic;
+    /**
+     * This method is used to get AI status
+     * @param name The name of player we want to know AI status about
+     * @return true if AI, false if not
+     */
+    public boolean getAI(String name) {
+        return boardLogic.getAI(name);
     }
-    public boolean getPowerdownStatus(String name) {
-        return boardLogic.getPowerdownStatus(name);
-    }
-    public void moveConveyorBelts() {
-        boardLogic.moveConveyorBelts();
-    }
-    public void moveRotateWheel() {
-        boardLogic.moveRotateWheel();
-    }
-    public boolean movePlayer(String name, Direction directionToMove) {
-        return boardLogic.movePlayer(name, directionToMove);
-    }
-    public boolean movePlayerForward(String name) {
-        return boardLogic.movePlayerForward(name);
-    }
-    public boolean movePlayerBackwards(String name) {
-        return boardLogic.movePlayerBackwards(name);
-    }
-    public void rotatePlayer(String name, int numberOfTimes) {
-        boardLogic.rotatePlayer(name, numberOfTimes);
-    }
-    public boolean playerIsDestroyed(String name) {
-        return boardLogic.playerIsDestroyed(name);
-    }
-
     /**
      * This method is used to get information about player damage over to BoardCards
      * @param name The name of the player who we want information about
@@ -239,6 +205,10 @@ public class Board implements Screen {
      */
     public int getDamageTokens(String name) {
         return boardLogic.getDamageTokens(name);
+    }
+
+    public int getCheckpoints(String name) {
+        return boardLogic.getCheckpoints(name);
     }
 
     /**
@@ -249,13 +219,20 @@ public class Board implements Screen {
     public int getHealth(String name) {
         return boardLogic.getHealth(name);
     }
-    
-    /**
-     * This method is used to get AI status
-     * @param name The name of player we want to know AI status about
-     * @return true if AI, false if not
-     */
-    public boolean getAI(String name) {
-    	return boardLogic.getAI(name);
+    public boolean getPowerdownStatus(String name) {
+        return boardLogic.getPowerdownStatus(name);
     }
+    public boolean movePlayerForward(String name) {
+        return boardLogic.movePlayerForward(name);
+    }
+    public boolean movePlayerBackwards(String name) {
+        return boardLogic.movePlayerBackwards(name);
+    }
+    public boolean playerIsDestroyed(String name) {
+        return boardLogic.playerIsDestroyed(name);
+    }
+    public void rotatePlayer(String name, int numberOfTimes) {
+        boardLogic.rotatePlayer(name, numberOfTimes);
+    }
+
 }
