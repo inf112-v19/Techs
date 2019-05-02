@@ -91,6 +91,7 @@ public class Board implements Screen {
         // To check lasers shot from robots
         if(Gdx.input.isKeyJustPressed(Input.Keys.L)) {
             boardLogic.shootPlayerLaser();
+            boardLogic.activateLasersOnBoard();
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.F)) {

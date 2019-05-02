@@ -54,7 +54,7 @@ public class BoardCards extends Board {
 	private final int DAMAGE_X = 1245;
 
 	// The X and Y-value of each health
-	private final int HEALTH_X = 1175;
+	private final int HEALTH_X = 1170;
 
 	private TextureAtlas atlasCards;
 	private SpriteBatch spriteBatchCards;
@@ -139,10 +139,10 @@ public class BoardCards extends Board {
 		int damage = getDamageTokens(gameController.getCurrentPlayerByName());
 		int health = getHealth(gameController.getCurrentPlayerByName());
 
+    drawAllPlayersDamageHealthFlags();
 
 		if (!this.movingPlayers) {
 			drawTokensOnScreen(damage, health);
-			drawAllPlayersDamageHealthFlags();
 		}
 
 
@@ -150,7 +150,6 @@ public class BoardCards extends Board {
 
 		if (!allPlayersDonePickingCards) {
 			if (finishedTurn) {
-				System.out.println("do end of round");
 				processEndOfRound();
 				finishedTurn = false;
 			}
@@ -170,6 +169,7 @@ public class BoardCards extends Board {
 				}
 
 				if (!getPowerdownStatus(gameController.getCurrentPlayerByName())) {
+				    
 					while (selectedCards.size() < 5) {
 						int randomNumber = random.nextInt(9 - getDamageTokens(gameController.getCurrentPlayerByName()));
 						selectCard(randomNumber, centerOfScreen, -1);
@@ -258,6 +258,8 @@ public class BoardCards extends Board {
 	}
 
 	private void fillHandWithBlanks() {
+		selectedCards = new ArrayList<IProgramCard>();
+
 		while(selectedCards.size() < 5) {
 			selectedCards.add(new ProgramCard(CardType.MOVEMENT_0, 0, 0, 0));
 		}
@@ -279,17 +281,6 @@ public class BoardCards extends Board {
 			healthTokensOnScreen.add(y);
 			y += 70;
 		}
-	}
-
-	/**
-	 * Gets the arraylist of selected cards
-	 *
-	 * @return Returns the list of selected cards
-	 */
-	public ArrayList<IProgramCard> getSelectedCards() {
-		if (selectedCards == null)
-			throw new IllegalStateException("No cards has been selected");
-		return selectedCards;
 	}
 
 	private void giveCardsToPlayer() {
