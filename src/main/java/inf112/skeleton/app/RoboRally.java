@@ -19,7 +19,7 @@ public class RoboRally extends Game {
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont();
-        font.setColor(Color.YELLOW);
+        font.setColor(Color.ORANGE);
         Gdx.gl.glClearColor(0,0,0,1);
         this.setScreen(new MainMenuScreen(this));
     }
