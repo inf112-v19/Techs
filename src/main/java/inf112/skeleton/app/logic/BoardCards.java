@@ -139,7 +139,7 @@ public class BoardCards extends Board {
 		int damage = getDamageTokens(gameController.getCurrentPlayerByName());
 		int health = getHealth(gameController.getCurrentPlayerByName());
 
-        drawAllPlayersDamageAndHealth();
+    drawAllPlayersDamageHealthFlags();
 
 		if (!this.movingPlayers) {
 			drawTokensOnScreen(damage, health);
@@ -214,7 +214,7 @@ public class BoardCards extends Board {
 		}
 	}
 
-	private void drawAllPlayersDamageAndHealth() {
+	private void drawAllPlayersDamageHealthFlags() {
 
 		int y = 100;
 
