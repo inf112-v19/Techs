@@ -124,6 +124,7 @@ Underveis har vi gitt mer kodeoppgaver til de som har kodet litt mindre tidliger
 ***Hvis dere skulle fortsatt med prosjektet, hva ville dere justert?***
 
 * Automatisert player movements, i stedet for å trykke space hver gang
+* Gjøre om valg av kort
 * Mulighet til å velge maps
 * Fått på plass multiplayer
 * Ryddet opp i kodestrukturen for å gjøre det lettere å jobbe videre med spillet.
