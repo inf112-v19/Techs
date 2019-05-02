@@ -10,16 +10,16 @@ import inf112.skeleton.app.RoboRally;
 public class MainMenuScreen implements Screen {
 
     // Aspect ratio lengths for the buttons
-    private static final int LOGO_WIDTH = 200;
-    private static final int LOGO_HEIGHT = 200;
+    private static final int LOGO_WIDTH = 350;
+    private static final int LOGO_HEIGHT = 350;
     private static final int BUTTON_WIDTH = 233;
     private static final int BUTTON_HEIGHT = 68;
     private static final int PLAYERBUTTON_WIDTH = 52;
     private static final int PLAYERBUTTON_HEIGHT = 46;
 
     // Just need to change these if moving around the assets and if they shall be horizontally placed
-    private static final int GAMELOGO_X = (RoboRally.SCREEN_WIDTH - LOGO_WIDTH) / 2;
-    private static final int GAMELOGO_Y = 380;
+    private static final int GAMELOGO_X = (RoboRally.SCREEN_WIDTH - LOGO_WIDTH) / 2 + 15;
+    private static final int GAMELOGO_Y = 285;
     private static final int PLAYERBUTTONS_MIDDLE = (RoboRally.SCREEN_WIDTH - PLAYERBUTTON_WIDTH) / 2;
     private static final int BUTTONS_MIDDLE = (RoboRally.SCREEN_WIDTH - BUTTON_WIDTH) / 2;
     private static final int BUTTONS_Y = 200;
@@ -57,7 +57,7 @@ public class MainMenuScreen implements Screen {
 
     public MainMenuScreen(RoboRally game) {
         this.game = game;
-        this.gameLogo = new Texture("assets/GreenRobot.png");
+        this.gameLogo = new Texture("assets/MainMenuLogo.png");
         this.onePlayerActive = new Texture("assets/1Active.png");
         this.onePlayerInactive = new Texture("assets/1Inactive.png");
         this.twoPlayerActive = new Texture("assets/2Active.png");
@@ -82,7 +82,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(38/255f, 38/255f, 38/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
