@@ -9,6 +9,8 @@ Klokkeslett:    12:00
 Deltakere: Joacim Delfin Sveen, Renze Stolte, Mathias Madslien
 
 ### Punkter på sakslisten
-1. Jobba videre med tasks til siste oblig
-2. Få oversikt over hva som må gjørest til innleveringsfrist
+1. Gjøre ferdig README
+2. Rydde i kode
+3. Levere siste oblig
  
+
