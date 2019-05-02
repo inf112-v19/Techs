@@ -294,7 +294,7 @@ public class BoardCards extends Board {
 
 	private void giveCardsToPlayer() {
 		int damageTokens = getDamageTokens(gameController.getCurrentPlayerByName());
-		handSize = Integer.max(9 - damageTokens, 5);
+		handSize = Math.max(9 - damageTokens, 5);
 		while (cardsToSelect.size() < handSize) {
 			cardsToSelect.add(deck.getTopCard());
 		}
