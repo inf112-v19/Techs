@@ -25,7 +25,7 @@ og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 * IKT
 * Java fra INF 100 og 101
 
-**Renze Stolte**
+**Renze Stolte** *(Tester)*
 * Datavitenskap
 * Java fra INF 100, 101 og 102
 
@@ -89,16 +89,36 @@ Vi ønsker oss et velfungerende program som i første omgang er et minimum viabl
 * Spillet avsluttes dersom alle har mistet alle healthtokens
 
 ## Prosjekt og prosjektstruktur
-* Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt å nevne? Synes teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre måten teamet fungerer på?
-* Hvordan er gruppedynamikken?
-* Hvordan fungerer kommunikasjonen for dere?
+***Er det noen erfaringer enten team-messig eller mtp prosjektmetodikk som er verdt å nevne? Synes teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan dere gjøre annerledes for å forbedre måten teamet fungerer på?***
 
-* Hva justerte dere underveis, og hvorfor? Ble det bedre?
-* Hva har fungert best, og hvorfor? (Hva er dere mest fornøyde med?) 
-* Hvis dere skulle fortsatt med prosjektet, hva ville dere justert?
-* Hva er det viktigste dere har lært?
+- 
 
-* Møtereferat finnes i Deliverables
+***Hvordan er gruppedynamikken?***
+
+-
+
+***Hvordan fungerer kommunikasjonen for dere?***
+
+Kommunikasjonen over Slack har under siste delinnlevering vært noe dårligere enn tidligere, men som kan forklares ved at det har vært flere avsluttende obligatoriske oppgaver i andre fag og en start på eksamensperioden for noen. Allikevel burde noen i gruppen bli bedre på å svare på diverse ting slik at alle kan vite at det har blitt lest og registrert, ettersom at alle skal være tilgjengelig på Slack på dagen via app på mobilen.
+
+***Hva justerte dere underveis, og hvorfor? Ble det bedre?***
+
+Underveis har vi gitt mer kodeoppgaver til de som har kodet litt mindre tidligere for at de skal beherske koden mer, og sagt at de som har kodet mer skal gjøre mer av annet gruppearbeid som å skrive referat når vi har møter.
+
+***Hva har fungert best, og hvorfor? (Hva er dere mest fornøyde med?)* **
+
+- 
+
+***Hvis dere skulle fortsatt med prosjektet, hva ville dere justert?***
+
+-
+
+*Hva er det viktigste dere har lært?*
+
+-
+
+
+Møtereferat finnes i Deliverables
 
 ### Lister over ferdigstilte krav
 * Man kan spille en komplett runde
