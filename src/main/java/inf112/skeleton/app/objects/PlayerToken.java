@@ -1,6 +1,5 @@
 package inf112.skeleton.app.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
@@ -20,7 +19,6 @@ public class PlayerToken extends Sprite {
     private Vector2 deathPosition;
     private Vector2 backupPosition;
 	private Direction facingDirection;
-	private Direction lastFacingDirection;
 	private boolean movingNorth = true;
 	private boolean movingSouth = true;
 	private boolean movingEast = true;
@@ -354,10 +352,6 @@ public class PlayerToken extends Sprite {
         }
     }
 
-    public void setAI(boolean aI) {
-        AI = aI;
-    }
-
     /**
      * Updates the players backup-position to a given vector2-position
      * @param lastCheckpoint The last checkpoint the player has passed is set as new backup-position
@@ -383,14 +377,6 @@ public class PlayerToken extends Sprite {
 	public void setDestroyed(boolean destroyed) {
 		this.destroyed = destroyed;
 	}
-
-	public void setFacingDirection(Direction dir) {
-	    this.facingDirection = dir;
-    }
-
-	public void setLastFacingDirection(Direction dir) {
-	    this.lastFacingDirection = dir;
-    }
 
     /**
      * Set the player as recently backuped (i.e. destroyed)

@@ -94,4 +94,44 @@ public class Lasers implements IBoardFeature {
         }
         shootLaserFromBoardLasers(nextTile, dir);
     }
+    
+    /**
+     * Checks every tile in given direction until out of board, wall hit or player hit. Player gets one damage token if hit.
+     * @param fromTilePosition The position from where the laser is shot
+     * @param dir The direction the laser moves.
+     */
+    public void shootLaserFromTile(Vector2 fromTilePosition, Direction dir) {
+        if (fromTilePosition.x < 0 || fromTilePosition.y < 0 ||fromTilePosition.x >= prop.get("width", Integer.class) || fromTilePosition.y >= prop.get("height", Integer.class)) {
+            return;
+        }
+
+        Vector2 nextTile = boardLogic.addDirectionToLocation((int) fromTilePosition.x, (int) fromTilePosition.y, dir);
+        int x = (int) nextTile.x;
+        int y = (int) nextTile.y;
+
+        // Checks walls in regards to laser that is shot from players.
+        switch (dir) {
+            case NORTH:
+                if (boardLogic.cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallUp") || boardLogic.cellContainsLayer(x, y, "WallDown")) { return; }
+                break;
+            case SOUTH:
+                if (boardLogic.cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallDown") || boardLogic.cellContainsLayer(x, y, "WallUp")) { return; }
+                break;
+            case EAST:
+                if (boardLogic.cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallRight") || boardLogic.cellContainsLayer(x, y, "WallLeft")) { return; }
+                break;
+            case WEST:
+                if (boardLogic.cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallLeft") || boardLogic.cellContainsLayer(x, y, "WallRight")) { return; }
+                break;
+        }
+
+        for (PlayerToken player : boardLogic.getPlayersList()) {
+            if (player.getVector2Position().equals(nextTile)) {
+                player.addDamageToken();
+                System.out.println(player.getName() + " got hit and got one damage token. Damage: " + player.getDamageToken());
+                return;
+            }
+        }
+        shootLaserFromTile(nextTile, dir);
+    }
 }

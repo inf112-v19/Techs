@@ -32,10 +32,4 @@ public interface IProgramCard extends Comparable<IProgramCard> {
 
 	String toString();
 	
-	/**
-	 * Må vel laga ein boolean metode elns som seier om eit kort er låst eller ikkje seinare?
-	 */
-	
-	
-
 }
