@@ -142,7 +142,7 @@ public class BoardCards extends Board {
 
 		if (!this.movingPlayers) {
 			drawTokensOnScreen(damage, health);
-			drawAllPlayersDamageAndHealth();
+			drawAllPlayersDamageHealthFlags();
 		}
 
 
@@ -214,7 +214,7 @@ public class BoardCards extends Board {
 		}
 	}
 
-	private void drawAllPlayersDamageAndHealth() {
+	private void drawAllPlayersDamageHealthFlags() {
 
 		int y = 100;
 
