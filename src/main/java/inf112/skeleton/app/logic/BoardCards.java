@@ -258,7 +258,8 @@ public class BoardCards extends Board {
 	}
 
 	private void fillHandWithBlanks() {
-	    this.selectedCards = new ArrayList<IProgramCard>();
+		selectedCards = new ArrayList<IProgramCard>();
+
 		while(selectedCards.size() < 5) {
 			selectedCards.add(new ProgramCard(CardType.MOVEMENT_0, 0, 0, 0));
 		}
