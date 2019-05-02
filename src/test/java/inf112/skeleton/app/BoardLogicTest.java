@@ -3,26 +3,15 @@ package inf112.skeleton.app;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.loaders.resolvers.ExternalFileHandleResolver;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
-import inf112.skeleton.app.logic.BoardCards;
 import inf112.skeleton.app.logic.BoardLogic;
 import inf112.skeleton.app.logic.Direction;
-import inf112.skeleton.app.screens.Board;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -62,13 +51,13 @@ public class BoardLogicTest {
 
     @Test
     public void addPlayerToBoard() {
-        noWallBoard.addPlayerToBoard(new Vector2(0,0), "newPlayer");
+        noWallBoard.addPlayerToBoard(new Vector2(0,0), new Vector2(2,4), "newPlayer", false);
         assertEquals(new Vector2(0,0), noWallBoard.getPlayerLocation("newPlayer"));
     }
     
     @Test
     public void movePlayerTest() {
-        noWallBoard.addPlayerToBoard(new Vector2(1,1), "PlayerOne");
+        noWallBoard.addPlayerToBoard(new Vector2(1,1), new Vector2(2, 4), "PlayerOne", false);
         assertEquals(new Vector2(1,1), noWallBoard.getPlayerLocation("PlayerOne"));
         noWallBoard.movePlayer("PlayerOne", Direction.NORTH);
         assertEquals(new Vector2(1,2), noWallBoard.getPlayerLocation("PlayerOne"));
@@ -82,7 +71,7 @@ public class BoardLogicTest {
 
     @Test
     public void wallCollisionTest() {
-        wallBoard.addPlayerToBoard(new Vector2(1,1), "PlayerOne");
+        wallBoard.addPlayerToBoard(new Vector2(1,1), new Vector2(2,4), "PlayerOne", false);
 		assertEquals(new Vector2(1,1), wallBoard.getPlayerLocation("PlayerOne"));
 		wallBoard.movePlayer("PlayerOne", Direction.NORTH);
 		assertEquals(new Vector2(1,1), wallBoard.getPlayerLocation("PlayerOne"));
@@ -96,7 +85,7 @@ public class BoardLogicTest {
 
     @Test
     public void playerRotationTest() {
-        noWallBoard.addPlayerToBoard(new Vector2(1,1), "PlayerOne");
+        noWallBoard.addPlayerToBoard(new Vector2(1,1), new Vector2(2, 4), "PlayerOne", false);
 		assertEquals(Direction.NORTH, noWallBoard.getPlayerRotation("PlayerOne"));
 		noWallBoard.rotatePlayer("PlayerOne", 1);
 		assertEquals(Direction.EAST, noWallBoard.getPlayerRotation("PlayerOne"));

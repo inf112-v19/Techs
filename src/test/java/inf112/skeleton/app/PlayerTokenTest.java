@@ -13,7 +13,6 @@ import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 
-import inf112.skeleton.app.logic.BoardLogic;
 import inf112.skeleton.app.logic.Direction;
 import inf112.skeleton.app.objects.PlayerToken;
 
@@ -39,7 +38,7 @@ public class PlayerTokenTest {
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
         
-        player = new PlayerToken("testPlayer", SPRITE, new Vector2(1,1));
+        player = new PlayerToken("testPlayer", SPRITE, new Vector2(1,1), new Vector2(2, 4), false);
     }
     
     @Test
