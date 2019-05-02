@@ -8,8 +8,7 @@ public class MovePlayer {
 
     private BoardLogic board;
     private ArrayList<PlayerToken> playersList;
-    private PitFall pitfall;
-    
+
     public MovePlayer(ArrayList<PlayerToken> playersList, BoardLogic board) {
         this.playersList = playersList;
         this.board = board;
@@ -19,7 +18,7 @@ public class MovePlayer {
         int xPos = playerToMove.getXPosition();
         int yPos = playerToMove.getYPosition();
 
-        pitfall = new PitFall(board, playersList);
+        PitFall pitfall = new PitFall(board, playersList);
 
         playerToMove.setRecentlyBackuped(false);
         switch(directionToMove) {

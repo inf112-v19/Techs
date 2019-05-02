@@ -8,20 +8,17 @@ import java.util.ArrayList;
 public class Lasers implements IBoardFeature {
 
     private BoardLogic boardLogic;
-    private ArrayList<PlayerToken> playerList;
     private MapProperties prop;
-
+    private ArrayList<PlayerToken> playerList;
     private ArrayList<Vector2> lasers;
-    private int mapHeight;
-    private int mapWidth;
 
     public Lasers (BoardLogic boardLogic, ArrayList<PlayerToken> playerList, MapProperties prop) {
         this.boardLogic = boardLogic;
         this.playerList = playerList;
         this.prop = prop;
         this.lasers = new ArrayList<>();
-        this.mapHeight = boardLogic.getProperties().get("height", Integer.class);
-        this.mapWidth = boardLogic.getProperties().get("width", Integer.class);
+        int mapHeight = boardLogic.getProperties().get("height", Integer.class);
+        int mapWidth = boardLogic.getProperties().get("width", Integer.class);
 
         for (int x = 0; x <= mapWidth; x++) {
             for (int y = 0; y <= mapHeight; y++) {

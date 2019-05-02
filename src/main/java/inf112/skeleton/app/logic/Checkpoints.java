@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import inf112.skeleton.app.objects.PlayerToken;
 
-public class ProcessCheckpoints implements IBoardFeature {
+public class Checkpoints implements IBoardFeature {
     
     private BoardLogic boardLogic;
     private ArrayList<PlayerToken> playersList;
     private String layerName = "Checkpoints";
     
-    public ProcessCheckpoints(BoardLogic boardLogic, ArrayList<PlayerToken> playersList) {
+    public Checkpoints(BoardLogic boardLogic, ArrayList<PlayerToken> playersList) {
         this.playersList = playersList;
         this.boardLogic = boardLogic;
     }

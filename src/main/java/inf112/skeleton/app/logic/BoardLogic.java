@@ -25,7 +25,7 @@ public class BoardLogic {
     private ArrayList<PlayerToken> playersList;
     private MovePlayer movePlayerBrain;
     private MoveConveyorBelts moveConveyorBelts;
-    private ProcessCheckpoints processCheckpoints;
+    private Checkpoints checkpoints;
     private Lasers lasers;
     private PitFall pitfall;
     
@@ -38,7 +38,7 @@ public class BoardLogic {
         this.playersList = new ArrayList<>();
         this.movePlayerBrain = new MovePlayer(playersList, this);
         this.moveConveyorBelts = new MoveConveyorBelts(this, playersList);
-        this.processCheckpoints = new ProcessCheckpoints(this, playersList);
+        this.checkpoints = new Checkpoints(this, playersList);
         this.lasers = new Lasers(this, playersList, prop);
         this.pitfall = new PitFall(this, playersList);
         sprites.add(ROBOT_SPRITE_SHEET_BLUE);
@@ -127,7 +127,7 @@ public class BoardLogic {
      * Checks if any of the players stands on a checkpoint. Is done at the end of a turn
      */
     public void checkAllCheckpoints() {
-        processCheckpoints.processFeature();
+        checkpoints.processFeature();
     }
 
     /**

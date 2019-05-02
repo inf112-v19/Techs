@@ -40,7 +40,7 @@ og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 * Parprogrammering
 
 ## Oversikt over klasser
-![KlasseDiagram](/images/Klassediagram27_03.png)
+![KlasseDiagram](/images/Klassediagram02_05.png)
 
 ## Grafikk
 ![Green robot animation](/assets/AnimatedGreenRobot.gif)
