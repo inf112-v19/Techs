@@ -139,10 +139,10 @@ public class BoardCards extends Board {
 		int damage = getDamageTokens(gameController.getCurrentPlayerByName());
 		int health = getHealth(gameController.getCurrentPlayerByName());
 
+        drawAllPlayersDamageAndHealth();
 
 		if (!this.movingPlayers) {
 			drawTokensOnScreen(damage, health);
-			drawAllPlayersDamageAndHealth();
 		}
 
 
@@ -170,6 +170,7 @@ public class BoardCards extends Board {
 				}
 
 				if (!getPowerdownStatus(gameController.getCurrentPlayerByName())) {
+				    
 					while (selectedCards.size() < 5) {
 						int randomNumber = random.nextInt(9 - getDamageTokens(gameController.getCurrentPlayerByName()));
 						selectCard(randomNumber, centerOfScreen, -1);
@@ -258,6 +259,7 @@ public class BoardCards extends Board {
 	}
 
 	private void fillHandWithBlanks() {
+	    this.selectedCards = new ArrayList<IProgramCard>();
 		while(selectedCards.size() < 5) {
 			selectedCards.add(new ProgramCard(CardType.MOVEMENT_0, 0, 0, 0));
 		}
