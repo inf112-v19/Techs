@@ -171,7 +171,7 @@ public class BoardCards extends Board {
 
 				if (!getPowerdownStatus(gameController.getCurrentPlayerByName())) {
 					while (selectedCards.size() < 5) {
-						int randomNumber = random.nextInt(9);
+						int randomNumber = random.nextInt(9 - getDamageTokens(gameController.getCurrentPlayerByName()));
 						selectCard(randomNumber, centerOfScreen, -1);
 					}
 				}
