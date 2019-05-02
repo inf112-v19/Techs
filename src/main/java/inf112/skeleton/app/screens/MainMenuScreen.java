@@ -10,7 +10,7 @@ import inf112.skeleton.app.RoboRally;
 public class MainMenuScreen implements Screen {
 
     // Aspect ratio lengths for the buttons
-    private static final int LOGO_WIDTH = 350;
+    private static final int LOGO_WIDTH = 500;
     private static final int LOGO_HEIGHT = 350;
     private static final int BUTTON_WIDTH = 233;
     private static final int BUTTON_HEIGHT = 68;
@@ -19,7 +19,7 @@ public class MainMenuScreen implements Screen {
 
     // Just need to change these if moving around the assets and if they shall be horizontally placed
     private static final int GAMELOGO_X = (RoboRally.SCREEN_WIDTH - LOGO_WIDTH) / 2 + 15;
-    private static final int GAMELOGO_Y = 285;
+    private static final int GAMELOGO_Y = 290;
     private static final int PLAYERBUTTONS_MIDDLE = (RoboRally.SCREEN_WIDTH - PLAYERBUTTON_WIDTH) / 2;
     private static final int BUTTONS_MIDDLE = (RoboRally.SCREEN_WIDTH - BUTTON_WIDTH) / 2;
     private static final int BUTTONS_Y = 200;
