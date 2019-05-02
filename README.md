@@ -43,8 +43,8 @@ og har ikke jobbet med et kodeprosjekt i en gruppe tidligere.
 ![KlasseDiagram](/images/Klassediagram27_03.png)
 
 ## Grafikk
-![Logo](/images/MainMenuLogo.png =250x)
-![Assets](/images/image.png =250x)
+<img src="/images/MainMenuLogo.png" alt="MainMenuLogo" width="400"/>
+<img src="/images/image.png" alt="Assets" width="400"/>
 ![Green robot animation](/assets/AnimatedGreenRobot.gif)
 
 ![Sprite sheet](/assets/GreenRobotSpriteSheet.png)
