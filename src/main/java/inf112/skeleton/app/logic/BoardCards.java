@@ -54,7 +54,7 @@ public class BoardCards extends Board {
 	private final int DAMAGE_X = 1245;
 
 	// The X and Y-value of each health
-	private final int HEALTH_X = 1175;
+	private final int HEALTH_X = 1170;
 
 	private TextureAtlas atlasCards;
 	private SpriteBatch spriteBatchCards;
@@ -258,6 +258,7 @@ public class BoardCards extends Board {
 	}
 
 	private void fillHandWithBlanks() {
+		selectedCards = new ArrayList<IProgramCard>();
 		while(selectedCards.size() < 5) {
 			selectedCards.add(new ProgramCard(CardType.MOVEMENT_0, 0, 0, 0));
 		}
@@ -294,7 +295,7 @@ public class BoardCards extends Board {
 
 	private void giveCardsToPlayer() {
 		int damageTokens = getDamageTokens(gameController.getCurrentPlayerByName());
-		handSize = Integer.max(9 - damageTokens, 5);
+		handSize = Math.max(9 - damageTokens, 5);
 		while (cardsToSelect.size() < handSize) {
 			cardsToSelect.add(deck.getTopCard());
 		}
