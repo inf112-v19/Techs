@@ -195,6 +195,11 @@ public class BoardCards extends Board {
 						}
 					}
 
+					if (Gdx.input.isKeyJustPressed(Keys.BACKSPACE) && selectedCards.size() > 0){
+						System.out.println(selectedCards.toString());
+						setStandardPositionHighestSelectedNumber(selectedCards.size() - 1);
+					}
+
 					// if the players has selected 5 cards and presses Enter (or has started
 					// powerdown), ends this players turn
 				} else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)
@@ -360,6 +365,12 @@ public class BoardCards extends Board {
 	public void setAllPlayersDonePickingCards(boolean value) {
 		allPlayersDonePickingCards = value;
 		movingPlayers = value;
+	}
+
+	public void setStandardPositionHighestSelectedNumber(int numberOfCardsSelected){
+		numberYPos.set(numberOfCardsSelected, numberOfCardsSelected * 40);
+		numberXPos.set(numberOfCardsSelected, Gdx.graphics.getWidth() - 35);
+		selectedCards.remove(selectedCards.size()-1);
 	}
 
 	/**
