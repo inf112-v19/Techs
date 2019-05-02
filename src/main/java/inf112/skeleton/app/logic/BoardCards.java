@@ -183,6 +183,12 @@ public class BoardCards extends Board {
 					engagePowerdown();
 				}
 
+				if (Gdx.input.isKeyJustPressed(Keys.BACKSPACE) && selectedCards.size() > 0){
+					System.out.println(selectedCards.toString());
+					System.out.println(numberOfLockedRegisters);
+					selectCardsReverse(selectedCards.size() - 1);
+				}
+
 				if (selectedCards.size() < 5) {
 					// if the players hasn't selected 5 cards yet, checks if player has selected any
 					// card
@@ -193,11 +199,6 @@ public class BoardCards extends Board {
 								|| Gdx.input.isKeyPressed(keysForChoosingCards.get(i))) {
 							selectCard(i, centerOfScreen, -1);
 						}
-					}
-
-					if (Gdx.input.isKeyJustPressed(Keys.BACKSPACE) && selectedCards.size() > 0){
-						System.out.println(selectedCards.toString());
-						setStandardPositionHighestSelectedNumber(selectedCards.size() - 1);
 					}
 
 					// if the players has selected 5 cards and presses Enter (or has started
@@ -340,6 +341,15 @@ public class BoardCards extends Board {
 		newTurn();
 	}
 
+	private void selectCardsReverse(int cardToRemove){
+		if (selectedCards.contains(cardsToSelect.get(cardToRemove))) {
+			numberXPos.set(numberOfCardsSelected-1, Gdx.graphics.getWidth() - 35);
+			numberYPos.set(numberOfCardsSelected-1, numberOfCardsSelected * 40);
+			selectedCards.remove(selectedCards.size() - 1);
+			numberOfCardsSelected--;
+		}
+	}
+
 	private void selectCard(int cardToSelect, int centerOfScreen, int locationInRegister) {
 		if (!selectedCards.contains(cardsToSelect.get(cardToSelect))) {
 
@@ -365,12 +375,6 @@ public class BoardCards extends Board {
 	public void setAllPlayersDonePickingCards(boolean value) {
 		allPlayersDonePickingCards = value;
 		movingPlayers = value;
-	}
-
-	public void setStandardPositionHighestSelectedNumber(int numberOfCardsSelected){
-		numberYPos.set(numberOfCardsSelected, numberOfCardsSelected * 40);
-		numberXPos.set(numberOfCardsSelected, Gdx.graphics.getWidth() - 35);
-		selectedCards.remove(selectedCards.size()-1);
 	}
 
 	/**
