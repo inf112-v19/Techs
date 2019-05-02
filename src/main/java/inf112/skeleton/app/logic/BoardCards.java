@@ -43,6 +43,7 @@ public class BoardCards extends Board {
 	private boolean movingPlayers = false;
 	private boolean givenCardsToPlayer;
 	private boolean allPlayersDonePickingCards = false;
+	private boolean finishedTurn = false;
 
 	private final int DAMAGE_WIDTH = 35;
 	private final int DAMAGE_HEIGHT = 35;
@@ -106,6 +107,110 @@ public class BoardCards extends Board {
 		int keyOne = Input.Keys.NUM_1;
 		for (int i = 0; i < 9; i++) {
 			keysForChoosingCards.add(keyOne + i);
+		}
+	}
+
+	@Override
+	public void render(float v) {
+		super.render(v);
+		centerOfScreen = Gdx.graphics.getWidth() / 2;
+		updateCardPositionOnScreen(centerOfScreen);
+		getDamageTokenOnScreenLocation();
+		getHealthTokensOnScreenLocation();
+
+		// If the player hasn't gotten cards yet, give cards
+		if (!givenCardsToPlayer && !movingPlayers) {
+			giveCardsToPlayer();
+		}
+		// shows 9 cards player can select
+		spriteBatchCards.begin();
+
+		for (int i = 0; i < handSize; i++) {
+			spriteBatchCards.draw(cardsToSelectSprite.get(i), cardsPositionOnScreen.get(i), 0, CARD_WIDTH, CARD_HEIGHT);
+		}
+
+		// shows numbers for order of selected cards
+		spriteBatchCards.draw(number1, numberXPos.get(0), numberYPos.get(0), NUMBER_WIDTH, NUMBER_HEIGHT);
+		spriteBatchCards.draw(number2, numberXPos.get(1), numberYPos.get(1), NUMBER_WIDTH, NUMBER_HEIGHT);
+		spriteBatchCards.draw(number3, numberXPos.get(2), numberYPos.get(2), NUMBER_WIDTH, NUMBER_HEIGHT);
+		spriteBatchCards.draw(number4, numberXPos.get(3), numberYPos.get(3), NUMBER_WIDTH, NUMBER_HEIGHT);
+		spriteBatchCards.draw(number5, numberXPos.get(4), numberYPos.get(4), NUMBER_WIDTH, NUMBER_HEIGHT);
+
+		int damage = getDamageTokens(gameController.getCurrentPlayerByName());
+		int health = getHealth(gameController.getCurrentPlayerByName());
+
+
+		if (!this.movingPlayers) {
+			drawTokensOnScreen(damage, health);
+			drawAllPlayersDamageAndHealth();
+		}
+
+
+		spriteBatchCards.end();
+
+		if (!allPlayersDonePickingCards) {
+			if (finishedTurn) {
+				System.out.println("do end of round");
+				processEndOfRound();
+				finishedTurn = false;
+			}
+
+			if(playerIsDestroyed((gameController.getCurrentPlayerByName()))) {
+				System.out.println("player is destroyed");
+				fillHandWithBlanks();
+				playerHasFinishedTurn();
+			} else if (getAI(gameController.getCurrentPlayerByName())) {
+				Random random = new Random();
+
+				if (getDamageTokens(gameController.getCurrentPlayerByName()) > 5) {
+					int randomPowerdown = random.nextInt(1) + 3;
+					if (randomPowerdown == 2) { // 1/3 chance of AI doing powerdown if Damage is more than 5
+						engagePowerdown();
+					}
+				}
+
+				if (!getPowerdownStatus(gameController.getCurrentPlayerByName())) {
+					while (selectedCards.size() < 5) {
+						int randomNumber = random.nextInt(9);
+						selectCard(randomNumber, centerOfScreen, -1);
+					}
+				}
+				playerHasFinishedTurn();
+			} else {
+
+				// If player presses P, enters powerdown
+				if (Gdx.input.isKeyJustPressed(Keys.P)) {
+					engagePowerdown();
+				}
+
+				if (selectedCards.size() < 5) {
+					// if the players hasn't selected 5 cards yet, checks if player has selected any
+					// card
+					for (int i = 0; i < handSize; i++) {
+						if ((Gdx.input.getX() > cardsPositionOnScreen.get(i)
+								&& Gdx.input.getX() < (cardsPositionOnScreen.get(i) + CARD_WIDTH)
+								&& Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched()
+								|| Gdx.input.isKeyPressed(keysForChoosingCards.get(i))) {
+							selectCard(i, centerOfScreen, -1);
+						}
+					}
+
+					// if the players has selected 5 cards and presses Enter (or has started
+					// powerdown), ends this players turn
+				} else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)
+						|| playerCannotMoveByCards()) {
+					if (cardsToSelect.size() >= 5) {
+						playerHasFinishedTurn();
+					}
+				}
+			}
+		} else {
+			this.movingPlayers = true;
+			// If all players have selected cards, player can press SPACE to move a player
+			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+				gameController.movePlayers(this);
+				finishedTurn = true;
+			}
 		}
 	}
 
@@ -236,102 +341,6 @@ public class BoardCards extends Board {
 		gameController.setCardsThatWerePlayedInRegister(selectedCards);
 		gameController.donePickingCards(selectedCards, this);
 		newTurn();
-	}
-
-	@Override
-	public void render(float v) {
-		super.render(v);
-		centerOfScreen = Gdx.graphics.getWidth() / 2;
-		updateCardPositionOnScreen(centerOfScreen);
-		getDamageTokenOnScreenLocation();
-		getHealthTokensOnScreenLocation();
-
-		// If the player hasn't gotten cards yet, give cards
-		if (!givenCardsToPlayer && !movingPlayers) {
-			giveCardsToPlayer();
-		}
-		// shows 9 cards player can select
-		spriteBatchCards.begin();
-
-		for (int i = 0; i < handSize; i++) {
-			spriteBatchCards.draw(cardsToSelectSprite.get(i), cardsPositionOnScreen.get(i), 0, CARD_WIDTH, CARD_HEIGHT);
-		}
-
-		// shows numbers for order of selected cards
-		spriteBatchCards.draw(number1, numberXPos.get(0), numberYPos.get(0), NUMBER_WIDTH, NUMBER_HEIGHT);
-		spriteBatchCards.draw(number2, numberXPos.get(1), numberYPos.get(1), NUMBER_WIDTH, NUMBER_HEIGHT);
-		spriteBatchCards.draw(number3, numberXPos.get(2), numberYPos.get(2), NUMBER_WIDTH, NUMBER_HEIGHT);
-		spriteBatchCards.draw(number4, numberXPos.get(3), numberYPos.get(3), NUMBER_WIDTH, NUMBER_HEIGHT);
-		spriteBatchCards.draw(number5, numberXPos.get(4), numberYPos.get(4), NUMBER_WIDTH, NUMBER_HEIGHT);
-
-		int damage = getDamageTokens(gameController.getCurrentPlayerByName());
-		int health = getHealth(gameController.getCurrentPlayerByName());
-
-
-		if (!this.movingPlayers) {
-			drawTokensOnScreen(damage, health);
-			drawAllPlayersDamageAndHealth();
-		}
-
-
-		spriteBatchCards.end();
-
-		if (!allPlayersDonePickingCards) {
-			if(playerIsDestroyed((gameController.getCurrentPlayerByName()))) {
-				fillHandWithBlanks();
-				playerHasFinishedTurn();
-			} else if (getAI(gameController.getCurrentPlayerByName())) {
-				Random random = new Random();
-
-				if (getDamageTokens(gameController.getCurrentPlayerByName()) > 5) {
-					int randomPowerdown = random.nextInt(1) + 3;
-					if (randomPowerdown == 2) { // 1/3 chance of AI doing powerdown if Damage is more than 5
-						engagePowerdown();
-					}
-				}
-
-				if (!getPowerdownStatus(gameController.getCurrentPlayerByName())) {
-					while (selectedCards.size() < 5) {
-						int randomNumber = random.nextInt(9);
-						selectCard(randomNumber, centerOfScreen, -1);
-					}
-				}
-				playerHasFinishedTurn();
-			} else {
-
-				// If player presses P, enters powerdown
-				if (Gdx.input.isKeyJustPressed(Keys.P)) {
-					engagePowerdown();
-				}
-
-				if (selectedCards.size() < 5) {
-					// if the players hasn't selected 5 cards yet, checks if player has selected any
-					// card
-					for (int i = 0; i < handSize; i++) {
-						if ((Gdx.input.getX() > cardsPositionOnScreen.get(i)
-								&& Gdx.input.getX() < (cardsPositionOnScreen.get(i) + CARD_WIDTH)
-								&& Gdx.input.getY() > Gdx.graphics.getHeight() - CARD_HEIGHT) && Gdx.input.isTouched()
-								|| Gdx.input.isKeyPressed(keysForChoosingCards.get(i))) {
-							selectCard(i, centerOfScreen, -1);
-						}
-					}
-
-					// if the players has selected 5 cards and presses Enter (or has started
-					// powerdown), ends this players turn
-				} else if (Gdx.input.isKeyPressed(Input.Keys.ENTER)
-						|| playerCannotMoveByCards()) {
-					if (cardsToSelect.size() >= 5) {
-						playerHasFinishedTurn();
-					}
-				}
-			}
-		} else {
-			this.movingPlayers = true;
-			// If all players have selected cards, player can press SPACE to move a player
-			if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-				gameController.movePlayers(this);
-			}
-		}
 	}
 
 	private void selectCard(int cardToSelect, int centerOfScreen, int locationInRegister) {

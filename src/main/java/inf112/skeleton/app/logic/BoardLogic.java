@@ -2,6 +2,7 @@ package inf112.skeleton.app.logic;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -138,6 +139,22 @@ public class BoardLogic {
         }
     }
 
+    /**
+     * Goes through the list of players. If all players are destroyed with no lives left, the game is over
+     */
+    public void checkIfEveryoneIsDead() {
+        for(PlayerToken player : playersList) {
+            if(player.getHealth() > 0) {
+                return;
+            }
+        }
+        System.out.println("All robots have lost their lives, everyone loses!");
+        Gdx.app.exit();
+    }
+
+    /**
+     * Checks and process if any of the players are on a pitfall.
+     */
     public void checkPitfalls() {
         pitfall.processFeature();
     }
@@ -154,14 +171,29 @@ public class BoardLogic {
         }
     }
 
+    /**
+     * Checks if player is an AI or not by name
+     * @param name The name of the player to check
+     * @return true if AI, otherwise false
+     */
     public boolean getAI(String name) {
         return getPlayerByName(name).isAI();
     }
 
+    /**
+     * Gets the number of damage taken by the player by name
+     * @param name The name of the player's damage to get
+     * @return The number og damage tokens received
+     */
     public int getDamageTokens(String name) {
         return getPlayerByName(name).getDamageToken();
     }
 
+    /**
+     * Gets the number of lives the player have by name
+     * @param name The name of the player's lives to get
+     * @return The number of lives left
+     */
     public int getHealth(String name) {
         return  getPlayerByName(name).getHealth();
     }
@@ -218,6 +250,11 @@ public class BoardLogic {
         return player.getFacingDirection();
     }
 
+    /**
+     * Gets the powerdown status of a player.
+     * @param name The name of the player that is checked
+     * @return true if player is going to powerdown, otherwise false
+     */
     public boolean getPowerdownStatus(String name) {
         return getPlayerByName(name).getPowerdownStatus();
     }
@@ -287,10 +324,19 @@ public class BoardLogic {
         }
     }
 
+    /**
+     * Checks if the player is destroyed using the players name
+     * @param name The name of the player that is being checked
+     * @return true if destroyed, otherwise false
+     */
     public boolean playerIsDestroyed(String name) {
         return getPlayerByName(name).checkDestroyedStatus();
     }
 
+    /**
+     * Makes the player do a powerdown
+     * @param name The name of the player that is doing a powerdown
+     */
     public void powerdown(String name) {
         getPlayerByName(name).doPowerdown();
     }
