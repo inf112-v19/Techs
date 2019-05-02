@@ -2,7 +2,7 @@
 
 Sted:   Høyteknologisenteret, Oppholdsområdet ved kantinen
 
-Dato:   02.04.19
+Dato:   02.05.19
 
 Klokkeslett:    12:00   
 
