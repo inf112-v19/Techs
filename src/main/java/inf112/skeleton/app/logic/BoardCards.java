@@ -184,9 +184,7 @@ public class BoardCards extends Board {
 				}
 
 				if (Gdx.input.isKeyJustPressed(Keys.BACKSPACE) && selectedCards.size() > 0){
-					System.out.println(selectedCards.toString());
-					System.out.println(numberOfLockedRegisters);
-					selectCardsReverse(selectedCards.size() - 1);
+					removeCardOnHand(selectedCards.size() - 1);
 				}
 
 				if (selectedCards.size() < 5) {
@@ -341,7 +339,11 @@ public class BoardCards extends Board {
 		newTurn();
 	}
 
-	private void selectCardsReverse(int cardToRemove){
+	/**
+	 * removes card from selectedCards
+	 * @param cardToRemove position of the card you want to remove in selectedCards
+	 */
+	private void removeCardOnHand(int cardToRemove){
 		if (selectedCards.contains(cardsToSelect.get(cardToRemove))) {
 			numberXPos.set(numberOfCardsSelected-1, Gdx.graphics.getWidth() - 35);
 			numberYPos.set(numberOfCardsSelected-1, numberOfCardsSelected * 40);
