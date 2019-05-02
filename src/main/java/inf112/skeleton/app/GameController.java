@@ -107,7 +107,6 @@ public class GameController implements IGameController{
             return;
         }
         if (programCard.getDirection() != 0) {
-            //boardCards.getBoardLogic().getPlayersList().get(currentPlayer).rotatePlayer(programCard.getDirection());
             boardCards.rotatePlayer(playerString.get(currentPlayer), programCard.getDirection());
         }
         else if (programCard.getMovement() == -1) {
@@ -115,9 +114,7 @@ public class GameController implements IGameController{
         }
         else {
             for (int i = 0; i < programCard.getMovement(); i++) {
-                //boardCards.getBoardLogic().getPlayersList().get(currentPlayer).moveInFacingDirection();
                 boardCards.movePlayerForward(playerString.get(currentPlayer));
-                //boardCards.movePlayerForward(playerString.get(i));
             }
         }
     }

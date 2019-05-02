@@ -23,7 +23,6 @@ public class AITests {
 	private static Application application;
     private TiledMap map;
     private BoardLogic board;
-    private RoboRally game;
 
     @Before
     public void setUp() {
@@ -39,7 +38,6 @@ public class AITests {
         Gdx.gl20 = Mockito.mock(GL20.class);
         Gdx.gl = Gdx.gl20;
 
-        game = new RoboRally();
         map = new TmxMapLoader().load("assets/TestMaps/mapLasers.tmx");
         board = new BoardLogic(map);
     }

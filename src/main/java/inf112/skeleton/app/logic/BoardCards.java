@@ -150,7 +150,6 @@ public class BoardCards extends Board {
 
 		if (!allPlayersDonePickingCards) {
 			if (finishedTurn) {
-				System.out.println("do end of round");
 				processEndOfRound();
 				finishedTurn = false;
 			}

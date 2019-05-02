@@ -13,7 +13,6 @@ import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 
-import inf112.skeleton.app.logic.BoardLogic;
 import inf112.skeleton.app.logic.Direction;
 import inf112.skeleton.app.objects.PlayerToken;
 

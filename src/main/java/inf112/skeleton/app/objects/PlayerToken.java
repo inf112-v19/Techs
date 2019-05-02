@@ -1,6 +1,5 @@
 package inf112.skeleton.app.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
@@ -20,7 +19,6 @@ public class PlayerToken extends Sprite {
     private Vector2 deathPosition;
     private Vector2 backupPosition;
 	private Direction facingDirection;
-	private Direction lastFacingDirection;
 	private boolean movingNorth = true;
 	private boolean movingSouth = true;
 	private boolean movingEast = true;
@@ -386,10 +384,6 @@ public class PlayerToken extends Sprite {
 
 	public void setFacingDirection(Direction dir) {
 	    this.facingDirection = dir;
-    }
-
-	public void setLastFacingDirection(Direction dir) {
-	    this.lastFacingDirection = dir;
     }
 
     /**

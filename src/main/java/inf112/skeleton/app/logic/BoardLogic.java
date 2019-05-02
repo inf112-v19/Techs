@@ -381,52 +381,14 @@ public class BoardLogic {
         player.rotatePlayer(numberOfTimes);
     }
 
-    /**
-     * Checks every tile in given direction until out of board, wall hit or player hit. Player gets one damage token if hit.
-     * @param fromTilePosition The position from where the laser is shot
-     * @param dir The direction the laser moves.
-     */
-    public void shootLaserFromTile(Vector2 fromTilePosition, Direction dir) {
-        if (fromTilePosition.x < 0 || fromTilePosition.y < 0 ||fromTilePosition.x >= prop.get("width", Integer.class) || fromTilePosition.y >= prop.get("height", Integer.class)) {
-            return;
-        }
 
-        Vector2 nextTile = addDirectionToLocation((int) fromTilePosition.x, (int) fromTilePosition.y, dir);
-        int x = (int) nextTile.x;
-        int y = (int) nextTile.y;
-
-        // Checks walls in regards to laser that is shot from players.
-        switch (dir) {
-            case NORTH:
-                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallUp") || cellContainsLayer(x, y, "WallDown")) { return; }
-                break;
-            case SOUTH:
-                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallDown") || cellContainsLayer(x, y, "WallUp")) { return; }
-                break;
-            case EAST:
-                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallRight") || cellContainsLayer(x, y, "WallLeft")) { return; }
-                break;
-            case WEST:
-                if (cellContainsLayer((int) fromTilePosition.x, (int) fromTilePosition.y, "WallLeft") || cellContainsLayer(x, y, "WallRight")) { return; }
-                break;
-        }
-
-        for (PlayerToken player : playersList) {
-            if (player.getVector2Position().equals(nextTile)) {
-                player.addDamageToken();
-                System.out.println(player.getName() + " got hit and got one damage token. Damage: " + player.getDamageToken());
-                return;
-            }
-        }
-        shootLaserFromTile(nextTile, dir);
-    }
 
     /**
      * Makes all the robots shoot in their facing direction.
      */
     public void shootPlayerLaser() {
         for(PlayerToken player : playersList) {
-            shootLaserFromTile(player.getVector2Position(), player.getFacingDirection());
+            lasers.shootLaserFromTile(player.getVector2Position(), player.getFacingDirection());
         }
     }
 }
