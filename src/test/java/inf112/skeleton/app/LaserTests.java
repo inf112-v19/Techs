@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 
 import inf112.skeleton.app.logic.BoardLogic;
 import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.Before;
 import org.junit.Test;
