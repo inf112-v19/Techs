@@ -347,7 +347,7 @@ public class BoardCards extends Board {
 	 */
 	private void removeCardOnHand(int cardToRemove){
 		numberXPos.set(numberOfCardsSelected-1, Gdx.graphics.getWidth() - 35);
-		numberYPos.set(numberOfCardsSelected-1, numberOfCardsSelected * 40);
+		numberYPos.set(numberOfCardsSelected-1, (numberOfCardsSelected - 1) * 40);
 		selectedCards.remove(selectedCards.size() - 1);
 		numberOfCardsSelected--;
 	}
