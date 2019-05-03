@@ -184,9 +184,11 @@ public class BoardCards extends Board {
 				}
 
 				if (Gdx.input.isKeyJustPressed(Keys.BACKSPACE) && selectedCards.size() > 0){
-					removeCardOnHand(selectedCards.size() - 1);
-					System.out.println(selectedCards.toString());
-					System.out.println(selectedCards.size());
+					if (numberOfCardsSelected > 0) {
+						removeCardOnHand(selectedCards.size() - 1);
+						System.out.println(selectedCards.toString());
+						System.out.println(selectedCards.size());
+					}
 				}
 
 				if (selectedCards.size() < 5) {
@@ -346,15 +348,18 @@ public class BoardCards extends Board {
 	 * @param cardToRemove position of the card you want to remove in selectedCards
 	 */
 	private void removeCardOnHand(int cardToRemove){
-		numberXPos.set(numberOfCardsSelected-1, Gdx.graphics.getWidth() - 35);
-		numberYPos.set(numberOfCardsSelected-1, (numberOfCardsSelected - 1) * 40);
-		selectedCards.remove(selectedCards.size() - 1);
-		numberOfCardsSelected--;
+		//if (selectedCards.contains(cardsToSelect.get(cardToRemove))) {
+			numberXPos.set(numberOfCardsSelected - 1, Gdx.graphics.getWidth() - 35);
+			numberYPos.set(numberOfCardsSelected - 1, (numberOfCardsSelected - 1) * 40);
+			selectedCards.remove(selectedCards.size() - 1);
+			numberOfCardsSelected--;
+		//}
 	}
 
 	private void selectCard(int cardToSelect, int centerOfScreen, int locationInRegister) {
+		System.out.println("selectCard kjører");
 		if (!selectedCards.contains(cardsToSelect.get(cardToSelect))) {
-
+			System.out.println("locationInRegister " + locationInRegister);
 			if (locationInRegister != -1) {
 				numberXPos.set(locationInRegister, centerOfScreen - 330 + (cardToSelect * 90));
 				numberYPos.set(locationInRegister, 10);
