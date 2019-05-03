@@ -152,19 +152,21 @@ Møtereferat finnes i Deliverables
 * Fungerende gyroer på brett
 * Spillet avsluttes dersom alle spillere har 0 health tokens.
 * Spillere kan kjøre powerdown
-* Det går an å spille mot AI (foreløpig kun implementert dersom man er 1 spiller)
+* Det går an å spille mot en AI (foreløpig kun implementert dersom man er 1 spiller, men hadde ikke vært noe problem å implementere det slik at de resterende spillerne blir AI.)
 
 ### Hvordan kjøre test
 * Kjør JUnit testene i mappen scr/test/java
 * Manuelle tester ligger i mappen src/test/java/.../app/ManuelleTester. Piltastene er implementert til å bevege seg rundt brettet uten bruk av kort. 'C' brukes til checkpoint-testing, 'B' til conveyorbelt-testing, 'L' til å skyte laser
 
 ### Hvordan spille spillet
+I main menu så må man velge antall spillere for å kunne trykke play. Vi har implementert det slik at hvis man spiller med 1 spiller, så vil det være en AI robot på brettet.
 Man velger kort enten ved å bruke 1-9 på tastaturet eller ved å klikke på kortene. Powerdown kan gjøres ved å trykke 'P'
 
 * Kjør main
 * Trykk start for å starte spillet
 * 1 - Velg kort for spiller 1
 * 2 - Trykk enter for å bekrefte
+*   - (Dersom AI, hopp til 5)
 * 3 - Velg kort for spiller 2
 * 4 - Trykk enter for å bekrefte
 * 5 - Trykk space for å simulere første kort fra spiller med høyest prioritet
