@@ -166,7 +166,7 @@ Man velger kort enten ved å bruke 1-9 på tastaturet eller ved å klikke på ko
 * Trykk start for å starte spillet
 * 1 - Velg kort for spiller 1
 * 2 - Trykk enter for å bekrefte
-  * - (Dersom AI, hopp til 5)
+  * (Dersom AI, hopp til 5)
 * 3 - Velg kort for spiller 2
 * 4 - Trykk enter for å bekrefte
 * 5 - Trykk space for å simulere første kort fra spiller med høyest prioritet
